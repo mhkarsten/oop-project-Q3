@@ -47,7 +47,7 @@ R:
 * 
 
 
-##Pandey, Harshitaa
+## Pandey, Harshitaa
 
 What are two of your strong points?
 I think that I am a good communicator, and I am also a very motivated worker.
@@ -84,7 +84,7 @@ W - Will (Motivation, plan of action)
 What are you going to do to reach your goal?
 I will make sure that I don’t talk a lot and I keep making plans for the deadlines. I also need to organize the tasks so that everyone knows what they are doing. Currently, we are making a plan to do that. 
 
-##Max Karsten 
+## Max Karsten 
 **Picture**
 
 Step 1:

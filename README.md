@@ -46,7 +46,7 @@ G:
 R:
 * 
 
-## Harshitaa
+
 
 What are two of your strong points?
 I think that I am a good communicator, and I am also a very motivated worker.
@@ -82,3 +82,5 @@ I just need to be aware, and know what I am doing. As of right now, nothing is s
 W - Will (Motivation, plan of action)
 What are you going to do to reach your goal?
 I will make sure that I don’t talk a lot and I keep making plans for the deadlines. I also need to organize the tasks so that everyone knows what they are doing. Currently, we are making a plan to do that. 
+
+[text here](image link goes here)

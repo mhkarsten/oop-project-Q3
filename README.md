@@ -31,10 +31,12 @@ Nice pic -------
 Strong points:
     
 *  -Able to fully be focused on what I'm doing/coding 
-    -Pushing through with stuff even if it's a bumpy ride
+
+*  -Pushing through with stuff even if it's a bumpy ride
 
 Weak points: 
     
 *  -Going into too much detail and kinda wasting time on perfecting small things.
-    -Easily becoming down if something doesn't work
+
+*  -Easily becoming down if something doesn't work
     

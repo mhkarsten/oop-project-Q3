@@ -27,3 +27,9 @@ Run `maven site`
 Nice pic -------
 
 **Personal development plan**
+Strong points:
+    -Able to fully be focused on what I'm doing/coding, example: 
+    -
+Weak points: 
+    -Going into too much detail and kinda wasting time on perfecting small things.
+    -Easily becoming down if something doesn't work

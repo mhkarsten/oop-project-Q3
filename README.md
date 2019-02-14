@@ -28,8 +28,9 @@ Nice pic -------
 
 **Personal development plan**
 Strong points:
-    \n-Able to fully be focused on what I'm doing/coding, example: 
-    \n-
-\nWeak points: 
-    \n-Going into too much detail and kinda wasting time on perfecting small things.
-    \n-Easily becoming down if something doesn't work
+    -Able to fully be focused on what I'm doing/coding 
+    -Pushing through with stuff even if it's a bumpy ride
+Weak points: 
+    -Going into too much detail and kinda wasting time on perfecting small things.
+    -Easily becoming down if something doesn't work
+    

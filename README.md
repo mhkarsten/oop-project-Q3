@@ -38,3 +38,10 @@ Weak points:
 *  Going into too much detail and kinda wasting time on perfecting small things, bringing up things that should be done later after the basics.
 *  Easily becoming down if something doesn't work, in a team this results in me telling my coworkers what's wrong.
 
+**Grow Goal**
+
+G:
+*  Writing clear comments and commit desciptions, this is important because it is make the teamwork way easier. I will have succeeded if nobody asks me what I have done.
+
+R:
+*  

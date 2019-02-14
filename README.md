@@ -23,3 +23,7 @@ Run `maven install` ([Intellij](https://www.jetbrains.com/help/idea/2016.3/getti
 Run `maven site`
 
 ## Dan Dan Berendsen
+
+Nice pic -------
+
+**Personal development plan**

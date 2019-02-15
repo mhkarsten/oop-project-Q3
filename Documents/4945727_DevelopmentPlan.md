@@ -13,12 +13,10 @@ How is this point shown in a team?
 As mentioned before, sometimes the virtue of ambition turn into the vice of hyper-criticism, meaning that I start asking too much of both myself and my team and deliver this feedback in a non-constructive way which adversely affects the team spirit.
 Can you make a core quadrant of this?
 For the hypercritical attitude, yes:
-Core quality: ambition
+Core quality: Ambition
 Pitfall: Setting standards too high
-Challenge: Cutting 
-
-
----To be filled in later.
+Challenge: Toning down the critique and taking it easy for once
+Allergy: slacking attitude and/or low-quality work delivered
 
 Goal
 What is your learning goal during this course?
@@ -47,7 +45,3 @@ As mentioned above, I will make a conscious effort to deliver better, more const
 This starts as the first work is done and evaluated, which will be somewhere in the second week.
 As for a first step I can take right now, I will read up on some relevant tips. My teammates can help me by just giving me a heads up if I'm overly critical or blunt.
 The action plan need not be formalized, as it simply entails one process that can be evaluated at the end of each sprint until the end of the project is reached.
-
-
-
-

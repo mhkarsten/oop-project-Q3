@@ -1,4 +1,4 @@
-##Max Karsten, Development Plan
+## Max Karsten, Development Plan
 
 Step 1:
 Strong Points

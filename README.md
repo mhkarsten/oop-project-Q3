@@ -91,7 +91,8 @@ What are you going to do to reach your goal?
 I will make sure that I don’t talk a lot and I keep making plans for the deadlines. I also need to organize the tasks so that everyone knows what they are doing. Currently, we are making a plan to do that. 
 
 ## Max Karsten 
-**Picture**
+
+![NetID: 143401]()
 
 Step 1:
 Strong Points

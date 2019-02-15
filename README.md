@@ -92,7 +92,7 @@ I will make sure that I don’t talk a lot and I keep making plans for the deadl
 
 ## Max Karsten 
 
-![NetID: 143401](https://businessandfinance.com/wp-content/uploads/2017/12/Gene-Murtagh-Kingspan.jpg)
+![NetID: 143401](Group Member Photos/PasPhoto_Max_Karsten.jpg)
 
 Step 1:
 Strong Points

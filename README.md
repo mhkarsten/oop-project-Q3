@@ -41,10 +41,16 @@ Weak points:
 **Grow Goal**
 
 G:
-*  Writing clear comments and commit desciptions, this is important because it is make the teamwork way easier. I will have succeeded if nobody asks me what I have done.
+*  Writing clear comments and commit desciptions, this is important because it is make the teamwork way easier and will improve my code writing. I will have succeeded if nobody asks me what I have done.
 
 R:
-* 
+* Currently I'm working on coding and I'm improving on my commit messages but my comments are not as clear yet.
+
+O: 
+*  I'm able to practise on my goals everytime I program in and outside of this project, however outside of the project I do not yet have the urgency to write good comments if I write solo.
+
+W:
+*  I will achieve my goal by keeping up and trying to make a habit of writing good comments and commit descriptions. I will be pushed by my team members as it is necessary to write good comments for clarity.
 
 
 ## Pandey, Harshitaa

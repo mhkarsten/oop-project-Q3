@@ -12,13 +12,13 @@ Weak points:
 
 **Grow Goal**
 
-G:
+Goal:
 *  Writing clear comments and commit desciptions, this is important because it is make the teamwork way easier and will improve my code writing. I will have succeeded if nobody asks me what I have done.
 
-R:
+Reality:
 * Currently I'm working on coding and I'm improving on my commit messages but my comments are not as clear yet.
 
-O: 
+Options: 
 *  I'm able to practise on my goals everytime I program in and outside of this project, however outside of the project I do not yet have the urgency to write good comments if I write solo.
 
 W:

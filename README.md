@@ -94,3 +94,6 @@ I will make sure that I don’t talk a lot and I keep making plans for the deadl
 
 <img src = "Group Member Photos/PasPhoto_Max_Karsten.jpg" width = "150" height = "200">
 
+## Jason Bloom, NetID: 4719794
+
+<img src = "Group Member Photos/photo_4719791_Jason_Bloom.jpg" width = "150" height = "200">

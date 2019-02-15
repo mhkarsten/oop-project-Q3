@@ -72,4 +72,5 @@ I will make sure that I don’t talk a lot and I keep making plans for the deadl
 <img src = "Group Member Photos/photo_4719791_Jason_Bloom.jpg" width = "150" height = "200">
 
 ##Thom van der Woude, NetID: 4945727
+
 <img src = "Group Member Photos/IMG_20190215_183148.jpg" width = "150" height = "200">

@@ -24,7 +24,7 @@ Run `maven site`
 
 ## Dan Dan Berendsen, NetID: 4904982
 
-
+<img src = "Group Member Photos/IMG_6796.JPG" width = "150" height = "250">
 
 ## Pandey, Harshitaa
 

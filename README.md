@@ -92,7 +92,7 @@ I will make sure that I don’t talk a lot and I keep making plans for the deadl
 
 ## Max Karsten 
 
-![NetID: 143401]()
+![NetID: 143401](Group Member Photos/DownloadPasfoto.do.jfif)
 
 Step 1:
 Strong Points

@@ -14,7 +14,7 @@ Core Quadrant
 Step 2:
 G: Goal
 - I would like to learn how to manage a java front end and backend in conjunction with a database.
-- If possible I would like to integrate security elements, such as a hashing api to store the usernames and passwords in a secure 
+- If possible I would like to integrate security elements, such as a hashing api to store the usernames and passwords in a secure fashion. 
 - How to create and publish android apps on the Appstore, as well as transition from a desktop app to something usable on the android platform.
 
 R: Reality

@@ -1,0 +1,1 @@
+Essentially, this week we had little to no tasks that we needed to finish. The only tasks were the README file and researching other apps. We were able to finish both of those on time.

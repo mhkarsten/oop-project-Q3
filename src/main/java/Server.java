@@ -9,7 +9,7 @@ public class Server {
             try {
                 serverSocket = new ServerSocket(3000);
             } catch (IOException e) {
-                System.err.println("Could not listen on port: 4444.");
+                System.err.println("Could not listen on port: 3000.");
                 System.exit(1);
             }
 

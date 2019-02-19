@@ -15,4 +15,4 @@ buildNumber.properties
 # Intelij ignores
 
 OOP-Project.iml
-client.iml
+client.iml.idea

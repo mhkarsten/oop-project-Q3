@@ -13,8 +13,6 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 # Intelij ignores
-
-OOP-Project.iml
 client.iml.idea
-client.idea
+client.ideaa
 \.idea/

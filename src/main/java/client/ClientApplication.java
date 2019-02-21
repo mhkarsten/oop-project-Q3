@@ -1,17 +1,11 @@
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+package client;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
+public class ClientApplication{
 
-public class ClientApplication extends Application{
-
-    @Override
-    public void start(Stage stage) throws Exception {
-
-
+    public static void main(String[] args) {
 
     }
 }

@@ -15,7 +15,7 @@ public class ClientController {
 
     //GET
     @RequestMapping("anything")
-    public class
+
 
 }
 

@@ -1,4 +1,4 @@
-# Meetings folder
+# Meetings
 ### From agendas to minutes
 The idea is that by saturday night every week, we have submitted both the minutes (filled in agenda so to speak) of that weeks meeting and the agenda for the next meeting. Markdown is used for the notes (check out [dillinger](https://dillinger.io/)) and the filenames follow the convention YEARMONTHDAY.md, so for example `20190214.md`. The idea is to just supplement the given agenda bulletpoints with relevant notes and things mentioned during the meeting.
 ### The agenda

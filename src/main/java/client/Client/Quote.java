@@ -1,4 +1,4 @@
-package Client;
+package client.Client;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

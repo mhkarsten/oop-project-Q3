@@ -6,6 +6,7 @@ Four things looking back at the past sprint:
 - sprint retrospective
 - sprint review
 - final report
+
 Two things for the next sprint 
 - agenda
 - sprint backlog

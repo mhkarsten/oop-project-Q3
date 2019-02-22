@@ -14,3 +14,8 @@ OOP-Project.iml
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
+
+# Intelij ignores
+client.iml.idea
+client.ideaa
+\.idea/

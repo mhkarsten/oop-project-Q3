@@ -1,15 +1,5 @@
 # Meetings folder
-
-**Agenda**
-
-Before your weekly meeting you need to commit an agenda to this folder.
-
-Make sure that the filename follows the naming convention. 
-For instance, for February 13th you would use `20190213_agenda.xyz`.
-`xyz` would be the type of the file, please use either MarkDown (recommended, `.md` files) or PDFs (`.pdf`).
-
-**Meeting notes**
-
-After your weekly meeting you need to commit your notes in this folder.
-Please use the following naming convention: `20190213_notes.xyz` (where you change the date to the date of the meeting).
-Please hand in either a MarkDown or PDF file.
+### From agendas to minutes
+The idea is that by saturday night every week, we have submitted both the minutes (filled in agenda so to speak) of that weeks meeting and the agenda for the next meeting. Markdown is used for the notes (check out [dillinger](https://dillinger.io/)) and the filenames follow the convention YEARMONTHDAY.md, so for example `20190214.md`. The idea is to just supplement the given agenda bulletpoints with relevant notes and things mentioned during the meeting.
+### The agenda
+Everyone should contribute to the next week's agenda. The chair will go through these points during the meeting and in turn, the secretary is responsible for noting all that is discussed in an orderly fashion and submitting the week's notes to this folder (see the agenda template provided).

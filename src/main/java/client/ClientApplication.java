@@ -1,4 +1,4 @@
-package client.Client;
+package client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class ClientApplication {
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
 			Quote quote = restTemplate.getForObject(
-					"http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
+					"http://145.94.140.127:8080/greeting", Quote.class);
 			log.info(quote.toString());
 		};
 	}

@@ -1,4 +1,4 @@
-package Client;
+package client.Client;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -16,7 +16,7 @@ public class Value {
     }
 
     public String getName() {
-        return this.quote;
+        return this.name;
     }
 
     public void setId(Long id) {
@@ -24,7 +24,7 @@ public class Value {
     }
 
     public void setName(String quote) {
-        this.quote = quote;
+        this.name = quote;
     }
 
     @Override

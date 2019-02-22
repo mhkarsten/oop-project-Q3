@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientController {
     private static Map<String, String> clientRepo = new HashMap<>();
 
-    //GET
-    @RequestMapping("anything")
-
 
 }
 

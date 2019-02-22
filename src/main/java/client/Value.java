@@ -24,10 +24,7 @@ public class Value {
     }
 
     public void setName(String quote) {
-        this.name = name;
-=======
         this.name = quote;
->>>>>>> 114292f10d7bd5dfb6296a16cba9b1315987036f
     }
 
     @Override

@@ -8,22 +8,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class ClientGUI extends Application {
 
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
 
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/client.fxml"));
-        } catch (IOException e) {
-
-            System.out.println("There was an issue loading the fxml.");
-        }
-
+        URL url = new File("src/main/java/resources/client.fxml").toURL();
+        Parent root = FXMLLoader.load(url);
         String screenText = "Save the Enviroment!";
 
         Label test = new Label("Hello, JavaFX " + screenText);

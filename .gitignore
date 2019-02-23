@@ -10,7 +10,7 @@ buildNumber.properties
 OOP-Project.iml
 
 # Exclude eclipse stuff
-\.target
+\.settings/
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

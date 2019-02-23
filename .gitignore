@@ -1,4 +1,3 @@
-# Maven ignores
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -15,7 +14,10 @@ OOP-Project.iml
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
 
+<<<<<<< .gitignore
+=======
 # Intelij ignores
 client.iml.idea
 client.ideaa
+>>>>>>> .gitignore
 \.idea/

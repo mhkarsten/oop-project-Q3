@@ -12,7 +12,7 @@ Our aim is to develop an app that inspires people to reduce their carbon footpri
 
 <img src = "photos/photo.jpg" width = "150" height = "200">
 
-### Max Karsten (mhkarsten)
+### Max Karsten NetID: mhkarsten StudentID: 4943090
 
 <img src = "photos/PasPhoto_Max_Karsten.jpg" width = "150" height = "200">
 

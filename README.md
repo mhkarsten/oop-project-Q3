@@ -4,7 +4,7 @@
 Our aim is to develop an app that inspires people to reduce their carbon footprint in an engaging, competitive way by applying tried and true techniques.
 
 ## The team
-### Dan Dan Berendsen, NetID: 4904982
+### Dan Dan Berendsen, NetID: dberendsen StudentID: 4904982
 
 <img src = "photos/IMG_6796.JPG" width = "150" height = "250">
 
@@ -12,7 +12,7 @@ Our aim is to develop an app that inspires people to reduce their carbon footpri
 
 <img src = "photos/photo.jpg" width = "150" height = "200">
 
-### Max Karsten (mhkarsten, 4943090)
+### Max Karsten (mhkarsten)
 
 <img src = "photos/PasPhoto_Max_Karsten.jpg" width = "150" height = "200">
 

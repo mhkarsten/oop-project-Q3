@@ -20,6 +20,6 @@ Our aim is to develop an app that inspires people to reduce their carbon footpri
 
 <img src = "photos/photo_4719791_Jason_Bloom.jpg" width = "150" height = "200">
 
-### Thom van der Woude (tbvanderwoude)
+### Thom van der Woude, NetID: tbvanderwoude, Student number: 4945727
 
 <img src = "photos/IMG_20190215_183148.jpg" width = "150" height = "200">

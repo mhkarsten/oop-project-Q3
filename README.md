@@ -8,7 +8,7 @@ Our aim is to develop an app that inspires people to reduce their carbon footpri
 
 <img src = "photos/IMG_6796.JPG" width = "150" height = "250">
 
-### Pandey, Harshitaa
+### Pandey, Harshitaa StudentID: 4780205, NetID: hpandey
 
 <img src = "photos/photo.jpg" width = "150" height = "200">
 

@@ -8,7 +8,7 @@ Our aim is to develop an app that inspires people to reduce their carbon footpri
 
 <img src = "photos/IMG_6796.JPG" width = "150" height = "250">
 
-### Pandey, Harshitaa
+### Pandey, Harshitaa NetID: hpandey StudentID: 4780205
 
 <img src = "photos/photo.jpg" width = "150" height = "200">
 
@@ -20,6 +20,6 @@ Our aim is to develop an app that inspires people to reduce their carbon footpri
 
 <img src = "photos/photo_4719791_Jason_Bloom.jpg" width = "150" height = "200">
 
-### Thom van der Woude, NetID: tbvanderwoude, Student number: 4945727
+### Thom van der Woude (tbvanderwoude)
 
 <img src = "photos/IMG_20190215_183148.jpg" width = "150" height = "200">

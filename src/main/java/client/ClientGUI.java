@@ -22,7 +22,7 @@ public class ClientGUI extends Application {
         Parent root = FXMLLoader.load(url);
         String screenText = "Save the Enviroment!";
 
-        Label test = new Label("Hello, JavaFX " + screenText);
+        Label test = new Label(screenText);
 
         Scene mainScene = new Scene(new StackPane(test), 640,480);
         stage.setScene(mainScene);

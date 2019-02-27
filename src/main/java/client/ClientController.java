@@ -13,7 +13,8 @@ import java.util.Arrays;
 public class ClientController {
 
     static final String URL_USERS = "http://localhost:8080/users";
-    static final String URL_NEWUSER = "http://localhost:8080/newUser"
+    static final String URL_NEWUSER = "http://localhost:8080/newUser";
+    static final String URL_DELETE = "http://localhost:8080/user/{userID}";
 
     //Get all users from the server (READ)
     public ArrayList<User> getUsers() {
@@ -80,14 +81,34 @@ public class ClientController {
 
         if (u != null && u.getUserID() != null) {
 
-            System.out.println("(Client Side) New user created");
-        }
+            System.out.println("(Client Side) New user created" + u.getUserID());
+        } else {
 
+            System.out.println("(Client Side) Something went wrong.");
+        }
     }
 
     //Update user information (UPDATE)
+    public void updateUser(String userID) {
+
+
+    }
 
     //Delete an existing user (DELETE)
+    public void deleteUser(String userID) {
 
+        RestTemplate restTemplate = new RestTemplate();
+
+        Object[] uriValue = new Object[] {userID};
+
+        restTemplate.delete(URL_DELETE, uriValue);
+
+        User u = restTemplate.getForObject(URL_DELETE, User.class);
+
+        if (u != null) {
+
+
+        }
+    }
 
 }

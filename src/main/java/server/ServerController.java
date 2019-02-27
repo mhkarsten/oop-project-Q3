@@ -68,6 +68,8 @@ public class ServerController {
     @ResponseBody
     public User updateUser(@RequestBody User usr) {
 
+
+
         System.out.println("(Server Side) Updating a user.");
 
         return UserDAO.updateUser(usr);

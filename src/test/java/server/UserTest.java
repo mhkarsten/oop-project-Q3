@@ -19,29 +19,34 @@ public class UserTest {
 
     @Test
     void getUserID() {
-        Assertions.assertEquals(us1.getUserID(), UsID5);
+        Assertions.assertEquals(UsID5, us1.getUserID());
     }
 
     @Test
     void setUserID() {
         us2.setUserID("U21");
-        Assertions.assertEquals(us2.userID, "U21");
+        Assertions.assertEquals("U21", us2.userID);
     }
 
     @Test
     void getUserName() {
-        Assertions.assertEquals(us2.getUserName(), UsName20);
+        Assertions.assertEquals(UsName20, us2.getUserName());
     }
 
     @Test
     void setUserName() {
+        us1.setUserName("Thom");
+        Assertions.assertEquals("Thom", us1.userName);
     }
 
     @Test
     void getUserPoints() {
+        Assertions.assertEquals(200, us1.getUserPoints());
     }
 
     @Test
     void setUserPoints() {
+        us2.setUserPoints(21);
+        Assertions.assertEquals(21, us2.getUserPoints());
     }
 }

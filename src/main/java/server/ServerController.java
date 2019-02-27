@@ -65,7 +65,7 @@ public class ServerController {
     @RequestMapping(value = "/userUpdate",
             method = RequestMethod.PUT,
             produces = {MediaType.APPLICATION_JSON_VALUE,
-                        MediaType.APPLICATION_XML_VALUE))
+                        MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public User updateUser(@RequestBody User usr) {
 

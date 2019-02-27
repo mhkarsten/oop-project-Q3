@@ -13,11 +13,11 @@ public class Achievement {
         this.description = description;
     }
 
-    public long getAchID() {
+    public String getAchID() {
         return achID;
     }
 
-    public void setAchID(long achID) {
+    public void setAchID(String achID) {
         this.achID = achID;
     }
 

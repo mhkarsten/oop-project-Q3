@@ -17,7 +17,8 @@ public class ServerController {
     @ResponseBody
     public String connect() {
 
-        return "You are connected";
+        String connectString = "You are connected";
+        return connectString;
     }
 
 
@@ -65,7 +66,7 @@ public class ServerController {
     @RequestMapping(value = "/userUpdate",
             method = RequestMethod.PUT,
             produces = {MediaType.APPLICATION_JSON_VALUE,
-                        MediaType.APPLICATION_XML_VALUE))
+                        MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public User updateUser(@RequestBody User usr) {
 

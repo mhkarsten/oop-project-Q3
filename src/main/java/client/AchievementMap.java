@@ -2,6 +2,9 @@ package client;
 
 import client.Achievement;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AchievementMap {
     private static final Map<String, Achievement> AchievMap = new HashMap<String, Achievement>();
 
@@ -16,7 +19,7 @@ public class AchievementMap {
         AchievMap.put(ach3.getAchID(), ach3);
     }
 
-    private static void getAchievement(String ach) {
+    private static Achievement getAchievement(String ach) {
         return AchievMap.get(ach);
     }
 

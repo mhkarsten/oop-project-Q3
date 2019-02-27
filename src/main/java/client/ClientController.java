@@ -89,9 +89,16 @@ public class ClientController {
     }
 
     //Update user information (UPDATE)
-    public void updateUser(String userID) {
+    public void updateUser(String userID, String userName, int points) {
 
+        User updatedUser = new User(userID, userName, points);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpEntity<User> requestBody = new HttpEntity<>();
     }
 
     //Delete an existing user (DELETE)
@@ -107,7 +114,10 @@ public class ClientController {
 
         if (u != null) {
 
+            System.out.println("(Client Side) User " + u.getUserName() + " has been deleted.");
+        } else {
 
+            System.out.println("(Client Side) The selected client cannot be found or does not exist.");
         }
     }
 

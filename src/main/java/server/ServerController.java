@@ -17,7 +17,8 @@ public class ServerController {
     @ResponseBody
     public String connect() {
 
-        return "You are connected";
+        String connectString = "You are connected";
+        return connectString;
     }
 
 

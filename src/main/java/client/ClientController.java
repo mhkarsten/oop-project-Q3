@@ -1,6 +1,5 @@
 package client;
 
-
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,7 +15,10 @@ public class ClientController {
     static final String URL_NEWUSER = "http://localhost:8080/newUser";
     static final String URL_DELETE = "http://localhost:8080/user/{userID}";
 
-    //Get all users from the server (READ)
+    /**.
+     *
+     * @return Return all users from the server
+     */
     public ArrayList<User> getUsers() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -37,7 +39,7 @@ public class ClientController {
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
         //If status == 200
-        if(statusCode == HttpStatus.OK) {
+        if (statusCode == HttpStatus.OK) {
 
             User[] list = response.getBody();
 
@@ -57,7 +59,11 @@ public class ClientController {
         return null;
     }
 
-    //Get a user from the server (READ)
+    /**.
+     *
+     * @param userID The userid of the user you try to get
+     * @return Return a user from the server
+     */
     public User getUser(String userID) {
 
         User user = new User();
@@ -65,6 +71,12 @@ public class ClientController {
     }
 
     //Post a new user (CREATE)
+
+    /**.
+     *
+     * @param userName New Username
+     * @param userID New UserID
+     */
     public void postUser(String userName, String userID) {
 
         User newUser = new User(userID, userName, 0);
@@ -77,9 +89,9 @@ public class ClientController {
 
         HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
 
-        User u = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);
+        User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);
 
-        if (u != null && u.getUserID() != null) {
+        if (user != null && user.getUserID() != null) {
 
             System.out.println("(Client Side) New user created" + u.getUserID());
         } else {
@@ -102,6 +114,11 @@ public class ClientController {
     }
 
     //Delete an existing user (DELETE)
+
+    /**.
+     *
+     * @param userID UserID of the user to delete
+     */
     public void deleteUser(String userID) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -110,9 +127,9 @@ public class ClientController {
 
         restTemplate.delete(URL_DELETE, uriValue);
 
-        User u = restTemplate.getForObject(URL_DELETE, User.class);
+        User user = restTemplate.getForObject(URL_DELETE, User.class);
 
-        if (u != null) {
+        if (user != null) {
 
             System.out.println("(Client Side) User " + u.getUserName() + " has been deleted.");
         } else {

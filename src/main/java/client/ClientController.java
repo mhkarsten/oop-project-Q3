@@ -13,7 +13,8 @@ public class ClientController {
 
     static final String URL_USERS = "http://localhost:8080/users";
     static final String URL_NEWUSER = "http://localhost:8080/newUser";
-    static final String URL_DELETE = "http://localhost:8080/user/{userID}";
+    static final String URL_CHOOSEUSER = "http://localhost:8080/user/{userID}";
+    static final String URL_ARBUSER = "http://localhost:8080/user";
 
     /**.
      *
@@ -110,7 +111,22 @@ public class ClientController {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpEntity<User> requestBody = new HttpEntity<>();
+        HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
+
+
+        restTemplate.put(URL_ARBUSER, requestBody, new Object[]{});
+
+        String updatedUserURL = URL_ARBUSER + "/" + userID;
+
+        User u = restTemplate.getForObject(updatedUserURL, User.class);
+
+        if (u != null) {
+
+            System.out.println("(Client Side) User after info update." + u.getUserName() + u.getUserID() + u.getUserPoints());
+        } else {
+
+            System.out.println("(Client Side) Something went wrong, the user doesnt exits");
+        }
     }
 
     //Delete an existing user (DELETE)
@@ -125,7 +141,7 @@ public class ClientController {
 
         Object[] uriValue = new Object[] {userID};
 
-        restTemplate.delete(URL_DELETE, uriValue);
+        restTemplate.delete(URL_CHOOSEUSER, uriValue);
 
         User user = restTemplate.getForObject(URL_DELETE, User.class);
 

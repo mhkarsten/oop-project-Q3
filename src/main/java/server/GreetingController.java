@@ -11,11 +11,21 @@ public class GreetingController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
+    //Message to signify connection
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="New World") String name) {
         return new Greeting(counter.incrementAndGet(),
                 String.format(template, name));
     }
 
+    //Update to CO2 emmissions
+
+    //Database updates
+
     //
+
+
+
+
+
 }

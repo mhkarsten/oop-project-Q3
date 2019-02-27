@@ -14,7 +14,7 @@ public class ClientController {
 
     static final String URL_USERS = "http://localhost:8080/users";
     static final String URL_NEWUSER = "http://localhost:8080/newUser";
-    static final String URL_RESCOURCE = "http://localhost:8080/user/{userID}";
+    static final String URL_DELETE = "http://localhost:8080/user/{userID}";
 
     //Get all users from the server (READ)
     public ArrayList<User> getUsers() {
@@ -99,7 +99,16 @@ public class ClientController {
 
         RestTemplate restTemplate = new RestTemplate();
 
+        Object[] uriValue = new Object[] {userID};
 
+        restTemplate.delete(URL_DELETE, uriValue);
+
+        User u = restTemplate.getForObject(URL_DELETE, User.class);
+
+        if (u != null) {
+
+
+        }
     }
 
 }

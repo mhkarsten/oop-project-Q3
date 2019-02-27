@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 public class ServerController {
 
     @Autowired
@@ -67,8 +68,6 @@ public class ServerController {
                         MediaType.APPLICATION_XML_VALUE))
     @ResponseBody
     public User updateUser(@RequestBody User usr) {
-
-
 
         System.out.println("(Server Side) Updating a user.");
 

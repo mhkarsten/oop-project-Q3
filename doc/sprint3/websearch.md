@@ -30,3 +30,12 @@ Note that many of these things can be defined in both the beans.xml file and the
 ---------------------------------------
 
 All the REST lingo in [this](https://www.callicoder.com/spring-boot-jpa-hibernate-postgresql-restful-crud-api-example/) article is why I felt like studying some relevant stuff.
+
+Some insights into the database aspect of this project:
+Using postgres always requires the host to install it, so things like H2 could make more sense for this development stage.
+
+Even more links 
+https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa
+https://springframework.guru/configuring-spring-boot-for-postgresql/
+http://zetcode.com/springboot/postgresql/
+https://www.baeldung.com/spring-boot-data-sql-and-schema-sql

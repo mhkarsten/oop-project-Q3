@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.repository.UserRepository;
 @RestController
-public class ServerController {
+public class ServerControllerDB {
 
     @Autowired
     private UserRepository userRepository;

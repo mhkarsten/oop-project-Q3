@@ -176,7 +176,7 @@ public class ClientController {
 
         if (user != null) {
 
-            System.out.println("(Client Side) User after info update." + u.getUserName() + u.getUserID() + u.getUserPoints());
+            System.out.println("(Client Side) User after info update." + user.getUserName() + user.getUserID() + user.getUserPoints());
         } else {
 
             System.out.println("(Client Side) Something went wrong, the user doesnt exits");

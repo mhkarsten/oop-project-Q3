@@ -9,6 +9,12 @@ public class User {
 
     }
 
+    /** Constructor for the User clas.
+     *
+     * @param usrID Unique UserID
+     * @param usrName A username
+     * @param usrPoints Amount of point associated with the user
+     */
     public User(String usrID, String usrName, int usrPoints) {
 
         this.userID = usrID;

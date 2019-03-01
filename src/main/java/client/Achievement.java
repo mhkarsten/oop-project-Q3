@@ -7,7 +7,7 @@ public class Achievement {
     private String description;
     private String path;
 
-    /**.
+    /** Constructor for the Achievement class.
      *
      * @param achID Achievement ID
      * @param title Title of the achievement

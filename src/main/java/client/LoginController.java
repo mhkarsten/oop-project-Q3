@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,7 +21,11 @@ public class LoginController {
     @FXML
     private TextField usernameField;
 
-
+    /**Login method.
+     *
+     * @param event Added an event parameter
+     * @throws Exception Throws exception if the event is invalid
+     */
     public void login(ActionEvent event) throws Exception {
 
         if (usernameField.getText().equals("user") && passwordField.getText().equals("pass")) {

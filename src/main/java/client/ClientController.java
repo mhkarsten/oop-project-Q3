@@ -19,10 +19,12 @@ public class ClientController {
     static final String URL_ARBUSER = "http://localhost:8080/user";
 
 
-    public static final String USER_NAME = "tom";
-    public static final String PASSWORD = "123";
+    static final String USER_NAME = "tom";
+    static final String PASSWORD = "123";
 
-    //Authenticated get (READ)
+    /**
+     * Authenticated get (READ)
+     */
     public void authGet() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -47,7 +49,7 @@ public class ClientController {
         System.out.println(result);
     }
 
-    /**.
+    /**Method to return an arraylist of all users.
      *
      * @return Return all users from the server
      */
@@ -87,7 +89,7 @@ public class ClientController {
         return null;
     }
 
-    /**.
+    /**Method to return a specified user.
      *
      * @param userID The userid of the user you try to get
      * @return Return a user from the server
@@ -125,8 +127,7 @@ public class ClientController {
         return null;
     }
 
-    //Post a new user (CREATE)
-    /**.
+    /**Method to post a new user (CREATE).
      *
      * @param userName New Username
      * @param userID New UserID
@@ -153,7 +154,9 @@ public class ClientController {
         }
     }
 
-    //Update user information (UPDATE)
+    /**Method to update a users information.
+     * Update user information (UPDATE)
+     */
     public void updateUser(String userID, String userName, int points) {
 
         User updatedUser = new User(userID, userName, points);
@@ -167,11 +170,11 @@ public class ClientController {
 
         restTemplate.put(URL_ARBUSER, requestBody, new Object[]{});
 
-        String updatedUserURL = URL_ARBUSER + "/" + userID;
+        String updatedUserUrl = URL_ARBUSER + "/" + userID;
 
-        User u = restTemplate.getForObject(updatedUserURL, User.class);
+        User user = restTemplate.getForObject(updatedUserUrl, User.class);
 
-        if (u != null) {
+        if (user != null) {
 
             System.out.println("(Client Side) User after info update." + u.getUserName() + u.getUserID() + u.getUserPoints());
         } else {
@@ -180,8 +183,7 @@ public class ClientController {
         }
     }
 
-    //Delete an existing user (DELETE)
-    /**.
+    /**Method to delete an existing user (DELETE).
      *
      * @param userID UserID of the user to delete
      */

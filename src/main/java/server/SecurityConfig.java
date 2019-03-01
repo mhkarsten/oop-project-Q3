@@ -30,6 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().authenticationEntryPoint(authEntryPoint);
     }
 
+    /**Bean for creating an password encoder.
+     *
+     * @return Returns an encrypted password encoder
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
 
@@ -37,6 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return bCryptPasswordEncoder;
     }
 
+    /**
+     *
+     * @param auth  Parameter for an authenticator
+     * @throws Exception Throws exception  if the authenticator is invalid
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 

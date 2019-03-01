@@ -29,12 +29,22 @@ public class UserDAO {
         return userMap.get(userID);
     }
 
+    /**Adds a user to the Map.
+     *
+     * @param usr User to be added
+     * @return returns the user that has been added
+     */
     public static User addUser(User usr) {
 
         userMap.put(usr.getUserID(), usr);
         return usr;
     }
 
+    /**Updates a user inside the map.
+     *
+     * @param usr User to be updated
+     * @return Returns the updated user
+     */
     public static User updateUser(User usr) {
 
         userMap.put(usr.getUserID(), usr);
@@ -46,11 +56,15 @@ public class UserDAO {
         userMap.remove(userID);
     }
 
+    /**Get all users.
+     *
+     * @return Returns a list of all users
+     */
     public static List<User> getAllUsers() {
 
-        Collection<User> c = userMap.values();
+        Collection<User> collect = userMap.values();
         List<User> userList = new ArrayList<User>();
-        userList.addAll(c);
+        userList.addAll(collect);
 
         return userList;
     }

@@ -12,7 +12,10 @@ public class ServerController {
     @Autowired
     private UserDAO userDAO;
 
-    //Initial Connect
+    /**Initial connect message.
+     *
+     * @return Message stating you are connected
+     */
     @RequestMapping("/")
     @ResponseBody
     public String connect() {
@@ -21,8 +24,10 @@ public class ServerController {
         return connectString;
     }
 
-
-    //Get for all users (READ)
+    /**Get all users (READ).
+     *
+     * @return A list of all users
+     */
     @RequestMapping(value = "/users",
         method = RequestMethod.GET,
         produces = {MediaType.APPLICATION_JSON_VALUE,
@@ -47,8 +52,11 @@ public class ServerController {
         return userDAO.getUser(userID);
     }
 
-
-    //Adds a new user (CREATE)
+    /**Adds a new user (CREATE).
+     *
+     * @param usr Parameter for the user to be added
+     * @return Returns the user that has been added
+     */
     @RequestMapping(value = "/newUser",
             method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE,
@@ -61,8 +69,11 @@ public class ServerController {
         return UserDAO.addUser(usr);
     }
 
-
-    //Updates user information (POST)
+    /**Updates user information (POST).
+     *
+     * @param usr Parameter for the user to be updated
+     * @return  returns the updated user
+     */
     @RequestMapping(value = "/userUpdate",
             method = RequestMethod.PUT,
             produces = {MediaType.APPLICATION_JSON_VALUE,
@@ -77,6 +88,11 @@ public class ServerController {
 
 
     //Deletes an existing user (DELETE)
+
+    /**Deletes an existing user (DELETE).
+     *
+     * @param userID Parameter for the userID of the user that has to be deleted
+     */
     @RequestMapping(value = "/User/{userID}",
             method = RequestMethod.DELETE,
             produces = {MediaType.APPLICATION_JSON_VALUE,

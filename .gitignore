@@ -7,9 +7,10 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-
 OOP-Project.iml
-.idea
+
+# Exclude eclipse stuff
+\.settings/
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

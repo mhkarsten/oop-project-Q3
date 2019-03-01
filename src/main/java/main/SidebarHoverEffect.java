@@ -14,7 +14,7 @@ public class SidebarHoverEffect extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 //        Parent root = FXMLLoader.load(getClass().getResource("src/root/FXMLRoot.fxml"));
-        URL url = new File("src/root/FXMLRoot.fxml").toURL();
+        URL url = new File("src/main/java/root/FXMLRoot.fxml").toURL();
         Parent root = FXMLLoader.load(url);
         Scene scene = new Scene(root, 400, 400);
         stage.setScene(scene);

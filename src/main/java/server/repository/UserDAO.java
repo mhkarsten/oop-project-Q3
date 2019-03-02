@@ -1,13 +1,16 @@
 package server;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import server.model.User;
+import server.repository.UserRepository;
 
 @Repository
 public class UserDAO {
 
-    private static final Map<String, User> userMap = new HashMap<String, User>();
+    private static final Map<Long, User> userMap = new HashMap<Long, User>();
 
     static {
 
@@ -15,9 +18,9 @@ public class UserDAO {
     }
 
     private static void intUsers() {
-        User user1 = new User("U01", "Alex", 100);
-        User user2 = new User("U02", "Jim", 200);
-        User user3 = new User("U03", "Jennifer", 150);
+        User user1 = new User(1, "Alex", 100);
+        User user2 = new User(2, "Jim", 200);
+        User user3 = new User(3, "Jennifer", 150);
 
         userMap.put(user1.getUserID(), user1);
         userMap.put(user2.getUserID(), user2);

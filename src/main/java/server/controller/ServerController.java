@@ -1,16 +1,28 @@
-package server;
+package server.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import server.UserDAO;
+import server.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import server.repository.UserRepository;
 
 import java.util.List;
 
 @RestController
-public class ServerController {
+public class ServerControllerDB {
 
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private UserDAO userDAO;
+    @GetMapping("/users")
+    public Page<User> getQuestions(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
 
     /**Initial connect message.
      *
@@ -29,13 +41,13 @@ public class ServerController {
      * @return A list of all users
      */
     @RequestMapping(value = "/users",
-        method = RequestMethod.GET,
-        produces = {MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public List<User> getUsers() {
+    public List<server.User> getUsers() {
 
-        List<User> userList = UserDAO.getAllUsers();
+        List<server.User> userList = UserDAO.getAllUsers();
 
         return userList;
     }
@@ -45,9 +57,9 @@ public class ServerController {
     @RequestMapping(value = "/user/{userID}",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_XML_VALUE,
-                        MediaType.APPLICATION_JSON_VALUE})
+                    MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public User getUser(@PathVariable("userID") String userID) {
+    public server.User getUser(@PathVariable("userID") String userID) {
 
         return userDAO.getUser(userID);
     }
@@ -60,9 +72,9 @@ public class ServerController {
     @RequestMapping(value = "/newUser",
             method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE,
-                        MediaType.APPLICATION_XML_VALUE})
+                    MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public User addUser(@RequestBody User usr) {
+    public server.User addUser(@RequestBody server.User usr) {
 
         System.out.println("Creaating new user."  + usr.getUserID());
 
@@ -77,9 +89,9 @@ public class ServerController {
     @RequestMapping(value = "/userUpdate",
             method = RequestMethod.PUT,
             produces = {MediaType.APPLICATION_JSON_VALUE,
-                        MediaType.APPLICATION_XML_VALUE})
+                    MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public User updateUser(@RequestBody User usr) {
+    public server.User updateUser(@RequestBody server.User usr) {
 
         System.out.println("(Server Side) Updating a user.");
 
@@ -96,7 +108,7 @@ public class ServerController {
     @RequestMapping(value = "/User/{userID}",
             method = RequestMethod.DELETE,
             produces = {MediaType.APPLICATION_JSON_VALUE,
-                        MediaType.APPLICATION_XML_VALUE})
+                    MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public void deleteUser(@PathVariable("userID") String userID) {
 

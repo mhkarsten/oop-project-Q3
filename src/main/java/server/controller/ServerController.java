@@ -1,7 +1,7 @@
 package server.controller;
 
 import org.springframework.http.MediaType;
-import server.UserDAO;
+import server.repository.UserDAO;
 import server.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,18 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import server.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-public class ServerControllerDB {
+public class ServerController {
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private UserDAO userDAO;
-    @GetMapping("/users")
-    public Page<User> getQuestions(Pageable pageable) {
-        return userRepository.findAll(pageable);
-    }
 
 
     /**Initial connect message.
@@ -36,20 +33,18 @@ public class ServerControllerDB {
         return connectString;
     }
 
-    /**Get all users (READ).
-     *
+     /*
      * @return A list of all users
      */
+
     @RequestMapping(value = "/users",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public List<server.User> getUsers() {
 
-        List<server.User> userList = UserDAO.getAllUsers();
-
-        return userList;
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
 
@@ -59,9 +54,21 @@ public class ServerControllerDB {
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public server.User getUser(@PathVariable("userID") String userID) {
-
-        return userDAO.getUser(userID);
+    public User getUser(@PathVariable("userID") String userID) {
+        long id=-1;
+        try
+        {
+            id=Long.parseLong(userID);
+        }
+        catch (NumberFormatException ex) {
+            return null;
+        }
+        Optional<User> optionalUser=userRepository.findById(id);
+        if(optionalUser.isPresent())
+        {
+            return optionalUser.get();
+        }
+        else return null;
     }
 
     /**Adds a new user (CREATE).
@@ -74,7 +81,7 @@ public class ServerControllerDB {
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public server.User addUser(@RequestBody server.User usr) {
+    public User addUser(@RequestBody User usr) {
 
         System.out.println("Creaating new user."  + usr.getUserID());
 
@@ -91,7 +98,7 @@ public class ServerControllerDB {
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public server.User updateUser(@RequestBody server.User usr) {
+    public User updateUser(@RequestBody User usr) {
 
         System.out.println("(Server Side) Updating a user.");
 

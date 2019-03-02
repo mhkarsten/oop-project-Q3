@@ -1,4 +1,4 @@
-package server;
+package server.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,22 +11,6 @@ import server.repository.UserRepository;
 public class UserDAO {
 
     private static final Map<Long, User> userMap = new HashMap<Long, User>();
-
-    static {
-
-        intUsers();
-    }
-
-    private static void intUsers() {
-        User user1 = new User(1, "Alex", 100);
-        User user2 = new User(2, "Jim", 200);
-        User user3 = new User(3, "Jennifer", 150);
-
-        userMap.put(user1.getUserID(), user1);
-        userMap.put(user2.getUserID(), user2);
-        userMap.put(user3.getUserID(), user3);
-    }
-
     public static User getUser(String userID) {
 
         return userMap.get(userID);

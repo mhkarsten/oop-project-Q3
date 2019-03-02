@@ -2,11 +2,12 @@ package server;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import server.model.User;
 
 
 public class UserTest {
-    String UsID5 = "U05";
-    String UsID20 = "U20";
+    long UsID5 = 5;
+    long UsID20 = 20;
     String UsName5 = "Max";
     String UsName20 = "Jason";
     int points = 200;
@@ -24,8 +25,8 @@ public class UserTest {
 
     @Test
     void setUserID() {
-        us2.setUserID("U21");
-        Assertions.assertEquals("U21", us2.userID);
+        us2.setUserID(21);
+        Assertions.assertEquals(21, us2.getUserID());
     }
 
     @Test
@@ -36,7 +37,7 @@ public class UserTest {
     @Test
     void setUserName() {
         us1.setUserName("Thom");
-        Assertions.assertEquals("Thom", us1.userName);
+        Assertions.assertEquals("Thom", us1.getUserName());
     }
 
     @Test

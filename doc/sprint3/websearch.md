@@ -1,7 +1,7 @@
 ## REST: Representational State Transfer
 - Basic idea of REST: there is a message format that allows client and server implementation to change without affecting the operation of the other REST system.
 
-- REST systems interact through standard operations on resources, not commands (so not like the WDT MOVE_PIECE JSON commands for a game of chess).
+- REST systems interact through standard operations on client.resources, not commands (so not like the WDT MOVE_PIECE JSON commands for a game of chess).
 ### Hibernate Object-Relational Mapping
 Used to handle the object-relational impedance mismatch problems inherent to incorperating a relational database into a OOP project.
 ### Spring Data Java Persistence API

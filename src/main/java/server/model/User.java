@@ -9,28 +9,28 @@ public class User {
     @SequenceGenerator(
             name="user_generator",
             sequenceName="user_sequence",
-            initialValue=0
+            initialValue=1
     )
-    public Long id;
-    public String name;
-    public int points;
+    private long id;
+    private String name;
+    private int points;
 
     public User() {
 
     }
 
-    public User(Long id, String name, int points) {
+    public User(long id, String name, int points) {
 
         this.id = id;
         this.name = name;
         this.points = points;
     }
 
-    public Long getUserID() {
+    public long getUserID() {
         return id;
     }
 
-    public void setUserID(Long userID) {
+    public void setUserID(long userID) {
         this.id = userID;
     }
 

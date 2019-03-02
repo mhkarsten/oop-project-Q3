@@ -48,7 +48,7 @@ class AchievementTest {
 
     @Test
     void setDescription() {
-        ach2.setDescription("Save the earth");
+        ach2.setDescription("save the earth");
         Assertions.assertEquals("save the earth", ach2.getDescription());
     }
 

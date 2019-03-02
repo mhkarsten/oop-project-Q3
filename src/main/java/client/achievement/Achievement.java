@@ -1,5 +1,7 @@
 package client;
 
+import java.util.Objects;
+
 public class Achievement {
 
     private String achID;
@@ -19,6 +21,17 @@ public class Achievement {
         this.title = title;
         this.description = description;
         this.path = path;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Achievement that = (Achievement) o;
+        return Objects.equals(achID, that.achID) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(path, that.path);
     }
 
     public String getAchID() {

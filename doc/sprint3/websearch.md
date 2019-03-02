@@ -1,7 +1,7 @@
 ## REST: Representational State Transfer
 - Basic idea of REST: there is a message format that allows client and server implementation to change without affecting the operation of the other REST system.
 
-- REST systems interact through standard operations on resources, not commands (so not like the WDT MOVE_PIECE JSON commands for a game of chess).
+- REST systems interact through standard operations on client.resources, not commands (so not like the WDT MOVE_PIECE JSON commands for a game of chess).
 ### Hibernate Object-Relational Mapping
 Used to handle the object-relational impedance mismatch problems inherent to incorperating a relational database into a OOP project.
 ### Spring Data Java Persistence API
@@ -30,3 +30,12 @@ Note that many of these things can be defined in both the beans.xml file and the
 ---------------------------------------
 
 All the REST lingo in [this](https://www.callicoder.com/spring-boot-jpa-hibernate-postgresql-restful-crud-api-example/) article is why I felt like studying some relevant stuff.
+
+Some insights into the database aspect of this project:
+Using postgres always requires the host to install it, so things like H2 could make more sense for this development stage.
+
+Even more links 
+https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa
+https://springframework.guru/configuring-spring-boot-for-postgresql/
+http://zetcode.com/springboot/postgresql/
+https://www.baeldung.com/spring-boot-data-sql-and-schema-sql

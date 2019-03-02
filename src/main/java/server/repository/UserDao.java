@@ -2,15 +2,20 @@ package server.repository;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
 import server.model.User;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Repository
-public class UserDAO {
+public class UserDao {
 
     private static final Map<Long, User> userMap = new HashMap<Long, User>();
-    public static User getUser(String userID) {
 
+    public static User getUser(String userID) {
         return userMap.get(userID);
     }
 

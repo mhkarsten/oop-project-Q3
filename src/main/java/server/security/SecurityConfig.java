@@ -36,12 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+        return new BCryptPasswordEncoder();
     }
 
-    /**
+    /**Configures a few (temporary) user accounts for authorization.
      *
      * @param auth  Parameter for an authenticator
      * @throws Exception Throws exception  if the authenticator is invalid
@@ -53,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         String encPass = this.passwordEncoder().encode(pass);
 
-        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> memoryConfig = auth.inMemoryAuthentication();
+        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> memoryConfig;
+        memoryConfig = auth.inMemoryAuthentication();
 
         UserDetails u1 = User.withUsername("tom").password(encPass).roles("USER").build();
         UserDetails u2 = User.withUsername("jerry").password(encPass).roles("USER").build();

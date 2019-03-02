@@ -1,4 +1,4 @@
-package client;
+package client.achievement;
 
 import java.util.Objects;
 
@@ -24,14 +24,18 @@ public class Achievement {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Achievement that = (Achievement) o;
-        return Objects.equals(achID, that.achID) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(path, that.path);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Achievement that = (Achievement) obj;
+        return Objects.equals(achID, that.achID)
+                && Objects.equals(title, that.title)
+                && Objects.equals(description, that.description)
+                && Objects.equals(path, that.path);
     }
 
     public String getAchID() {

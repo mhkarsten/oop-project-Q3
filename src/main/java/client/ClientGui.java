@@ -8,15 +8,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ClientGUI extends Application {
+public class ClientGui extends Application {
 
 
     @Override
     public void start(Stage stage) {
 
         try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/loginScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("src/main/resources/loginScreen.fxml"));
 
             Scene scene = new Scene(root, 600, 400);
 

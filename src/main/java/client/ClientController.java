@@ -1,7 +1,12 @@
 package client;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
@@ -9,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 //Currently this client side code is build to work with XML code whereas the server
-//side code can use both XML and JSON.Later this might be changed so everything uses JSON for the sake of simplicity;
+//side code can use both XML and JSON. Later this might be changed so everything uses
+//JSON for the sake of simplicity;
 
 public class ClientController {
 
@@ -30,8 +36,8 @@ public class ClientController {
         HttpHeaders headers = new HttpHeaders();
 
         String auth = USER_NAME + ":" + PASSWORD;
-        byte[] encodedAuthentication = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-        String authHeader = "Basic " + new String(encodedAuthentication);
+        byte[] encAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+        String authHeader = "Basic " + new String(encAuth);
 
         headers.set("Authorization", authHeader);
         headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
@@ -176,7 +182,12 @@ public class ClientController {
 
         if (user != null) {
 
-            System.out.println("(Client Side) User after info update." + user.getUserName() + user.getUserID() + user.getUserPoints());
+            System.out.println(
+                    "(Client Side) User after info update."
+                    + user.getUserName()
+                    + user.getUserID()
+                    + user.getUserPoints()
+            );
         } else {
 
             System.out.println("(Client Side) Something went wrong, the user doesnt exits");
@@ -202,7 +213,8 @@ public class ClientController {
             System.out.println("(Client Side) User " + user.getUserName() + " has been deleted.");
         } else {
 
-            System.out.println("(Client Side) The selected client cannot be found or does not exist.");
+            System.out.println("(Client Side) The selected client cannot be found"
+                    + " or does not exist.");
         }
     }
 

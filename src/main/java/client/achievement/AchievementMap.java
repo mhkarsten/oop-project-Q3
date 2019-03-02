@@ -1,4 +1,4 @@
-package client;
+package client.achievement;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,14 +8,14 @@ public class AchievementMap {
     private static final Map<String, Achievement> AchMap = new HashMap<String, Achievement>();
 
     // TODO: Make that path dynamic instead of fixed to Dan Dan's Onedrive
-    private static void intAchievements() {
+    private static void initAchievements() {
         addAchievement(new Achievement("A01", "Start GoGreen", "You started to use GoGreen",
                 "C:\\Users\\danda\\OneDrive\\Documenten\\template\\photos\\Ribbon_Award.png"));
         addAchievement(new Achievement("A02", "Green Fingers", "You planted a new plant", ""));
         addAchievement(new Achievement("A03", "Crazy good", "Achieve 666 points", ""));
     }
 
-    private static Achievement getAchievement(String ach) {
+    public static Achievement getAchievement(String ach) {
         return AchMap.get(ach);
     }
 

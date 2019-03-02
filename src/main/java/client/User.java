@@ -1,5 +1,6 @@
 package client;
 
+//TODO: Find a way to have client and server use the same User class
 public class User {
     public String userID;
     public String userName;
@@ -9,7 +10,7 @@ public class User {
 
     }
 
-    /** Constructor for the User clas.
+    /** Constructor for the User class.
      *
      * @param usrID Unique UserID
      * @param usrName A username

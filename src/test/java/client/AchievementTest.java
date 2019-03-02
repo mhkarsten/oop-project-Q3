@@ -1,9 +1,8 @@
 package client;
 
+import client.achievement.Achievement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class AchievementTest {
 
@@ -18,7 +17,18 @@ class AchievementTest {
 
     Achievement ach1 = new Achievement(ID1, title1, descrip1, path1);
     Achievement ach2 = new Achievement(ID2, title2, descrip2, path2);
-
+    @Test
+    void equalsTest1() {
+        Assertions.assertEquals(ach1,ach1);
+    }
+    @Test
+    void equalsTest2() {
+        Assertions.assertEquals(ach1, new Achievement(ID1, title1, descrip1, path1));
+    }
+    @Test
+    void equalsTest3() {
+        Assertions.assertNotEquals(ach1, new Achievement(ID1, "Mother Nature's disciple", descrip1, path1));
+    }
     @Test
     void getAchID() {
         Assertions.assertEquals(ID1, ach1.getAchID());

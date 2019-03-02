@@ -1,5 +1,6 @@
 package server.model;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -35,6 +36,20 @@ public class User {
         this.id = id;
         this.name = name;
         this.points = points;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        User user = (User) obj;
+        return id == user.id
+                && points == user.points
+                && Objects.equals(name, user.name);
     }
 
     public long getUserID() {

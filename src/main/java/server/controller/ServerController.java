@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import server.model.User;
-import server.repository.UserDAO;
+import server.repository.UserDao;
 import server.repository.UserRepository;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ServerController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDao;
 
 
     /**Initial connect message.
@@ -89,7 +89,7 @@ public class ServerController {
 
         System.out.println("Creaating new user."  + usr.getUserID());
 
-        return UserDAO.addUser(usr);
+        return UserDao.addUser(usr);
     }
 
     /**Updates user information (POST).
@@ -106,7 +106,7 @@ public class ServerController {
 
         System.out.println("(Server Side) Updating a user.");
 
-        return UserDAO.updateUser(usr);
+        return UserDao.updateUser(usr);
     }
 
 
@@ -125,7 +125,7 @@ public class ServerController {
 
         System.out.println("(Server Side) Deleting user" + userID);
 
-        UserDAO.deleteUser(userID);
+        UserDao.deleteUser(userID);
     }
 
     //Get for CO2

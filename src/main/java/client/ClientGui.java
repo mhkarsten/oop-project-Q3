@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class ClientGui extends Application {
 
@@ -15,7 +16,8 @@ public class ClientGui extends Application {
     public void start(Stage stage) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("src/main/resources/loginScreen.fxml"));
+            URL resourceUrl = getClass().getResource("src/main/resources/loginScreen.fxml");
+            Parent root = FXMLLoader.load(resourceUrl);
 
             Scene scene = new Scene(root, 600, 400);
 

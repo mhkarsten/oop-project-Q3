@@ -8,8 +8,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//Currently this client side code is build to work with XML code whereas the server side code can use both XML and JSON.
-//Later this might be changed so everything uses JSON for the sake of simplicity;
+//Currently this client side code is build to work with XML code whereas the server
+//side code can use both XML and JSON.Later this might be changed so everything uses JSON for the sake of simplicity;
 
 public class ClientController {
 
@@ -23,7 +23,7 @@ public class ClientController {
     static final String PASSWORD = "123";
 
     /**
-     * Authenticated get (READ)
+     * Authenticated get (READ).
      */
     public void authGet() {
 

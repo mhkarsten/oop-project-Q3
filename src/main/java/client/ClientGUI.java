@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class ClientGUI extends Application {
 
 
@@ -21,9 +23,7 @@ public class ClientGUI extends Application {
             stage.setScene(scene);
             stage.show();
 
-        } catch (Exception e) {
-
-
+        } catch (IOException e) {
             System.out.println("There was an issue loading the fxml.");
             e.printStackTrace();
         }

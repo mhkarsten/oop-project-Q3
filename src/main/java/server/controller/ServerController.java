@@ -1,12 +1,15 @@
 package server.controller;
 
-import org.springframework.http.MediaType;
-import server.repository.UserDAO;
-import server.model.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import server.model.User;
+import server.repository.UserDAO;
 import server.repository.UserRepository;
 
 import java.util.List;
@@ -33,10 +36,10 @@ public class ServerController {
         return connectString;
     }
 
-     /*
-     * @return A list of all users
+    /**
+     * Gets all users.
+     * @return List of all users
      */
-
     @RequestMapping(value = "/users",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE,
@@ -47,28 +50,29 @@ public class ServerController {
         return userRepository.findAll();
     }
 
-
-    //Get for a specific user (READ)
+    /**
+     * Gets a specific user by userID.
+     * @param userID The userID to look for
+     * @return The user if it exists
+     */
     @RequestMapping(value = "/user/{userID}",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public User getUser(@PathVariable("userID") String userID) {
-        long id=-1;
-        try
-        {
-            id=Long.parseLong(userID);
-        }
-        catch (NumberFormatException ex) {
+        long id = -1;
+        try {
+            id = Long.parseLong(userID);
+        } catch (NumberFormatException ex) {
             return null;
         }
-        Optional<User> optionalUser=userRepository.findById(id);
-        if(optionalUser.isPresent())
-        {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
             return optionalUser.get();
+        } else {
+            return null;
         }
-        else return null;
     }
 
     /**Adds a new user (CREATE).

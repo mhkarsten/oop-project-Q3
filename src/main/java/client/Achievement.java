@@ -18,7 +18,7 @@ public class Achievement {
         this.achID = achID;
         this.title = title;
         this.description = description;
-        this.path=path;
+        this.path = path;
     }
 
     public String getAchID() {

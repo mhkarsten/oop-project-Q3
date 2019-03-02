@@ -1,11 +1,9 @@
 package server.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import server.model.User;
-import server.repository.UserRepository;
 
 @Repository
 public class UserDAO {

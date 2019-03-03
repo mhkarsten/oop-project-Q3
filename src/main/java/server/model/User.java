@@ -21,10 +21,6 @@ public class User {
     private String name;
     private int points;
 
-    public User() {
-
-    }
-
     /**
      * Constructor for the User class.
      * @param id The numeric id of the user

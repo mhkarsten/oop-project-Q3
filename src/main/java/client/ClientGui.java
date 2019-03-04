@@ -17,6 +17,7 @@ public class ClientGui extends Application {
 
         try {
             URL resourceUrl = getClass().getResource("src/main/resources/loginScreen.fxml");
+            
             Parent root = FXMLLoader.load(resourceUrl);
 
             Scene scene = new Scene(root, 600, 400);

@@ -30,6 +30,10 @@ public class UserTest {
         Assertions.assertNotEquals(us1, new User(UsID5, UsName5, 42));
     }
     @Test
+    void equalsTest4() {
+        Assertions.assertNotEquals(us1, null);
+    }
+    @Test
     void getUserID() {
         Assertions.assertEquals(UsID5, us1.getUserID());
     }

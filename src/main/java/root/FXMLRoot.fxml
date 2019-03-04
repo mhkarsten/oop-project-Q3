@@ -13,50 +13,38 @@
         <Button fx:id="button" layoutX="241.0" layoutY="14.0" onAction="#handleButtonAction" text="Sign Out" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="14.0" />
         <VBox id="vb-sidebar" fx:id="vbHospitalSidebar" layoutX="100.0" prefHeight="437.0" prefWidth="100.0" style="-fx-background-color: #2d4f24;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button id="button1" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Score" textFill="WHITE" wrapText="true">
+                <Button id="button1" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Transport" textFill="WHITE" wrapText="true">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
                             <image>
-                                <Image url="@../images/status.png" />
+                                <Image url="@../resources/images/status.png.jpg" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Add Patient" textFill="WHITE">
+                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Energy" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/add-patient.png" />
+                                <Image url="@../resources/images/add-patient.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="99.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Doctors" textFill="WHITE">
+                <Button contentDisplay="TOP" layoutX="10.0" layoutY="99.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Food" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" onMouseReleased="#hideAllSliderMenus" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
                             <image>
-                                <Image url="@../images/doctor.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="188.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Nurses" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="15.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" onMouseReleased="#hideAllSliderMenus" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
-                            <image>
-                                <Image url="@../images/nurse.png" />
+                                <Image url="@../resources/images/doctor.png.jpg" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -66,38 +54,38 @@
         <Label fx:id="label" layoutX="238.0" layoutY="39.0" minHeight="16" minWidth="69" />
         <VBox id="vb-sidebar" fx:id="vbHelpSidebar" layoutX="100.0" prefHeight="437.0" prefWidth="100.0" style="-fx-background-color: #33ff33;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button id="button1" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Food" textFill="WHITE" wrapText="true">
+                <Button id="button1" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Compare!" textFill="WHITE" wrapText="true">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
                             <image>
-                                <Image url="@../images/information.png" />
+                                <Image url="@../resources/images/information.png.jpg" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Transport" textFill="WHITE">
+                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Facebook!" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/emergency.png" />
+                                <Image url="@../resources/images/emergency.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="99.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Energy" textFill="WHITE">
+                <Button contentDisplay="TOP" layoutX="10.0" layoutY="99.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Instagram!" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" onMouseReleased="#hideAllSliderMenus" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
                             <image>
-                                <Image url="@../images/announcement.png" />
+                                <Image url="@../resources/images/announcement.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -113,7 +101,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
                             <image>
-                                <Image url="@../images/home.png" />
+                                <Image url="@../resources/images/home.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -125,7 +113,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/hospital.png" />
+                                <Image url="@../resources/images/hospital.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -137,7 +125,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
                             <image>
-                                <Image url="@../images/help.png" />
+                                <Image url="@../resources/images/help.png" />
                             </image>
                         </ImageView>
                     </graphic>

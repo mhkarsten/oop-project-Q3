@@ -1,0 +1,116 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AuthenticationPoint</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">server.security</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AuthenticationPoint (server.security)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AuthenticationPoint</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package server.security;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.springframework.security.core.AuthenticationException;
+<i>4</i>&nbsp;import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+<i>5</i>&nbsp;import org.springframework.stereotype.Component;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.io.IOException;
+<i>8</i>&nbsp;import java.io.PrintWriter;
+<i>9</i>&nbsp;import javax.servlet.ServletException;
+<i>10</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>11</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;@Component
+<b class="nc"><i>15</i>&nbsp;public class AuthenticationPoint extends BasicAuthenticationEntryPoint {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    @Override
+<i>18</i>&nbsp;    public void commence(HttpServletRequest request, HttpServletResponse response,
+<i>19</i>&nbsp;                         AuthenticationException authEx) throws IOException, ServletException {
+<i>20</i>&nbsp;
+<b class="nc"><i>21</i>&nbsp;        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=&quot; + getRealmName());</b>
+<b class="nc"><i>22</i>&nbsp;        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</b>
+<b class="nc"><i>23</i>&nbsp;        PrintWriter writer = response.getWriter();</b>
+<b class="nc"><i>24</i>&nbsp;        writer.println(&quot;HTTP Status 401 - &quot; + authEx.getMessage());</b>
+<b class="nc"><i>25</i>&nbsp;    }</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Override
+<i>28</i>&nbsp;    public void afterPropertiesSet() throws Exception {
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;        setRealmName(&quot;GoGreenProject&quot;);</b>
+<b class="nc"><i>31</i>&nbsp;        super.afterPropertiesSet();</b>
+<b class="nc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-03-03 10:07</div>
+</div>
+</body>
+</html>

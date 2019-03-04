@@ -1,0 +1,304 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ClientController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">client</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ClientController (client)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ClientController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 80)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package client;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.apache.tomcat.util.codec.binary.Base64;
+<i>4</i>&nbsp;import org.springframework.http.HttpEntity;
+<i>5</i>&nbsp;import org.springframework.http.HttpHeaders;
+<i>6</i>&nbsp;import org.springframework.http.HttpMethod;
+<i>7</i>&nbsp;import org.springframework.http.HttpStatus;
+<i>8</i>&nbsp;import org.springframework.http.MediaType;
+<i>9</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i>10</i>&nbsp;import org.springframework.web.client.RestTemplate;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.nio.charset.Charset;
+<i>13</i>&nbsp;import java.util.ArrayList;
+<i>14</i>&nbsp;import java.util.Arrays;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;//Currently this client side code is build to work with XML code whereas the server
+<i>17</i>&nbsp;//side code can use both XML and JSON. Later this might be changed so everything uses
+<i>18</i>&nbsp;//JSON for the sake of simplicity;
+<i>19</i>&nbsp;
+<b class="nc"><i>20</i>&nbsp;public class ClientController {</b>
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    static final String URL_USERS = &quot;http://localhost:8080/users&quot;;
+<i>23</i>&nbsp;    static final String URL_NEWUSER = &quot;http://localhost:8080/newUser&quot;;
+<i>24</i>&nbsp;    static final String URL_CHOOSEUSER = &quot;http://localhost:8080/user/{userID}&quot;;
+<i>25</i>&nbsp;    static final String URL_ARBUSER = &quot;http://localhost:8080/user&quot;;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    static final String USER_NAME = &quot;tom&quot;;
+<i>29</i>&nbsp;    static final String PASSWORD = &quot;123&quot;;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * Authenticated get (READ).
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    public void authGet() {
+<i>35</i>&nbsp;
+<b class="nc"><i>36</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<i>37</i>&nbsp;
+<b class="nc"><i>38</i>&nbsp;        String auth = USER_NAME + &quot;:&quot; + PASSWORD;</b>
+<b class="nc"><i>39</i>&nbsp;        byte[] encAuth = Base64.encodeBase64(auth.getBytes(Charset.forName(&quot;US-ASCII&quot;)));</b>
+<b class="nc"><i>40</i>&nbsp;        String authHeader = &quot;Basic &quot; + new String(encAuth);</b>
+<i>41</i>&nbsp;
+<b class="nc"><i>42</i>&nbsp;        headers.set(&quot;Authorization&quot;, authHeader);</b>
+<b class="nc"><i>43</i>&nbsp;        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));</b>
+<b class="nc"><i>44</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_JSON);</b>
+<b class="nc"><i>45</i>&nbsp;        headers.set(&quot;my_other_key&quot;, &quot;my_other_value&quot;);</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(headers);</b>
+<b class="nc"><i>48</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<i>49</i>&nbsp;
+<b class="nc"><i>50</i>&nbsp;        ResponseEntity&lt;String&gt; response = restTemplate.exchange(URL_USERS, //</b>
+<i>51</i>&nbsp;            HttpMethod.GET, entity, String.class);
+<i>52</i>&nbsp;
+<b class="nc"><i>53</i>&nbsp;        String result = response.getBody();</b>
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;        System.out.println(result);</b>
+<b class="nc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**Method to return an arraylist of all users.
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @return Return all users from the server
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    public ArrayList&lt;User&gt; getUsers() {
+<i>63</i>&nbsp;
+<b class="nc"><i>64</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<b class="nc"><i>65</i>&nbsp;        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));</b>
+<b class="nc"><i>66</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
+<i>67</i>&nbsp;
+<b class="nc"><i>68</i>&nbsp;        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;User[]&gt;(headers);</b>
+<b class="nc"><i>69</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<i>70</i>&nbsp;
+<b class="nc"><i>71</i>&nbsp;        ResponseEntity&lt;User[]&gt; response = restTemplate.exchange(URL_USERS,</b>
+<i>72</i>&nbsp;                HttpMethod.GET, entity, User[].class);
+<i>73</i>&nbsp;
+<b class="nc"><i>74</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
+<b class="nc"><i>75</i>&nbsp;        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</b>
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;        //If status == 200
+<b class="nc"><i>78</i>&nbsp;        if (statusCode == HttpStatus.OK) {</b>
+<i>79</i>&nbsp;
+<b class="nc"><i>80</i>&nbsp;            User[] list = response.getBody();</b>
+<i>81</i>&nbsp;
+<b class="nc"><i>82</i>&nbsp;            ArrayList&lt;User&gt; userList = new ArrayList&lt;User&gt;();</b>
+<i>83</i>&nbsp;
+<b class="nc"><i>84</i>&nbsp;            if (list != null) {</b>
+<i>85</i>&nbsp;
+<b class="nc"><i>86</i>&nbsp;                for (User u : list) {</b>
+<i>87</i>&nbsp;
+<b class="nc"><i>88</i>&nbsp;                    userList.add(u);</b>
+<i>89</i>&nbsp;                }
+<i>90</i>&nbsp;
+<b class="nc"><i>91</i>&nbsp;                return userList;</b>
+<i>92</i>&nbsp;            }
+<i>93</i>&nbsp;        }
+<i>94</i>&nbsp;
+<b class="nc"><i>95</i>&nbsp;        return null;</b>
+<i>96</i>&nbsp;    }
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    /**Method to return a specified user.
+<i>99</i>&nbsp;     *
+<i>100</i>&nbsp;     * @param userID The userid of the user you try to get
+<i>101</i>&nbsp;     * @return Return a user from the server
+<i>102</i>&nbsp;     */
+<i>103</i>&nbsp;    public User[] getUser(String userID) {
+<i>104</i>&nbsp;
+<b class="nc"><i>105</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<b class="nc"><i>106</i>&nbsp;        headers.set(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
+<b class="nc"><i>107</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
+<i>108</i>&nbsp;
+<b class="nc"><i>109</i>&nbsp;        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;&gt;(headers);</b>
+<b class="nc"><i>110</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<i>111</i>&nbsp;
+<b class="nc"><i>112</i>&nbsp;        Object[] uriValue = new Object[] {userID};</b>
+<i>113</i>&nbsp;
+<b class="nc"><i>114</i>&nbsp;        ResponseEntity&lt;User[]&gt; response = restTemplate.exchange(URL_CHOOSEUSER,</b>
+<i>115</i>&nbsp;            HttpMethod.GET, entity, User[].class, uriValue);
+<i>116</i>&nbsp;
+<b class="nc"><i>117</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
+<b class="nc"><i>118</i>&nbsp;        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</b>
+<i>119</i>&nbsp;
+<b class="nc"><i>120</i>&nbsp;        if (statusCode == HttpStatus.OK) {</b>
+<i>121</i>&nbsp;
+<b class="nc"><i>122</i>&nbsp;            User[] specificUser = response.getBody();</b>
+<i>123</i>&nbsp;
+<b class="nc"><i>124</i>&nbsp;            if ( specificUser != null) {</b>
+<i>125</i>&nbsp;
+<b class="nc"><i>126</i>&nbsp;                return specificUser;</b>
+<i>127</i>&nbsp;            } else {
+<i>128</i>&nbsp;
+<b class="nc"><i>129</i>&nbsp;                System.out.println(&quot;(Client Side) The spesified user was null or doesnt exist.&quot;);</b>
+<i>130</i>&nbsp;            }
+<i>131</i>&nbsp;        }
+<i>132</i>&nbsp;
+<b class="nc"><i>133</i>&nbsp;        return null;</b>
+<i>134</i>&nbsp;    }
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;    /**Method to post a new user (CREATE).
+<i>137</i>&nbsp;     *
+<i>138</i>&nbsp;     * @param userName New Username
+<i>139</i>&nbsp;     * @param userID New UserID
+<i>140</i>&nbsp;     */
+<i>141</i>&nbsp;    public void postUser(String userName, String userID) {
+<i>142</i>&nbsp;
+<b class="nc"><i>143</i>&nbsp;        User newUser = new User(userID, userName, 0);</b>
+<i>144</i>&nbsp;
+<b class="nc"><i>145</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<b class="nc"><i>146</i>&nbsp;        headers.add(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
+<b class="nc"><i>147</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
+<i>148</i>&nbsp;
+<b class="nc"><i>149</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<b class="nc"><i>150</i>&nbsp;        HttpEntity&lt;User&gt; requestBody = new HttpEntity&lt;&gt;(newUser, headers);</b>
+<i>151</i>&nbsp;
+<b class="nc"><i>152</i>&nbsp;        User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);</b>
+<i>153</i>&nbsp;
+<b class="nc"><i>154</i>&nbsp;        if (user != null &amp;&amp; user.getUserID() != null) {</b>
+<i>155</i>&nbsp;
+<b class="nc"><i>156</i>&nbsp;            System.out.println(&quot;(Client Side) New user created&quot; + user.getUserID());</b>
+<i>157</i>&nbsp;        } else {
+<i>158</i>&nbsp;
+<b class="nc"><i>159</i>&nbsp;            System.out.println(&quot;(Client Side) Something went wrong.&quot;);</b>
+<i>160</i>&nbsp;        }
+<b class="nc"><i>161</i>&nbsp;    }</b>
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;    /**Method to update a users information.
+<i>164</i>&nbsp;     * Update user information (UPDATE)
+<i>165</i>&nbsp;     */
+<i>166</i>&nbsp;    public void updateUser(String userID, String userName, int points) {
+<i>167</i>&nbsp;
+<b class="nc"><i>168</i>&nbsp;        User updatedUser = new User(userID, userName, points);</b>
+<i>169</i>&nbsp;
+<b class="nc"><i>170</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<b class="nc"><i>171</i>&nbsp;        headers.add(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
+<i>172</i>&nbsp;
+<b class="nc"><i>173</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<b class="nc"><i>174</i>&nbsp;        HttpEntity&lt;User&gt; requestBody = new HttpEntity&lt;&gt;(updatedUser, headers);</b>
+<i>175</i>&nbsp;
+<i>176</i>&nbsp;
+<b class="nc"><i>177</i>&nbsp;        restTemplate.put(URL_ARBUSER, requestBody, new Object[]{});</b>
+<i>178</i>&nbsp;
+<b class="nc"><i>179</i>&nbsp;        String updatedUserUrl = URL_ARBUSER + &quot;/&quot; + userID;</b>
+<i>180</i>&nbsp;
+<b class="nc"><i>181</i>&nbsp;        User user = restTemplate.getForObject(updatedUserUrl, User.class);</b>
+<i>182</i>&nbsp;
+<b class="nc"><i>183</i>&nbsp;        if (user != null) {</b>
+<i>184</i>&nbsp;
+<b class="nc"><i>185</i>&nbsp;            System.out.println(</b>
+<i>186</i>&nbsp;                    &quot;(Client Side) User after info update.&quot;
+<b class="nc"><i>187</i>&nbsp;                    + user.getUserName()</b>
+<b class="nc"><i>188</i>&nbsp;                    + user.getUserID()</b>
+<b class="nc"><i>189</i>&nbsp;                    + user.getUserPoints()</b>
+<i>190</i>&nbsp;            );
+<i>191</i>&nbsp;        } else {
+<i>192</i>&nbsp;
+<b class="nc"><i>193</i>&nbsp;            System.out.println(&quot;(Client Side) Something went wrong, the user doesnt exits&quot;);</b>
+<i>194</i>&nbsp;        }
+<b class="nc"><i>195</i>&nbsp;    }</b>
+<i>196</i>&nbsp;
+<i>197</i>&nbsp;    /**Method to delete an existing user (DELETE).
+<i>198</i>&nbsp;     *
+<i>199</i>&nbsp;     * @param userID UserID of the user to delete
+<i>200</i>&nbsp;     */
+<i>201</i>&nbsp;    public void deleteUser(String userID) {
+<i>202</i>&nbsp;
+<b class="nc"><i>203</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<i>204</i>&nbsp;
+<b class="nc"><i>205</i>&nbsp;        Object[] uriValue = new Object[] {userID};</b>
+<i>206</i>&nbsp;
+<b class="nc"><i>207</i>&nbsp;        restTemplate.delete(URL_CHOOSEUSER, uriValue);</b>
+<i>208</i>&nbsp;
+<b class="nc"><i>209</i>&nbsp;        User user = restTemplate.getForObject(URL_ARBUSER, User.class);</b>
+<i>210</i>&nbsp;
+<b class="nc"><i>211</i>&nbsp;        if (user != null) {</b>
+<i>212</i>&nbsp;
+<b class="nc"><i>213</i>&nbsp;            System.out.println(&quot;(Client Side) User &quot; + user.getUserName() + &quot; has been deleted.&quot;);</b>
+<i>214</i>&nbsp;        } else {
+<i>215</i>&nbsp;
+<b class="nc"><i>216</i>&nbsp;            System.out.println(&quot;(Client Side) The selected client cannot be found&quot;</b>
+<i>217</i>&nbsp;                    + &quot; or does not exist.&quot;);
+<i>218</i>&nbsp;        }
+<b class="nc"><i>219</i>&nbsp;    }</b>
+<i>220</i>&nbsp;
+<i>221</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-03-02 18:44</div>
+</div>
+</body>
+</html>

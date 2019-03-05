@@ -41,7 +41,7 @@ public class ServerController {
      * @return List of all users
      */
     @RequestMapping(value = "/users",
-            method = RequestMethod.GET,
+            method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
@@ -56,7 +56,7 @@ public class ServerController {
      * @return The user if it exists
      */
     @RequestMapping(value = "/user/{userID}",
-            method = RequestMethod.GET,
+            method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody

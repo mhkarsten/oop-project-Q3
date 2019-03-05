@@ -34,6 +34,13 @@ public class ClientRequestTest {
         entity = new HttpEntity<>(headers);
     }
     @Test
+    public void testConnection()
+    {
+        Assertions.assertEquals(this.restTemplate.postForObject("http://localhost:" + port + "/", entity,String.class
+                ),"You are connected"
+        );
+    }
+    @Test
     public void retrieveAllUsersSelectSecond() {
         Assertions.assertTrue(this.restTemplate.postForObject("http://localhost:" + port + "/users", entity,User[].class
                 )[1].getUserName().equals("Jim")
@@ -43,6 +50,18 @@ public class ClientRequestTest {
     public void retrieveUserOne() {
         Assertions.assertTrue(this.restTemplate.postForObject("http://localhost:" + port + "/user/1", entity,User.class
                 ).getUserName().equals("Alex")
+        );
+    }
+    @Test
+    public void retrieveUserOneString() {
+        Assertions.assertNull(this.restTemplate.postForObject("http://localhost:" + port + "/user/us1", entity,User.class
+                )
+        );
+    }
+    @Test
+    public void retrieveUserMinusOne() {
+        Assertions.assertNull(this.restTemplate.postForObject("http://localhost:" + port + "/user/-1", entity,User.class
+                )
         );
     }
     /*

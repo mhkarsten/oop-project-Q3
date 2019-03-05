@@ -15,6 +15,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
@@ -40,6 +41,23 @@ public class ClientRequestTest {
         headers.set("Authorization", "Basic " + new String(encAuth));
         entity = new HttpEntity<>(headers);
         domain="http://localhost:" + port;
+    }
+    @Test
+    public void connectNoBasicAuth()
+    {
+        boolean connectionSuccess=false;
+        try
+        {
+            HttpHeaders noPwdHeaders=new HttpHeaders();
+            noPwdHeaders.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+            noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
+            this.restTemplate.postForObject(domain+"/", new HttpEntity<>(noPwdHeaders),String.class);
+            connectionSuccess=true;
+        }
+        catch (ResourceAccessException excp)
+        {
+        }
+        Assertions.assertFalse(connectionSuccess);
     }
     @Test
     public void testConnection()

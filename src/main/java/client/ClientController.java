@@ -69,7 +69,7 @@ public class ClientController {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<User[]> response = restTemplate.exchange(URL_USERS,
-                HttpMethod.GET, entity, User[].class);
+                HttpMethod.POST, entity, User[].class);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
@@ -112,7 +112,7 @@ public class ClientController {
         Object[] uriValue = new Object[] {userID};
 
         ResponseEntity<User[]> response = restTemplate.exchange(URL_CHOOSEUSER,
-            HttpMethod.GET, entity, User[].class, uriValue);
+            HttpMethod.POST, entity, User[].class, uriValue);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);

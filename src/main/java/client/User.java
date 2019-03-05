@@ -2,9 +2,9 @@ package client;
 
 //TODO: Find a way to have client and server use the same User class
 public class User {
-    public String userID;
-    public String userName;
-    public int userPoints;
+    private String userID;
+    private String userName;
+    private int userPoints;
 
     public User() {
 

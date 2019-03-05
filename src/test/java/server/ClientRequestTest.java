@@ -82,35 +82,22 @@ public class ClientRequestTest {
         //It really said "US Navy", but hey
         User user =  new User(4,"Usnavi",1000);
         entity = new HttpEntity<>(user,headers);
+
         //READ
         User returnedUser=restTemplate.postForObject(domain+"/newUser", entity,User.class);
         Assertions.assertEquals(user.getName(), returnedUser.getName());
+
         //UPDATE
         returnedUser.setName("Lin-Manuel");
         entity = new HttpEntity<>(returnedUser,headers);
         restTemplate.put(domain+"/userUpdate/",entity);
         User updatedUser=restTemplate.postForObject(domain+"/user/"+returnedUser.getID(), entity,User.class);
-        try{
-            ObjectMapper mapper=new ObjectMapper();
-            System.out.println("The created user: "+mapper.writeValueAsString(returnedUser));
-            System.out.println("The updated user: "+mapper.writeValueAsString(updatedUser));
-        } catch (JsonProcessingException exp)
-        {
-        }
         Assertions.assertEquals(updatedUser,returnedUser);
+
         //DELETE
         ResponseEntity<String> response = restTemplate.exchange(domain+"/user/"+returnedUser.getID(), HttpMethod.DELETE, entity, String.class);
         System.out.println("Response from DELETE: "+response.getBody());
         User returnedUser2=restTemplate.postForObject(domain+"/user/"+returnedUser.getID(), entity,User.class);
-        try{
-            ObjectMapper mapper=new ObjectMapper();
-            System.out.println("Our user: "+mapper.writeValueAsString(user));
-            System.out.println("The created user: "+mapper.writeValueAsString(returnedUser));
-            System.out.println("The updated user: "+mapper.writeValueAsString(updatedUser));
-            System.out.println("This user should be null: "+mapper.writeValueAsString(returnedUser2));
-        } catch (JsonProcessingException exp)
-        {
-        }
         Assertions.assertNull(returnedUser2);
     }
 }

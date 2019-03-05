@@ -2,11 +2,18 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import server.model.User;
 import server.repository.UserRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +26,7 @@ public class ServerController {
      *
      * @return Message stating you are connected
      */
+
     @RequestMapping("/")
     @ResponseBody
     public String connect() {
@@ -41,8 +49,12 @@ public class ServerController {
         return userRepository.findAll();
     }
 
-    public User parseUserID(String userID)
-    {
+    /**
+     * Helper function that returns a user if it exists or null if either the string is not an id or it does not exist.
+     * @param userID the userid to check and retrieve
+     * @return returns an existing user or null if the userID was invalid in any way
+     */
+    public User parseUserID(String userID) {
         long id = -1;
         try {
             id = Long.parseLong(userID);
@@ -56,6 +68,7 @@ public class ServerController {
             return null;
         }
     }
+
     /**
      * Gets a specific user by userID.
      * @param userID The userID to look for
@@ -94,13 +107,14 @@ public class ServerController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public User updateUser(@RequestBody User usr) {
-        if(userRepository.findById(usr.getID()).isPresent())
-        {
+        if (userRepository.findById(usr.getID()).isPresent()) {
             System.out.println("Updating a user.");
             return userRepository.save(usr);
+        } else {
+            return null;
         }
-        else return null;
     }
+
     /**Deletes an existing user (DELETE).
      *
      * @param userID Parameter for the userID of the user that has to be deleted
@@ -109,13 +123,12 @@ public class ServerController {
     @ResponseBody
     public String deleteUser(@PathVariable("userID") String userID) {
         System.out.println("Deleting user" + userID);
-        User user=parseUserID(userID);
-        if(user!=null)
-        {
+        User user = parseUserID(userID);
+        if (user != null) {
             userRepository.deleteById(user.getID());
-            return "Deleted user "+userID;
+            return "Deleted user " + userID;
         }
-        return "Could not delete user "+userID;
+        return "Could not delete user " + userID;
     }
     //Get for CO2
 

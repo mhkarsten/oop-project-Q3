@@ -1,7 +1,11 @@
 package server.model;
 
 import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -11,7 +15,7 @@ public class User {
     @SequenceGenerator(
             name = "user_generator",
             sequenceName = "user_sequence",
-            allocationSize=1
+            allocationSize = 1
     )
     private long id;
     private String name;

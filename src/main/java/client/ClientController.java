@@ -138,7 +138,7 @@ public class ClientController {
      * @param userName New Username
      * @param userID New UserID
      */
-    public void postUser(String userName, String userID) {
+    public void postUser(long userID,String userName) {
 
         User newUser = new User(userID, userName, 0);
 
@@ -151,9 +151,9 @@ public class ClientController {
 
         User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);
 
-        if (user != null && user.getUserID() != null) {
+        if (user != null && user.getID() != 0) {
 
-            System.out.println("(Client Side) New user created" + user.getUserID());
+            System.out.println("(Client Side) New user created" + user.getID());
         } else {
 
             System.out.println("(Client Side) Something went wrong.");
@@ -163,7 +163,7 @@ public class ClientController {
     /**Method to update a users information.
      * Update user information (UPDATE)
      */
-    public void updateUser(String userID, String userName, int points) {
+    public void updateUser(long userID, String userName, int points) {
 
         User updatedUser = new User(userID, userName, points);
 
@@ -184,9 +184,9 @@ public class ClientController {
 
             System.out.println(
                     "(Client Side) User after info update."
-                    + user.getUserName()
-                    + user.getUserID()
-                    + user.getUserPoints()
+                    + user.getName()
+                    + user.getID()
+                    + user.getPoints()
             );
         } else {
 
@@ -210,7 +210,7 @@ public class ClientController {
 
         if (user != null) {
 
-            System.out.println("(Client Side) User " + user.getUserName() + " has been deleted.");
+            System.out.println("(Client Side) User " + user.getName() + " has been deleted.");
         } else {
 
             System.out.println("(Client Side) The selected client cannot be found"

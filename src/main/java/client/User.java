@@ -1,10 +1,12 @@
 package client;
 
+import java.util.Objects;
+
 //TODO: Find a way to have client and server use the same User class
 public class User {
-    private String userID;
-    private String userName;
-    private int userPoints;
+    private long id;
+    private String name;
+    private int points;
 
     public User() {
 
@@ -16,34 +18,44 @@ public class User {
      * @param usrName A username
      * @param usrPoints Amount of point associated with the user
      */
-    public User(String usrID, String usrName, int usrPoints) {
+    public User(long usrID, String usrName, int usrPoints) {
 
-        this.userID = usrID;
-        this.userName = usrName;
-        this.userPoints = usrPoints;
+        this.id = usrID;
+        this.name = usrName;
+        this.points = usrPoints;
     }
 
-    public String getUserID() {
-        return userID;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                points == user.points &&
+                Objects.equals(name, user.name);
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public long getID() {
+        return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setID(long userID) {
+        this.id = userID;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.name = userName;
     }
 
-    public int getUserPoints() {
-        return userPoints;
+    public int getPoints() {
+        return points;
     }
 
-    public void setUserPoints(int userPoints) {
-        this.userPoints = userPoints;
+    public void setPoints(int userPoints) {
+        this.points = userPoints;
     }
 }

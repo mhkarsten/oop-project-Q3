@@ -47,7 +47,7 @@ public class User {
         return name;
     }
 
-    public void setUserName(String userName) {
+    public void setName(String userName) {
         this.name = userName;
     }
 

@@ -94,9 +94,12 @@ public class ServerController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public User updateUser(@RequestBody User usr) {
-
-        System.out.println("Updating a user.");
-        return userRepository.save(usr);
+        if(userRepository.findById(usr.getID()).isPresent())
+        {
+            System.out.println("Updating a user.");
+            return userRepository.save(usr);
+        }
+        else return null;
     }
     /**Deletes an existing user (DELETE).
      *
@@ -113,12 +116,6 @@ public class ServerController {
             return "Deleted user "+userID;
         }
         return "Could not delete user "+userID;
-    }
-    @DeleteMapping(value = "/user/")
-    @ResponseBody
-    public void deleteUsers() {
-        System.out.println("Deleting all users");
-        userRepository.deleteAll();
     }
     //Get for CO2
 

@@ -212,7 +212,7 @@
 <i>138</i>&nbsp;     * @param userName New Username
 <i>139</i>&nbsp;     * @param userID New UserID
 <i>140</i>&nbsp;     */
-<i>141</i>&nbsp;    public void postUser(String userName, String userID) {
+<i>141</i>&nbsp;    public void postUser(long userID,String userName) {
 <i>142</i>&nbsp;
 <b class="nc"><i>143</i>&nbsp;        User newUser = new User(userID, userName, 0);</b>
 <i>144</i>&nbsp;
@@ -225,9 +225,9 @@
 <i>151</i>&nbsp;
 <b class="nc"><i>152</i>&nbsp;        User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);</b>
 <i>153</i>&nbsp;
-<b class="nc"><i>154</i>&nbsp;        if (user != null &amp;&amp; user.getUserID() != null) {</b>
+<b class="nc"><i>154</i>&nbsp;        if (user != null &amp;&amp; user.getID() != 0) {</b>
 <i>155</i>&nbsp;
-<b class="nc"><i>156</i>&nbsp;            System.out.println(&quot;(Client Side) New user created&quot; + user.getUserID());</b>
+<b class="nc"><i>156</i>&nbsp;            System.out.println(&quot;(Client Side) New user created&quot; + user.getID());</b>
 <i>157</i>&nbsp;        } else {
 <i>158</i>&nbsp;
 <b class="nc"><i>159</i>&nbsp;            System.out.println(&quot;(Client Side) Something went wrong.&quot;);</b>
@@ -237,7 +237,7 @@
 <i>163</i>&nbsp;    /**Method to update a users information.
 <i>164</i>&nbsp;     * Update user information (UPDATE)
 <i>165</i>&nbsp;     */
-<i>166</i>&nbsp;    public void updateUser(String userID, String userName, int points) {
+<i>166</i>&nbsp;    public void updateUser(long userID, String userName, int points) {
 <i>167</i>&nbsp;
 <b class="nc"><i>168</i>&nbsp;        User updatedUser = new User(userID, userName, points);</b>
 <i>169</i>&nbsp;
@@ -258,9 +258,9 @@
 <i>184</i>&nbsp;
 <b class="nc"><i>185</i>&nbsp;            System.out.println(</b>
 <i>186</i>&nbsp;                    &quot;(Client Side) User after info update.&quot;
-<b class="nc"><i>187</i>&nbsp;                    + user.getUserName()</b>
-<b class="nc"><i>188</i>&nbsp;                    + user.getUserID()</b>
-<b class="nc"><i>189</i>&nbsp;                    + user.getUserPoints()</b>
+<b class="nc"><i>187</i>&nbsp;                    + user.getName()</b>
+<b class="nc"><i>188</i>&nbsp;                    + user.getID()</b>
+<b class="nc"><i>189</i>&nbsp;                    + user.getPoints()</b>
 <i>190</i>&nbsp;            );
 <i>191</i>&nbsp;        } else {
 <i>192</i>&nbsp;
@@ -284,7 +284,7 @@
 <i>210</i>&nbsp;
 <b class="nc"><i>211</i>&nbsp;        if (user != null) {</b>
 <i>212</i>&nbsp;
-<b class="nc"><i>213</i>&nbsp;            System.out.println(&quot;(Client Side) User &quot; + user.getUserName() + &quot; has been deleted.&quot;);</b>
+<b class="nc"><i>213</i>&nbsp;            System.out.println(&quot;(Client Side) User &quot; + user.getName() + &quot; has been deleted.&quot;);</b>
 <i>214</i>&nbsp;        } else {
 <i>215</i>&nbsp;
 <b class="nc"><i>216</i>&nbsp;            System.out.println(&quot;(Client Side) The selected client cannot be found&quot;</b>
@@ -298,7 +298,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2019-03-05 10:54</div>
+    <div style="float:right;">generated on 2019-03-05 14:58</div>
 </div>
 </body>
 </html>

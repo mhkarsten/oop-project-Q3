@@ -1,11 +1,7 @@
 package server;
 
 import client.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.net.httpserver.Headers;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +13,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -65,14 +60,13 @@ public class ClientRequestTest {
 
     @Test
     public void retrieveAllUsersSelectSecond() {
-        Assertions.assertTrue(this.restTemplate.postForObject(domain + "/users", entity, User[].class)[1].getName().equals("Jim"));
+        Assertions.assertEquals("Jim", this.restTemplate.postForObject(domain + "/users", entity, User[].class)[1].getName());
     }
 
     @Test
     public void retrieveUserOne() {
-        Assertions.assertTrue(this.restTemplate.postForObject(domain + "/user/1", entity, User.class
-                ).getName().equals("Alex")
-        );
+        Assertions.assertEquals("Alex", this.restTemplate.postForObject(domain + "/user/1", entity, User.class
+        ).getName());
     }
 
     @Test

@@ -40,7 +40,7 @@ public class ClientController {
         String authHeader = "Basic " + new String(encAuth);
 
         headers.set("Authorization", authHeader);
-        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("my_other_key", "my_other_value");
 
@@ -62,10 +62,10 @@ public class ClientController {
     public ArrayList<User> getUsers() {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
         headers.setContentType(MediaType.APPLICATION_XML);
 
-        HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
+        HttpEntity<User[]> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<User[]> response = restTemplate.exchange(URL_USERS,
@@ -79,14 +79,11 @@ public class ClientController {
 
             User[] list = response.getBody();
 
-            ArrayList<User> userList = new ArrayList<User>();
+            ArrayList<User> userList = new ArrayList<>();
 
             if (list != null) {
 
-                for (User u : list) {
-
-                    userList.add(u);
-                }
+                userList.addAll(Arrays.asList(list));
 
                 return userList;
             }
@@ -174,7 +171,7 @@ public class ClientController {
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
 
 
-        restTemplate.put(URL_ARBUSER, requestBody, new Object[]{});
+        restTemplate.put(URL_ARBUSER, requestBody);
 
         String updatedUserUrl = URL_ARBUSER + "/" + userID;
 

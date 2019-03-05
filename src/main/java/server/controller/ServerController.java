@@ -30,9 +30,7 @@ public class ServerController {
     @RequestMapping("/")
     @ResponseBody
     public String connect() {
-
-        String connectString = "You are connected";
-        return connectString;
+        return "You are connected";
     }
 
     /**
@@ -55,7 +53,7 @@ public class ServerController {
      * @return returns an existing user or null if the userID was invalid in any way
      */
     public User parseUserID(String userID) {
-        long id = -1;
+        long id;
         try {
             id = Long.parseLong(userID);
         } catch (NumberFormatException ex) {

@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 public class AchievementMap {
-    private static final Map<String, Achievement> AchMap = new HashMap<String, Achievement>();
+    private static final Map<String, Achievement> AchMap = new HashMap<>();
 
     // TODO: Make that path dynamic instead of fixed to Dan Dan's Onedrive
     private static void initAchievements() {

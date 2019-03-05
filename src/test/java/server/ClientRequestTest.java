@@ -1,4 +1,5 @@
 package server;
+
 import client.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +23,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClientRequestTest {
     @LocalServerPort
     private int port;
@@ -31,91 +32,95 @@ public class ClientRequestTest {
     HttpHeaders headers;
     HttpEntity<User> entity;
     String domain;
+
     @Before
-    public void setup()
-    {
-        headers=new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+    public void setup() {
+        headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
         headers.setContentType(MediaType.APPLICATION_JSON);
         byte[] encAuth = Base64.encodeBase64("tom:123".getBytes(Charset.forName("US-ASCII")));
         headers.set("Authorization", "Basic " + new String(encAuth));
         entity = new HttpEntity<>(headers);
-        domain="http://localhost:" + port;
+        domain = "http://localhost:" + port;
     }
+
     @Test
-    public void connectNoBasicAuth()
-    {
-        boolean connectionSuccess=false;
-        try
-        {
-            HttpHeaders noPwdHeaders=new HttpHeaders();
-            noPwdHeaders.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+    public void connectNoBasicAuth() {
+        boolean connectionSuccess = false;
+        try {
+            HttpHeaders noPwdHeaders = new HttpHeaders();
+            noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
             noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
-            this.restTemplate.postForObject(domain+"/", new HttpEntity<>(noPwdHeaders),String.class);
-            connectionSuccess=true;
-        }
-        catch (ResourceAccessException excp)
-        {
+            this.restTemplate.postForObject(domain + "/", new HttpEntity<>(noPwdHeaders), String.class);
+            connectionSuccess = true;
+        } catch (ResourceAccessException excp) {
         }
         Assertions.assertFalse(connectionSuccess);
     }
+
     @Test
-    public void testConnection()
-    {
-        Assertions.assertEquals(this.restTemplate.postForObject(domain+"/", entity,String.class),"You are connected");
+    public void testConnection() {
+        Assertions.assertEquals(this.restTemplate.postForObject(domain + "/", entity, String.class), "You are connected");
     }
+
     @Test
     public void retrieveAllUsersSelectSecond() {
-        Assertions.assertTrue(this.restTemplate.postForObject(domain+"/users", entity,User[].class)[1].getName().equals("Jim"));
+        Assertions.assertTrue(this.restTemplate.postForObject(domain + "/users", entity, User[].class)[1].getName().equals("Jim"));
     }
+
     @Test
     public void retrieveUserOne() {
-        Assertions.assertTrue(this.restTemplate.postForObject(domain+"/user/1", entity,User.class
+        Assertions.assertTrue(this.restTemplate.postForObject(domain + "/user/1", entity, User.class
                 ).getName().equals("Alex")
         );
     }
+
     @Test
     public void retrieveUserOneWrong() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain+"/user/us1", entity,User.class));
+        Assertions.assertNull(this.restTemplate.postForObject(domain + "/user/us1", entity, User.class));
     }
+
     @Test
     public void retrieveUserMinusOne() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain+"/user/-1", entity,User.class));
+        Assertions.assertNull(this.restTemplate.postForObject(domain + "/user/-1", entity, User.class));
     }
+
     @Test
     public void updateUserMinusOne() {
-        User doesNotExist= new User(-1, "Unicorn",420);
-        entity = new HttpEntity<>(doesNotExist,headers);
-        restTemplate.put(domain+"/userUpdate/",entity);
-        Assertions.assertNull(restTemplate.postForObject(domain+"/user/"+doesNotExist.getID(), entity,User.class));
+        User doesNotExist = new User(-1, "Unicorn", 420);
+        entity = new HttpEntity<>(doesNotExist, headers);
+        restTemplate.put(domain + "/userUpdate/", entity);
+        Assertions.assertNull(restTemplate.postForObject(domain + "/user/" + doesNotExist.getID(), entity, User.class));
     }
+
     @Test
     public void deleteUserMinusOne() {
-        ResponseEntity<String> response = restTemplate.exchange(domain+"/user/-1", HttpMethod.DELETE, entity, String.class);
-        Assertions.assertEquals(response.getBody(),"Could not delete user -1");
+        ResponseEntity<String> response = restTemplate.exchange(domain + "/user/-1", HttpMethod.DELETE, entity, String.class);
+        Assertions.assertEquals(response.getBody(), "Could not delete user -1");
     }
+
     @Test
     public void fullCrudTest() {
         //CREATE
         //It really said "US Navy", but hey
-        User user =  new User(4,"Usnavi",1000);
-        entity = new HttpEntity<>(user,headers);
+        User user = new User(4, "Usnavi", 1000);
+        entity = new HttpEntity<>(user, headers);
 
         //READ
-        User returnedUser=restTemplate.postForObject(domain+"/newUser", entity,User.class);
+        User returnedUser = restTemplate.postForObject(domain + "/newUser", entity, User.class);
         Assertions.assertEquals(user.getName(), returnedUser.getName());
 
         //UPDATE
         returnedUser.setName("Lin-Manuel");
-        entity = new HttpEntity<>(returnedUser,headers);
-        restTemplate.put(domain+"/userUpdate/",entity);
-        User updatedUser=restTemplate.postForObject(domain+"/user/"+returnedUser.getID(), entity,User.class);
-        Assertions.assertEquals(updatedUser,returnedUser);
+        entity = new HttpEntity<>(returnedUser, headers);
+        restTemplate.put(domain + "/userUpdate/", entity);
+        User updatedUser = restTemplate.postForObject(domain + "/user/" + returnedUser.getID(), entity, User.class);
+        Assertions.assertEquals(updatedUser, returnedUser);
 
         //DELETE
-        ResponseEntity<String> response = restTemplate.exchange(domain+"/user/"+returnedUser.getID(), HttpMethod.DELETE, entity, String.class);
-        System.out.println("Response from DELETE: "+response.getBody());
-        User returnedUser2=restTemplate.postForObject(domain+"/user/"+returnedUser.getID(), entity,User.class);
+        ResponseEntity<String> response = restTemplate.exchange(domain + "/user/" + returnedUser.getID(), HttpMethod.DELETE, entity, String.class);
+        System.out.println("Response from DELETE: " + response.getBody());
+        User returnedUser2 = restTemplate.postForObject(domain + "/user/" + returnedUser.getID(), entity, User.class);
         Assertions.assertNull(returnedUser2);
     }
 }

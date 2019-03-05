@@ -12,6 +12,9 @@ https://junit.org/junit5/docs/current/user-guide/#writing-tests-display-name-gen
 https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/web/client/TestRestTemplate.html
 https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html
 
+### Client testing
+https://www.baeldung.com/restclienttest-in-spring-boot
+
 ### Auxiliary
 https://www.baeldung.com/how-to-use-resttemplate-with-basic-authentication-in-spring
 https://stackoverflow.com/questions/19238715/how-to-set-an-accept-header-on-spring-resttemplate-request

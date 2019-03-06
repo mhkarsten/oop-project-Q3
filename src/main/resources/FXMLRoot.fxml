@@ -66,7 +66,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Facebook!" textFill="WHITE">
+                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="My score!" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -78,7 +78,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="99.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Instagram!" textFill="WHITE">
+                <Button contentDisplay="TOP" layoutX="10.0" layoutY="99.0" mnemonicParsing="false" onMouseReleased="#hideAllSliderMenus" prefHeight="89.0" prefWidth="100.0" styleClass="slider-button" text="Achievement" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -132,6 +132,5 @@
                 </Button>
             </children>
         </VBox>
-        <Label fx:id="lblLink" alignment="TOP_RIGHT" contentDisplay="TOP" layoutX="207.0" layoutY="99.0" minHeight="16" minWidth="69" prefHeight="153.0" prefWidth="100.0" wrapText="true" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="99.0" />
     </children>
 </AnchorPane>

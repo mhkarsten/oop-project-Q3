@@ -39,18 +39,52 @@ public class ClientRequestTest {
         domain = "http://localhost:" + port;
     }
 
-    @Test
-    public void connectNoBasicAuth() {
+    public boolean tryToConnect(HttpHeaders h) {
         boolean connectionSuccess = false;
         try {
-            HttpHeaders noPwdHeaders = new HttpHeaders();
-            noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
-            noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
-            this.restTemplate.postForObject(domain + "/", new HttpEntity<>(noPwdHeaders), String.class);
+            this.restTemplate.postForObject(domain + "/", new HttpEntity<>(h), String.class);
             connectionSuccess = true;
         } catch (ResourceAccessException excp) {
         }
-        Assertions.assertFalse(connectionSuccess);
+        return connectionSuccess;
+    }
+
+    @Test
+    public void connectNoAuthHeaders() {
+        HttpHeaders noPwdHeaders = new HttpHeaders();
+        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
+        Assertions.assertFalse(tryToConnect(noPwdHeaders));
+    }
+
+    @Test
+    public void connectAllWrong() {
+        HttpHeaders noPwdHeaders = new HttpHeaders();
+        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
+        byte[] encAuth = Base64.encodeBase64("gandalf:mellon".getBytes(Charset.forName("US-ASCII")));
+        noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
+        Assertions.assertFalse(tryToConnect(noPwdHeaders));
+    }
+
+    @Test
+    public void connectWrongUser() {
+        HttpHeaders noPwdHeaders = new HttpHeaders();
+        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
+        byte[] encAuth = Base64.encodeBase64("gandalf:123".getBytes(Charset.forName("US-ASCII")));
+        noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
+        Assertions.assertFalse(tryToConnect(noPwdHeaders));
+    }
+
+    @Test
+    public void connectWrongPassword() {
+        HttpHeaders noPwdHeaders = new HttpHeaders();
+        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
+        byte[] encAuth = Base64.encodeBase64("tom:mellon".getBytes(Charset.forName("US-ASCII")));
+        noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
+        Assertions.assertFalse(tryToConnect(noPwdHeaders));
     }
 
     @Test

@@ -30,6 +30,10 @@ class AchievementTest {
         Assertions.assertNotEquals(ach1, new Achievement(ID1, "Mother Nature's disciple", descrip1, path1));
     }
     @Test
+    void equalsTest4() {
+        Assertions.assertNotEquals(ach1, null);
+    }
+    @Test
     void getAchID() {
         Assertions.assertEquals(ID1, ach1.getAchID());
     }

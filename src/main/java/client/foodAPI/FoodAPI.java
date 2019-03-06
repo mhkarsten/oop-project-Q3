@@ -1,4 +1,4 @@
-package client;
+package client.foodAPI;
 
 import org.json.simple.JSONObject;
 import org.springframework.http.*;

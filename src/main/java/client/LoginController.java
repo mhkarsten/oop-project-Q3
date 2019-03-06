@@ -33,7 +33,7 @@ public class LoginController {
             loginStatus.setText("Status: You have logged in!");
 
             Stage mainStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/mainScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXMLRoot.fxml"));
 
             Scene scene = new Scene(root, 600, 400);
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="root-anchorpane" fx:id="pnlRoot" onMouseReleased="#hideAllSliderMenus" prefHeight="437.0" prefWidth="320" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="root.FXMLRootController">
+<AnchorPane id="root-anchorpane" fx:id="pnlRoot" onMouseReleased="#hideAllSliderMenus" prefHeight="437.0" prefWidth="320" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLRootController">
     <children>
         <Button fx:id="button" layoutX="241.0" layoutY="14.0" onAction="#handleButtonAction" text="Sign Out" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="14.0" />
         <VBox id="vb-sidebar" fx:id="vbHospitalSidebar" layoutX="100.0" prefHeight="437.0" prefWidth="100.0" style="-fx-background-color: #2d4f24;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">

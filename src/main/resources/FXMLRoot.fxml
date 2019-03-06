@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="root-anchorpane" fx:id="pnlRoot" onMouseReleased="#hideAllSliderMenus" prefHeight="506.0" prefWidth="607.0" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLRootController">
+<AnchorPane id="root-anchorpane" fx:id="pnlRoot" onMouseReleased="#hideAllSliderMenus" prefHeight="506.0" prefWidth="607.0" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.FXMLRootController">
     <children>
         <VBox id="vb-sidebar" fx:id="vbHospitalSidebar" layoutX="100.0" prefHeight="437.0" prefWidth="100.0" style="-fx-background-color: #2d4f24;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <children>

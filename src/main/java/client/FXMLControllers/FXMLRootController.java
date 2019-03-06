@@ -1,4 +1,4 @@
-package client;
+package client.FXMLControllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,6 @@ import javafx.util.Duration;
 
 public class FXMLRootController implements Initializable {
     @FXML
-    private Label label;
     public Label lblLink;
     public Button btnHospital;
     public Button btnHelp;

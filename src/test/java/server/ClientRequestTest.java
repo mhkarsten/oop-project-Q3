@@ -1,5 +1,5 @@
 package server;
-import client.User;
+import client.serverCommunication.User;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package client;
+package client.serverCommunication;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
@@ -23,7 +23,6 @@ public class ClientController {
     static final String URL_NEWUSER = "http://localhost:8080/newUser";
     static final String URL_CHOOSEUSER = "http://localhost:8080/user/{userID}";
     static final String URL_ARBUSER = "http://localhost:8080/user";
-
 
     static final String USER_NAME = "tom";
     static final String PASSWORD = "123";
@@ -121,7 +120,7 @@ public class ClientController {
 
             User[] specificUser = response.getBody();
 
-            if ( specificUser != null) {
+            if (specificUser != null) {
 
                 return specificUser;
             } else {
@@ -172,7 +171,6 @@ public class ClientController {
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
-
 
         restTemplate.put(URL_ARBUSER, requestBody, new Object[]{});
 

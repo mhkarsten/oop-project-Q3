@@ -1,4 +1,4 @@
-package client;
+package client.serverCommunication;
 
 //TODO: Find a way to have client and server use the same User class
 public class User {

@@ -14,12 +14,10 @@ public class ClientGui extends Application {
 
 
     @Override
-
     public void start(Stage stage) throws IOException {
 
         URL url = new File("src/main/resources/loginScreen.fxml").toURL();
         Parent root = FXMLLoader.load(url);
-        String screenText = "Save the Enviroment!";
 
         Scene scene = new Scene(root, 600,400);
 

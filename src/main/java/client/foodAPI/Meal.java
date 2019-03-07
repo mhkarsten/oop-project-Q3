@@ -8,6 +8,7 @@ public class Meal {
     private String idMeal;
     private String strCategory;
     private String strArea;
+    private String strInstructions;
 
     private ArrayList<String> strTags;
     private ArrayList<String> strIngredients;
@@ -22,7 +23,7 @@ public class Meal {
 
     public Meal(String strMeal, String idMeal, String strCategory, String strArea, ArrayList<String>
                 strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
-                String strMealThumb, String strYoutube)
+                String strMealThumb, String strYoutube, String strInstructions)
     {
         this.strMeal = strMeal;
         this.idMeal = idMeal;
@@ -34,6 +35,7 @@ public class Meal {
         this.strSource = strSource;
         this.strMealThumb = strMealThumb;
         this.strYoutube = strYoutube;
+        this.strInstructions = strInstructions;
     }
 
     public String getStrMeal() {
@@ -114,5 +116,13 @@ public class Meal {
 
     public void setStrYoutube(String strYoutube) {
         this.strYoutube = strYoutube;
+    }
+
+    public String getStrInstructions() {
+        return strInstructions;
+    }
+
+    public void setStrInstructions(String strInstructions) {
+        this.strInstructions = strInstructions;
     }
 }

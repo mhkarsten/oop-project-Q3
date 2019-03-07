@@ -1,6 +1,10 @@
 package client.foodAPI;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 public class Meal {
 
@@ -36,6 +40,60 @@ public class Meal {
         this.strMealThumb = strMealThumb;
         this.strYoutube = strYoutube;
         this.strInstructions = strInstructions;
+    }
+
+    public static Meal[] JSONToMeal(JSONObject JSONMeal) {
+
+        Object mealList = JSONMeal.get("meals");
+        ArrayList<LinkedHashMap> meal = (ArrayList<LinkedHashMap>) mealList;
+        LinkedHashMap LinkedMeal = meal.get(0);
+
+        Meal newMeal = new Meal();
+
+        newMeal.setStrMeal((String) LinkedMeal.get("strMeal"));
+        newMeal.setIdMeal((String) LinkedMeal.get("idMeal"));
+        newMeal.setStrArea((String) LinkedMeal.get("strArea"));
+        newMeal.setStrCategory((String) LinkedMeal.get("strCategory"));
+        newMeal.setStrMealThumb ((String) LinkedMeal.get("strMealThumb"));
+        newMeal.setStrSource((String) LinkedMeal.get("strSource"));
+        newMeal.setStrYoutube((String) LinkedMeal.get("strYoutube"));
+        newMeal.setStrInstructions((String) LinkedMeal.get("strInstructions"));
+
+        String tempTags = (String) LinkedMeal.get("strTags");
+
+        if (tempTags != null) {
+
+            String[] tempArray = tempTags.split(",");
+
+            ArrayList<String> tempList = new ArrayList<>();
+            tempList.addAll(Arrays.asList(tempArray));
+
+            newMeal.setStrTags(tempList);
+        }
+
+
+        for (int i = 1; i < 15; i++) {
+
+            ArrayList<String> tempIngredients = new ArrayList<>();
+
+            tempIngredients.add((String) LinkedMeal.get("strIngredient" + i));
+
+            newMeal.setStrIngredients(tempIngredients);
+        }
+
+        for (int i = 1; i < 15; i++) {
+
+            ArrayList<String> tempMeasure = new ArrayList<>();
+
+            tempMeasure.add((String) LinkedMeal.get("strMeasure" + i));
+
+            newMeal.setStrMeasures(tempMeasure);
+        }
+
+        Meal[] encasedMeal = new Meal[1];
+        encasedMeal[0] = newMeal;
+
+        return encasedMeal;
     }
 
     public String getStrMeal() {

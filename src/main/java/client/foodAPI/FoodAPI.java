@@ -6,70 +6,19 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+import static client.foodAPI.Meal.JSONToMeal;
+
+/**
+ *  This class is the integration of TheFoodDB api. This is an online database of various meals which
+ *  contains various information on each item of food, such as ingredients, and instructions on how
+ *  to make them. These are given as JSON objects, and are then converted to a meal object which
+ *  can be displayed in various ways.
+ */
 public class FoodAPI {
 
     static final String URL_RANDOMEAL = "https://www.themealdb.com/api/json/v1/1/random.php";
     static final String URL_SPESIFICMEAL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
     static final String URL_CATEGORYMEAL = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
-
-    public static void main(String[] args) {
-
-        System.out.println(getAllMeatMeals());
-    }
-
-    public static Meal[] JSONToMeal(JSONObject JSONMeal) {
-
-        Object mealList = JSONMeal.get("meals");
-        ArrayList<LinkedHashMap> meal = (ArrayList<LinkedHashMap>) mealList;
-        LinkedHashMap LinkedMeal = meal.get(0);
-
-        Meal newMeal = new Meal();
-
-        newMeal.setStrMeal((String) LinkedMeal.get("strMeal"));
-        newMeal.setIdMeal((String) LinkedMeal.get("idMeal"));
-        newMeal.setStrArea((String) LinkedMeal.get("strArea"));
-        newMeal.setStrCategory((String) LinkedMeal.get("strCategory"));
-        newMeal.setStrMealThumb ((String) LinkedMeal.get("strMealThumb"));
-        newMeal.setStrSource((String) LinkedMeal.get("strSource"));
-        newMeal.setStrYoutube((String) LinkedMeal.get("strYoutube"));
-        newMeal.setStrInstructions((String) LinkedMeal.get("strInstructions"));
-
-        String tempTags = (String) LinkedMeal.get("strTags");
-
-        if (tempTags != null) {
-
-            String[] tempArray = tempTags.split(",");
-
-            ArrayList<String> tempList = new ArrayList<>();
-            tempList.addAll(Arrays.asList(tempArray));
-
-            newMeal.setStrTags(tempList);
-        }
-
-
-        for (int i = 1; i < 15; i++) {
-
-            ArrayList<String> tempIngredients = new ArrayList<>();
-
-            tempIngredients.add((String) LinkedMeal.get("strIngredient" + i));
-
-            newMeal.setStrIngredients(tempIngredients);
-        }
-
-        for (int i = 1; i < 15; i++) {
-
-            ArrayList<String> tempMeasure = new ArrayList<>();
-
-            tempMeasure.add((String) LinkedMeal.get("strMeasure" + i));
-
-            newMeal.setStrMeasures(tempMeasure);
-        }
-
-        Meal[] encasedMeal = new Meal[1];
-        encasedMeal[0] = newMeal;
-
-        return encasedMeal;
-    }
 
     //Creates JSON header for a GET request
     public static HttpHeaders acceptHeaders() {
@@ -81,8 +30,9 @@ public class FoodAPI {
         return headers;
     }
 
-
-    //Get random meal
+    /**
+     * @return This method returns a random meal from TheMealDB
+     */
     public static Meal[] getRandomMeal() {
 
         HttpHeaders headers = acceptHeaders();
@@ -111,7 +61,11 @@ public class FoodAPI {
         return null;
     }
 
-    //Get a specific meal
+    /** @Param mealName
+     *  This parameter is the name of the meal that you would like to get from the database
+     *
+     *  @return This method will return one specific meal from the database.
+     */
     public static Meal[] getMeal(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
@@ -135,10 +89,14 @@ public class FoodAPI {
             }
         }
 
-         return null;
+        return null;
     }
 
-    //Get all meals by category
+    /**@param mealName
+     * This parameter is the name of the meal category that you would like returned.
+     *
+     * @return This method returns an ArrayList of all meals in a specific category.
+     */
     public static ArrayList<Meal[]> getMealCategory(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
@@ -172,12 +130,14 @@ public class FoodAPI {
         return null;
     }
 
-    //Get all meat meals
+    /**
+     * @return This method returns a list of all of the meals that use meat.
+     */
     public static ArrayList<Meal[]> getAllMeatMeals() {
 
         ArrayList<Meal[]> meatMeals = new ArrayList<>();
 
-        String[] meatCategories = {"Beef",	"Chicken", "Lamb", "Pork", 	"Seafood" };
+        String[] meatCategories = {"Beef", "Chicken", "Lamb", "Pork", "Seafood"};
 
         for (int i = 0; i < 5; i++) {
 

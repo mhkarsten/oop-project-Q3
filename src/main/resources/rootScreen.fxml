@@ -5,32 +5,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.RootController">
+<SplitPane fx:id="mainPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.RootController">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="312.0">
+    <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="312.0">
          <children>
-            <VBox fx:id="mailSidebar" prefHeight="459.0" prefWidth="100.0">
-               <children>
-                  <Button fx:id="profileBtn" mnemonicParsing="false" text="Profile" />
-                  <Button fx:id="actionBtn" mnemonicParsing="false" text="Action" />
-                  <Button fx:id="scoreBtn" mnemonicParsing="false" text="Score" />
-               </children>
-            </VBox>
             <VBox fx:id="actionSidebar" layoutX="99.0" layoutY="-3.0" prefHeight="467.0" prefWidth="90.0">
                <children>
-                  <Button fx:id="foodBtn" mnemonicParsing="false" onAction="#openFoodScreen" text="Food" />
+                  <Button fx:id="foodBtn" mnemonicParsing="false" onAction="#openFoodScreen" onMousePressed="#actionSidebarHide" text="Food" />
                   <Button mnemonicParsing="false" text="Transport" />
                   <Button mnemonicParsing="false" text="Other" />
                </children>
             </VBox>
             <VBox fx:id="scoreSidebar" layoutX="100.0" layoutY="73.0" prefHeight="388.0" prefWidth="90.0">
                <children>
-                  <Button fx:id="myScoreBtn" mnemonicParsing="false" onAction="#openScoreScreen" text="My Score" />
+                  <Button fx:id="myScoreBtn" mnemonicParsing="false" onAction="#openScoreScreen" onMousePressed="#scoreSidebarHide" text="My Score" />
                   <Button mnemonicParsing="false" text="Compare" />
                   <Button fx:id="achievementBtn" mnemonicParsing="false" text="Achievements" />
                </children>
             </VBox>
+            <VBox fx:id="mailSidebar" prefHeight="459.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="profileBtn" mnemonicParsing="false" text="Profile" />
+                  <Button fx:id="actionBtn" mnemonicParsing="false" onMouseEntered="#actionHover" text="Action" />
+                  <Button fx:id="scoreBtn" mnemonicParsing="false" onMouseEntered="#scoreHover" text="Score" />
+               </children>
+            </VBox>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="40.0" />
+    <AnchorPane fx:id="changePane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="40.0" />
   </items>
 </SplitPane>

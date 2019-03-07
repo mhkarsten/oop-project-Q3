@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="root-anchorpane" fx:id="pnlRoot" onMouseReleased="#hideAllSliderMenus" prefHeight="506.0" prefWidth="607.0" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.RootController">
+<AnchorPane id="root-anchorpane" fx:id="pnlRoot" prefHeight="506.0" prefWidth="607.0" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.FoodController">
     <children>
         <VBox id="vb-sidebar" fx:id="vbSidebarMain1" layoutX="242.0" layoutY="38.0" prefHeight="130.0" prefWidth="139.0" style="-fx-background-color: green;">
             <children>
                 <Label fx:id="label" minHeight="16" minWidth="69" prefHeight="21.0" prefWidth="108.0" text="Select one" />
-                <CheckBox fx:id="veganOpt" mnemonicParsing="false" text="Vegan Meal" />
-                <CheckBox fx:id="vegOpt" mnemonicParsing="false" text="Vegetarian Meal" />
-                <CheckBox fx:id="meatOpt" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" text="Meat Meal" />
+                <CheckBox fx:id="veganOpt" mnemonicParsing="false" onAction="#changeMeals" text="Vegan Meal" />
+                <CheckBox fx:id="vegOpt" mnemonicParsing="false" onAction="#changeMeals" text="Vegetarian Meal" />
+                <CheckBox fx:id="meatOpt" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onAction="#changeMeals" text="Meat Meal" />
             </children>
         </VBox>
         <VBox id="vb-sidebar" fx:id="vbSidebarMain11" layoutX="420.0" layoutY="38.0" prefHeight="130.0" prefWidth="139.0" style="-fx-background-color: green;">

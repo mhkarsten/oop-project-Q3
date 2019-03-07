@@ -1,12 +1,16 @@
 package client.FXMLControllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -20,6 +24,10 @@ public class RootController implements Initializable {
     public Button foodBtn;
     public Button achievementBtn;
 
+    public SplitPane mainPane;
+    public AnchorPane sidebarPane;
+    public AnchorPane changePane;
+
     public VBox mainSidebar;
     public VBox scoreSidebar;
     public VBox actionSidebar;
@@ -30,11 +38,8 @@ public class RootController implements Initializable {
     private TranslateTransition openNav2;
     private TranslateTransition closeNav2;
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        hideAllSliderMenus();
 
         openNav = new TranslateTransition(Duration.millis(100), actionSidebar);
         openNav.setToX(actionSidebar.getTranslateX()-actionSidebar.getWidth());
@@ -52,10 +57,10 @@ public class RootController implements Initializable {
     public void hideAllSliderMenus(){
 
         scoreSidebarHide();
-        actionSideBarHide();
+        actionSidebarHide();
     }
 
-    public void actionSideBarHide() {
+    public void actionSidebarHide() {
 
         closeNav.setToX(-(actionSidebar.getWidth()));
         closeNav.play();
@@ -69,7 +74,7 @@ public class RootController implements Initializable {
             openNav.play();
         } else {
 
-            actionSideBarHide();
+            actionSidebarHide();
         }
     }
 
@@ -80,7 +85,7 @@ public class RootController implements Initializable {
     }
 
     public void scoreHover() {
-        actionSideBarHide();
+        actionSidebarHide();
 
         if ((scoreSidebar.getTranslateX()) == -(scoreSidebar.getWidth()) ) {
 
@@ -91,12 +96,15 @@ public class RootController implements Initializable {
         }
     }
 
-    public void openFoodScreen() {
+    public void openFoodScreen(ActionEvent event) throws IOException {
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/foodScreen.fxml"));
+        changePane = loader.load();
 
+        mainPane.getItems().set(1, changePane);
     }
 
-    public void openScoreScreen() {
+    public void openScoreScreen(ActionEvent event) {
 
 
     }

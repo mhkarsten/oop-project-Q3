@@ -10,9 +10,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static client.foodAPI.FoodAPI.getRandomMeal;
 
 public class FoodController {
 
@@ -58,6 +61,18 @@ public class FoodController {
 
     private final int maxNumSelected =  1;
 
+
+
+//    @Override
+//    public void initialize(URL url, ResourceBundle rb) {
+//
+//        meal1.setText(getRandomMeal()[0].getStrMeal());
+//        meal2.setText(getRandomMeal()[0].getStrMeal());
+//        meal3.setText(getRandomMeal()[0].getStrMeal());
+//        meal4.setText(getRandomMeal()[0].getStrMeal());
+//
+//    }
+
     public void configureMealBoxes(CheckBox box) {
 
         if(box.isSelected()) {
@@ -81,7 +96,10 @@ public class FoodController {
         });
     }
 
-    public void listMeals() {
+    public void changeMeals(ActionEvent event) {
+
+        event.getID();
+
 
     }
 }

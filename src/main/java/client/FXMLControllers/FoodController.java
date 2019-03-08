@@ -6,8 +6,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +21,8 @@ import java.util.ResourceBundle;
 import static client.foodAPI.FoodAPI.*;
 
 public class FoodController implements Initializable {
+
+    private Label mealChoice;
 
     @FXML
     public Label meal1;
@@ -105,5 +112,28 @@ public class FoodController implements Initializable {
 
         setMealStrings(meatMeals, 0);
     }
-    
+
+    public void selectMeal(MouseEvent event) {
+
+        Color circleDeselectColor = Color.web("#dadfe4");
+
+        if (mealChoice != null) {
+
+            Circle oldChoice = (Circle) mealChoice.getGraphic();
+            oldChoice.setFill(circleDeselectColor);
+        }
+
+        Label chosenMeal = (Label) event.getSource();
+
+        Circle selectedMealCircle = (Circle) chosenMeal.getGraphic();
+
+        selectedMealCircle.setFill(javafx.scene.paint.Color.RED);
+
+        mealChoice = chosenMeal;
+    }
+
+    public void getMealPoints() {
+
+
+    }
 }

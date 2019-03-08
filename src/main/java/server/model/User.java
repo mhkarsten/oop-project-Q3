@@ -19,6 +19,7 @@ public class User {
     )
     private long id;
     private String name;
+    private String password;
     private int points;
 
     public User() {
@@ -31,9 +32,9 @@ public class User {
      * @param name The name of the user
      * @param points The points of the user
      */
-    public User(long id, String name, int points) {
-
+    public User(long id, String name, String password, int points) {
         this.id = id;
+        this.password = password;
         this.name = name;
         this.points = points;
     }
@@ -74,5 +75,13 @@ public class User {
 
     public void setPoints(int userPoints) {
         this.points = userPoints;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

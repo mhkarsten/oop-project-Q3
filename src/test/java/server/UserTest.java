@@ -10,12 +10,15 @@ public class UserTest {
     long UsID20 = 20;
     String UsName5 = "Max";
     String UsName20 = "Jason";
+
+    String password = "password";
+
     int points = 200;
     int points300 = 300;
 
 
-    User us1 = new User(UsID5, UsName5, points);
-    User us2 = new User(UsID20, UsName20, points300);
+    User us1 = new User(UsID5, UsName5, password, points);
+    User us2 = new User(UsID20, UsName20, password, points300);
 
     @Test
     void equalsTest1() {
@@ -24,12 +27,12 @@ public class UserTest {
 
     @Test
     void equalsTest2() {
-        Assertions.assertEquals(us1, new User(UsID5, UsName5, points));
+        Assertions.assertEquals(us1, new User(UsID5, UsName5, password, points));
     }
 
     @Test
     void equalsTest3() {
-        Assertions.assertNotEquals(us1, new User(UsID5, UsName5, 42));
+        Assertions.assertNotEquals(us1, new User(UsID5, UsName5, password, 42));
     }
 
     @Test

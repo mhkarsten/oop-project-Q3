@@ -104,8 +104,11 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
-    public void openScoreScreen(ActionEvent event) {
+    public void openScoreScreen(ActionEvent event) throws IOException {
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
+        changePane = loader.load();
 
+        mainPane.getItems().set(1, changePane);
     }
 }

@@ -6,13 +6,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import server.controller.ServerController;
+import server.controller.UserController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ServerControllerTest {
+public class UserControllerTest {
     @Autowired
-    private ServerController controller;
+    private UserController controller;
 
     @Test
     public void contextLoads() {

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class ServerController {
+public class UserController {
 
     @Autowired
     private UserRepository userRepository;
@@ -72,7 +72,7 @@ public class ServerController {
      * @param userID The userID to look for
      * @return The user if it exists
      */
-    @PostMapping(value = "/user/{userID}",
+    @PostMapping(value = "/users/{userID}",
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -85,7 +85,7 @@ public class ServerController {
      * @param usr Parameter for the user to be added
      * @return Returns the user that has been added
      */
-    @PostMapping(value = "/newUser",
+    @PostMapping(value = "/users/new",
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
@@ -100,7 +100,7 @@ public class ServerController {
      * @param usr Parameter for the user to be updated
      * @return  returns the updated user
      */
-    @PutMapping(value = "/userUpdate",
+    @PutMapping(value = "/users/update",
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
@@ -117,7 +117,7 @@ public class ServerController {
      *
      * @param userID Parameter for the userID of the user that has to be deleted
      */
-    @DeleteMapping(value = "/user/{userID}")
+    @DeleteMapping(value = "/users/{userID}")
     @ResponseBody
     public String deleteUser(@PathVariable("userID") String userID) {
         System.out.println("Deleting user" + userID);

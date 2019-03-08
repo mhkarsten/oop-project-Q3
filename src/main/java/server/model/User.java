@@ -14,13 +14,6 @@ import server.model.Achievement;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(generator = "user_generator")
-    @SequenceGenerator(
-            name = "user_generator",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
     private long id;
     private String name;
     private int points;
@@ -62,6 +55,13 @@ public class User {
                 && Objects.equals(name, user.name);
     }
 
+    @Id
+    @GeneratedValue(generator = "user_generator")
+    @SequenceGenerator(
+            name = "user_generator",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
     public long getID() {
         return id;
     }

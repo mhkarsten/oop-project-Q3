@@ -50,31 +50,31 @@ public class UserRequestTest {
 
     @Test
     public void retrieveUserOne() {
-        Assertions.assertEquals("Alex", this.restTemplate.postForObject(domain + "/user/1", entity, User.class
+        Assertions.assertEquals("Alex", this.restTemplate.postForObject(domain + "/users/1", entity, User.class
         ).getName());
     }
 
     @Test
     public void retrieveUserOneWrong() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/user/us1", entity, User.class));
+        Assertions.assertNull(this.restTemplate.postForObject(domain + "/users/us1", entity, User.class));
     }
 
     @Test
     public void retrieveUserMinusOne() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/user/-1", entity, User.class));
+        Assertions.assertNull(this.restTemplate.postForObject(domain + "/users/-1", entity, User.class));
     }
 
     @Test
     public void updateUserMinusOne() {
         User doesNotExist = new User(-1, "Unicorn", 420);
         entity = new HttpEntity<>(doesNotExist, headers);
-        restTemplate.put(domain + "/userUpdate/", entity);
-        Assertions.assertNull(restTemplate.postForObject(domain + "/user/" + doesNotExist.getID(), entity, User.class));
+        restTemplate.put(domain + "/users/update/", entity);
+        Assertions.assertNull(restTemplate.postForObject(domain + "/users/" + doesNotExist.getID(), entity, User.class));
     }
 
     @Test
     public void deleteUserMinusOne() {
-        ResponseEntity<String> response = restTemplate.exchange(domain + "/user/-1", HttpMethod.DELETE, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(domain + "/users/-1", HttpMethod.DELETE, entity, String.class);
         Assertions.assertEquals(response.getBody(), "Could not delete user -1");
     }
 
@@ -86,20 +86,20 @@ public class UserRequestTest {
         entity = new HttpEntity<>(user, headers);
 
         //READ
-        User returnedUser = restTemplate.postForObject(domain + "/newUser", entity, User.class);
+        User returnedUser = restTemplate.postForObject(domain + "/users/new", entity, User.class);
         Assertions.assertEquals(user.getName(), returnedUser.getName());
 
         //UPDATE
         returnedUser.setName("Lin-Manuel");
         entity = new HttpEntity<>(returnedUser, headers);
-        restTemplate.put(domain + "/userUpdate/", entity);
-        User updatedUser = restTemplate.postForObject(domain + "/user/" + returnedUser.getID(), entity, User.class);
+        restTemplate.put(domain + "/users/update/", entity);
+        User updatedUser = restTemplate.postForObject(domain + "/users/" + returnedUser.getID(), entity, User.class);
         Assertions.assertEquals(updatedUser, returnedUser);
 
         //DELETE
-        ResponseEntity<String> response = restTemplate.exchange(domain + "/user/" + returnedUser.getID(), HttpMethod.DELETE, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(domain + "/users/" + returnedUser.getID(), HttpMethod.DELETE, entity, String.class);
         System.out.println("Response from DELETE: " + response.getBody());
-        User returnedUser2 = restTemplate.postForObject(domain + "/user/" + returnedUser.getID(), entity, User.class);
+        User returnedUser2 = restTemplate.postForObject(domain + "/users/" + returnedUser.getID(), entity, User.class);
         Assertions.assertNull(returnedUser2);
     }
 }

@@ -14,22 +14,12 @@ public class Achievement {
         sequenceName = "achievement_sequence",
         allocationSize = 1
     )
-    //@Column(name="achievement_id")
     private long id;
-    //@Column(name="achievement_title")
     private String title;
-    //@Column(name="achievement_description")
     private String description;
-    //@Column(name="achievement_path")
     private String path;
-    @ManyToMany
-    @JoinTable(
-            name = "achievement_user",
-            joinColumns = @JoinColumn(name = "achievement_id"),
-            inverseJoinColumns = @JoinColumn(name="user_id"))
+    @ManyToMany(mappedBy="achievement")
     private Set<User> user;
-    //@ManyToMany(mappedBy = "achievementsUnlocked")
-    //private Set<User> users;
 
     public Achievement() {
 

@@ -6,14 +6,18 @@ import server.model.Achievement;
 import server.model.User;
 import server.repository.AchievementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import server.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class AchievementController {
     @Autowired
     private AchievementRepository achievementRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping(value = "/achievements",
             method = {RequestMethod.POST,RequestMethod.GET},
@@ -41,5 +45,15 @@ public class AchievementController {
         }
         else return null;
     }
-
+    @RequestMapping(value="/users/{userID}/achievements",method={RequestMethod.POST,RequestMethod.GET},
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public Set<Achievement> getUserAchievements(@PathVariable("userID") long userID)
+    {
+        Optional<User> user=userRepository.findById(userID);
+        if(user.isPresent())
+        {
+            return user.get().getAchievements();
+        }
+        else return null;
+    }
 }

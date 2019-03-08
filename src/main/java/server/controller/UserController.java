@@ -72,7 +72,7 @@ public class UserController {
      * @param userID The userID to look for
      * @return The user if it exists
      */
-    @PostMapping(value = "/users/{userID}",
+    @RequestMapping(method = {RequestMethod.POST,RequestMethod.GET},value = "/users/{userID}",
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody

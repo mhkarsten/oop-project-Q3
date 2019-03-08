@@ -15,14 +15,15 @@ public class User {
             sequenceName = "user_sequence",
             allocationSize = 1
     )
-    //@Column(name="user_id")
     private long id;
-    //@Column(name="user_name")
     private String name;
-    //@Column(name="user_points")
     private int points;
 
-    @ManyToMany(mappedBy="user")
+    @ManyToMany
+    @JoinTable(
+            name = "user_achievement",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name="achievement_id"))
     private Set<Achievement> achievement;
 
     public User() {
@@ -78,14 +79,9 @@ public class User {
     public void setPoints(int userPoints) {
         this.points = userPoints;
     }
-/*
-    public Set<Achievement> getAchievementsUnlocked()
+
+    public Set<Achievement> getAchievements()
     {
-        return this.achievementsUnlocked;
+        return this.achievement;
     }
-    public void setAchievementsUnlocked(Set<Achievement> achievementsUnlocked)
-    {
-        this.achievementsUnlocked=achievementsUnlocked;
-    }
-    */
 }

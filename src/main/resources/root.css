@@ -1,24 +1,28 @@
-#vb-sidebar .sidebar-button:hover {
-    -fx-background-color:#33ff33;
-    -fx-text-fill: green;
+/*#mailSidebar:hover {*/
+    /*-fx-background-color: rgba(13, 6, 155, 0.8);*/
+    /*-fx-text-fill: green;*/
+    /*-fx-cursor:hand;*/
+/*}*/
+
+#sidebarPane {
+    -fx-background-color:white;
+    -fx-text-fill: black;
     -fx-cursor:hand;
 }
 
-#vb-sidebar .sidebar-button-active {
-    -fx-background-color:#33ff33;
-    -fx-text-fill: green;
-    -fx-cursor:hand;
+#mailSidebar {
+    -fx-background-color: white;
 }
 
-#vb-sidebar .slider-button {
-    -fx-background-color:#33ff33;
-    -fx-text-fill: green;
-    -fx-cursor:hand;
-}
+/*#vb-sidebar .slider-button {*/
+    /*-fx-background-color:#33ff33;*/
+    /*-fx-text-fill: green;*/
+    /*-fx-cursor:hand;*/
+/*}*/
 
 
-#vb-sidebar .slider-button:hover {
-    -fx-background-color:#66ff66;
-    -fx-text-fill: green;
-    -fx-cursor:hand;
-}
+/*#vb-sidebar .slider-button:hover {*/
+    /*-fx-background-color:#66ff66;*/
+    /*-fx-text-fill: green;*/
+    /*-fx-cursor:hand;*/
+/*}*/

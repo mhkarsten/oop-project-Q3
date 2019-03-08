@@ -1,10 +1,14 @@
-package client.achievement;
+package client.model;
 
 import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
-@Table (name = "Achievements")
+@Table(name = "Achievements")
 public class Achievement {
     @Id
     @GeneratedValue(generator = "achievement_generator")
@@ -14,7 +18,7 @@ public class Achievement {
         allocationSize = 1
     )
 
-    private String achID;
+    private long achID;
     private String title;
     private String description;
     private String path;
@@ -26,11 +30,11 @@ public class Achievement {
     /** Constructor for the Achievement class.
      *
      * @param achID Achievement ID
-     * @param title Title of the achievement
-     * @param description description of the achievement
-     * @param path path to the badge image for this achievement
+     * @param title Title of the model
+     * @param description description of the model
+     * @param path path to the badge image for this model
      */
-    public Achievement(String achID, String title, String description, String path) {
+    public Achievement(long achID, String title, String description, String path) {
         this.achID = achID;
         this.title = title;
         this.description = description;
@@ -52,11 +56,11 @@ public class Achievement {
                 && Objects.equals(path, that.path);
     }
 
-    public String getAchID() {
+    public long getAchID() {
         return achID;
     }
 
-    public void setAchID(String achID) {
+    public void setAchID(long achID) {
         this.achID = achID;
     }
 

@@ -1,6 +1,6 @@
 package client;
 
-import client.achievement.Achievement;
+import client.model.Achievement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

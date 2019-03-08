@@ -22,9 +22,12 @@ public class Achievement {
     private String description;
     //@Column(name="achievement_path")
     private String path;
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @ManyToMany
+    @JoinTable(
+            name = "achievement_user",
+            joinColumns = @JoinColumn(name = "achievement_id"),
+            inverseJoinColumns = @JoinColumn(name="user_id"))
+    private Set<User> user;
     //@ManyToMany(mappedBy = "achievementsUnlocked")
     //private Set<User> users;
 

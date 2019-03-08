@@ -22,7 +22,7 @@ public class User {
     //@Column(name="user_points")
     private int points;
 
-    @OneToMany(mappedBy="user")
+    @ManyToMany(mappedBy="user")
     private Set<Achievement> achievement;
 
     public User() {

@@ -1,13 +1,27 @@
 package client.achievement;
 
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table (name = "Achievements")
 public class Achievement {
+    @Id
+    @GeneratedValue(generator = "achievement_generator")
+    @SequenceGenerator(
+        name = "achievement_generator",
+        sequenceName = "achievement_sequence",
+        allocationSize = 1
+    )
 
     private String achID;
     private String title;
     private String description;
     private String path;
+
+    public Achievement() {
+
+    }
 
     /** Constructor for the Achievement class.
      *

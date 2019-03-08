@@ -19,7 +19,7 @@
         </VBox>
         <VBox layoutX="242.0" layoutY="183.0" prefHeight="265.0" prefWidth="217.0">
             <children>
-                <Label fx:id="label2" minHeight="16" minWidth="69" prefHeight="37.0" prefWidth="272.0" text="Pick your meal!" />
+                <Label fx:id="mealBoxText" minHeight="16" minWidth="69" prefHeight="37.0" prefWidth="272.0" text="Pick your meal!" />
                 <Label fx:id="meal1" layoutX="10.0" layoutY="10.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="37.0" prefWidth="324.0" text="Vegetarian Lasagna">
                     <graphic>
                         <Circle fx:id="selectCircle1" fill="#dadfe4" radius="15.0" stroke="BLACK" strokeType="INSIDE" />

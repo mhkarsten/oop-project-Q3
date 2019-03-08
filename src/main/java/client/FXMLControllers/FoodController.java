@@ -10,9 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,12 +20,14 @@ import static client.foodAPI.FoodAPI.*;
 public class FoodController implements Initializable {
 
     private Label mealChoice;
+    private String categoryChoice;
 
     @FXML
     public Label meal1;
     public Label meal2;
     public Label meal3;
     public Label meal4;
+    public Label mealBoxText;
 
     public Circle selectCircle1;
     public Circle selectCircle2;
@@ -134,6 +133,17 @@ public class FoodController implements Initializable {
 
     public void getMealPoints() {
 
+        if (categoryChoice.equals("Vegan")) {
+
+
+
+        } else if (categoryChoice.equals("Meat")) {
+
+
+        } else {
+
+
+        }
 
     }
 }

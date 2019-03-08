@@ -16,6 +16,7 @@ import javafx.util.Duration;
 
 public class RootController implements Initializable {
 
+
     @FXML
     public Button actionBtn;
     public Button scoreBtn;
@@ -28,7 +29,6 @@ public class RootController implements Initializable {
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
 
-    public VBox mainSidebar;
     public VBox scoreSidebar;
     public VBox actionSidebar;
 

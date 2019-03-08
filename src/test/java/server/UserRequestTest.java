@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ClientRequestTest {
+public class UserRequestTest {
     @LocalServerPort
     private int port;
     @Autowired
@@ -38,55 +38,6 @@ public class ClientRequestTest {
         entity = new HttpEntity<>(headers);
         domain = "http://localhost:" + port;
     }
-
-    public boolean tryToConnect(HttpHeaders h) {
-        boolean connectionSuccess = false;
-        try {
-            this.restTemplate.postForObject(domain + "/", new HttpEntity<>(h), String.class);
-            connectionSuccess = true;
-        } catch (ResourceAccessException excp) {
-        }
-        return connectionSuccess;
-    }
-
-    @Test
-    public void connectNoAuthHeaders() {
-        HttpHeaders noPwdHeaders = new HttpHeaders();
-        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
-        noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
-        Assertions.assertFalse(tryToConnect(noPwdHeaders));
-    }
-
-    @Test
-    public void connectAllWrong() {
-        HttpHeaders noPwdHeaders = new HttpHeaders();
-        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
-        noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
-        byte[] encAuth = Base64.encodeBase64("gandalf:mellon".getBytes(Charset.forName("US-ASCII")));
-        noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
-        Assertions.assertFalse(tryToConnect(noPwdHeaders));
-    }
-
-    @Test
-    public void connectWrongUser() {
-        HttpHeaders noPwdHeaders = new HttpHeaders();
-        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
-        noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
-        byte[] encAuth = Base64.encodeBase64("gandalf:123".getBytes(Charset.forName("US-ASCII")));
-        noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
-        Assertions.assertFalse(tryToConnect(noPwdHeaders));
-    }
-
-    @Test
-    public void connectWrongPassword() {
-        HttpHeaders noPwdHeaders = new HttpHeaders();
-        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
-        noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
-        byte[] encAuth = Base64.encodeBase64("tom:mellon".getBytes(Charset.forName("US-ASCII")));
-        noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
-        Assertions.assertFalse(tryToConnect(noPwdHeaders));
-    }
-
     @Test
     public void testConnection() {
         Assertions.assertEquals(this.restTemplate.postForObject(domain + "/", entity, String.class), "You are connected");

@@ -1,10 +1,9 @@
 package client.Controller;
 
-import client.model.Achievement;
-import client.repository.AchievementRepository;
+import server.model.Achievement;
+import server.repository.AchievementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +12,12 @@ public class AchievementController {
     private AchievementRepository achievementRepository;
 
     public Achievement addAchievement(Achievement achievement) {
-        System.out.println("Creating new achievement: " + achievement.getAchID());
+        System.out.println("Creating new achievement: " + achievement.getID());
         return achievementRepository.save(achievement);
     }
 
     public Optional<Achievement> findAchievement(Achievement achievement) {
-        return achievementRepository.findById(achievement.getAchID());
+        return achievementRepository.findById(achievement.getID());
     }
 
     public List<Achievement> getAllAchievement() {

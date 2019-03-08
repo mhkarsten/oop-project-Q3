@@ -1,11 +1,15 @@
 package server.model;
 
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import server.model.Achievement;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +25,12 @@ public class User {
     private String name;
     private int points;
 
+    /*
+    @JoinTable(
+            name = "user_achievements",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id"))
+    */
     public User() {
 
     }

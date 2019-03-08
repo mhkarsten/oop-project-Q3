@@ -18,7 +18,7 @@ public class Achievement {
     private String title;
     private String description;
     private String path;
-    @ManyToMany(mappedBy="achievement")
+    @ManyToMany(mappedBy = "achievement")
     private Set<User> user;
 
     public Achievement() {

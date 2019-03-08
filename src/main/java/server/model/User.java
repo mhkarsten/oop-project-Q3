@@ -23,7 +23,7 @@ public class User {
     @JoinTable(
             name = "user_achievement",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name="achievement_id"))
+            inverseJoinColumns = @JoinColumn(name = "achievement_id"))
     private Set<Achievement> achievement;
 
     public User() {
@@ -56,6 +56,7 @@ public class User {
                 && points == user.points
                 && Objects.equals(name, user.name);
     }
+
     public long getID() {
         return id;
     }
@@ -80,8 +81,7 @@ public class User {
         this.points = userPoints;
     }
 
-    public Set<Achievement> getAchievements()
-    {
+    public Set<Achievement> getAchievements() {
         return this.achievement;
     }
 }

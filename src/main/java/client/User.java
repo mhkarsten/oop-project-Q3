@@ -1,7 +1,5 @@
 package client;
 
-import java.util.Objects;
-
 //TODO: Find a way to have client and server use the same User class
 public class User extends server.model.User {
     private long id;

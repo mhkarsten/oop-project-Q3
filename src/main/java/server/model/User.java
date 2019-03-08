@@ -1,29 +1,31 @@
 package server.model;
 
 import java.util.Objects;
-import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import server.model.Achievement;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(generator = "user_generator")
+    @SequenceGenerator(
+            name = "user_generator",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
+    //@Column(name="user_id")
     private long id;
+    //@Column(name="user_name")
     private String name;
+    //@Column(name="user_points")
     private int points;
 
-    /*
-    @JoinTable(
-            name = "user_achievements",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "achievement_id"))
-    */
+    @OneToOne
+    //@JoinColumn(referencedColumnName = "id")
+    @JoinColumn(name="achievement",referencedColumnName = "id")
+    private Achievement achievement;
+
     public User() {
 
     }
@@ -54,14 +56,6 @@ public class User {
                 && points == user.points
                 && Objects.equals(name, user.name);
     }
-
-    @Id
-    @GeneratedValue(generator = "user_generator")
-    @SequenceGenerator(
-            name = "user_generator",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
     public long getID() {
         return id;
     }
@@ -85,4 +79,14 @@ public class User {
     public void setPoints(int userPoints) {
         this.points = userPoints;
     }
+/*
+    public Set<Achievement> getAchievementsUnlocked()
+    {
+        return this.achievementsUnlocked;
+    }
+    public void setAchievementsUnlocked(Set<Achievement> achievementsUnlocked)
+    {
+        this.achievementsUnlocked=achievementsUnlocked;
+    }
+    */
 }

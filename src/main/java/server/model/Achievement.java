@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.ManyToMany;
+import javax.persistence.Column;
 import javax.persistence.Table;
 
 @Entity
@@ -19,14 +20,18 @@ public class Achievement {
         sequenceName = "achievement_sequence",
         allocationSize = 1
     )
+    //@Column(name="achievement_id")
     private long id;
+    //@Column(name="achievement_title")
     private String title;
+    //@Column(name="achievement_description")
     private String description;
+    //@Column(name="achievement_path")
     private String path;
-    /*
-    @ManyToMany(mappedBy = "achievements")
-    Set<User> users;
-*/
+
+    //@ManyToMany(mappedBy = "achievementsUnlocked")
+   // private Set<User> users;
+
     public Achievement() {
 
     }

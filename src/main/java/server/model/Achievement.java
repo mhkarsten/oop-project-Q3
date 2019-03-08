@@ -2,13 +2,7 @@ package server.model;
 
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.ManyToMany;
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "achievements")
@@ -28,9 +22,11 @@ public class Achievement {
     private String description;
     //@Column(name="achievement_path")
     private String path;
-
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
     //@ManyToMany(mappedBy = "achievementsUnlocked")
-   // private Set<User> users;
+    //private Set<User> users;
 
     public Achievement() {
 

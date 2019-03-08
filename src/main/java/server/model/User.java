@@ -1,6 +1,7 @@
 package server.model;
 
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -21,10 +22,8 @@ public class User {
     //@Column(name="user_points")
     private int points;
 
-    @OneToOne
-    //@JoinColumn(referencedColumnName = "id")
-    @JoinColumn(name="achievement",referencedColumnName = "id")
-    private Achievement achievement;
+    @OneToMany(mappedBy="user")
+    private Set<Achievement> achievement;
 
     public User() {
 

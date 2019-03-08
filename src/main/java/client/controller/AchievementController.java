@@ -1,10 +1,9 @@
-package client.Controller;
+package client.controller;
 
 import client.model.Achievement;
 import client.repository.AchievementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

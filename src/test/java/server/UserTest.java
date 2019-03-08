@@ -19,50 +19,54 @@ public class UserTest {
 
     @Test
     void equalsTest1() {
-        Assertions.assertEquals(us1,us1);
+        Assertions.assertEquals(us1, us1);
     }
+
     @Test
     void equalsTest2() {
         Assertions.assertEquals(us1, new User(UsID5, UsName5, points));
     }
+
     @Test
     void equalsTest3() {
         Assertions.assertNotEquals(us1, new User(UsID5, UsName5, 42));
     }
+
     @Test
     void equalsTest4() {
         Assertions.assertNotEquals(us1, null);
     }
+
     @Test
     void getUserID() {
-        Assertions.assertEquals(UsID5, us1.getUserID());
+        Assertions.assertEquals(UsID5, us1.getID());
     }
 
     @Test
     void setUserID() {
-        us2.setUserID(21);
-        Assertions.assertEquals(21, us2.getUserID());
+        us2.setID(21);
+        Assertions.assertEquals(21, us2.getID());
     }
 
     @Test
     void getUserName() {
-        Assertions.assertEquals(UsName20, us2.getUserName());
+        Assertions.assertEquals(UsName20, us2.getName());
     }
 
     @Test
     void setUserName() {
-        us1.setUserName("Thom");
-        Assertions.assertEquals("Thom", us1.getUserName());
+        us1.setName("Thom");
+        Assertions.assertEquals("Thom", us1.getName());
     }
 
     @Test
     void getUserPoints() {
-        Assertions.assertEquals(200, us1.getUserPoints());
+        Assertions.assertEquals(200, us1.getPoints());
     }
 
     @Test
     void setUserPoints() {
-        us2.setUserPoints(21);
-        Assertions.assertEquals(21, us2.getUserPoints());
+        us2.setPoints(21);
+        Assertions.assertEquals(21, us2.getPoints());
     }
 }

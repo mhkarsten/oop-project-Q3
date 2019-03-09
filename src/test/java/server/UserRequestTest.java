@@ -1,6 +1,9 @@
 package server;
 
-import client.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.client.HttpStatusCodeException;
+import server.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +15,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.ResourceAccessException;
 
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
@@ -40,7 +43,7 @@ public class UserRequestTest {
     }
     @Test
     public void testConnection() {
-        Assertions.assertEquals(this.restTemplate.postForObject(domain + "/", entity, String.class), "You are connected");
+        this.restTemplate.postForObject(domain + "/", entity, String.class);
     }
 
     @Test
@@ -74,8 +77,8 @@ public class UserRequestTest {
 
     @Test
     public void deleteUserMinusOne() {
-        ResponseEntity<String> response = restTemplate.exchange(domain + "/users/-1", HttpMethod.DELETE, entity, String.class);
-        Assertions.assertEquals(response.getBody(), "Could not delete user -1");
+        ResponseEntity<?> response = restTemplate.exchange(domain + "/users/-1", HttpMethod.DELETE, entity, String.class);
+        Assertions.assertEquals(response.getStatusCode(),HttpStatus.NOT_FOUND);
     }
 
     @Test
@@ -84,22 +87,27 @@ public class UserRequestTest {
         //It really said "US Navy", but hey
         User user = new User(4, "Usnavi", 1000);
         entity = new HttpEntity<>(user, headers);
-
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            System.out.println(mapper.writeValueAsString(user));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity, User.class);
         //READ
-        User returnedUser = restTemplate.postForObject(domain + "/users/new", entity, User.class);
-        Assertions.assertEquals(user.getName(), returnedUser.getName());
+        user=restTemplate.postForObject(usnaviLocation,new HttpEntity<>(headers),User.class);
 
         //UPDATE
-        returnedUser.setName("Lin-Manuel");
-        entity = new HttpEntity<>(returnedUser, headers);
+        user.setName("Lin-Manuel");
+        entity = new HttpEntity<>(user, headers);
         restTemplate.put(domain + "/users/update/", entity);
-        User updatedUser = restTemplate.postForObject(domain + "/users/" + returnedUser.getID(), entity, User.class);
-        Assertions.assertEquals(updatedUser, returnedUser);
+        User updatedUser = restTemplate.postForObject(domain + "/users/" + user.getID(), new HttpEntity<>(headers), User.class);
+        Assertions.assertEquals(updatedUser, user);
 
         //DELETE
-        ResponseEntity<String> response = restTemplate.exchange(domain + "/users/" + returnedUser.getID(), HttpMethod.DELETE, entity, String.class);
-        System.out.println("Response from DELETE: " + response.getBody());
-        User returnedUser2 = restTemplate.postForObject(domain + "/users/" + returnedUser.getID(), entity, User.class);
+        ResponseEntity<?> response = restTemplate.exchange(domain + "/users/" + user.getID(), HttpMethod.DELETE, new HttpEntity<>(headers), String.class);
+        Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
+        User returnedUser2 = restTemplate.postForObject(domain + "/users/" + user.getID(), new HttpEntity<>(headers), User.class);
         Assertions.assertNull(returnedUser2);
     }
 }

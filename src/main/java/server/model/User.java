@@ -81,7 +81,20 @@ public class User {
         this.points = userPoints;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", points=" + points +
+                ", achievement=" + achievement +
+                '}';
+    }
+
     public Set<Achievement> getAchievements() {
         return this.achievement;
+    }
+    public void setAchievements(Set<Achievement> achievement) {
+        this.achievement=achievement;
     }
 }

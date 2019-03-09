@@ -61,7 +61,7 @@
     100%
   </span>
   <span class="absValue">
-    (26/ 26)
+    (24/ 24)
   </span>
 </td>
 </tr>
@@ -104,120 +104,118 @@
 <i>30</i>&nbsp;    @RequestMapping(&quot;/&quot;)
 <i>31</i>&nbsp;    @ResponseBody
 <i>32</i>&nbsp;    public String connect() {
-<i>33</i>&nbsp;
-<b class="fc"><i>34</i>&nbsp;        String connectString = &quot;You are connected&quot;;</b>
-<b class="fc"><i>35</i>&nbsp;        return connectString;</b>
-<i>36</i>&nbsp;    }
-<i>37</i>&nbsp;
-<i>38</i>&nbsp;    /**
-<i>39</i>&nbsp;     * Gets all users.
-<i>40</i>&nbsp;     * @return List of all users
-<i>41</i>&nbsp;     */
-<i>42</i>&nbsp;    @RequestMapping(value = &quot;/users&quot;,
-<i>43</i>&nbsp;            method = {RequestMethod.POST,RequestMethod.GET},
-<i>44</i>&nbsp;            produces = {MediaType.APPLICATION_JSON_VALUE,
-<i>45</i>&nbsp;                    MediaType.APPLICATION_XML_VALUE})
-<i>46</i>&nbsp;    @ResponseBody
-<i>47</i>&nbsp;
-<i>48</i>&nbsp;    public List&lt;User&gt; getUsers() {
-<b class="fc"><i>49</i>&nbsp;        return userRepository.findAll();</b>
-<i>50</i>&nbsp;    }
-<i>51</i>&nbsp;
-<i>52</i>&nbsp;    /**
-<i>53</i>&nbsp;     * Helper function that returns a user if it exists or null if either the string is not an id or it does not exist.
-<i>54</i>&nbsp;     * @param userID the userid to check and retrieve
-<i>55</i>&nbsp;     * @return returns an existing user or null if the userID was invalid in any way
-<i>56</i>&nbsp;     */
-<i>57</i>&nbsp;    public User parseUserID(String userID) {
-<b class="fc"><i>58</i>&nbsp;        long id = -1;</b>
-<i>59</i>&nbsp;        try {
-<b class="fc"><i>60</i>&nbsp;            id = Long.parseLong(userID);</b>
-<b class="fc"><i>61</i>&nbsp;        } catch (NumberFormatException ex) {</b>
-<b class="fc"><i>62</i>&nbsp;            return null;</b>
-<b class="fc"><i>63</i>&nbsp;        }</b>
-<b class="fc"><i>64</i>&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findById(id);</b>
-<b class="fc"><i>65</i>&nbsp;        if (optionalUser.isPresent()) {</b>
-<b class="fc"><i>66</i>&nbsp;            return optionalUser.get();</b>
-<i>67</i>&nbsp;        } else {
-<b class="fc"><i>68</i>&nbsp;            return null;</b>
-<i>69</i>&nbsp;        }
-<i>70</i>&nbsp;    }
-<i>71</i>&nbsp;
-<i>72</i>&nbsp;    /**
-<i>73</i>&nbsp;     * Gets a specific user by userID.
-<i>74</i>&nbsp;     * @param userID The userID to look for
-<i>75</i>&nbsp;     * @return The user if it exists
-<i>76</i>&nbsp;     */
-<i>77</i>&nbsp;    @PostMapping(value = &quot;/user/{userID}&quot;,
-<i>78</i>&nbsp;            produces = {MediaType.APPLICATION_XML_VALUE,
-<i>79</i>&nbsp;                    MediaType.APPLICATION_JSON_VALUE})
-<i>80</i>&nbsp;    @ResponseBody
-<i>81</i>&nbsp;    public User getUser(@PathVariable(&quot;userID&quot;) String userID) {
-<b class="fc"><i>82</i>&nbsp;        return parseUserID(userID);</b>
-<i>83</i>&nbsp;    }
-<i>84</i>&nbsp;
-<i>85</i>&nbsp;    /**Adds a new user (CREATE).
-<i>86</i>&nbsp;     *
-<i>87</i>&nbsp;     * @param usr Parameter for the user to be added
-<i>88</i>&nbsp;     * @return Returns the user that has been added
-<i>89</i>&nbsp;     */
-<i>90</i>&nbsp;    @PostMapping(value = &quot;/newUser&quot;,
-<i>91</i>&nbsp;            produces = {MediaType.APPLICATION_JSON_VALUE,
-<i>92</i>&nbsp;                    MediaType.APPLICATION_XML_VALUE})
-<i>93</i>&nbsp;    @ResponseBody
-<i>94</i>&nbsp;    public User addUser(@RequestBody User usr) {
-<i>95</i>&nbsp;
-<b class="fc"><i>96</i>&nbsp;        System.out.println(&quot;Creating new user: &quot;  + usr.getID());</b>
-<b class="fc"><i>97</i>&nbsp;        return userRepository.save(usr);</b>
-<i>98</i>&nbsp;    }
-<i>99</i>&nbsp;
-<i>100</i>&nbsp;    /**Updates user information (POST).
-<i>101</i>&nbsp;     *
-<i>102</i>&nbsp;     * @param usr Parameter for the user to be updated
-<i>103</i>&nbsp;     * @return  returns the updated user
-<i>104</i>&nbsp;     */
-<i>105</i>&nbsp;    @PutMapping(value = &quot;/userUpdate&quot;,
-<i>106</i>&nbsp;            produces = {MediaType.APPLICATION_JSON_VALUE,
-<i>107</i>&nbsp;                    MediaType.APPLICATION_XML_VALUE})
-<i>108</i>&nbsp;    @ResponseBody
-<i>109</i>&nbsp;    public User updateUser(@RequestBody User usr) {
-<b class="fc"><i>110</i>&nbsp;        if (userRepository.findById(usr.getID()).isPresent()) {</b>
-<b class="fc"><i>111</i>&nbsp;            System.out.println(&quot;Updating a user.&quot;);</b>
-<b class="fc"><i>112</i>&nbsp;            return userRepository.save(usr);</b>
-<i>113</i>&nbsp;        } else {
-<b class="fc"><i>114</i>&nbsp;            return null;</b>
-<i>115</i>&nbsp;        }
-<i>116</i>&nbsp;    }
-<i>117</i>&nbsp;
-<i>118</i>&nbsp;    /**Deletes an existing user (DELETE).
-<i>119</i>&nbsp;     *
-<i>120</i>&nbsp;     * @param userID Parameter for the userID of the user that has to be deleted
-<i>121</i>&nbsp;     */
-<i>122</i>&nbsp;    @DeleteMapping(value = &quot;/user/{userID}&quot;)
-<i>123</i>&nbsp;    @ResponseBody
-<i>124</i>&nbsp;    public String deleteUser(@PathVariable(&quot;userID&quot;) String userID) {
-<b class="fc"><i>125</i>&nbsp;        System.out.println(&quot;Deleting user&quot; + userID);</b>
-<b class="fc"><i>126</i>&nbsp;        User user = parseUserID(userID);</b>
-<b class="fc"><i>127</i>&nbsp;        if (user != null) {</b>
-<b class="fc"><i>128</i>&nbsp;            userRepository.deleteById(user.getID());</b>
-<b class="fc"><i>129</i>&nbsp;            return &quot;Deleted user &quot; + userID;</b>
-<i>130</i>&nbsp;        }
-<b class="fc"><i>131</i>&nbsp;        return &quot;Could not delete user &quot; + userID;</b>
-<i>132</i>&nbsp;    }
-<i>133</i>&nbsp;    //Get for CO2
-<i>134</i>&nbsp;
+<b class="fc"><i>33</i>&nbsp;        return &quot;You are connected&quot;;</b>
+<i>34</i>&nbsp;    }
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Gets all users.
+<i>38</i>&nbsp;     * @return List of all users
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    @RequestMapping(value = &quot;/users&quot;,
+<i>41</i>&nbsp;            method = {RequestMethod.POST,RequestMethod.GET},
+<i>42</i>&nbsp;            produces = {MediaType.APPLICATION_JSON_VALUE,
+<i>43</i>&nbsp;                    MediaType.APPLICATION_XML_VALUE})
+<i>44</i>&nbsp;    @ResponseBody
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    public List&lt;User&gt; getUsers() {
+<b class="fc"><i>47</i>&nbsp;        return userRepository.findAll();</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * Helper function that returns a user if it exists or null if either the string is not an id or it does not exist.
+<i>52</i>&nbsp;     * @param userID the userid to check and retrieve
+<i>53</i>&nbsp;     * @return returns an existing user or null if the userID was invalid in any way
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    public User parseUserID(String userID) {
+<i>56</i>&nbsp;        long id;
+<i>57</i>&nbsp;        try {
+<b class="fc"><i>58</i>&nbsp;            id = Long.parseLong(userID);</b>
+<b class="fc"><i>59</i>&nbsp;        } catch (NumberFormatException ex) {</b>
+<b class="fc"><i>60</i>&nbsp;            return null;</b>
+<b class="fc"><i>61</i>&nbsp;        }</b>
+<b class="fc"><i>62</i>&nbsp;        Optional&lt;User&gt; optionalUser = userRepository.findById(id);</b>
+<b class="fc"><i>63</i>&nbsp;        if (optionalUser.isPresent()) {</b>
+<b class="fc"><i>64</i>&nbsp;            return optionalUser.get();</b>
+<i>65</i>&nbsp;        } else {
+<b class="fc"><i>66</i>&nbsp;            return null;</b>
+<i>67</i>&nbsp;        }
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * Gets a specific user by userID.
+<i>72</i>&nbsp;     * @param userID The userID to look for
+<i>73</i>&nbsp;     * @return The user if it exists
+<i>74</i>&nbsp;     */
+<i>75</i>&nbsp;    @PostMapping(value = &quot;/user/{userID}&quot;,
+<i>76</i>&nbsp;            produces = {MediaType.APPLICATION_XML_VALUE,
+<i>77</i>&nbsp;                    MediaType.APPLICATION_JSON_VALUE})
+<i>78</i>&nbsp;    @ResponseBody
+<i>79</i>&nbsp;    public User getUser(@PathVariable(&quot;userID&quot;) String userID) {
+<b class="fc"><i>80</i>&nbsp;        return parseUserID(userID);</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**Adds a new user (CREATE).
+<i>84</i>&nbsp;     *
+<i>85</i>&nbsp;     * @param usr Parameter for the user to be added
+<i>86</i>&nbsp;     * @return Returns the user that has been added
+<i>87</i>&nbsp;     */
+<i>88</i>&nbsp;    @PostMapping(value = &quot;/newUser&quot;,
+<i>89</i>&nbsp;            produces = {MediaType.APPLICATION_JSON_VALUE,
+<i>90</i>&nbsp;                    MediaType.APPLICATION_XML_VALUE})
+<i>91</i>&nbsp;    @ResponseBody
+<i>92</i>&nbsp;    public User addUser(@RequestBody User usr) {
+<i>93</i>&nbsp;
+<b class="fc"><i>94</i>&nbsp;        System.out.println(&quot;Creating new user: &quot;  + usr.getID());</b>
+<b class="fc"><i>95</i>&nbsp;        return userRepository.save(usr);</b>
+<i>96</i>&nbsp;    }
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    /**Updates user information (POST).
+<i>99</i>&nbsp;     *
+<i>100</i>&nbsp;     * @param usr Parameter for the user to be updated
+<i>101</i>&nbsp;     * @return  returns the updated user
+<i>102</i>&nbsp;     */
+<i>103</i>&nbsp;    @PutMapping(value = &quot;/userUpdate&quot;,
+<i>104</i>&nbsp;            produces = {MediaType.APPLICATION_JSON_VALUE,
+<i>105</i>&nbsp;                    MediaType.APPLICATION_XML_VALUE})
+<i>106</i>&nbsp;    @ResponseBody
+<i>107</i>&nbsp;    public User updateUser(@RequestBody User usr) {
+<b class="fc"><i>108</i>&nbsp;        if (userRepository.findById(usr.getID()).isPresent()) {</b>
+<b class="fc"><i>109</i>&nbsp;            System.out.println(&quot;Updating a user.&quot;);</b>
+<b class="fc"><i>110</i>&nbsp;            return userRepository.save(usr);</b>
+<i>111</i>&nbsp;        } else {
+<b class="fc"><i>112</i>&nbsp;            return null;</b>
+<i>113</i>&nbsp;        }
+<i>114</i>&nbsp;    }
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**Deletes an existing user (DELETE).
+<i>117</i>&nbsp;     *
+<i>118</i>&nbsp;     * @param userID Parameter for the userID of the user that has to be deleted
+<i>119</i>&nbsp;     */
+<i>120</i>&nbsp;    @DeleteMapping(value = &quot;/user/{userID}&quot;)
+<i>121</i>&nbsp;    @ResponseBody
+<i>122</i>&nbsp;    public String deleteUser(@PathVariable(&quot;userID&quot;) String userID) {
+<b class="fc"><i>123</i>&nbsp;        System.out.println(&quot;Deleting user&quot; + userID);</b>
+<b class="fc"><i>124</i>&nbsp;        User user = parseUserID(userID);</b>
+<b class="fc"><i>125</i>&nbsp;        if (user != null) {</b>
+<b class="fc"><i>126</i>&nbsp;            userRepository.deleteById(user.getID());</b>
+<b class="fc"><i>127</i>&nbsp;            return &quot;Deleted user &quot; + userID;</b>
+<i>128</i>&nbsp;        }
+<b class="fc"><i>129</i>&nbsp;        return &quot;Could not delete user &quot; + userID;</b>
+<i>130</i>&nbsp;    }
+<i>131</i>&nbsp;    //Get for CO2
+<i>132</i>&nbsp;
+<i>133</i>&nbsp;
+<i>134</i>&nbsp;    //Get for achieves
 <i>135</i>&nbsp;
-<i>136</i>&nbsp;    //Get for achieves
-<i>137</i>&nbsp;
-<i>138</i>&nbsp;
-<i>139</i>&nbsp;    //Get for login
-<i>140</i>&nbsp;}
+<i>136</i>&nbsp;
+<i>137</i>&nbsp;    //Get for login
+<i>138</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2019-03-05 18:37</div>
+    <div style="float:right;">generated on 2019-03-09 14:14</div>
 </div>
 </body>
 </html>

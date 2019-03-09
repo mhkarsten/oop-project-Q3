@@ -1,0 +1,114 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AchievementController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">client.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AchievementController (client.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AchievementController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package client.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import client.model.Achievement;
+<i>4</i>&nbsp;import client.repository.AchievementRepository;
+<i>5</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;import java.util.Optional;
+<i>9</i>&nbsp;
+<b class="nc"><i>10</i>&nbsp;public class AchievementController {</b>
+<i>11</i>&nbsp;    @Autowired
+<i>12</i>&nbsp;    private AchievementRepository achievementRepository;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    public Achievement addAchievement(Achievement achievement) {
+<b class="nc"><i>15</i>&nbsp;        System.out.println(&quot;Creating new achievement: &quot; + achievement.getAchID());</b>
+<b class="nc"><i>16</i>&nbsp;        return achievementRepository.save(achievement);</b>
+<i>17</i>&nbsp;    }
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    public Optional&lt;Achievement&gt; findAchievement(Achievement achievement) {
+<b class="nc"><i>20</i>&nbsp;        return achievementRepository.findById(achievement.getAchID());</b>
+<i>21</i>&nbsp;    }
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    public List&lt;Achievement&gt; getAllAchievement() {
+<b class="nc"><i>24</i>&nbsp;        return achievementRepository.findAll();</b>
+<i>25</i>&nbsp;    }
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    public List&lt;Achievement&gt; getAllOwnedAchiement(List&lt;Long&gt; achievementlist) {
+<b class="nc"><i>28</i>&nbsp;        return achievementRepository.findAllById(achievementlist);</b>
+<i>29</i>&nbsp;    }
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-03-09 14:14</div>
+</div>
+</body>
+</html>

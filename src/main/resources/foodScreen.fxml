@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="root-anchorpane" fx:id="pnlRoot" prefHeight="506.0" prefWidth="607.0" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.FoodController">
+<AnchorPane id="root-anchorpane" fx:id="pnlRoot" prefHeight="506.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.FoodController">
     <children>
         <VBox id="vb-sidebar" fx:id="vbSidebarMain1" layoutX="242.0" layoutY="38.0" prefHeight="130.0" prefWidth="139.0" style="-fx-background-color: green;">
             <children>
@@ -40,7 +40,7 @@
                         <Circle fx:id="selectCircle4" fill="#dadfe4" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
                     </graphic>
                 </Label>
-                <Button fx:id="mealSelected" mnemonicParsing="false" onAction="#getMealPoints" text="Select Meal" />
+                <Button fx:id="getMealPoints" mnemonicParsing="false" text="Select Meal" />
             <Button mnemonicParsing="false" text="Show Next" />
             <Button mnemonicParsing="false" text="Show Previous" />
             </children>

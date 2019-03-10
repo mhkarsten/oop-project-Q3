@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import server.model.User;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import static client.foodAPI.FoodAPI.*;
+import static server.controller.ServerController.*;
 
 public class FoodController implements Initializable {
 
@@ -133,17 +135,27 @@ public class FoodController implements Initializable {
 
     public void getMealPoints() {
 
+        User currentUser = getUser("3");
+
         if (categoryChoice.equals("Vegan")) {
 
+            currentUser.setUserPoints(currentUser.getUserPoints() + 100);
 
+            mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
+
+            updateUser(currentUser);
 
         } else if (categoryChoice.equals("Meat")) {
 
+            mealBoxText.setText("You have earned 0 pts for eating a meal with meat!");
 
         } else {
 
+            currentUser.setUserPoints(currentUser.getUserPoints() + 100);
 
+            mealBoxText.setText("You have earned 50 pts for eating a vegetarian meal!");
+
+            updateUser(currentUser);
         }
-
     }
 }

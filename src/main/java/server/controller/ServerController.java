@@ -19,10 +19,7 @@ import java.util.Optional;
 public class ServerController {
 
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserDao userDao;
-
+    private static UserRepository userRepository;
 
     /**Initial connect message.
      *
@@ -60,8 +57,8 @@ public class ServerController {
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public User getUser(@PathVariable("userID") String userID) {
-        long id = -1;
+    public static User getUser(@PathVariable("userID") String userID) {
+        long id;
         try {
             id = Long.parseLong(userID);
         } catch (NumberFormatException ex) {
@@ -102,7 +99,7 @@ public class ServerController {
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public User updateUser(@RequestBody User usr) {
+    public static User updateUser(@RequestBody User usr) {
 
         System.out.println("(Server Side) Updating a user.");
 

@@ -1,6 +1,5 @@
 package client.FXMLControllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -23,10 +24,9 @@ public class LoginController {
 
     /**Login method.
      *
-     * @param event Added an event parameter
      * @throws Exception Throws exception if the event is invalid
      */
-    public void login(ActionEvent event) throws Exception {
+    public void login() throws IOException {
 
         if (usernameField.getText().equals("user") && passwordField.getText().equals("pass")) {
 

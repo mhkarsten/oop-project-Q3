@@ -2,14 +2,16 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import server.model.User;
-import server.repository.UserDao;
 import server.repository.UserRepository;
 
 import java.util.List;
@@ -20,20 +22,15 @@ public class ServerController {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserDao userDao;
-
-
     /**Initial connect message.
      *
      * @return Message stating you are connected
      */
+
     @RequestMapping("/")
     @ResponseBody
     public String connect() {
-
-        String connectString = "You are connected";
-        return connectString;
+        return "You are connected";
     }
 
     /**
@@ -41,7 +38,7 @@ public class ServerController {
      * @return List of all users
      */
     @RequestMapping(value = "/users",
-            method = RequestMethod.POST,
+            method = {RequestMethod.POST,RequestMethod.GET},
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
@@ -51,17 +48,12 @@ public class ServerController {
     }
 
     /**
-     * Gets a specific user by userID.
-     * @param userID The userID to look for
-     * @return The user if it exists
+     * Helper function that returns a user if it exists or null if either the string is not an id or it does not exist.
+     * @param userID the userid to check and retrieve
+     * @return returns an existing user or null if the userID was invalid in any way
      */
-    @RequestMapping(value = "/user/{userID}",
-            method = RequestMethod.POST,
-            produces = {MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public User getUser(@PathVariable("userID") String userID) {
-        long id = -1;
+    public User parseUserID(String userID) {
+        long id;
         try {
             id = Long.parseLong(userID);
         } catch (NumberFormatException ex) {
@@ -75,21 +67,32 @@ public class ServerController {
         }
     }
 
+    /**
+     * Gets a specific user by userID.
+     * @param userID The userID to look for
+     * @return The user if it exists
+     */
+    @PostMapping(value = "/user/{userID}",
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public User getUser(@PathVariable("userID") String userID) {
+        return parseUserID(userID);
+    }
+
     /**Adds a new user (CREATE).
      *
      * @param usr Parameter for the user to be added
      * @return Returns the user that has been added
      */
-    @RequestMapping(value = "/newUser",
-            method = RequestMethod.POST,
+    @PostMapping(value = "/newUser",
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public User addUser(@RequestBody User usr) {
 
-        System.out.println("Creaating new user."  + usr.getUserID());
-
-        return UserDao.addUser(usr);
+        System.out.println("Creating new user: "  + usr.getID());
+        return userRepository.save(usr);
     }
 
     /**Updates user information (POST).
@@ -97,37 +100,34 @@ public class ServerController {
      * @param usr Parameter for the user to be updated
      * @return  returns the updated user
      */
-    @RequestMapping(value = "/userUpdate",
-            method = RequestMethod.PUT,
+    @PutMapping(value = "/userUpdate",
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public User updateUser(@RequestBody User usr) {
-
-        System.out.println("(Server Side) Updating a user.");
-
-        return UserDao.updateUser(usr);
+        if (userRepository.findById(usr.getID()).isPresent()) {
+            System.out.println("Updating a user.");
+            return userRepository.save(usr);
+        } else {
+            return null;
+        }
     }
-
-
-    //Deletes an existing user (DELETE)
 
     /**Deletes an existing user (DELETE).
      *
      * @param userID Parameter for the userID of the user that has to be deleted
      */
-    @RequestMapping(value = "/User/{userID}",
-            method = RequestMethod.DELETE,
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+    @DeleteMapping(value = "/user/{userID}")
     @ResponseBody
-    public void deleteUser(@PathVariable("userID") String userID) {
-
-        System.out.println("(Server Side) Deleting user" + userID);
-
-        UserDao.deleteUser(userID);
+    public String deleteUser(@PathVariable("userID") String userID) {
+        System.out.println("Deleting user" + userID);
+        User user = parseUserID(userID);
+        if (user != null) {
+            userRepository.deleteById(user.getID());
+            return "Deleted user " + userID;
+        }
+        return "Could not delete user " + userID;
     }
-
     //Get for CO2
 
 

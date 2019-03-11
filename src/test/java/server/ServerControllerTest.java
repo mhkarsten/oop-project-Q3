@@ -13,9 +13,9 @@ import server.controller.ServerController;
 public class ServerControllerTest {
     @Autowired
     private ServerController controller;
+
     @Test
-    public void contextLoads()
-    {
+    public void contextLoads() {
         Assertions.assertNotNull(controller);
     }
 }

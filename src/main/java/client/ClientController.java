@@ -1,6 +1,8 @@
 package client;
 
+import client.repository.AchievementRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,6 +20,9 @@ import java.util.Arrays;
 //JSON for the sake of simplicity;
 
 public class ClientController {
+
+    @Autowired
+    private AchievementRepository achievementRepository;
 
     static final String URL_USERS = "http://localhost:8080/users";
     static final String URL_NEWUSER = "http://localhost:8080/newUser";
@@ -40,7 +45,7 @@ public class ClientController {
         String authHeader = "Basic " + new String(encAuth);
 
         headers.set("Authorization", authHeader);
-        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("my_other_key", "my_other_value");
 
@@ -62,10 +67,10 @@ public class ClientController {
     public ArrayList<User> getUsers() {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
         headers.setContentType(MediaType.APPLICATION_XML);
 
-        HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
+        HttpEntity<User[]> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<User[]> response = restTemplate.exchange(URL_USERS,
@@ -79,14 +84,11 @@ public class ClientController {
 
             User[] list = response.getBody();
 
-            ArrayList<User> userList = new ArrayList<User>();
+            ArrayList<User> userList = new ArrayList<>();
 
             if (list != null) {
 
-                for (User u : list) {
-
-                    userList.add(u);
-                }
+                userList.addAll(Arrays.asList(list));
 
                 return userList;
             }
@@ -138,7 +140,7 @@ public class ClientController {
      * @param userName New Username
      * @param userID New UserID
      */
-    public void postUser(String userName, String userID) {
+    public void postUser(long userID,String userName) {
 
         User newUser = new User(userID, userName, 0);
 
@@ -151,9 +153,9 @@ public class ClientController {
 
         User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);
 
-        if (user != null && user.getUserID() != null) {
+        if (user != null && user.getID() != 0) {
 
-            System.out.println("(Client Side) New user created" + user.getUserID());
+            System.out.println("(Client Side) New user created" + user.getID());
         } else {
 
             System.out.println("(Client Side) Something went wrong.");
@@ -163,7 +165,7 @@ public class ClientController {
     /**Method to update a users information.
      * Update user information (UPDATE)
      */
-    public void updateUser(String userID, String userName, int points) {
+    public void updateUser(long userID, String userName, int points) {
 
         User updatedUser = new User(userID, userName, points);
 
@@ -174,7 +176,7 @@ public class ClientController {
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
 
 
-        restTemplate.put(URL_ARBUSER, requestBody, new Object[]{});
+        restTemplate.put(URL_ARBUSER, requestBody);
 
         String updatedUserUrl = URL_ARBUSER + "/" + userID;
 
@@ -184,9 +186,9 @@ public class ClientController {
 
             System.out.println(
                     "(Client Side) User after info update."
-                    + user.getUserName()
-                    + user.getUserID()
-                    + user.getUserPoints()
+                    + user.getName()
+                    + user.getID()
+                    + user.getPoints()
             );
         } else {
 
@@ -210,7 +212,7 @@ public class ClientController {
 
         if (user != null) {
 
-            System.out.println("(Client Side) User " + user.getUserName() + " has been deleted.");
+            System.out.println("(Client Side) User " + user.getName() + " has been deleted.");
         } else {
 
             System.out.println("(Client Side) The selected client cannot be found"

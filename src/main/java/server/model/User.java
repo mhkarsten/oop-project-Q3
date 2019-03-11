@@ -15,7 +15,7 @@ public class User {
     @SequenceGenerator(
             name = "user_generator",
             sequenceName = "user_sequence",
-            initialValue = 1
+            allocationSize = 1
     )
     private long id;
     private String name;
@@ -52,27 +52,27 @@ public class User {
                 && Objects.equals(name, user.name);
     }
 
-    public long getUserID() {
+    public long getID() {
         return id;
     }
 
-    public void setUserID(long userID) {
+    public void setID(long userID) {
         this.id = userID;
     }
 
-    public String getUserName() {
+    public String getName() {
         return name;
     }
 
-    public void setUserName(String userName) {
+    public void setName(String userName) {
         this.name = userName;
     }
 
-    public int getUserPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public void setUserPoints(int userPoints) {
+    public void setPoints(int userPoints) {
         this.points = userPoints;
     }
 }

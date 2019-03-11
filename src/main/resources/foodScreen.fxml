@@ -40,7 +40,7 @@
                         <Circle fx:id="selectCircle4" fill="#dadfe4" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
                     </graphic>
                 </Label>
-                <Button fx:id="getMealPoints" mnemonicParsing="false" text="Select Meal" />
+                <Button mnemonicParsing="false" onAction="#getMealPoints" text="Select Meal" />
             <Button mnemonicParsing="false" text="Show Next" />
             <Button mnemonicParsing="false" text="Show Previous" />
             </children>

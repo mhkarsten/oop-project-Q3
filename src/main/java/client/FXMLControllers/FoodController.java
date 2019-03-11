@@ -22,7 +22,6 @@ import static server.controller.ServerController.*;
 public class FoodController implements Initializable {
 
     private Label mealChoice;
-    private String categoryChoice;
 
     @FXML
     public Label meal1;
@@ -137,7 +136,7 @@ public class FoodController implements Initializable {
 
         User currentUser = getUser("3");
 
-        if (categoryChoice.equals("Vegan")) {
+        if (veganOpt.isSelected()) {
 
             currentUser.setUserPoints(currentUser.getUserPoints() + 100);
 
@@ -145,15 +144,22 @@ public class FoodController implements Initializable {
 
             updateUser(currentUser);
 
-        } else if (categoryChoice.equals("Meat")) {
+        } else if (meatOpt.isSelected()) {
 
             mealBoxText.setText("You have earned 0 pts for eating a meal with meat!");
 
-        } else {
+        } else if (vegOpt.isSelected()) {
 
-            currentUser.setUserPoints(currentUser.getUserPoints() + 100);
+            currentUser.setUserPoints(currentUser.getUserPoints() + 50);
 
             mealBoxText.setText("You have earned 50 pts for eating a vegetarian meal!");
+
+            updateUser(currentUser);
+        } else {
+
+            currentUser.setUserPoints(currentUser.getUserPoints() + 25);
+
+            mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
             updateUser(currentUser);
         }

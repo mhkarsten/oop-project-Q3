@@ -1,5 +1,6 @@
 package client.FXMLControllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,6 +22,11 @@ public class LoginController {
 
     @FXML
     private TextField usernameField;
+
+    @FXML
+    public void onEnter(ActionEvent ae) throws IOException {
+        login();
+    }
 
     /**Login method.
      *

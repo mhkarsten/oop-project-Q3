@@ -15,8 +15,8 @@
             <Image url="@../images/leaves.jpg" />
          </image>
       </ImageView>
-      <PasswordField fx:id="passwordField" layoutX="292.0" layoutY="185.0" />
-      <TextField fx:id="usernameField" layoutX="292.0" layoutY="142.0" />
+      <PasswordField fx:id="passwordField" layoutX="292.0" layoutY="185.0" onAction="#onEnter"/>
+      <TextField fx:id="usernameField" layoutX="292.0" layoutY="142.0" onAction="#onEnter"/>
       <Label layoutX="218.0" layoutY="147.0" text="Username" />
       <Label layoutX="220.0" layoutY="190.0" text="Password" />
       <Label fx:id="loginStatus" layoutX="360.0" layoutY="101.0" prefHeight="31.0" prefWidth="54.0" text="Status" />

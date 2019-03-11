@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CompareScreen">
+   <children>
+      <VBox layoutX="100.0" layoutY="115.0" prefHeight="200.0" prefWidth="144.0" style="-fx-border-color: black;" />
+      <VBox layoutX="350.0" layoutY="115.0" prefHeight="200.0" prefWidth="144.0" style="-fx-border-color: black;" />
+      <TitledPane layoutX="100.0" layoutY="31.0" prefHeight="84.0" prefWidth="173.0" />
+      <TitledPane layoutX="350.0" layoutY="31.0" prefHeight="84.0" prefWidth="173.0" />
+   </children>
+</AnchorPane>

@@ -20,16 +20,16 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <ImageView fitHeight="108.0" fitWidth="111.0" layoutX="15.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="108.0" fitWidth="111.0" layoutX="16.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <!--maybe add a picture later on for each user, use this for now-->
             <Image url="@../images/person.png" />
          </image></ImageView>
-      <Label fx:id="userPoints1" layoutX="15.0" layoutY="234.0" prefHeight="17.0" prefWidth="111.0" text="User Points: " />
-      <Label fx:id="userID1" layoutX="14.0" layoutY="213.0" text="User ID:" />
-      <Label fx:id="userName1" layoutX="15.0" layoutY="192.0" prefHeight="17.0" prefWidth="124.0" text="User Name:" />
+      <Label fx:id="userPoints1" layoutX="11.0" layoutY="273.0" prefHeight="17.0" prefWidth="111.0" text="User Points: " />
+      <Label fx:id="userID1" layoutX="11.0" layoutY="252.0" text="User ID:" />
+      <Label fx:id="userName1" layoutX="9.0" layoutY="231.0" prefHeight="17.0" prefWidth="124.0" text="User Name:" />
       <Label fx:id="userName11" layoutX="200.0" layoutY="181.0" prefHeight="17.0" prefWidth="124.0" text="STATS" />
-      <ImageView fitHeight="94.0" fitWidth="261.0" layoutX="432.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="81.0" fitWidth="157.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/leaves1.jpg" />
          </image></ImageView>

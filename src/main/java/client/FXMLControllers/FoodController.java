@@ -1,6 +1,9 @@
 package client.FXMLControllers;
 
+import client.achievement.Achievement;
 import client.foodAPI.Meal;
+import client.serverCommunication.User;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,15 +12,13 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import server.model.User;
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static client.foodAPI.FoodAPI.*;
-import static server.controller.ServerController.*;
+import static client.serverCommunication.ClientController.*;
 
 public class FoodController implements Initializable {
 
@@ -39,7 +40,13 @@ public class FoodController implements Initializable {
     public CheckBox vegOpt;
     public CheckBox meatOpt;
 
-    public Button mealSelected;
+    public Button upBtn;
+    public Button downBtn;
+
+    private int mealOffset;
+    private ArrayList<Meal[]> meatMeals;
+    private ArrayList<Meal[]> veganMeals;
+    private ArrayList<Meal[]> vegetarianMeals;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -48,8 +55,30 @@ public class FoodController implements Initializable {
         meal2.setText(getRandomMeal()[0].getStrMeal());
         meal3.setText(getRandomMeal()[0].getStrMeal());
         meal4.setText(getRandomMeal()[0].getStrMeal());
+
+        meatMeals = getAllMeatMeals();
+        veganMeals = getMealCategory("Vegan");
+        vegetarianMeals = getMealCategory("Vegetarian");
+
+        upBtn.setOnAction(event -> changeMeals(upBtn));
+        downBtn.setOnAction((event -> changeMeals(downBtn)));
     }
 
+
+    public ArrayList<Meal[]> getSelectedCategory() {
+
+        if (vegOpt.isSelected()) {
+
+            return vegetarianMeals;
+        } else if (meatOpt.isSelected()) {
+
+            return meatMeals;
+        } else if (veganOpt.isSelected()) {
+
+            return veganMeals;
+        }
+        return null;
+    }
 
     public void setMealStrings(ArrayList<Meal[]> mealCategory, int offset) {
 
@@ -88,8 +117,6 @@ public class FoodController implements Initializable {
         meatOpt.setSelected(false);
         veganOpt.setSelected(false);
 
-        ArrayList<Meal[]> vegetarianMeals = getMealCategory("Vegetarian");
-
         setMealStrings(vegetarianMeals, 0);
     }
 
@@ -98,8 +125,6 @@ public class FoodController implements Initializable {
         meatOpt.setSelected(false);
         vegOpt.setSelected(false);
 
-        ArrayList<Meal[]> veganMeals = getMealCategory("Vegan");
-
         setMealStrings(veganMeals, 0);
     }
 
@@ -107,8 +132,6 @@ public class FoodController implements Initializable {
 
         vegOpt.setSelected(false);
         veganOpt.setSelected(false);
-
-        ArrayList<Meal[]> meatMeals = getAllMeatMeals();
 
         setMealStrings(meatMeals, 0);
     }
@@ -134,15 +157,20 @@ public class FoodController implements Initializable {
 
     public void getMealPoints() {
 
-        User currentUser = getUser(1L);
+        User[] currentUser = getUser(1L);
+        Set<Achievement> achives = new HashSet<>();
 
         if (veganOpt.isSelected()) {
 
-            currentUser.setUserPoints(currentUser.getUserPoints() + 100);
+            currentUser[0].setPoints(currentUser[0].getPoints() + 100);
 
             mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
 
-            updateUser(currentUser);
+
+
+            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+
+            System.out.println(currentUser.toString());
 
         } else if (meatOpt.isSelected()) {
 
@@ -150,18 +178,36 @@ public class FoodController implements Initializable {
 
         } else if (vegOpt.isSelected()) {
 
-            currentUser.setUserPoints(currentUser.getUserPoints() + 50);
+            currentUser[0].setPoints(currentUser[0].getPoints() + 50);
 
             mealBoxText.setText("You have earned 50 pts for eating a vegetarian meal!");
 
-            updateUser(currentUser);
+            System.out.println(currentUser.toString());
+
+            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
         } else {
 
-            currentUser.setUserPoints(currentUser.getUserPoints() + 25);
+            currentUser[0].setPoints(currentUser[0].getPoints() + 25);
 
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
-            updateUser(currentUser);
+            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+        }
+    }
+
+    public void changeMeals(Button button) {
+
+        if (button == downBtn) {
+
+            mealOffset = mealOffset + 4;
+            setMealStrings(getSelectedCategory(), mealOffset);
+        } else if (button == upBtn) {
+
+            if (mealOffset <= 4) {
+
+                mealOffset = mealOffset - 4;
+                setMealStrings(getSelectedCategory(), mealOffset);
+            }
         }
     }
 }

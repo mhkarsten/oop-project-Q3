@@ -19,8 +19,10 @@ import java.util.Arrays;
 
 public class ClientController {
 
-    static final String serverURL = "145.94.233.89:8080";
-//        "http://localhost:8080";
+    static final String URL_USERS = "http://145.94.199.226:8080/users";
+    static final String URL_NEWUSER = "http://145.94.199.226:8080/users/new";
+    static final String URL_CHOOSEUSER = "http://145.94.199.226:8080/users/{userID}";
+    static final String URL_ARBUSER = "http://145.94.199.226:8080/users";
 
     static final String URL_USERS = serverURL + "/users";
     static final String URL_NEWUSER = serverURL + "/newUser";
@@ -102,7 +104,7 @@ public class ClientController {
      * @param userID The userid of the user you try to get
      * @return Return a user from the server
      */
-    public User[] getUser(String userID) {
+    public static User[] getUser(long userID) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
@@ -113,19 +115,21 @@ public class ClientController {
 
         Object[] uriValue = new Object[] {userID};
 
-        ResponseEntity<User[]> response = restTemplate.exchange(URL_CHOOSEUSER,
-            HttpMethod.POST, entity, User[].class, uriValue);
+        ResponseEntity<User> response = restTemplate.exchange(URL_CHOOSEUSER,
+            HttpMethod.POST, entity, User.class, uriValue);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
         if (statusCode == HttpStatus.OK) {
 
-            User[] specificUser = response.getBody();
+            User[] userArray = new User[1];
 
-            if (specificUser != null) {
+            userArray[0] = response.getBody();
 
-                return specificUser;
+            if (userArray != null) {
+
+                return userArray;
             } else {
 
                 System.out.println("(Client Side) The spesified user was null or doesnt exist.");
@@ -140,7 +144,7 @@ public class ClientController {
      * @param userName New Username
      * @param userID New UserID
      */
-    public void postUser(String userName, String userID) {
+    public static void postUser(String userName, long userID) {
 
         User newUser = new User(userID, userName, 0);
 
@@ -153,9 +157,9 @@ public class ClientController {
 
         User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);
 
-        if (user != null && user.getUserID() != null) {
+        if (user != null) {
 
-            System.out.println("(Client Side) New user created" + user.getUserID());
+            System.out.println("(Client Side) New user created" + user.getID());
         } else {
 
             System.out.println("(Client Side) Something went wrong.");
@@ -165,7 +169,7 @@ public class ClientController {
     /**Method to update a users information.
      * Update user information (UPDATE)
      */
-    public void updateUser(String userID, String userName, int points) {
+    public static void updateUser(long userID, String userName, int points) {
 
         User updatedUser = new User(userID, userName, points);
 
@@ -175,24 +179,10 @@ public class ClientController {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
 
-        restTemplate.put(URL_ARBUSER, requestBody, new Object[]{});
+        String updatedUserUrl = URL_ARBUSER + "/update";
+        System.out.println("This is the url; "+updatedUserUrl);
+        restTemplate.put(updatedUserUrl, requestBody);
 
-        String updatedUserUrl = URL_ARBUSER + "/" + userID;
-
-        User user = restTemplate.getForObject(updatedUserUrl, User.class);
-
-        if (user != null) {
-
-            System.out.println(
-                    "(Client Side) User after info update."
-                    + user.getUserName()
-                    + user.getUserID()
-                    + user.getUserPoints()
-            );
-        } else {
-
-            System.out.println("(Client Side) Something went wrong, the user doesnt exits");
-        }
     }
 
     /**Method to delete an existing user (DELETE).
@@ -211,7 +201,7 @@ public class ClientController {
 
         if (user != null) {
 
-            System.out.println("(Client Side) User " + user.getUserName() + " has been deleted.");
+            System.out.println("(Client Side) User " + user.getName() + " has been deleted.");
         } else {
 
             System.out.println("(Client Side) The selected client cannot be found"

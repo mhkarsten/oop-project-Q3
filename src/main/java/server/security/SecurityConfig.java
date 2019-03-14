@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -21,8 +24,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MyUserDetailsService userDetailsService;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
+    protected void configure(HttpSecurity http)
         throws Exception {
+        http.authorizeRequests()
+            //Example whitelist route
+            .antMatchers(GET, "/").permitAll()
+            .antMatchers(POST, "/").permitAll()
+            .anyRequest().fullyAuthenticated()
+            .and().httpBasic()
+            .and().csrf().disable();
+
+    }
+
+    /**Configures a few (temporary) user accounts for authorization.
+     //     *
+     //     * @param auth  Parameter for an authenticator
+     //     * @throws Exception Throws exception  if the authenticator is invalid
+     //     */
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 

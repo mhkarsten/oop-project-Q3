@@ -1,6 +1,6 @@
-package client;
+package server;
 
-import client.model.Achievement;
+import server.model.Achievement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -40,13 +40,13 @@ class AchievementTest {
 
     @Test
     void getAchID() {
-        Assertions.assertEquals(ID1, ach1.getAchID());
+        Assertions.assertEquals(ID1, ach1.getID());
     }
 
     @Test
     void setAchID() {
-        ach2.setAchID(7);
-        Assertions.assertEquals(7, ach2.getAchID());
+        ach2.setID(7);
+        Assertions.assertEquals(7, ach2.getID());
     }
 
     @Test

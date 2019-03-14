@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ClientRequestTest {
+public class AuthenticationTest {
     @LocalServerPort
     private int port;
     @Autowired
@@ -85,70 +85,5 @@ public class ClientRequestTest {
         byte[] encAuth = Base64.encodeBase64("tom:mellon".getBytes(Charset.forName("US-ASCII")));
         noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
         Assertions.assertFalse(tryToConnect(noPwdHeaders));
-    }
-
-    @Test
-    public void testConnection() {
-        Assertions.assertEquals(this.restTemplate.postForObject(domain + "/", entity, String.class), "You are connected");
-    }
-
-    @Test
-    public void retrieveAllUsersSelectSecond() {
-        Assertions.assertEquals("Jim", this.restTemplate.postForObject(domain + "/users", entity, User[].class)[1].getName());
-    }
-
-    @Test
-    public void retrieveUserOne() {
-        Assertions.assertEquals("Alex", this.restTemplate.postForObject(domain + "/user/1", entity, User.class
-        ).getName());
-    }
-
-    @Test
-    public void retrieveUserOneWrong() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/user/us1", entity, User.class));
-    }
-
-    @Test
-    public void retrieveUserMinusOne() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/user/-1", entity, User.class));
-    }
-
-    @Test
-    public void updateUserMinusOne() {
-        User doesNotExist = new User(-1, "Unicorn", 420);
-        entity = new HttpEntity<>(doesNotExist, headers);
-        restTemplate.put(domain + "/userUpdate/", entity);
-        Assertions.assertNull(restTemplate.postForObject(domain + "/user/" + doesNotExist.getID(), entity, User.class));
-    }
-
-    @Test
-    public void deleteUserMinusOne() {
-        ResponseEntity<String> response = restTemplate.exchange(domain + "/user/-1", HttpMethod.DELETE, entity, String.class);
-        Assertions.assertEquals(response.getBody(), "Could not delete user -1");
-    }
-
-    @Test
-    public void fullCrudTest() {
-        //CREATE
-        //It really said "US Navy", but hey
-        User user = new User(4, "Usnavi", 1000);
-        entity = new HttpEntity<>(user, headers);
-
-        //READ
-        User returnedUser = restTemplate.postForObject(domain + "/newUser", entity, User.class);
-        Assertions.assertEquals(user.getName(), returnedUser.getName());
-
-        //UPDATE
-        returnedUser.setName("Lin-Manuel");
-        entity = new HttpEntity<>(returnedUser, headers);
-        restTemplate.put(domain + "/userUpdate/", entity);
-        User updatedUser = restTemplate.postForObject(domain + "/user/" + returnedUser.getID(), entity, User.class);
-        Assertions.assertEquals(updatedUser, returnedUser);
-
-        //DELETE
-        ResponseEntity<String> response = restTemplate.exchange(domain + "/user/" + returnedUser.getID(), HttpMethod.DELETE, entity, String.class);
-        System.out.println("Response from DELETE: " + response.getBody());
-        User returnedUser2 = restTemplate.postForObject(domain + "/user/" + returnedUser.getID(), entity, User.class);
-        Assertions.assertNull(returnedUser2);
     }
 }

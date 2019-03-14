@@ -1,8 +1,6 @@
 package client;
 
-import client.repository.AchievementRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,9 +18,6 @@ import java.util.Arrays;
 //JSON for the sake of simplicity;
 
 public class ClientController {
-
-    @Autowired
-    private AchievementRepository achievementRepository;
 
     static final String URL_USERS = "http://localhost:8080/users";
     static final String URL_NEWUSER = "http://localhost:8080/newUser";

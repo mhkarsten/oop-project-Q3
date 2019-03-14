@@ -1,14 +1,11 @@
-package client.model;
+package server.model;
 
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import java.util.Set;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "Achievements")
+@Table(name = "achievements")
 public class Achievement {
     @Id
     @GeneratedValue(generator = "achievement_generator")
@@ -17,11 +14,12 @@ public class Achievement {
         sequenceName = "achievement_sequence",
         allocationSize = 1
     )
-
-    private long achID;
+    private long id;
     private String title;
     private String description;
     private String path;
+    @ManyToMany(mappedBy = "achievement")
+    private Set<User> user;
 
     public Achievement() {
 
@@ -35,7 +33,7 @@ public class Achievement {
      * @param path path to the badge image for this model
      */
     public Achievement(long achID, String title, String description, String path) {
-        this.achID = achID;
+        this.id = achID;
         this.title = title;
         this.description = description;
         this.path = path;
@@ -50,18 +48,18 @@ public class Achievement {
             return false;
         }
         Achievement that = (Achievement) obj;
-        return Objects.equals(achID, that.achID)
+        return Objects.equals(id, that.id)
                 && Objects.equals(title, that.title)
                 && Objects.equals(description, that.description)
                 && Objects.equals(path, that.path);
     }
 
-    public long getAchID() {
-        return achID;
+    public long getID() {
+        return id;
     }
 
-    public void setAchID(long achID) {
-        this.achID = achID;
+    public void setID(long achID) {
+        this.id = achID;
     }
 
     public String getTitle() {

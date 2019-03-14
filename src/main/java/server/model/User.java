@@ -1,15 +1,13 @@
 package server.model;
 
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import java.util.Set;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(
@@ -20,6 +18,13 @@ public class User {
     private long id;
     private String name;
     private int points;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_achievement",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id"))
+    private Set<Achievement> achievement;
 
     public User() {
 
@@ -74,5 +79,22 @@ public class User {
 
     public void setPoints(int userPoints) {
         this.points = userPoints;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", points=" + points +
+                ", achievement=" + achievement +
+                '}';
+    }
+
+    public Set<Achievement> getAchievements() {
+        return this.achievement;
+    }
+    public void setAchievements(Set<Achievement> achievement) {
+        this.achievement=achievement;
     }
 }

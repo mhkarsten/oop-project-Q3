@@ -2,6 +2,7 @@ package server.controller;
 
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -46,7 +47,7 @@ public class UserController {
     @ResponseBody
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return userRepository.findAll(Sort.by(Sort.Direction.ASC,"id"));
     }
     /**
      * Gets a specific user by userID.

@@ -99,6 +99,10 @@ public class UserRequestTest {
         restTemplate.put(domain + "/users/update/", entity);
         User updatedUser = restTemplate.postForObject(domain + "/users/" + userOne.getID(), new HttpEntity<>(headers), User.class);
         Assertions.assertEquals(updatedUser, userOne);
+        userOne.setName("Alex");
+        restTemplate.put(domain + "/users/update/", entity);
+        updatedUser = restTemplate.postForObject(domain + "/users/" + userOne.getID(), new HttpEntity<>(headers), User.class);
+        Assertions.assertEquals(updatedUser, userOne);
     }
 
     @Test

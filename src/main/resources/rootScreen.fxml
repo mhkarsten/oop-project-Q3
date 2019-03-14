@@ -19,8 +19,8 @@
             </VBox>
             <VBox fx:id="scoreSidebar" layoutX="100.0" layoutY="73.0" prefHeight="388.0" prefWidth="90.0">
                <children>
-                  <Button fx:id="myScoreBtn" mnemonicParsing="false" text="My Score" />
-                  <Button mnemonicParsing="false" text="Compare" />
+                  <Button fx:id="myScoreBtn" mnemonicParsing="false" text="My Score" onAction="#openMyScore"/>
+                  <Button mnemonicParsing="false" text="Compare" onAction="#openCompareScreen" />
                   <Button fx:id="achievementBtn" mnemonicParsing="false" text="Achievements" />
                </children>
             </VBox>

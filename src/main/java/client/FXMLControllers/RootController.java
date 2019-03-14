@@ -80,4 +80,20 @@ public class RootController implements Initializable {
 
         mainPane.getItems().set(1, changePane);
     }
+
+    public void openCompareScreen() throws IOException {
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/compareScreen.fxml"));
+
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
+    }
+
+    public void openMyScore() throws IOException {
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
+
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
+    }
 }

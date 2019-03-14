@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 class AchievementTest {
 
-    String ID1 = "A01";
-    String ID2 = "A02";
+    long ID1 = 1L;
+    long ID2 = 2L;
     String title1 = "GoGreener";
     String title2 = "Superman";
     String descrip1 = "Get 10 points";
@@ -45,8 +45,8 @@ class AchievementTest {
 
     @Test
     void setAchID() {
-        ach2.setAchID("A07");
-        Assertions.assertEquals("A07", ach2.getAchID());
+        ach2.setAchID(7L);
+        Assertions.assertEquals(7L, ach2.getAchID());
     }
 
     @Test

@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="root-anchorpane" fx:id="pnlRoot" prefHeight="506.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.FoodController">
+<AnchorPane id="root-anchorpane" fx:id="pnlRoot" prefHeight="506.0" prefWidth="607.0" style="-fx-background-color: #297373;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.FoodController">
     <children>
-        <VBox id="vb-sidebar" fx:id="vbSidebarMain1" layoutX="242.0" layoutY="38.0" prefHeight="130.0" prefWidth="139.0" style="-fx-background-color: green;">
+        <VBox id="vb-sidebar" fx:id="vbSidebarMain1" layoutX="242.0" layoutY="38.0" prefHeight="130.0" prefWidth="139.0" style="-fx-background-color: #3E92CC;">
             <children>
                 <Label fx:id="label" minHeight="16" minWidth="69" prefHeight="21.0" prefWidth="108.0" text="Select one" />
                 <CheckBox fx:id="veganOpt" mnemonicParsing="false" onMouseClicked="#displayVeganMeals" text="Vegan Meal" />

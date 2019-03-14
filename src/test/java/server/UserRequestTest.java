@@ -31,12 +31,19 @@ public class UserRequestTest {
     HttpEntity<User> entity;
     String domain;
 
+    /**
+     * The setting up of the headers for the test.
+     */
     @Before
     public void setup() {
+        //Create a basic set of headers with a specification of the type of body sent to and expected from the server
         headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        byte[] encAuth = Base64.encodeBase64("tom:123".getBytes(Charset.forName("US-ASCII")));
+        String username="tom";
+        String password="123";
+        //The basic authentication as it works right now, [user]:[password]
+        byte[] encAuth = Base64.encodeBase64((username+':'+password).getBytes(Charset.forName("US-ASCII")));
         headers.set("Authorization", "Basic " + new String(encAuth));
         entity = new HttpEntity<>(headers);
         domain = "http://localhost:" + port;
@@ -45,6 +52,7 @@ public class UserRequestTest {
     public void testConnection() {
         this.restTemplate.postForObject(domain + "/", entity, String.class);
     }
+
 
     @Test
     public void retrieveAllUsersSelectSecond() {
@@ -79,6 +87,18 @@ public class UserRequestTest {
     public void deleteUserMinusOne() {
         ResponseEntity<?> response = restTemplate.exchange(domain + "/users/-1", HttpMethod.DELETE, entity, String.class);
         Assertions.assertEquals(response.getStatusCode(),HttpStatus.NOT_FOUND);
+    }
+    @Test
+    public void updateUserAndUndo()
+    {
+        User userOne=restTemplate.postForObject(domain+"/users/1",new HttpEntity<>(headers),User.class);
+
+        //UPDATE
+        userOne.setName("Jack");
+        entity = new HttpEntity<>(userOne, headers);
+        restTemplate.put(domain + "/users/update/", entity);
+        User updatedUser = restTemplate.postForObject(domain + "/users/" + userOne.getID(), new HttpEntity<>(headers), User.class);
+        Assertions.assertEquals(updatedUser, userOne);
     }
 
     @Test

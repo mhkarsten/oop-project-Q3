@@ -19,6 +19,10 @@ public class AchievementController {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Gets all of the achievements that can currently be unlocked by users.
+     * @return the list of achievements
+     */
     @RequestMapping(value = "/achievements",
             method = {RequestMethod.POST,RequestMethod.GET},
             produces = {MediaType.APPLICATION_JSON_VALUE,

@@ -1,13 +1,13 @@
 package client;
 
-import client.achievement.Achievement;
+import client.model.Achievement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class AchievementTest {
 
-    String ID1 = "A01";
-    String ID2 = "A02";
+    long ID1 = 1;
+    long ID2 = 2;
     String title1 = "GoGreener";
     String title2 = "Superman";
     String descrip1 = "Get 10 points";
@@ -17,18 +17,27 @@ class AchievementTest {
 
     Achievement ach1 = new Achievement(ID1, title1, descrip1, path1);
     Achievement ach2 = new Achievement(ID2, title2, descrip2, path2);
+
     @Test
     void equalsTest1() {
-        Assertions.assertEquals(ach1,ach1);
+        Assertions.assertEquals(ach1, ach1);
     }
+
     @Test
     void equalsTest2() {
         Assertions.assertEquals(ach1, new Achievement(ID1, title1, descrip1, path1));
     }
+
     @Test
     void equalsTest3() {
         Assertions.assertNotEquals(ach1, new Achievement(ID1, "Mother Nature's disciple", descrip1, path1));
     }
+
+    @Test
+    void equalsTest4() {
+        Assertions.assertNotEquals(ach1, null);
+    }
+
     @Test
     void getAchID() {
         Assertions.assertEquals(ID1, ach1.getAchID());
@@ -36,8 +45,8 @@ class AchievementTest {
 
     @Test
     void setAchID() {
-        ach2.setAchID("A07");
-        Assertions.assertEquals("A07", ach2.getAchID());
+        ach2.setAchID(7);
+        Assertions.assertEquals(7, ach2.getAchID());
     }
 
     @Test

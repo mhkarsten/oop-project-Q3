@@ -8,23 +8,23 @@
 
 <SplitPane fx:id="mainPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.RootController">
   <items>
-    <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="312.0">
+    <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="312.0" style="-fx-background-color: #297373 #297373;">
          <children>
             <VBox fx:id="actionSidebar" layoutX="99.0" layoutY="-3.0" prefHeight="467.0" prefWidth="90.0">
                <children>
-                  <Button fx:id="foodBtn" mnemonicParsing="false" text="Food" />
+                  <Button fx:id="foodBtn" mnemonicParsing="false" text="Food" onAction="#openFoodScreen"/>
                   <Button mnemonicParsing="false" text="Transport" />
                   <Button mnemonicParsing="false" text="Other" />
                </children>
             </VBox>
             <VBox fx:id="scoreSidebar" layoutX="100.0" layoutY="73.0" prefHeight="388.0" prefWidth="90.0">
                <children>
-                  <Button fx:id="myScoreBtn" mnemonicParsing="false" text="My Score" onAction="#openMyScore"/>
-                  <Button mnemonicParsing="false" text="Compare" onAction="#openCompareScreen" />
+                  <Button fx:id="myScoreBtn" mnemonicParsing="false" onAction="#openMyScore" text="My Score" />
+                  <Button mnemonicParsing="false" onAction="#openCompareScreen" text="Compare" />
                   <Button fx:id="achievementBtn" mnemonicParsing="false" text="Achievements" />
                </children>
             </VBox>
-            <VBox fx:id="mailSidebar" prefHeight="459.0" prefWidth="100.0">
+            <VBox fx:id="mailSidebar" prefHeight="459.0" prefWidth="100.0" style="-fx-background-color: #297373;">
                <children>
                   <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#openProfileScreen" text="Profile" />
                   <Button fx:id="actionBtn" mnemonicParsing="false" onAction="#openFoodScreen" text="Action" />
@@ -36,6 +36,6 @@
             <URL value="@root.css" />
         </stylesheets>
     </AnchorPane>
-    <AnchorPane fx:id="changePane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="40.0" />
+    <AnchorPane fx:id="changePane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="40.0" style="-fx-background-color: #297373;" />
   </items>
 </SplitPane>

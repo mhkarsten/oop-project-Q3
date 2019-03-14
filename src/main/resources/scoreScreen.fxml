@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.ScoreController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #297373;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.ScoreController">
    <children>
       <Pane layoutX="116.0" layoutY="56.0" prefHeight="62.0" prefWidth="278.0" style="-fx-border-color: black;">
          <children>

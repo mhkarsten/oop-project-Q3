@@ -36,7 +36,7 @@ public class LoginController {
 
         if (usernameField.getText().equals("user") && passwordField.getText().equals("pass")) {
 
-            loginStatus.setText("Status: You have logged in!");
+            loginStatus.setText("You have logged in!");
 
             Stage mainStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/rootScreen.fxml"));
@@ -50,7 +50,7 @@ public class LoginController {
             oldStage.close();
         } else {
 
-            loginStatus.setText("Status: Username or password is not correct.");
+            loginStatus.setText("Username or password is incorrect.");
         }
     }
 }

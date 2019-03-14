@@ -19,7 +19,7 @@ public class ScoreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        User currentUser = getUser("3");
+        User currentUser = getUser(1L);
 
         userPoints.setText("Points: " + currentUser.getUserPoints());
     }

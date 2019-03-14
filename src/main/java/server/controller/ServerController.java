@@ -57,10 +57,10 @@ public class ServerController {
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public static User getUser(@PathVariable("userID") String userID) {
+    public static User getUser(@PathVariable("userID") long userID) {
         long id;
         try {
-            id = Long.parseLong(userID);
+            id = userID;
         } catch (NumberFormatException ex) {
             return null;
         }

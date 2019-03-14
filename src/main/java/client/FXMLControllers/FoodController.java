@@ -134,7 +134,7 @@ public class FoodController implements Initializable {
 
     public void getMealPoints() {
 
-        User currentUser = getUser("3");
+        User currentUser = getUser(1L);
 
         if (veganOpt.isSelected()) {
 

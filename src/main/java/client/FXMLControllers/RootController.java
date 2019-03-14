@@ -96,4 +96,12 @@ public class RootController implements Initializable {
 
         mainPane.getItems().set(1, changePane);
     }
+
+    public void openTransportScreen() throws  IOException {
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/transportScreen.fxml"));
+
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
+    }
 }

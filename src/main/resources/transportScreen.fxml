@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #297373;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.transportController">
+   <children>
+      <VBox layoutX="364.0" layoutY="68.0" prefHeight="150.0" prefWidth="154.0" style="-fx-border-color: black;">
+         <children>
+            <Label text="Select one:" />
+            <CheckBox mnemonicParsing="false" text="Public transport" />
+            <CheckBox mnemonicParsing="false" text="Car" />
+            <CheckBox mnemonicParsing="false" text="Emmision free" />
+         </children></VBox>
+      <VBox layoutX="89.0" layoutY="68.0" prefHeight="272.0" prefWidth="148.0" style="-fx-border-color: black;" />
+   </children>
+</AnchorPane>

@@ -13,7 +13,7 @@
             <VBox fx:id="actionSidebar" layoutX="99.0" layoutY="-3.0" prefHeight="467.0" prefWidth="90.0">
                <children>
                   <Button fx:id="foodBtn" mnemonicParsing="false" text="Food" onAction="#openFoodScreen"/>
-                  <Button mnemonicParsing="false" text="Transport" />
+                  <Button mnemonicParsing="false" text="Transport" onAction="#openTransportScreen"/>
                   <Button mnemonicParsing="false" text="Other" />
                </children>
             </VBox>

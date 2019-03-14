@@ -58,13 +58,13 @@ public class ServerController {
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public static User getUser(@PathVariable("userID") long userID) {
-        long id;
-        try {
-            id = userID;
-        } catch (NumberFormatException ex) {
-            return null;
-        }
-        Optional<User> optionalUser = userRepository.findById(id);
+//        long id;
+//        try {
+//            id = Long.parseLong(userID);
+//        } catch (NumberFormatException ex) {
+//            return null;
+//        }
+        Optional<User> optionalUser = userRepository.findById(userID);
         if (optionalUser.isPresent()) {
             return optionalUser.get();
         } else {
@@ -84,7 +84,7 @@ public class ServerController {
     @ResponseBody
     public User addUser(@RequestBody User usr) {
 
-        System.out.println("Creaating new user."  + usr.getUserID());
+        System.out.println("Creating new user."  + usr.getUserID());
 
         return UserDao.addUser(usr);
     }
@@ -106,7 +106,6 @@ public class ServerController {
         return UserDao.updateUser(usr);
     }
 
-
     //Deletes an existing user (DELETE)
 
     /**Deletes an existing user (DELETE).
@@ -125,11 +124,5 @@ public class ServerController {
         UserDao.deleteUser(userID);
     }
 
-    //Get for CO2
 
-
-    //Get for achieves
-
-
-    //Get for login
 }

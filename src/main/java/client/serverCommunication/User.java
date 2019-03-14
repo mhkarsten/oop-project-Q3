@@ -1,49 +1,87 @@
 package client.serverCommunication;
 
-//TODO: Find a way to have client and server use the same User class
+import client.achievement.Achievement;
+
+import java.util.Objects;
+import java.util.Set;
+
 public class User {
-    private String userID;
-    private String userName;
-    private int userPoints;
+
+    private long id;
+    private String name;
+    private int points;
+    private Set<Achievement> achievement;
 
     public User() {
 
     }
 
-    /** Constructor for the User class.
-     *
-     * @param usrID Unique UserID
-     * @param usrName A username
-     * @param usrPoints Amount of point associated with the user
+    /**
+     * Constructor for the User class.
+     * @param id The numeric id of the user
+     * @param name The name of the user
+     * @param points The points of the user
      */
-    public User(String usrID, String usrName, int usrPoints) {
+    public User(long id, String name, int points) {
 
-        this.userID = usrID;
-        this.userName = usrName;
-        this.userPoints = usrPoints;
+        this.id = id;
+        this.name = name;
+        this.points = points;
     }
 
-    public String getUserID() {
-        return userID;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        User user = (User) obj;
+        return id == user.id
+            && points == user.points
+            && Objects.equals(name, user.name);
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public long getID() {
+        return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setID(long userID) {
+        this.id = userID;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getName() {
+        return name;
     }
 
-    public int getUserPoints() {
-        return userPoints;
+    public void setName(String userName) {
+        this.name = userName;
     }
 
-    public void setUserPoints(int userPoints) {
-        this.userPoints = userPoints;
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int userPoints) {
+        this.points = userPoints;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", points=" + points +
+            ", achievement=" + achievement +
+            '}';
+    }
+
+    public Set<Achievement> getAchievements() {
+        return this.achievement;
+    }
+    public void setAchievements(Set<Achievement> achievement) {
+        this.achievement=achievement;
     }
 }
+

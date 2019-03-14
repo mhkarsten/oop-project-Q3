@@ -3,13 +3,12 @@ package client.FXMLControllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import server.model.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import client.serverCommunication.*;
 
-import static server.controller.ServerController.getUser;
-
+import static client.serverCommunication.ClientController.getUser;
 
 public class ScoreController implements Initializable {
 
@@ -19,8 +18,8 @@ public class ScoreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        User currentUser = getUser(1L);
+        User[] currentUser = getUser(1L);
 
-        userPoints.setText("Points: " + currentUser.getUserPoints());
+        userPoints.setText("Points: " + currentUser[0].getPoints());
     }
 }

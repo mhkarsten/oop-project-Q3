@@ -41,8 +41,8 @@
                     </graphic>
                 </Label>
                 <Button mnemonicParsing="false" onAction="#getMealPoints" text="Select Meal" />
-            <Button mnemonicParsing="false" text="Show Next" />
-            <Button mnemonicParsing="false" text="Show Previous" />
+            <Button fx:id="upBtn" mnemonicParsing="false" text="Show Next" />
+            <Button fx:id="downBtn" mnemonicParsing="false" text="Show Previous" />
             </children>
         </VBox>
     </children>

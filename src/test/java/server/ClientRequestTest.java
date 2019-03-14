@@ -36,13 +36,13 @@ public class ClientRequestTest {
     @Test
     public void retrieveAllUsersSelectSecond() {
         Assertions.assertTrue(this.restTemplate.postForObject("http://localhost:" + port + "/users", entity,User[].class
-                )[1].getUserName().equals("Jim")
+                )[1].getName().equals("Jim")
         );
     }
     @Test
     public void retrieveUserOne() {
         Assertions.assertTrue(this.restTemplate.postForObject("http://localhost:" + port + "/user/1", entity,User.class
-                ).getUserName().equals("Alex")
+                ).getName().equals("Alex")
         );
     }
     /*

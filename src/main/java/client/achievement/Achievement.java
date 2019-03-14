@@ -1,23 +1,32 @@
 package client.achievement;
 
+import client.serverCommunication.User;
+
 import java.util.Objects;
+import java.util.Set;
+
 
 public class Achievement {
 
-    private String achID;
+    private long id;
     private String title;
     private String description;
     private String path;
+    private Set<User> user;
+
+    public Achievement() {
+
+    }
 
     /** Constructor for the Achievement class.
      *
      * @param achID Achievement ID
-     * @param title Title of the achievement
-     * @param description description of the achievement
-     * @param path path to the badge image for this achievement
+     * @param title Title of the model
+     * @param description description of the model
+     * @param path path to the badge image for this model
      */
-    public Achievement(String achID, String title, String description, String path) {
-        this.achID = achID;
+    public Achievement(long achID, String title, String description, String path) {
+        this.id = achID;
         this.title = title;
         this.description = description;
         this.path = path;
@@ -32,18 +41,18 @@ public class Achievement {
             return false;
         }
         Achievement that = (Achievement) obj;
-        return Objects.equals(achID, that.achID)
-                && Objects.equals(title, that.title)
-                && Objects.equals(description, that.description)
-                && Objects.equals(path, that.path);
+        return Objects.equals(id, that.id)
+            && Objects.equals(title, that.title)
+            && Objects.equals(description, that.description)
+            && Objects.equals(path, that.path);
     }
 
-    public String getAchID() {
-        return achID;
+    public long getID() {
+        return id;
     }
 
-    public void setAchID(String achID) {
-        this.achID = achID;
+    public void setID(long achID) {
+        this.id = achID;
     }
 
     public String getTitle() {

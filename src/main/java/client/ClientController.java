@@ -48,14 +48,15 @@ public class ClientController {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<String> response = restTemplate.exchange(URL_USERS, //
-            HttpMethod.GET, entity, String.class);
+                HttpMethod.GET, entity, String.class);
 
         String result = response.getBody();
 
         System.out.println(result);
     }
 
-    /**Method to return an arraylist of all users.
+    /**
+     * Method to return an arraylist of all users.
      *
      * @return Return all users from the server
      */
@@ -92,7 +93,8 @@ public class ClientController {
         return null;
     }
 
-    /**Method to return a specified user.
+    /**
+     * Method to return a specified user.
      *
      * @param userID The userid of the user you try to get
      * @return Return a user from the server
@@ -106,10 +108,10 @@ public class ClientController {
         HttpEntity<User[]> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        Object[] uriValue = new Object[] {userID};
+        Object[] uriValue = new Object[]{userID};
 
         ResponseEntity<User[]> response = restTemplate.exchange(URL_CHOOSEUSER,
-            HttpMethod.POST, entity, User[].class, uriValue);
+                HttpMethod.POST, entity, User[].class, uriValue);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
@@ -118,7 +120,7 @@ public class ClientController {
 
             User[] specificUser = response.getBody();
 
-            if ( specificUser != null) {
+            if (specificUser != null) {
 
                 return specificUser;
             } else {
@@ -130,12 +132,13 @@ public class ClientController {
         return null;
     }
 
-    /**Method to post a new user (CREATE).
+    /**
+     * Method to post a new user (CREATE).
      *
      * @param userName New Username
-     * @param userID New UserID
+     * @param userID   New UserID
      */
-    public void postUser(long userID,String userName) {
+    public void postUser(long userID, String userName) {
 
         User newUser = new User(userID, userName, 0);
 
@@ -157,7 +160,8 @@ public class ClientController {
         }
     }
 
-    /**Method to update a users information.
+    /**
+     * Method to update a users information.
      * Update user information (UPDATE)
      */
     public void updateUser(long userID, String userName, int points) {
@@ -181,9 +185,9 @@ public class ClientController {
 
             System.out.println(
                     "(Client Side) User after info update."
-                    + user.getName()
-                    + user.getID()
-                    + user.getPoints()
+                            + user.getName()
+                            + user.getID()
+                            + user.getPoints()
             );
         } else {
 
@@ -191,7 +195,8 @@ public class ClientController {
         }
     }
 
-    /**Method to delete an existing user (DELETE).
+    /**
+     * Method to delete an existing user (DELETE).
      *
      * @param userID UserID of the user to delete
      */
@@ -199,7 +204,7 @@ public class ClientController {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        Object[] uriValue = new Object[] {userID};
+        Object[] uriValue = new Object[]{userID};
 
         restTemplate.delete(URL_CHOOSEUSER, uriValue);
 

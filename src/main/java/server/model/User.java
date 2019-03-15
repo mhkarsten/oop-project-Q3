@@ -1,8 +1,15 @@
 package server.model;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -24,7 +31,7 @@ public class User {
             name = "user_achievement",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "achievement_id"))
-    private Set<Achievement> achievement;
+    private List<Achievement> achievement;
 
     public User() {
 
@@ -32,8 +39,9 @@ public class User {
 
     /**
      * Constructor for the User class.
-     * @param id The numeric id of the user
-     * @param name The name of the user
+     *
+     * @param id     The numeric id of the user
+     * @param name   The name of the user
      * @param points The points of the user
      */
     public User(long id, String name, int points) {
@@ -81,20 +89,11 @@ public class User {
         this.points = userPoints;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", points=" + points +
-                ", achievement=" + achievement +
-                '}';
-    }
-
-    public Set<Achievement> getAchievements() {
+    public List<Achievement> getAchievements() {
         return this.achievement;
     }
-    public void setAchievements(Set<Achievement> achievement) {
-        this.achievement=achievement;
+
+    public void setAchievements(List<Achievement> achievement) {
+        this.achievement = achievement;
     }
 }

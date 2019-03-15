@@ -21,7 +21,8 @@ public class LoginController {
     @FXML
     private TextField usernameField;
 
-    /**Login method.
+    /**
+     * Login method.
      *
      * @param event Added an event parameter
      * @throws Exception Throws exception if the event is invalid

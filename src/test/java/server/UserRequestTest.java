@@ -3,6 +3,7 @@ package server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.client.HttpStatusCodeException;
+import server.model.Achievement;
 import server.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Before;
@@ -40,19 +41,43 @@ public class UserRequestTest {
         headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        String username="tom";
-        String password="123";
+        String username = "tom";
+        String password = "123";
         //The basic authentication as it works right now, [user]:[password]
-        byte[] encAuth = Base64.encodeBase64((username+':'+password).getBytes(Charset.forName("US-ASCII")));
+        byte[] encAuth = Base64.encodeBase64((username + ':' + password).getBytes(Charset.forName("US-ASCII")));
         headers.set("Authorization", "Basic " + new String(encAuth));
         entity = new HttpEntity<>(headers);
         domain = "http://localhost:" + port;
     }
+
     @Test
     public void testConnection() {
         this.restTemplate.postForObject(domain + "/", entity, String.class);
     }
 
+    @Test
+    public void retrieveUserOneAchievements() {
+        Achievement[] achievements = restTemplate.postForObject(domain + "/achievements", entity, Achievement[].class);
+        Achievement[] userOneAchs = restTemplate.postForObject(domain + "/users/1/achievements", entity, Achievement[].class);
+
+        Assertions.assertEquals(achievements[0], userOneAchs[0]);
+        Assertions.assertEquals(achievements[1], userOneAchs[1]);
+    }
+
+    @Test
+    public void retrieveUserMinusOneAchievements() {
+        Assertions.assertNull(restTemplate.postForObject(domain + "/users/-1/achievements", entity, Achievement[].class));
+    }
+
+    @Test
+    public void retrieveAchievementMinusOne() {
+        Assertions.assertNull(this.restTemplate.postForObject(domain + "/achievements/-1", entity, Achievement.class));
+    }
+
+    @Test
+    public void retrieveAchievementsWrong() {
+        Assertions.assertNull(this.restTemplate.postForObject(domain + "/achievements/ach1", entity, Achievement.class));
+    }
 
     @Test
     public void retrieveAllUsersSelectSecond() {
@@ -86,12 +111,12 @@ public class UserRequestTest {
     @Test
     public void deleteUserMinusOne() {
         ResponseEntity<?> response = restTemplate.exchange(domain + "/users/-1", HttpMethod.DELETE, entity, String.class);
-        Assertions.assertEquals(response.getStatusCode(),HttpStatus.NOT_FOUND);
+        Assertions.assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
     }
+
     @Test
-    public void updateUserAndUndo()
-    {
-        User userOne=restTemplate.postForObject(domain+"/users/1",new HttpEntity<>(headers),User.class);
+    public void updateUserAndUndo() {
+        User userOne = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
 
         //UPDATE
         userOne.setName("Jack");
@@ -119,7 +144,7 @@ public class UserRequestTest {
         }
         URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity, User.class);
         //READ
-        user=restTemplate.postForObject(usnaviLocation,new HttpEntity<>(headers),User.class);
+        user = restTemplate.postForObject(usnaviLocation, new HttpEntity<>(headers), User.class);
 
         //UPDATE
         user.setName("Lin-Manuel");
@@ -130,7 +155,7 @@ public class UserRequestTest {
 
         //DELETE
         ResponseEntity<?> response = restTemplate.exchange(domain + "/users/" + user.getID(), HttpMethod.DELETE, new HttpEntity<>(headers), String.class);
-        Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         User returnedUser2 = restTemplate.postForObject(domain + "/users/" + user.getID(), new HttpEntity<>(headers), User.class);
         Assertions.assertNull(returnedUser2);
     }

@@ -3,22 +3,14 @@ package server.model;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "achievements")
 public class Achievement {
     @Id
-    @GeneratedValue(generator = "achievement_generator")
-    @SequenceGenerator(
-            name = "achievement_generator",
-            sequenceName = "achievement_sequence",
-            allocationSize = 1
-    )
     private long id;
     private String title;
     private String description;

@@ -1,8 +1,13 @@
 package server.model;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "achievements")
@@ -10,27 +15,28 @@ public class Achievement {
     @Id
     @GeneratedValue(generator = "achievement_generator")
     @SequenceGenerator(
-        name = "achievement_generator",
-        sequenceName = "achievement_sequence",
-        allocationSize = 1
+            name = "achievement_generator",
+            sequenceName = "achievement_sequence",
+            allocationSize = 1
     )
     private long id;
     private String title;
     private String description;
     private String path;
     @ManyToMany(mappedBy = "achievement")
-    private Set<User> user;
+    private List<User> user;
 
     public Achievement() {
 
     }
 
-    /** Constructor for the Achievement class.
+    /**
+     * Constructor for the Achievement class.
      *
-     * @param achID Achievement ID
-     * @param title Title of the model
+     * @param achID       Achievement ID
+     * @param title       Title of the model
      * @param description description of the model
-     * @param path path to the badge image for this model
+     * @param path        path to the badge image for this model
      */
     public Achievement(long achID, String title, String description, String path) {
         this.id = achID;

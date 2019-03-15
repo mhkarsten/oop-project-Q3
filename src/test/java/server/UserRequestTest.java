@@ -3,6 +3,7 @@ package server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.client.HttpStatusCodeException;
+import server.controller.UserController;
 import server.model.Achievement;
 import server.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -28,6 +29,8 @@ public class UserRequestTest {
     private int port;
     @Autowired
     private TestRestTemplate restTemplate;
+    @Autowired
+    private UserController controller;
     HttpHeaders headers;
     HttpEntity<User> entity;
     String domain;
@@ -35,6 +38,10 @@ public class UserRequestTest {
     /**
      * The setting up of the headers for the test.
      */
+    @Test
+    public void contextLoads() {
+        Assertions.assertNotNull(controller);
+    }
     @Before
     public void setup() {
         //Create a basic set of headers with a specification of the type of body sent to and expected from the server

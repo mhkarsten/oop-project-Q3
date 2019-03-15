@@ -13,6 +13,7 @@ build:
 test:
   stage: test
   script:
+    - mvn dependency::tree
     - mvn test -e
 
 coverage:

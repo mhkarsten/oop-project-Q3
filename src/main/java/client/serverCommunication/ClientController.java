@@ -23,12 +23,6 @@ public class ClientController {
     static final String URL_NEWUSER = "http://145.94.199.226:8080/users/new";
     static final String URL_CHOOSEUSER = "http://145.94.199.226:8080/users/{userID}";
     static final String URL_ARBUSER = "http://145.94.199.226:8080/users";
-
-    static final String URL_USERS = serverURL + "/users";
-    static final String URL_NEWUSER = serverURL + "/newUser";
-    static final String URL_CHOOSEUSER = serverURL + "/user/{userID}";
-    static final String URL_ARBUSER =  serverURL +"/user";
-
     static final String USER_NAME = "tom";
     static final String PASSWORD = "123";
 

@@ -133,6 +133,7 @@ public class ClientController {
 
             if (userArray != null) {
 
+                System.out.println(userArray[0].toString());
                 return userArray;
             } else {
 

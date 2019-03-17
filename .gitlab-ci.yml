@@ -8,7 +8,7 @@ stages:
 build:
   stage: build
   script:
-    - mvn compile
+    - mvn package
 
 test:
   stage: test
@@ -34,6 +34,6 @@ checkstyle:
   artifacts:
     name: checkstyle
     paths:
-      - target/site/checkstyle.html
-      - target/site/css/
-      - target/site/images/
+      - checkstyle.html
+      - css/
+      - images/

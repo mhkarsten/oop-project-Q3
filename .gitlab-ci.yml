@@ -8,7 +8,7 @@ stages:
 build:
   stage: build
   script:
-    - mvn package
+    - mvn -Dmaven.test.skip package
   artifacts:
     name: package
     paths:
@@ -34,10 +34,11 @@ coverage:
 checkstyle:
   stage: report
   script:
-    - mvn site -B
+    - mvn site -Dmaven.test.skip -B
   artifacts:
     name: checkstyle
     paths:
-      - checkstyle.html
-      - css/
-      - images/
+      - target/site/checkstyle.html
+      - target/site/css/
+      - target/site/images/
+

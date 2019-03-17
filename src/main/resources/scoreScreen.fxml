@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #297373;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.ScoreController">
+   <children>
+      <Pane layoutX="116.0" layoutY="56.0" prefHeight="62.0" prefWidth="278.0" style="-fx-border-color: black;">
+         <children>
+            <Label fx:id="userPoints" layoutX="122.0" layoutY="21.0" text="Points" />
+         </children></Pane>
+      <VBox layoutX="448.0" layoutY="137.0" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: black;" />
+      <VBox layoutX="116.0" layoutY="137.0" prefHeight="200.0" prefWidth="278.0" style="-fx-border-color: black;" />
+   </children>
+</AnchorPane>

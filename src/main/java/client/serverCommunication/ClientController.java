@@ -1,4 +1,4 @@
-package client;
+package client.serverCommunication;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
@@ -19,12 +19,10 @@ import java.util.Arrays;
 
 public class ClientController {
 
-    static final String URL_USERS = "http://localhost:8080/users";
-    static final String URL_NEWUSER = "http://localhost:8080/newUser";
-    static final String URL_CHOOSEUSER = "http://localhost:8080/user/{userID}";
-    static final String URL_ARBUSER = "http://localhost:8080/user";
-
-
+    static final String URL_USERS = "http://145.94.199.226:8080/users";
+    static final String URL_NEWUSER = "http://145.94.199.226:8080/users/new";
+    static final String URL_CHOOSEUSER = "http://145.94.199.226:8080/users/{userID}";
+    static final String URL_ARBUSER = "http://145.94.199.226:8080/users";
     static final String USER_NAME = "tom";
     static final String PASSWORD = "123";
 
@@ -40,7 +38,7 @@ public class ClientController {
         String authHeader = "Basic " + new String(encAuth);
 
         headers.set("Authorization", authHeader);
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("my_other_key", "my_other_value");
 
@@ -48,25 +46,24 @@ public class ClientController {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<String> response = restTemplate.exchange(URL_USERS, //
-                HttpMethod.GET, entity, String.class);
+            HttpMethod.GET, entity, String.class);
 
         String result = response.getBody();
 
         System.out.println(result);
     }
 
-    /**
-     * Method to return an arraylist of all users.
+    /**Method to return an arraylist of all users.
      *
      * @return Return all users from the server
      */
     public ArrayList<User> getUsers() {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
         headers.setContentType(MediaType.APPLICATION_XML);
 
-        HttpEntity<User[]> entity = new HttpEntity<>(headers);
+        HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<User[]> response = restTemplate.exchange(URL_USERS,
@@ -80,11 +77,14 @@ public class ClientController {
 
             User[] list = response.getBody();
 
-            ArrayList<User> userList = new ArrayList<>();
+            ArrayList<User> userList = new ArrayList<User>();
 
             if (list != null) {
 
-                userList.addAll(Arrays.asList(list));
+                for (User u : list) {
+
+                    userList.add(u);
+                }
 
                 return userList;
             }
@@ -93,13 +93,12 @@ public class ClientController {
         return null;
     }
 
-    /**
-     * Method to return a specified user.
+    /**Method to return a specified user.
      *
      * @param userID The userid of the user you try to get
      * @return Return a user from the server
      */
-    public User[] getUser(String userID) {
+    public static User[] getUser(long userID) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
@@ -108,21 +107,23 @@ public class ClientController {
         HttpEntity<User[]> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        Object[] uriValue = new Object[]{userID};
+        Object[] uriValue = new Object[] {userID};
 
-        ResponseEntity<User[]> response = restTemplate.exchange(URL_CHOOSEUSER,
-                HttpMethod.POST, entity, User[].class, uriValue);
+        ResponseEntity<User> response = restTemplate.exchange(URL_CHOOSEUSER,
+            HttpMethod.POST, entity, User.class, uriValue);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
         if (statusCode == HttpStatus.OK) {
 
-            User[] specificUser = response.getBody();
+            User[] userArray = new User[1];
 
-            if (specificUser != null) {
+            userArray[0] = response.getBody();
 
-                return specificUser;
+            if (userArray != null) {
+
+                return userArray;
             } else {
 
                 System.out.println("(Client Side) The spesified user was null or doesnt exist.");
@@ -132,13 +133,12 @@ public class ClientController {
         return null;
     }
 
-    /**
-     * Method to post a new user (CREATE).
+    /**Method to post a new user (CREATE).
      *
      * @param userName New Username
-     * @param userID   New UserID
+     * @param userID New UserID
      */
-    public void postUser(long userID, String userName) {
+    public static void postUser(String userName, long userID) {
 
         User newUser = new User(userID, userName, 0);
 
@@ -151,7 +151,7 @@ public class ClientController {
 
         User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);
 
-        if (user != null && user.getID() != 0) {
+        if (user != null) {
 
             System.out.println("(Client Side) New user created" + user.getID());
         } else {
@@ -160,11 +160,10 @@ public class ClientController {
         }
     }
 
-    /**
-     * Method to update a users information.
+    /**Method to update a users information.
      * Update user information (UPDATE)
      */
-    public void updateUser(long userID, String userName, int points) {
+    public static void updateUser(long userID, String userName, int points) {
 
         User updatedUser = new User(userID, userName, points);
 
@@ -174,29 +173,13 @@ public class ClientController {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
 
+        String updatedUserUrl = URL_ARBUSER + "/update";
+        System.out.println("This is the url; "+updatedUserUrl);
+        restTemplate.put(updatedUserUrl, requestBody);
 
-        restTemplate.put(URL_ARBUSER, requestBody);
-
-        String updatedUserUrl = URL_ARBUSER + "/" + userID;
-
-        User user = restTemplate.getForObject(updatedUserUrl, User.class);
-
-        if (user != null) {
-
-            System.out.println(
-                    "(Client Side) User after info update."
-                            + user.getName()
-                            + user.getID()
-                            + user.getPoints()
-            );
-        } else {
-
-            System.out.println("(Client Side) Something went wrong, the user doesnt exits");
-        }
     }
 
-    /**
-     * Method to delete an existing user (DELETE).
+    /**Method to delete an existing user (DELETE).
      *
      * @param userID UserID of the user to delete
      */
@@ -204,7 +187,7 @@ public class ClientController {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        Object[] uriValue = new Object[]{userID};
+        Object[] uriValue = new Object[] {userID};
 
         restTemplate.delete(URL_CHOOSEUSER, uriValue);
 

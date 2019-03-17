@@ -1,0 +1,11 @@
+
+#sidebarPane {
+    -fx-background-color:white;
+    -fx-text-fill: black;
+    -fx-cursor:hand;
+}
+
+#mailSidebar {
+    -fx-background-color: white;
+}
+

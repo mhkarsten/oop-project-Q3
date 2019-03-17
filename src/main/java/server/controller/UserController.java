@@ -133,11 +133,4 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
-    //Get for CO2
-
-
-    //Get for achieves
-
-
-    //Get for login
 }

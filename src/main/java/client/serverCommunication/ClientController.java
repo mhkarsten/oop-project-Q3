@@ -19,10 +19,10 @@ import java.util.Arrays;
 
 public class ClientController {
 
-    static final String URL_USERS = "http://145.94.199.226:8080/users";
-    static final String URL_NEWUSER = "http://145.94.199.226:8080/users/new";
-    static final String URL_CHOOSEUSER = "http://145.94.199.226:8080/users/{userID}";
-    static final String URL_ARBUSER = "http://145.94.199.226:8080/users";
+    static final String URL_USERS = "http://localhost:8090/users";
+    static final String URL_NEWUSER = "http://localhost:8090/users/new";
+    static final String URL_CHOOSEUSER = "http://localhost:8090/users/{userID}";
+    static final String URL_ARBUSER = "http://localhost:8090/users";
     static final String USER_NAME = "tom";
     static final String PASSWORD = "123";
 
@@ -33,11 +33,8 @@ public class ClientController {
 
         HttpHeaders headers = new HttpHeaders();
 
-        String auth = USER_NAME + ":" + PASSWORD;
-        byte[] encAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-        String authHeader = "Basic " + new String(encAuth);
+        setAuthHeaders(headers);
 
-        headers.set("Authorization", authHeader);
         headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("my_other_key", "my_other_value");
@@ -53,6 +50,17 @@ public class ClientController {
         System.out.println(result);
     }
 
+    public static HttpHeaders setAuthHeaders(HttpHeaders headers) {
+
+        String auth = USER_NAME + ":" + PASSWORD;
+        byte[] encAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+        String authHeader = "Basic " + new String(encAuth);
+
+        headers.set("Authorization", authHeader);
+
+        return headers;
+    }
+
     /**Method to return an arraylist of all users.
      *
      * @return Return all users from the server
@@ -60,6 +68,7 @@ public class ClientController {
     public ArrayList<User> getUsers() {
 
         HttpHeaders headers = new HttpHeaders();
+        setAuthHeaders(headers);
         headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
         headers.setContentType(MediaType.APPLICATION_XML);
 
@@ -101,6 +110,7 @@ public class ClientController {
     public static User[] getUser(long userID) {
 
         HttpHeaders headers = new HttpHeaders();
+        setAuthHeaders(headers);
         headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
         headers.setContentType(MediaType.APPLICATION_XML);
 
@@ -143,6 +153,7 @@ public class ClientController {
         User newUser = new User(userID, userName, 0);
 
         HttpHeaders headers = new HttpHeaders();
+        setAuthHeaders(headers);
         headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
         headers.setContentType(MediaType.APPLICATION_XML);
 
@@ -168,6 +179,7 @@ public class ClientController {
         User updatedUser = new User(userID, userName, points);
 
         HttpHeaders headers = new HttpHeaders();
+        setAuthHeaders(headers);
         headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
 
         RestTemplate restTemplate = new RestTemplate();

@@ -11,7 +11,9 @@ build:
     - mvn package
   artifacts:
     name: package
-
+    paths:
+      - target/*.jar
+        
 test:
   stage: test
   script:

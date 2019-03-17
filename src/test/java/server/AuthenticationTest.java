@@ -1,6 +1,5 @@
 package server;
 
-import client.User;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +12,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.ResourceAccessException;
+import server.model.User;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;

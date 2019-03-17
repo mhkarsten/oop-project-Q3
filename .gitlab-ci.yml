@@ -9,6 +9,8 @@ build:
   stage: build
   script:
     - mvn package
+  artifacts:
+    name: package
 
 test:
   stage: test

@@ -17,4 +17,3 @@ INSERT INTO followers (follower, followed) VALUES (1,3);
 INSERT INTO followers (follower, followed) VALUES (1,2);
 INSERT INTO followers (follower, followed) VALUES (2,1);
 INSERT INTO followers (follower, followed) VALUES (2,3);
-INSERT INTO followers (follower, followed) VALUES (3,1);

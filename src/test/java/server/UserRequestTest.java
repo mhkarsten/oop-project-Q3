@@ -2,6 +2,7 @@ package server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
 import org.springframework.web.client.HttpStatusCodeException;
 import server.controller.UserController;
 import server.model.Achievement;
@@ -42,6 +43,7 @@ public class UserRequestTest {
     public void contextLoads() {
         Assertions.assertNotNull(controller);
     }
+
     @Before
     public void setup() {
         //Create a basic set of headers with a specification of the type of body sent to and expected from the server
@@ -107,6 +109,11 @@ public class UserRequestTest {
         Assertions.assertNull(this.restTemplate.postForObject(domain + "/users/-1", entity, User.class));
     }
 
+    @Test
+    public void getUsersThreeFollows()
+    {
+        Assertions.assertEquals(restTemplate.postForObject(domain+"/users/3/following",entity,User[].class).length,0);
+    }
     @Test
     public void updateUserMinusOne() {
         User doesNotExist = new User(-1, "Unicorn", 420);

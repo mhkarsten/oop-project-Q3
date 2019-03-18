@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import server.model.Achievement;
 import server.model.User;
 import server.repository.UserRepository;
 
@@ -132,5 +133,37 @@ public class UserController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+    /**
+     * A mapping to only get the users someone is following.
+     *
+     * @param userID the user id of the user
+     * @return the followers if any and if the user exists
+     */
+    @RequestMapping(value = "/users/{userID}/following", method = {RequestMethod.POST, RequestMethod.GET},
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public List<User> getUserFollowing(@PathVariable("userID") long userID) {
+        Optional<User> user = userRepository.findById(userID);
+        if (user.isPresent()) {
+            return user.get().getFollowing();
+        } else {
+            return null;
+        }
+    }
+    /**
+     * A mapping to only get the followers of a certain user.
+     *
+     * @param userID the user id of the user
+     * @return the followers if any and if the user exists
+     */
+    @RequestMapping(value = "/users/{userID}/followers", method = {RequestMethod.POST, RequestMethod.GET},
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public List<User> getUserFollowers(@PathVariable("userID") long userID) {
+        Optional<User> user = userRepository.findById(userID);
+        if (user.isPresent()) {
+            return user.get().getFollowers();
+        } else {
+            return null;
+        }
     }
 }

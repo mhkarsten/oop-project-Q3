@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -26,6 +27,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "achievement_id"))
     private List<Achievement> achievement;
 
+    @ManyToMany
+    @JoinTable(
+            name = "followers",
+            joinColumns = @JoinColumn(name="follower",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="followed",referencedColumnName = "id"))
+    private List<User> following;
+
+    @ManyToMany(mappedBy = "following")
+    private List<User> follower;
     public User() {
 
     }
@@ -88,5 +98,19 @@ public class User {
 
     public void setAchievements(List<Achievement> achievement) {
         this.achievement = achievement;
+    }
+    @JsonIgnore
+    public List<User> getFollowers() {
+        return follower;
+    }
+    public void setFollower(List<User> follower) {
+        this.follower = follower;
+    }
+    @JsonIgnore
+    public List<User> getFollowing() {
+        return following;
+    }
+    public void setFollowing(List<User> following) {
+        this.following = following;
     }
 }

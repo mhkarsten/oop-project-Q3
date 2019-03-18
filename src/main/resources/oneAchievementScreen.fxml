@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #297373;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OneAchievementScreen">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #80B192;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OneAchievementScreen">
    <children>
       <TitledPane layoutX="75.0" layoutY="50.0" prefHeight="300.0" prefWidth="350.0" />
       <VBox layoutX="468.0" layoutY="50.0" prefHeight="300.0" prefWidth="100.0" style="-fx-border-color: black;" />

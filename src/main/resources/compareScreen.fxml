@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #297373;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.CompareController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #80B192;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.CompareController">
    <children>
-      <VBox layoutX="100.0" layoutY="146.0" prefHeight="200.0" prefWidth="144.0" style="-fx-border-color: black;" />
-      <VBox layoutX="350.0" layoutY="146.0" prefHeight="200.0" prefWidth="144.0" style="-fx-border-color: black;" />
+      <VBox layoutX="100.0" layoutY="146.0" prefHeight="200.0" prefWidth="144.0" style="-fx-border-color: black; -fx-border-radius: 10;" />
+      <VBox layoutX="350.0" layoutY="146.0" prefHeight="200.0" prefWidth="144.0" style="-fx-border-color: black; -fx-border-radius: 10;" />
       <TitledPane layoutX="100.0" layoutY="31.0" prefHeight="84.0" prefWidth="173.0" style="-fx-border-color: black;" />
       <TitledPane layoutX="350.0" layoutY="31.0" prefHeight="84.0" prefWidth="173.0" />
    </children>

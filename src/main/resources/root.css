@@ -1,11 +1,11 @@
-
-#sidebarPane {
-    -fx-background-color:white;
-    -fx-text-fill: black;
-    -fx-cursor:hand;
+#profileSidebar > * {
+    -fx-pref-height: 30px;
 }
 
-#mailSidebar {
-    -fx-background-color: white;
+#actionSidebar > * {
+    -fx-pref-height: 30px;
 }
 
+#mailSidebar > * {
+    -fx-pref-height: 30px;
+}

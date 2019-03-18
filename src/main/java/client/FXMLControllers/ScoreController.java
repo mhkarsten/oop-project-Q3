@@ -20,6 +20,6 @@ public class ScoreController implements Initializable {
 
         User[] currentUser = getUser(1L);
 
-        userPoints.setText("Points: " + currentUser[0].getPoints());
+        userPoints.setText("Your Points: " + currentUser[0].getPoints());
     }
 }

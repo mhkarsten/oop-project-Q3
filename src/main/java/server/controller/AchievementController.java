@@ -18,7 +18,9 @@ import server.repository.AchievementRepository;
 import server.repository.UserRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class AchievementController {
@@ -31,6 +33,11 @@ public class AchievementController {
     public ResponseEntity<?> handleMethodArgumentTypeMismatch(
             MethodArgumentTypeMismatchException ex) {
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler({NoSuchElementException.class})
+    public ResponseEntity<?> handleNoSuchElementException(
+            NoSuchElementException ex) {
+        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -57,9 +64,9 @@ public class AchievementController {
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<Achievement> getAchievement(@PathVariable("achID") long achID) {
+    public Achievement getAchievement(@PathVariable("achID") long achID) {
         Optional<Achievement> ach = achievementRepository.findById(achID);
-        return ach.map(achievement -> new ResponseEntity<>(achievement, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return ach.get();
     }
 
     /**
@@ -70,12 +77,8 @@ public class AchievementController {
      */
     @RequestMapping(value = "/users/{userID}/achievements", method = {RequestMethod.POST, RequestMethod.GET},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public List<Achievement> getUserAchievements(@PathVariable("userID") long userID) {
+    public Set<Achievement> getUserAchievements(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
-        if (user.isPresent()) {
-            return user.get().getAchievements();
-        } else {
-            return null;
-        }
+        return user.get().getAchievements();
     }
 }

@@ -23,7 +23,9 @@ import server.repository.UserRepository;
 
 import java.net.URI;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import javax.validation.Valid;
 
 @RestController
@@ -31,7 +33,11 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
+    @ExceptionHandler({NoSuchElementException.class})
+    public ResponseEntity<?> handleNoSuchElementException(
+            NoSuchElementException ex) {
+        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<?> handleMethodArgumentTypeMismatch(
             MethodArgumentTypeMismatchException ex) {
@@ -73,9 +79,9 @@ public class UserController {
             produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<User> getUser(@PathVariable("userID") long userID) {
+    public User getUser(@PathVariable("userID") long userID) {
         Optional<User> optionalUser = userRepository.findById(userID);
-        return optionalUser.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return optionalUser.get();
     }
 
 
@@ -142,13 +148,9 @@ public class UserController {
      */
     @RequestMapping(value = "/users/{userID}/following", method = {RequestMethod.POST, RequestMethod.GET},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public List<User> getUserFollowing(@PathVariable("userID") long userID) {
+    public Set<User> getUserFollowing(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
-        if (user.isPresent()) {
-            return user.get().getFollowing();
-        } else {
-            return null;
-        }
+        return user.get().getFollowing();
     }
     /**
      * A mapping to only get the followers of a certain user.
@@ -158,12 +160,8 @@ public class UserController {
      */
     @RequestMapping(value = "/users/{userID}/followers", method = {RequestMethod.POST, RequestMethod.GET},
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public List<User> getUserFollowers(@PathVariable("userID") long userID) {
+    public Set<User> getUserFollowers(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
-        if (user.isPresent()) {
-            return user.get().getFollowers();
-        } else {
-            return null;
-        }
+        return user.get().getFollowers();
     }
 }

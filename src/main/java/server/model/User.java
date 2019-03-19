@@ -1,7 +1,7 @@
 package server.model;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,17 +25,17 @@ public class User {
             name = "user_achievement",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "achievement_id"))
-    private List<Achievement> achievement;
+    private Set<Achievement> achievement;
 
     @ManyToMany
     @JoinTable(
             name = "followers",
             joinColumns = @JoinColumn(name="follower",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name="followed",referencedColumnName = "id"))
-    private List<User> following;
+    private Set<User> following;
 
     @ManyToMany(mappedBy = "following")
-    private List<User> follower;
+    private Set<User> follower;
     public User() {
 
     }
@@ -92,25 +92,25 @@ public class User {
         this.points = userPoints;
     }
 
-    public List<Achievement> getAchievements() {
+    public Set<Achievement> getAchievements() {
         return this.achievement;
     }
 
-    public void setAchievements(List<Achievement> achievement) {
+    public void setAchievements(Set<Achievement> achievement) {
         this.achievement = achievement;
     }
     @JsonIgnore
-    public List<User> getFollowers() {
+    public Set<User> getFollowers() {
         return follower;
     }
-    public void setFollower(List<User> follower) {
+    public void setFollower(Set<User> follower) {
         this.follower = follower;
     }
     @JsonIgnore
-    public List<User> getFollowing() {
+    public Set<User> getFollowing() {
         return following;
     }
-    public void setFollowing(List<User> following) {
+    public void setFollowing(Set<User> following) {
         this.following = following;
     }
 }

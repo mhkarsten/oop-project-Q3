@@ -2,6 +2,7 @@ package server.model;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -16,7 +17,7 @@ public class Achievement {
     private String description;
     private String path;
     @ManyToMany(mappedBy = "achievement")
-    private List<User> user;
+    private Set<User> user;
 
     public Achievement() {
 

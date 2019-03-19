@@ -18,10 +18,16 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.hamcrest.collection.IsArrayContainingInAnyOrder;
 
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,6 +41,7 @@ public class UserRequestTest {
     HttpHeaders headers;
     HttpEntity<User> entity;
     String domain;
+    User us1, us2, us3;
 
     /**
      * The setting up of the headers for the test.
@@ -57,6 +64,19 @@ public class UserRequestTest {
         headers.set("Authorization", "Basic " + new String(encAuth));
         entity = new HttpEntity<>(headers);
         domain = "http://localhost:" + port;
+        us1 = restTemplate.postForObject(domain + "/users/1", entity, User.class);
+        us2 = restTemplate.postForObject(domain + "/users/2", entity, User.class);
+        us3 = restTemplate.postForObject(domain + "/users/3", entity, User.class);
+    }
+
+    @Test
+    public void getAchievementsTest()
+    {
+
+        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
+        Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
+        Achievement a3 = restTemplate.postForObject(domain + "/achievements/3", entity, Achievement.class);
+        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/achievements/", entity, Achievement[].class),new Achievement[]{a1,a2,a3});
     }
 
     @Test
@@ -66,11 +86,10 @@ public class UserRequestTest {
 
     @Test
     public void retrieveUserOneAchievements() {
-        Achievement[] achievements = restTemplate.postForObject(domain + "/achievements", entity, Achievement[].class);
-        Achievement[] userOneAchs = restTemplate.postForObject(domain + "/users/1/achievements", entity, Achievement[].class);
 
-        Assertions.assertEquals(achievements[0], userOneAchs[0]);
-        Assertions.assertEquals(achievements[1], userOneAchs[1]);
+        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
+        Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
+        assertThat(restTemplate.postForObject(domain + "/users/1/achievements", entity, Achievement[].class), IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1, a2));
     }
 
     @Test
@@ -110,10 +129,16 @@ public class UserRequestTest {
     }
 
     @Test
-    public void getUsersThreeFollows()
-    {
-        Assertions.assertEquals(restTemplate.postForObject(domain+"/users/3/following",entity,User[].class).length,0);
+    public void getUsersThreeFollows() {
+        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/users/3/following", entity, User[].class), new User[]{});
     }
+
+    @Test
+    public void getUsersFollowingThree() {
+        assertThat(restTemplate.postForObject(domain + "/users/3/followers", entity, User[].class), IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(us1, us2));
+        //Assertions.assertEquals(new HashSet<>(Arrays.asList(restTemplate.postForObject(domain+"/users/3/followers",entity,User[].class))), new HashSet<>(Arrays.asList({us1,us2})));
+    }
+
     @Test
     public void updateUserMinusOne() {
         User doesNotExist = new User(-1, "Unicorn", 420);
@@ -142,6 +167,19 @@ public class UserRequestTest {
         restTemplate.put(domain + "/users/update/", entity);
         updatedUser = restTemplate.postForObject(domain + "/users/" + userOne.getID(), new HttpEntity<>(headers), User.class);
         Assertions.assertEquals(updatedUser, userOne);
+    }
+    @Test
+    public void setFollowingFollowersTest() {
+        User user = new User(24601, "Jean Valjean", 1000);
+        //These lines of code make me really sad...
+        //Is there any way to neatly initialize a set?
+        Set<User> following=new HashSet<>(Arrays.asList(new User[]{us1,us2}));
+        Set<User> follower=new HashSet<>(Arrays.asList(new User[]{us2,us3}));
+        user.setFollower(follower);
+        user.setFollowing(following);
+        Assertions.assertEquals(user.getFollowing(),following);
+        Assertions.assertEquals(user.getFollowers(),follower);
+
     }
 
     @Test

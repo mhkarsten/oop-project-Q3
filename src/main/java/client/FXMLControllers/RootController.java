@@ -104,4 +104,12 @@ public class RootController implements Initializable {
 
         mainPane.getItems().set(1, changePane);
     }
+
+    public void openEnergyScreen() throws  IOException {
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/energyScreen.fxml"));
+
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
+    }
 }

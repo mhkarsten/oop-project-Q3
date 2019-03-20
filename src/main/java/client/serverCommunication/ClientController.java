@@ -19,10 +19,12 @@ import java.util.Arrays;
 
 public class ClientController {
 
-    static final String URL_USERS = "http://localhost:8090/users";
-    static final String URL_NEWUSER = "http://localhost:8090/users/new";
-    static final String URL_CHOOSEUSER = "http://localhost:8090/users/{userID}";
-    static final String URL_ARBUSER = "http://localhost:8090/users";
+//    static final String URL = "localhost:8090";
+
+    static String URL_USERS = "localhost:8090/users";
+    static String URL_NEWUSER = "localhost:8090/users/new";
+    static String URL_CHOOSEUSER = "localhost:8090/users/{userID}";
+    static String URL_ARBUSER = "localhost:8090/users";
     static final String USER_NAME = "tom";
     static final String PASSWORD = "123";
 

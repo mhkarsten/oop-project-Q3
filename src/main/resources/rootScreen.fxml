@@ -8,7 +8,7 @@
 
 <SplitPane fx:id="mainPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.RootController">
   <items>
-    <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="312.0" style="-fx-background-color: #80B192;">
+    <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="312.0">
          <children>
             <VBox fx:id="profileSidebar" layoutX="76.0" prefHeight="100.0" prefWidth="90.0">
                <children>
@@ -20,7 +20,7 @@
              <VBox fx:id="actionSidebar" layoutX="76.0" layoutY="99.0" prefHeight="92.0" prefWidth="90.0">
                  <Button fx:id="foodBtn" mnemonicParsing="false" onAction="#openFoodScreen" text="Food" />
                  <Button mnemonicParsing="false" onAction="#openTransportScreen" text="Transport" />
-                 <Button mnemonicParsing="false" text="Other" />
+                 <Button mnemonicParsing="false" onAction="#openEnergyScreen" text="Energy" />
              </VBox>
             <VBox fx:id="mailSidebar" prefHeight="197.0" prefWidth="65.0" style="-fx-background-color: none;">
                <children>
@@ -34,6 +34,6 @@
             <URL value="@root.css" />
         </stylesheets>
     </AnchorPane>
-    <AnchorPane fx:id="changePane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="40.0" style="-fx-background-color: #80B192;" />
+    <AnchorPane fx:id="changePane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="40.0" stylesheets="root.css" />
   </items>
 </SplitPane>

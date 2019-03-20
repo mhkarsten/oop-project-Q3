@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #297373;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.LoginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #63b175;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.LoginController">
    <children>
       <Group layoutX="218.0" layoutY="142.0">
          <children>
@@ -31,7 +31,7 @@
             <Image url="@../images/Logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="221.0" layoutY="34.0" text="Green Life">
+      <Label layoutX="236.0" layoutY="34.0" text="Greendr">
          <font>
             <Font name="Gabriola" size="50.0" />
          </font>

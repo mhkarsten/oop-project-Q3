@@ -1,14 +1,14 @@
 package client.FXMLControllers;
 
+import client.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import client.serverCommunication.*;
 
-import static client.serverCommunication.ClientController.getUser;
+import static client.serverCommunication.UserController.getUser;
 
 public class ScoreController implements Initializable {
 

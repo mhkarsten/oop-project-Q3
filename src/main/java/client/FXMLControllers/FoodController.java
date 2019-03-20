@@ -1,9 +1,8 @@
 package client.FXMLControllers;
 
-import client.achievement.Achievement;
-import client.foodAPI.Meal;
-import client.serverCommunication.User;
-import javafx.event.EventHandler;
+import client.model.Achievement;
+import client.model.Meal;
+import client.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,12 +12,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.*;
 
-import static client.foodAPI.FoodAPI.*;
-import static client.serverCommunication.ClientController.*;
+import static client.serverCommunication.FoodAPI.*;
+import static client.serverCommunication.UserController.*;
 
 public class FoodController implements Initializable {
 

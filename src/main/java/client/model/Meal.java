@@ -1,4 +1,4 @@
-package client.foodAPI;
+package client.model;
 
 import org.json.simple.JSONObject;
 

@@ -1,6 +1,4 @@
-package client.serverCommunication;
-
-import client.achievement.Achievement;
+package client.model;
 
 import java.util.Objects;
 import java.util.Set;

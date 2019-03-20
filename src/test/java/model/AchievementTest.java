@@ -1,4 +1,4 @@
-package server;
+package model;
 
 import server.model.Achievement;
 import org.junit.jupiter.api.Assertions;

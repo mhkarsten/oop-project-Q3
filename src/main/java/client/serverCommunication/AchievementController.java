@@ -62,7 +62,6 @@ public class AchievementController {
         return null;
     }
 
-
     /**
      * Ach get achievement.
      *
@@ -141,8 +140,6 @@ public class AchievementController {
         System.out.println("(Client Side) Getting all Achievements failed.");
         return null;
     }
-
-
 
     public static void deleteUserAch(long usrID, long achID) {
         //REMOVE USER ACHIEVEMENT

@@ -15,7 +15,7 @@ import javafx.scene.shape.Circle;
 import java.net.URL;
 import java.util.*;
 
-import static client.serverCommunication.FoodAPI.*;
+import static server.API.FoodAPI.*;
 import static client.serverCommunication.UserController.*;
 
 public class FoodController implements Initializable {

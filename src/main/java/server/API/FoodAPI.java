@@ -1,4 +1,4 @@
-package client.serverCommunication;
+package server.API;
 
 import client.model.Meal;
 import org.json.simple.JSONObject;

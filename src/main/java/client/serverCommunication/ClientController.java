@@ -1,5 +1,6 @@
 package client.serverCommunication;
 
+import client.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,38 +20,14 @@ import java.util.Arrays;
 
 public class ClientController {
 
-//    static final String URL = "localhost:8090";
+    //static final String URL = "localhost:8090";
 
-    static String URL_USERS = "localhost:8090/users";
-    static String URL_NEWUSER = "localhost:8090/users/new";
-    static String URL_CHOOSEUSER = "localhost:8090/users/{userID}";
-    static String URL_ARBUSER = "localhost:8090/users";
-    static final String USER_NAME = "tom";
-    static final String PASSWORD = "123";
-
-    /**
-     * Authenticated get (READ).
-     */
-    public void authGet() {
-
-        HttpHeaders headers = new HttpHeaders();
-
-        setAuthHeaders(headers);
-
-        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("my_other_key", "my_other_value");
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
-
-        ResponseEntity<String> response = restTemplate.exchange(URL_USERS, //
-            HttpMethod.GET, entity, String.class);
-
-        String result = response.getBody();
-
-        System.out.println(result);
-    }
+    private static String URL_USERS = "localhost:8090/users";
+    private static String URL_NEWUSER = "localhost:8090/users/new";
+    private static String URL_CHOOSEUSER = "localhost:8090/users/{userID}";
+    private static String URL_ARBUSER = "localhost:8090/users";
+    private static final String USER_NAME = "tom";
+    private static final String PASSWORD = "123";
 
     public static HttpHeaders setAuthHeaders(HttpHeaders headers) {
 
@@ -63,10 +40,11 @@ public class ClientController {
         return headers;
     }
 
-    /**Method to return an arraylist of all users.
+    /**Method to return an ArrayList of all users.
      *
      * @return Return all users from the server
      */
+    @SuppressWarnings("Duplicates")
     public ArrayList<User> getUsers() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -109,6 +87,7 @@ public class ClientController {
      * @param userID The userid of the user you try to get
      * @return Return a user from the server
      */
+    @SuppressWarnings("Duplicates")
     public static User[] getUser(long userID) {
 
         HttpHeaders headers = new HttpHeaders();

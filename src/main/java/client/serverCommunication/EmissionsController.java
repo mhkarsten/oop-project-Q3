@@ -1,6 +1,4 @@
 package client.serverCommunication;
 
-public class EmissionAPI {
-
-
+public class EmissionsController {
 }

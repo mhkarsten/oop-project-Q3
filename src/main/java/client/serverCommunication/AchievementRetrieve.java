@@ -1,27 +1,26 @@
 package client.serverCommunication;
 
 import client.model.Achievement;
-import client.model.User;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static client.serverCommunication.UserController.setAuthHeaders;
+import static client.serverCommunication.UserRetrieve.setAuthHeaders;
 
 /**
  * The type Achievement controller.
  */
-public class AchievementController {
+public class AchievementRetrieve {
 
     /**
      * The Url base.
      */
-    private static final String URL_BASE = "localhost:8090";
-    private static final String URL_ACHGETALL = "http://" + URL_BASE + "/achievements";
-    private static final String URL_ACHGET = "http://" + URL_BASE + "/achievements/{achID}";
-    private static final String URL_ACHUNLOCKED = "http://" + URL_BASE + "/users/{userID}/achievements";
+    private static final String URL_BASE = "http://localhost:8090";
+    private static final String URL_ACHGETALL = URL_BASE + "/achievements";
+    private static final String URL_ACHGET = URL_BASE + "/achievements/{achID}";
+    private static final String URL_ACHUNLOCKED = URL_BASE + "/users/{userID}/achievements";
 
     /**
      * Ach get all array list.
@@ -32,9 +31,7 @@ public class AchievementController {
     public static ArrayList<Achievement> achGetAll() {
         //GET ALL ACHIEVEMENTS
         HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers);
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
-        headers.setContentType(MediaType.APPLICATION_XML);
+        setAuthHeaders(headers, true);
 
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -71,9 +68,7 @@ public class AchievementController {
     public static Achievement achGet(long achID) {
         //GET SPECIFIC ACHIEVEMENT
         HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers);
-        headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
-        headers.setContentType(MediaType.APPLICATION_XML);
+        setAuthHeaders(headers, false);
 
         HttpEntity<Achievement> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -109,9 +104,7 @@ public class AchievementController {
     public static ArrayList<Achievement> achGetUnlocked(long usrID) {
         //GET ALL UNLOCKED ACHIEVEMENTS BY A USER
         HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers);
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
-        headers.setContentType(MediaType.APPLICATION_XML);
+        setAuthHeaders(headers, true);
 
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();

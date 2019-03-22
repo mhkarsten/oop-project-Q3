@@ -1,4 +1,5 @@
 package client.serverCommunication;
 
-public class EmissionsController {
+public class EmissionsRetrieve {
+
 }

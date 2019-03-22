@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static client.serverCommunication.UserController.getUser;
+import static client.serverCommunication.UserRetrieve.getUser;
 
 public class ProfileController implements Initializable {
 

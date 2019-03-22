@@ -16,7 +16,8 @@ public class ClientGui extends Application {
     public void start(Stage stage) {
 
         try {
-            URL resourceUrl = getClass().getResource("src/main/resources/loginScreen.fxml");
+//            URL resourceUrl = getClass().getResource("src/main/resources/loginScreen.fxml");
+            URL resourceUrl = getClass().getResource("/loginScreen.fxml");
             Parent root = FXMLLoader.load(resourceUrl);
 
             Scene scene = new Scene(root, 600, 400);

@@ -90,6 +90,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -98,7 +104,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>client.ClientApplication</mainClass>
+                    <!--<mainClass>client.ClientApplication</mainClass>-->
+                    <mainClass>client.ClientGui</mainClass>
+                    <!--<mainClass>server.SpringBoot</mainClass>-->
                 </configuration>
             </plugin>
             <plugin>

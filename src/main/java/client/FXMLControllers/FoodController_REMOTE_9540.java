@@ -8,21 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.*;
 
-<<<<<<< HEAD
-import static javafx.scene.paint.Color.*;
-import static server.API.FoodAPI.*;
-import static client.serverCommunication.UserController.*;
-=======
 import static client.serverCommunication.FoodRetrieve.*;
 import static client.serverCommunication.UserRetrieve.*;
->>>>>>> cfc9eb1a1d82f09385368da93945b9d8bd4a56f2
 
 /**
  * The type Food controller.
@@ -40,6 +33,11 @@ public class FoodController implements Initializable {
     public Label meal3;
     public Label meal4;
     public Label mealBoxText;
+
+    public Circle selectCircle1;
+    public Circle selectCircle2;
+    public Circle selectCircle3;
+    public Circle selectCircle4;
 
     public CheckBox veganOpt;
     public CheckBox vegOpt;
@@ -172,14 +170,20 @@ public class FoodController implements Initializable {
      */
     public void selectMeal(MouseEvent event) {
 
+        Color circleDeselectColor = Color.web("#dadfe4");
+
         if (mealChoice != null) {
 
-            mealChoice.setBackground(new Background(new BackgroundFill(RED, null, null)));
+            Circle oldChoice = (Circle) mealChoice.getGraphic();
+            oldChoice.setFill(circleDeselectColor);
         }
 
         Label chosenMeal = (Label) event.getSource();
 
-        chosenMeal.setBackground(new Background(new BackgroundFill(WHITE, new CornerRadii(1), null)));
+        Circle selectedMealCircle = (Circle) chosenMeal.getGraphic();
+
+        selectedMealCircle.setFill(javafx.scene.paint.Color.RED);
+
         mealChoice = chosenMeal;
     }
 

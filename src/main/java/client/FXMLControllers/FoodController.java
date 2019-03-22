@@ -15,14 +15,10 @@ import javafx.scene.layout.CornerRadii;
 import java.net.URL;
 import java.util.*;
 
-<<<<<<< HEAD
-import static javafx.scene.paint.Color.*;
-import static server.API.FoodAPI.*;
-import static client.serverCommunication.UserController.*;
-=======
 import static client.serverCommunication.FoodRetrieve.*;
 import static client.serverCommunication.UserRetrieve.*;
->>>>>>> cfc9eb1a1d82f09385368da93945b9d8bd4a56f2
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.WHITE;
 
 /**
  * The type Food controller.

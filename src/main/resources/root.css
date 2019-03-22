@@ -1,38 +1,12 @@
 
-
-#profileSidebar > * {
-    -fx-pref-height: 30px;
-}
-
-#actionSidebar > * {
-    -fx-pref-height: 30px;
-}
-
-#mailSidebar > * {
-    -fx-pref-height: 30px;
-}
-
-.button {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-    -fx-background-color: linear-gradient(#bdf7b9, white);
-}
-
-.button:pressed {
-    -fx-translate-y: 1px;
-}
-
 #sidebarPane {
-    -fx-background-color: linear-gradient(to bottom left, #80B152, #9ace6b, #80B152, #78ad47, #78ad47);
-}
-
-#changePane {
-    -fx-background-color: linear-gradient(to bottom right, #80B152, #9ace6b, #80B152, #78ad47, #78ad47);
-}
-
-#anchor {
    -fx-border-color: red;
    -fx-border-width: 2;
 
 }
 
+#changePane {
+   -fx-border-color: red;
+   -fx-border-width: 2;
+
+}

@@ -4,10 +4,10 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane fx:id="mainPane" dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0" stylesheets="root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.RootController">
+<SplitPane fx:id="mainPane" dividerPositions="0.29" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0" stylesheets="root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.RootController">
 
         <items>
-          <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="312.0">
+          <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="300.0">
                <children>
                   <Button fx:id="compare" layoutX="27.0" layoutY="150.0" mnemonicParsing="false" onAction="#openCompareScreen" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #E57373;" text="Compare" />
                   <Button fx:id="profile" layoutY="39.0" mnemonicParsing="false" onAction="#openProfileScreen" onMouseClicked="#moveButtons" prefHeight="62.0" prefWidth="134.0" style="-fx-background-color: #EF9A9A;" text="My Info" />

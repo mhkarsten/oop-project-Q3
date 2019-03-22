@@ -19,10 +19,7 @@ import javafx.util.Duration;
 
 public class RootController implements Initializable {
 
-
     @FXML
-
-
     public Button profile;
     public Button action;
     public Button stretchbutton;
@@ -34,8 +31,6 @@ public class RootController implements Initializable {
     public SplitPane mainPane;
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,17 +123,12 @@ public void openFoodScreen() throws IOException {
                          new KeyValue(food.opacityProperty(), 0),
                          new KeyValue(transport.opacityProperty(), 0),
                          new KeyValue(energy.opacityProperty(), 0)
-
-
                          )
          );
         rowMove.getKeyFrames().addAll(
-          new KeyFrame(Duration.seconds(4),
+          new KeyFrame(Duration.seconds(5),
                   new KeyValue(stretchbutton.scaleXProperty(),200)
-
           )
-
-
         );
 
         fade.play();

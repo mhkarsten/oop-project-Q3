@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterScreen" />
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="loginScreen.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterScreen">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f57070" height="236.0" layoutX="150.0" layoutY="56.0" stroke="BLACK" strokeType="INSIDE" width="301.0" />
+      <CheckBox layoutX="228.0" layoutY="127.0" mnemonicParsing="false" text="Male" />
+      <CheckBox layoutX="308.0" layoutY="127.0" mnemonicParsing="false" text="Female" />
+   </children>
+</AnchorPane>

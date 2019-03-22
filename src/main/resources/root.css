@@ -1,3 +1,5 @@
+
+
 #profileSidebar > * {
     -fx-pref-height: 30px;
 }
@@ -27,3 +29,10 @@
 #changePane {
     -fx-background-color: linear-gradient(to bottom right, #80B152, #9ace6b, #80B152, #78ad47, #78ad47);
 }
+
+#anchor {
+   -fx-border-color: red;
+   -fx-border-width: 2;
+
+}
+

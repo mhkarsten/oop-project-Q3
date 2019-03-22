@@ -2,13 +2,9 @@ package server.model;
 
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 
 @Entity
@@ -33,6 +29,9 @@ public class User {
             joinColumns = @JoinColumn(name="follower",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name="followed",referencedColumnName = "id"))
     private Set<User> following;
+
+    @OneToMany
+    private Set<Feat> feat;
 
     @ManyToMany(mappedBy = "following")
     private Set<User> follower;

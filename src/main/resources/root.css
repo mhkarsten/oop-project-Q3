@@ -11,9 +11,8 @@
 }
 
 .button {
-    -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-background-color: linear-gradient(#bdf7b9, white);
+    -fx-background-color: red;
 }
 
 .button:pressed {
@@ -21,9 +20,9 @@
 }
 
 #sidebarPane {
-    -fx-background-color: linear-gradient(to bottom left, #80B152, #9ace6b, #80B152, #78ad47, #78ad47);
+    -fx-background-color: white;
 }
 
 #changePane {
-    -fx-background-color: linear-gradient(to bottom right, #80B152, #9ace6b, #80B152, #78ad47, #78ad47);
+    -fx-background-color: white;
 }

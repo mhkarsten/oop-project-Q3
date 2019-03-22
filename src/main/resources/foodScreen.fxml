@@ -5,54 +5,36 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="506.0" prefWidth="607.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.FoodController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.FoodController">
     <children>
-        <VBox id="vb-sidebar" fx:id="vbSidebarMain1" layoutX="374.0" layoutY="106.0" prefHeight="100.0" prefWidth="150.0" styleClass="VBox">
+        <VBox id="vb-sidebar" fx:id="vbSidebarMain1" layoutX="300.0" layoutY="55.0" prefHeight="290.0" prefWidth="162.0" styleClass="VBox">
             <children>
-                <Label fx:id="label" minHeight="16" minWidth="69" prefHeight="21.0" prefWidth="108.0" text="Select one" />
+            <Label prefWidth="175.0" text="Search your meal!" />
+            <TextField prefHeight="31.0" prefWidth="108.0" />
+                <Label fx:id="label" minHeight="16" minWidth="69" prefHeight="21.0" prefWidth="166.0" text="Or select a category" />
                 <CheckBox fx:id="veganOpt" mnemonicParsing="false" onMouseClicked="#displayVeganMeals" text="Vegan Meal" />
                 <CheckBox fx:id="vegOpt" mnemonicParsing="false" onMouseClicked="#displayVegMeals" text="Vegetarian Meal" />
                 <CheckBox fx:id="meatOpt" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#displayMeatMeals" text="Meat Meal" />
             </children>
         </VBox>
-      <ScrollPane layoutX="84.0" layoutY="106.0" prefHeight="287.0" prefWidth="204.0" style="-fx-background: none;">
+      <ScrollPane layoutX="50.0" layoutY="55.0" prefHeight="290.0" prefWidth="205.0" style="-fx-background: none;">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                    <VBox layoutX="13.0" prefHeight="398.0" prefWidth="180.0" styleClass="EVBox">
-                        <children>
-                            <Label fx:id="mealBoxText" minHeight="16" minWidth="69" prefHeight="37.0" prefWidth="272.0" text="Pick your meal!" />
-                            <Label fx:id="meal1" layoutX="10.0" layoutY="10.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="37.0" prefWidth="324.0" text="Vegetarian Lasagna">
-                                <graphic>
-                                    <Circle fx:id="selectCircle1" fill="#dadfe4" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
-                                </graphic>
-                            </Label>
-                            <Label fx:id="meal2" layoutX="10.0" layoutY="47.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="37.0" prefWidth="324.0" text="Steak">
-                                <graphic>
-                                    <Circle fx:id="selectCircle2" fill="#dadfe4" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
-                                </graphic>
-                            </Label>
-                            <Label fx:id="meal3" layoutX="10.0" layoutY="84.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="37.0" prefWidth="324.0" text="Mozzarella sandwich">
-                                <graphic>
-                                    <Circle fx:id="selectCircle3" fill="#dadfe4" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
-                                </graphic>
-                            </Label>
-                            <Label fx:id="meal4" layoutX="10.0" layoutY="121.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="37.0" prefWidth="319.0" text="Chicken">
-                                <graphic>
-                                    <Circle fx:id="selectCircle4" fill="#dadfe4" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
-                                </graphic>
-                            </Label>
-                            <Button mnemonicParsing="false" onAction="#getMealPoints" style="-fx-border-color: black;" text="Select Meal" />
-                            <Button fx:id="upBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Next" />
-                            <Button fx:id="downBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Previous" />
-                        </children>
-                    </VBox>
-               </children>
-            </AnchorPane>
+            <VBox layoutX="4.0" prefHeight="285.0" prefWidth="200.0" styleClass="EVBox">
+                <children>
+                    <Label fx:id="mealBoxText" minHeight="16" minWidth="69" prefHeight="35.0" prefWidth="180.0" text="Pick your meal!" />
+                    <Label fx:id="meal1" layoutX="10.0" layoutY="10.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="37.0" prefWidth="200.0" text="Vegetarian Lasagna" />
+                    <Label fx:id="meal2" layoutX="10.0" layoutY="47.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="40.0" prefWidth="202.0" text="Steak" />
+                    <Label fx:id="meal3" layoutX="10.0" layoutY="84.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="40.0" prefWidth="202.0" text="Mozzarella sandwich" />
+                    <Label fx:id="meal4" layoutX="10.0" layoutY="121.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="40.0" prefWidth="202.0" text="Chicken" />
+                    <Button mnemonicParsing="false" onAction="#getMealPoints" style="-fx-border-color: black;" text="Select Meal" />
+                    <Button fx:id="upBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Next" />
+                    <Button fx:id="downBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Previous" />
+                </children>
+            </VBox>
         </content>
       </ScrollPane>
     </children>

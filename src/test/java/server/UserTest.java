@@ -24,14 +24,8 @@ public class UserTest {
     void equalsTest2() {
         Assertions.assertEquals(us1, new User(UsID5, UsName5));
     }
-
     @Test
     void equalsTest3() {
-        Assertions.assertNotEquals(us1, new User(UsID5, UsName5));
-    }
-
-    @Test
-    void equalsTest4() {
         Assertions.assertNotEquals(us1, null);
     }
 
@@ -59,11 +53,6 @@ public class UserTest {
 
     @Test
     void getUserPoints() {
-        Assertions.assertEquals(200, us1.getPoints());
-    }
-
-    @Test
-    void setUserPoints() {
-        Assertions.assertEquals(21, us2.getPoints());
+        Assertions.assertEquals(0, us1.getPoints());
     }
 }

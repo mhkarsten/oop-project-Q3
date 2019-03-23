@@ -16,7 +16,7 @@ public class User {
     private long id;
     private String name;
 
-    //This is not an actual database attribute of user, though it appears as such here in java because whenever it is requested this query calculates the value.
+    //This is not an actual database attribute of user, though it appears as such in java because whenever it is requested this query calculates the value.
     //Admittedly, this query got a bit complex. This was to ensure that users without feats get 0 points instead of NULL points which crashes the server
     @Formula("SELECT COALESCE(sum(feats.points),0) FROM feats RIGHT JOIN users ON (users.id = feats.user_id) GROUP BY users.id HAVING users.id=id")
     private int points;
@@ -35,7 +35,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="followed",referencedColumnName = "id"))
     private Set<User> following;
 
-    @OneToMany
+    @OneToMany(mappedBy="user")
     private Set<Feat> feat;
 
     @ManyToMany(mappedBy = "following")
@@ -91,6 +91,13 @@ public class User {
 
     public void setPoints(int userPoints) {
         this.points = userPoints;
+    }
+    public Set<Feat> getFeat() {
+        return this.feat;
+    }
+
+    public void setFeat(Set<Feat> achievement) {
+        this.feat = feat;
     }
 
     public Set<Achievement> getAchievements() {

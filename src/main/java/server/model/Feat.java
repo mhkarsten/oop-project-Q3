@@ -18,6 +18,7 @@ public class Feat {
     @Column(name="time_completed")
     Date timeCompleted;
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
 
     public Feat() {

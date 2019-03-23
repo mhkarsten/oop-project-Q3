@@ -140,7 +140,6 @@ public class UserRequestTest {
     @Test
     public void fullCrudTest() {
         //CREATE
-        //It really said "US Navy", but hey
         User user = new User(4, "Usnavi", 1000);
         entity = new HttpEntity<>(user, headers);
         ObjectMapper mapper = new ObjectMapper();

@@ -141,7 +141,7 @@ public class UserRequestTest {
 
     @Test
     public void updateUserMinusOne() {
-        User doesNotExist = new User(-1, "Unicorn", 420);
+        User doesNotExist = new User(-1, "Unicorn");
         entity = new HttpEntity<>(doesNotExist, headers);
         restTemplate.put(domain + "/users/update/", entity);
         Assertions.assertNull(restTemplate.postForObject(domain + "/users/" + doesNotExist.getID(), entity, User.class));
@@ -170,7 +170,7 @@ public class UserRequestTest {
     }
     @Test
     public void setFollowingFollowersTest() {
-        User user = new User(24601, "Jean Valjean", 1000);
+        User user = new User(24601, "Jean Valjean");
         //These lines of code make me really sad...
         //Is there any way to neatly initialize a set?
         Set<User> following=new HashSet<>(Arrays.asList(new User[]{us1,us2}));
@@ -186,7 +186,7 @@ public class UserRequestTest {
     public void fullCrudTest() {
         //CREATE
         //It really said "US Navy", but hey
-        User user = new User(4, "Usnavi", 1000);
+        User user = new User(4, "Usnavi");
         entity = new HttpEntity<>(user, headers);
         ObjectMapper mapper = new ObjectMapper();
         try {

@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Formula;
 
 
 @Entity
@@ -14,6 +15,10 @@ public class User {
     @Id
     private long id;
     private String name;
+
+    //This is not an actual database attribute of user, though it appears as such here in java because whenever it is requested this query calculates the value.
+    //Admittedly, this query got a bit complex. This was to ensure that users without feats get 0 points instead of NULL points which crashes the server
+    @Formula("SELECT COALESCE(sum(feats.points),0) FROM feats RIGHT JOIN users ON (users.id = feats.user_id) GROUP BY users.id HAVING users.id=id")
     private int points;
 
     @ManyToMany
@@ -38,19 +43,16 @@ public class User {
     public User() {
 
     }
-
     /**
      * Constructor for the User class.
      *
      * @param id     The numeric id of the user
      * @param name   The name of the user
-     * @param points The points of the user
      */
-    public User(long id, String name, int points) {
+    public User(long id, String name) {
 
         this.id = id;
         this.name = name;
-        this.points = points;
     }
 
     @Override

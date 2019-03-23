@@ -1,5 +1,6 @@
 package server.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -13,17 +14,20 @@ public class Feat {
     private int points;
     @Column(name="action_id")
     private int actionId;
-
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="time_completed")
+    Date timeCompleted;
     @ManyToOne
     private User user;
 
     public Feat() {
     }
 
-    public Feat(long id, int points, int actionId) {
+    public Feat(long id, int points, int actionId, Date timeCompleted) {
         this.id = id;
         this.points = points;
         this.actionId = actionId;
+        this.timeCompleted=timeCompleted;
     }
 
     public long getId() {
@@ -34,20 +38,24 @@ public class Feat {
         this.id = id;
     }
 
-    public int getPoints()
-    {
+    public int getPoints() {
         return points;
     }
     public void setPoints(int points)
     {
         this.points=points;
     }
-    public int getActionId()
-    {
+    public int getActionId() {
         return actionId;
     }
     public void setActionId(int actionId)
     {
         this.actionId=actionId;
+    }
+    public void setTimeCompleted(Date timeCompleted) {
+        this.timeCompleted=timeCompleted;
+    }
+    public Date getTimeCompleted() {
+        return timeCompleted;
     }
 }

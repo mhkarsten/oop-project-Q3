@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
+/**
+ * The type Meal.
+ */
 public class Meal {
 
     private String strMeal;
@@ -22,9 +25,27 @@ public class Meal {
     private String strMealThumb;
     private String strYoutube;
 
+    /**
+     * Instantiates a new Meal.
+     */
     public Meal() {
     }
 
+    /**
+     * Instantiates a new Meal.
+     *
+     * @param strMeal         the str meal
+     * @param idMeal          the id meal
+     * @param strCategory     the str category
+     * @param strArea         the str area
+     * @param strTags         the str tags
+     * @param strIngredients  the str ingredients
+     * @param strMeasures     the str measures
+     * @param strSource       the str source
+     * @param strMealThumb    the str meal thumb
+     * @param strYoutube      the str youtube
+     * @param strInstructions the str instructions
+     */
     public Meal(String strMeal, String idMeal, String strCategory, String strArea, ArrayList<String>
                 strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
                 String strMealThumb, String strYoutube, String strInstructions)
@@ -42,6 +63,12 @@ public class Meal {
         this.strInstructions = strInstructions;
     }
 
+    /**
+     * Json to meal meal [ ].
+     *
+     * @param JSONMeal the json meal
+     * @return the meal [ ]
+     */
     public static Meal[] JSONToMeal(JSONObject JSONMeal) {
 
         Object mealList = JSONMeal.get("meals");

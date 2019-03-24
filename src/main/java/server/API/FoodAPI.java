@@ -67,6 +67,7 @@ public class FoodAPI {
      *
      *  @return This method will return one specific meal from the database.
      */
+    @SuppressWarnings("Duplicates")
     public static Meal[] getMeal(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
@@ -98,6 +99,7 @@ public class FoodAPI {
      *
      * @return This method returns an ArrayList of all meals in a specific category.
      */
+    @SuppressWarnings("Duplicates")
     public static ArrayList<Meal[]> getMealCategory(String mealName) {
 
         HttpHeaders headers = acceptHeaders();

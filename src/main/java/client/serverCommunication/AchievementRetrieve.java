@@ -136,6 +136,7 @@ public class AchievementRetrieve {
 
     public static void deleteUserAch(long usrID, long achID) {
         //REMOVE USER ACHIEVEMENT
+
     }
 
     public static void addUserAch(long usrID, long achID) {

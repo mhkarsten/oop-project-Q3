@@ -1,6 +1,6 @@
 package server.controller;
 
-import client.model.Meal;
+import server.model.Meal;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

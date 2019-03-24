@@ -1,4 +1,4 @@
-package server.model;
+package client.model;
 
 import org.json.simple.JSONObject;
 
@@ -19,33 +19,6 @@ public class VehicleEmission {
     private String fuelUse;
     private String distance;
 
-    /**
-     * Jso nto vehicle vehicle emission.
-     *
-     * @param JSONVehicleEmission the json vehicle emission
-     * @return the vehicle emission
-     */
-    @SuppressWarnings("Duplicates")
-    public static VehicleEmission JSONtoVehicle(JSONObject JSONVehicleEmission) {
-
-        VehicleEmission newEmission = new VehicleEmission();
-
-        LinkedHashMap mainBody = (LinkedHashMap) JSONVehicleEmission.get("decisions");
-
-        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
-        newEmission.setCarbon((String) carbon.get("description"));
-
-        LinkedHashMap energy = (LinkedHashMap) mainBody.get("energy");
-        newEmission.setEnergy((String) energy.get("description"));
-
-        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get("fuel_use");
-        newEmission.setFuelUse((String) fuelUse.get("description"));
-
-        LinkedHashMap distance = (LinkedHashMap) mainBody.get("distance");
-        newEmission.setDistance((String) distance.get("description"));
-
-        return newEmission;
-    }
 
     /**
      * Instantiates a new Vehicle emission.

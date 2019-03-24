@@ -1,4 +1,4 @@
-package client.FXMLControllers;
+package client.UI;
 
 import java.io.IOException;
 import java.net.URL;

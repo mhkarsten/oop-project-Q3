@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserRequestTest {
+public class UserControllerTest {
     @LocalServerPort
     private int port;
     @Autowired

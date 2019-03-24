@@ -24,7 +24,6 @@ public class FoodController {
      * @param ex the ex
      * @return the response entity
      */
-    //Handles bad requests
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<?> handleMethodArgumentTypeMismatch(
         MethodArgumentTypeMismatchException ex) {
@@ -36,7 +35,6 @@ public class FoodController {
      *
      * @return the random meal
      */
-    //Sends a random meal to the client
     @RequestMapping
         (value = "/randomMeal",
             method = {RequestMethod.POST, RequestMethod.GET},
@@ -55,7 +53,6 @@ public class FoodController {
      * @param mealName the meal name
      * @return the meal
      */
-    //Sends a specific meal to the client
     @RequestMapping
         (value = "/meal/{mealName}",
             method = {RequestMethod.POST, RequestMethod.GET},
@@ -74,7 +71,6 @@ public class FoodController {
      * @param categoryName the category name
      * @return the meal category
      */
-    //Sends a meal category to the client
     @RequestMapping
         (value = "/meals/{categoryName}",
             method = {RequestMethod.POST, RequestMethod.GET},
@@ -100,7 +96,6 @@ public class FoodController {
      *
      * @return the meat meals
      */
-    //Sends all the meat meals to the client
     @RequestMapping
         (value = {"/meals/meat"},
             method = {RequestMethod.POST, RequestMethod.GET},

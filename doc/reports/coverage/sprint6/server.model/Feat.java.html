@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Feat.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.model</a> &gt; <span class="el_source">Feat.java</span></div><h1>Feat.java</h1><pre class="source lang-java linenums">package server.model;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import javax.persistence.*;
+
+@Entity
+@Table(name = &quot;feats&quot;)
+public class Feat {
+    @Id
+    private long id;
+    private int points;
+    @Column(name=&quot;action_id&quot;)
+    private int actionId;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name=&quot;time_completed&quot;)
+    Date timeCompleted;
+    @ManyToOne
+    @JoinColumn(name=&quot;user_id&quot;)
+    private User user;
+
+<span class="fc" id="L24">    public Feat() {</span>
+<span class="fc" id="L25">    }</span>
+
+<span class="nc" id="L27">    public Feat(long id, int points, int actionId, Date timeCompleted) {</span>
+<span class="nc" id="L28">        this.id = id;</span>
+<span class="nc" id="L29">        this.points = points;</span>
+<span class="nc" id="L30">        this.actionId = actionId;</span>
+<span class="nc" id="L31">        this.timeCompleted=timeCompleted;</span>
+<span class="nc" id="L32">    }</span>
+
+    public long getId() {
+<span class="fc" id="L35">        return id;</span>
+    }
+
+    public void setId(long id) {
+<span class="fc" id="L39">        this.id = id;</span>
+<span class="fc" id="L40">    }</span>
+
+    public int getPoints() {
+<span class="fc" id="L43">        return points;</span>
+    }
+    public void setPoints(int points)
+    {
+<span class="fc" id="L47">        this.points=points;</span>
+<span class="fc" id="L48">    }</span>
+    public int getActionId() {
+<span class="fc" id="L50">        return actionId;</span>
+    }
+    public void setActionId(int actionId)
+    {
+<span class="fc" id="L54">        this.actionId=actionId;</span>
+<span class="fc" id="L55">    }</span>
+    public void setTimeCompleted(Date timeCompleted) {
+<span class="fc" id="L57">        this.timeCompleted=timeCompleted;</span>
+<span class="fc" id="L58">    }</span>
+    public Date getTimeCompleted() {
+<span class="fc" id="L60">        return timeCompleted;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

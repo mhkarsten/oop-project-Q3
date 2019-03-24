@@ -61,8 +61,8 @@ public class User {
         }
         User user = (User) obj;
         return id == user.id
-                && points == user.points
-                && Objects.equals(name, user.name);
+        && points == user.points
+        && Objects.equals(name, user.name);
     }
 
     public long getID() {
@@ -90,6 +90,10 @@ public class User {
 
     public int getPoints() {
         return points;
+    }
+    //Mainly here for debugging, does not mean much
+    public void setPoints(int points) {
+        this.points=points;
     }
     public Set<Feat> getFeat() {
         return this.feat;

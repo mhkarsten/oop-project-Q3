@@ -2,27 +2,41 @@ package client;
 
 import java.util.Objects;
 
-//TODO: Find a way to have client and server use the same User class
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(generator = "user_generator")
+    @SequenceGenerator(
+        name = "user_generator",
+        sequenceName = "user_sequence",
+        allocationSize = 1
+    )
     private long id;
     private String name;
+    private String password;
     private int points;
 
     public User() {
 
     }
 
-    /** Constructor for the User class.
-     *
-     * @param usrID Unique UserID
-     * @param usrName A username
-     * @param usrPoints Amount of point associated with the user
+    /**
+     * Constructor for the User class.
+     * @param id The numeric id of the user
+     * @param name The name of the user
+     * @param points The points of the user
      */
-    public User(long usrID, String usrName, int usrPoints) {
-
-        this.id = usrID;
-        this.name = usrName;
-        this.points = usrPoints;
+    public User(String name, String password, int points) {
+        this.password = password;
+        this.name = name;
+        this.points = points;
     }
 
     @Override
@@ -33,10 +47,10 @@ public class User {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        User user = (User) obj;
-        return id == user.id
-                && points == user.points
-                && Objects.equals(name, user.name);
+        server.model.User user = (server.model.User) obj;
+        return id == user.getID()
+            && points == user.getPoints()
+            && Objects.equals(name, user.getName());
     }
 
     public long getID() {
@@ -61,5 +75,13 @@ public class User {
 
     public void setPoints(int userPoints) {
         this.points = userPoints;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

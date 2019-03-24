@@ -4,8 +4,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
+<?import javafx.scene.control.Button?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.MainController">
    <children>
       <Label layoutX="159.0" layoutY="158.0" prefHeight="85.0" prefWidth="282.0" text="This will eventually be the main application screen!" />
+      <Button fx:id="clickMeButton" onAction="#clickMe" layoutX="226.0" layoutY="250.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="167.0" text="click me" />
    </children>
 </AnchorPane>

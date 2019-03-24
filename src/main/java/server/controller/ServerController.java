@@ -1,7 +1,11 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import server.model.User;
 import server.repository.UserRepository;
+import server.security.MyUserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +27,9 @@ public class ServerController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
     /**Initial connect message.
      *
      * @return Message stating you are connected
@@ -67,18 +75,18 @@ public class ServerController {
         }
     }
 
-    /**
-     * Gets a specific user by userID.
-     * @param userID The userID to look for
-     * @return The user if it exists
-     */
-    @PostMapping(value = "/user/{userID}",
-            produces = {MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public User getUser(@PathVariable("userID") String userID) {
-        return parseUserID(userID);
-    }
+//    /**
+//     * Gets a specific user by userID.
+//     * @param userID The userID to look for
+//     * @return The user if it exists
+//     */
+//    @PostMapping(value = "/user/{userID}",
+//            produces = {MediaType.APPLICATION_XML_VALUE,
+//                    MediaType.APPLICATION_JSON_VALUE})
+//    @ResponseBody
+//    public User getUser(@PathVariable("userID") String userID) {
+//        return parseUserID(userID);
+//    }
 
     /**Adds a new user (CREATE).
      *
@@ -93,6 +101,40 @@ public class ServerController {
 
         System.out.println("Creating new user: "  + usr.getID());
         return userRepository.save(usr);
+    }
+
+    /**Adds a new user (CREATE).
+     *
+     * @param user Parameter for the user to be added
+     * @return Returns the user that has been added
+     */
+    @PostMapping(value = "/register",
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public User Register(@RequestBody User user) {
+        System.out.println(user.getName());
+        System.out.println(user.getPassword());
+        User savedUser = userDetailsService.registerNewUserAccount(user);
+        return savedUser;
+    }
+
+    /**
+     * Gets a specific user by username.
+     * @param userID The userID to look for
+     * @return The user if it exists
+     */
+    @PostMapping(value = "/user/{username}",
+        produces = {MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public UserDetails getUserByUsername(@PathVariable("username") String username) {
+        try {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            return userDetails;
+        } catch (UsernameNotFoundException e) {
+            return null;
+        }
     }
 
     /**Updates user information (POST).

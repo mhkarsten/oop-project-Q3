@@ -28,11 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         throws Exception {
         http.authorizeRequests()
             //Example whitelist route
-            .antMatchers(GET, "/").permitAll()
-            .antMatchers(POST, "/").permitAll()
+//            .antMatchers(GET, "/").permitAll()
+//            .antMatchers(POST, "/").permitAll()
             .antMatchers(POST, "/register").permitAll()
             .anyRequest().fullyAuthenticated()
             .and().httpBasic()
+//            .and().rememberMe().alwaysRemember(true).tokenValiditySeconds(60*120).rememberMeCookieName("rememberCookie").key("somesecret")
             .and().csrf().disable();
 
     }

@@ -1,8 +1,6 @@
 package client;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
+import client.Service.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +10,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.*;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.Cookie;
+
 
 public class LoginController {
 
@@ -24,19 +31,25 @@ public class LoginController {
     @FXML
     private TextField usernameField;
 
+    private RestTemplate restTemplate = new RestTemplate();
+
+
     /**Login method.
      *
      * @param event Added an event parameter
      * @throws Exception Throws exception if the event is invalid
      */
     public void login(ActionEvent event) throws Exception {
-        HttpResponse<JsonNode> response = Unirest.get("http://localhost:8080/users")
-        .header("accept", "application/json").basicAuth("user", "user").asJson();
+        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(usernameField.getText(), passwordField.getText()));
 
-        System.out.println(response.getBody().getArray().get(0));
+        try {
+            String fooResourceUrl = "http://localhost:8080/";
+            ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
 
+            HttpHeaders headers = response.getHeaders();
 
-        if (usernameField.getText().equals("user") && passwordField.getText().equals("pass")) {
+            UserSession.getInstace().setUserName(usernameField.getText());
+            UserSession.getInstace().setPassword(passwordField.getText());
 
             loginStatus.setText("Status: You have logged in!");
 
@@ -50,18 +63,36 @@ public class LoginController {
 
             Stage oldStage = (Stage) loginStatus.getScene().getWindow();
             oldStage.close();
-        } else {
+        } catch (Exception e) {
             loginStatus.setText("Status: Username or password is not correct.");
+            System.out.println(e);
         }
+
     }
 
-    public void register(ActionEvent event) throws Exception {
-        System.out.println("Register");
+    /**Method to post a new user (CREATE).
+     *
+     * }
+     */
+    public void register(ActionEvent event) {
 
-        HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8080/register")
-            .header("accept", "application/json")
-            .field("username", usernameField.getText())
-            .field("password", passwordField.getText())
-            .asJson();
+        User newUser = new User(usernameField.getText(), passwordField.getText(), 0);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
+        headers.setContentType(MediaType.APPLICATION_XML);
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
+
+        User user = restTemplate.postForObject("http://localhost:8080/register", requestBody, User.class);
+
+        if (user != null && user.getID() != 0) {
+
+            loginStatus.setText("(Client Side) New user created" + user.getName());
+        } else {
+
+            loginStatus.setText("User already exists.");
+        }
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
@@ -18,7 +19,6 @@ import java.util.Arrays;
 //Currently this client side code is build to work with XML code whereas the server
 //side code can use both XML and JSON. Later this might be changed so everything uses
 //JSON for the sake of simplicity;
-
 public class ClientController {
 
     @Autowired
@@ -32,6 +32,8 @@ public class ClientController {
 
     static final String USER_NAME = "tom";
     static final String PASSWORD = "123";
+
+    private RestTemplate restTemplate;
 
     /**
      * Authenticated get (READ).
@@ -58,6 +60,11 @@ public class ClientController {
         String result = response.getBody();
 
         System.out.println(result);
+    }
+
+
+    public ClientController() {
+        this.restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor("micheal", "micheal"));
     }
 
     /**Method to return an arraylist of all users.
@@ -133,91 +140,6 @@ public class ClientController {
         }
 
         return null;
-    }
-
-    /**Method to post a new user (CREATE).
-     *
-     * @param userName New Username
-     * @param userID New UserID
-     */
-    public void postUser(long userID,String userName) {
-
-        User newUser = new User(userID, userName, 0);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
-        headers.setContentType(MediaType.APPLICATION_XML);
-
-        RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
-
-        User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);
-
-        if (user != null && user.getID() != 0) {
-
-            System.out.println("(Client Side) New user created" + user.getID());
-        } else {
-
-            System.out.println("(Client Side) Something went wrong.");
-        }
-    }
-
-    /**Method to update a users information.
-     * Update user information (UPDATE)
-     */
-    public void updateUser(long userID, String userName, int points) {
-
-        User updatedUser = new User(userID, userName, points);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
-
-        RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
-
-
-        restTemplate.put(URL_ARBUSER, requestBody);
-
-        String updatedUserUrl = URL_ARBUSER + "/" + userID;
-
-        User user = restTemplate.getForObject(updatedUserUrl, User.class);
-
-        if (user != null) {
-
-            System.out.println(
-                    "(Client Side) User after info update."
-                    + user.getName()
-                    + user.getID()
-                    + user.getPoints()
-            );
-        } else {
-
-            System.out.println("(Client Side) Something went wrong, the user doesnt exits");
-        }
-    }
-
-    /**Method to delete an existing user (DELETE).
-     *
-     * @param userID UserID of the user to delete
-     */
-    public void deleteUser(String userID) {
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        Object[] uriValue = new Object[] {userID};
-
-        restTemplate.delete(URL_CHOOSEUSER, uriValue);
-
-        User user = restTemplate.getForObject(URL_ARBUSER, User.class);
-
-        if (user != null) {
-
-            System.out.println("(Client Side) User " + user.getName() + " has been deleted.");
-        } else {
-
-            System.out.println("(Client Side) The selected client cannot be found"
-                    + " or does not exist.");
-        }
     }
 
 }

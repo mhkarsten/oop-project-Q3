@@ -11,6 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.Chart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +34,7 @@ public class RootController implements Initializable {
     public SplitPane mainPane;
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
+    public LineChart<String,Number> lineChart;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -136,4 +140,12 @@ public void openFoodScreen() throws IOException {
         rowMove.setOnFinished(e -> fade.stop());
         rowMove.setOnFinished(e -> rowMove.stop());
     }
+
+    public void btn(ActionEvent event){
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+        series.getData().add( new XYChart.Data<String, Number>("Jan", 200));
+        lineChart.getData().add(series);
+    }
+
+
 }

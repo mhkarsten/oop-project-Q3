@@ -23,6 +23,7 @@ public class UserController extends BaseController {
 
 
 
+
     /**Method to return an ArrayList of all users.
      *
      * @return Return all users from the server

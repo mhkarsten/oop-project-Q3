@@ -53,15 +53,15 @@
     100%
   </span>
   <span class="absValue">
-    (2/ 2)
+    (9/ 9)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    91.3%
   </span>
   <span class="absValue">
-    (7/ 7)
+    (21/ 23)
   </span>
 </td>
 </tr>
@@ -74,34 +74,75 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package client;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;//TODO: Find a way to have client and server use the same User class
-<i>4</i>&nbsp;public class User extends server.model.User {
-<i>5</i>&nbsp;    private long id;
-<i>6</i>&nbsp;    private String name;
-<i>7</i>&nbsp;    private int points;
-<i>8</i>&nbsp;
-<i>9</i>&nbsp;    /**User constructor.
-<i>10</i>&nbsp;     *
-<i>11</i>&nbsp;     * @param id Unique ID
-<i>12</i>&nbsp;     * @param name Name of the user
-<i>13</i>&nbsp;     * @param points Points of the user
-<i>14</i>&nbsp;     */
-<b class="fc"><i>15</i>&nbsp;    public User(long id, String name, int points) {</b>
-<b class="fc"><i>16</i>&nbsp;        this.id = id;</b>
-<b class="fc"><i>17</i>&nbsp;        this.name = name;</b>
-<b class="fc"><i>18</i>&nbsp;        this.points = points;</b>
-<b class="fc"><i>19</i>&nbsp;    }</b>
-<i>20</i>&nbsp;
-<b class="fc"><i>21</i>&nbsp;    public User() {</b>
+<i>3</i>&nbsp;import java.util.Objects;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;//TODO: Find a way to have client and server use the same User class
+<i>6</i>&nbsp;public class User {
+<i>7</i>&nbsp;    private long id;
+<i>8</i>&nbsp;    private String name;
+<i>9</i>&nbsp;    private int points;
+<i>10</i>&nbsp;
+<b class="fc"><i>11</i>&nbsp;    public User() {</b>
+<i>12</i>&nbsp;
+<b class="fc"><i>13</i>&nbsp;    }</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /** Constructor for the User class.
+<i>16</i>&nbsp;     *
+<i>17</i>&nbsp;     * @param usrID Unique UserID
+<i>18</i>&nbsp;     * @param usrName A username
+<i>19</i>&nbsp;     * @param usrPoints Amount of point associated with the user
+<i>20</i>&nbsp;     */
+<b class="fc"><i>21</i>&nbsp;    public User(long usrID, String usrName, int usrPoints) {</b>
 <i>22</i>&nbsp;
-<b class="fc"><i>23</i>&nbsp;    }</b>
-<i>24</i>&nbsp;}
+<b class="fc"><i>23</i>&nbsp;        this.id = usrID;</b>
+<b class="fc"><i>24</i>&nbsp;        this.name = usrName;</b>
+<b class="fc"><i>25</i>&nbsp;        this.points = usrPoints;</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public boolean equals(Object obj) {
+<b class="fc"><i>30</i>&nbsp;        if (this == obj) {</b>
+<b class="nc"><i>31</i>&nbsp;            return true;</b>
+<i>32</i>&nbsp;        }
+<b class="fc"><i>33</i>&nbsp;        if (obj == null || getClass() != obj.getClass()) {</b>
+<b class="nc"><i>34</i>&nbsp;            return false;</b>
+<i>35</i>&nbsp;        }
+<b class="fc"><i>36</i>&nbsp;        User user = (User) obj;</b>
+<b class="fc"><i>37</i>&nbsp;        return id == user.id</b>
+<i>38</i>&nbsp;                &amp;&amp; points == user.points
+<b class="fc"><i>39</i>&nbsp;                &amp;&amp; Objects.equals(name, user.name);</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    public long getID() {
+<b class="fc"><i>43</i>&nbsp;        return id;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    public void setID(long userID) {
+<b class="fc"><i>47</i>&nbsp;        this.id = userID;</b>
+<b class="fc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    public String getName() {
+<b class="fc"><i>51</i>&nbsp;        return name;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    public void setName(String userName) {
+<b class="fc"><i>55</i>&nbsp;        this.name = userName;</b>
+<b class="fc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    public int getPoints() {
+<b class="fc"><i>59</i>&nbsp;        return points;</b>
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    public void setPoints(int userPoints) {
+<b class="fc"><i>63</i>&nbsp;        this.points = userPoints;</b>
+<b class="fc"><i>64</i>&nbsp;    }</b>
+<i>65</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2019-03-09 14:14</div>
+    <div style="float:right;">generated on 2019-03-05 18:37</div>
 </div>
 </body>
 </html>

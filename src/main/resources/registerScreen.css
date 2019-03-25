@@ -1,12 +1,13 @@
-
-#sidebarPane {
+#anchor {
    -fx-border-color: red;
    -fx-border-width: 2;
-
+}
+#anchor1 {
+   -fx-border-color: red;
+   -fx-border-width: 2;
 }
 
-#changePane {
-   -fx-border-color: red;
-   -fx-border-width: 2;
-
+#label{
+    -fx-font-size: 40;
+    -fx-font-family: Montserrat;
 }

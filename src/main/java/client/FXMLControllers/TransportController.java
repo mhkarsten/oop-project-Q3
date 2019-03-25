@@ -1,4 +1,4 @@
 package client.FXMLControllers;
 
-public class transportController {
+public class TransportController {
 }

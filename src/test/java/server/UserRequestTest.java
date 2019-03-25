@@ -185,8 +185,12 @@ public class UserRequestTest {
     @Test
     public void fullCrudTest() {
         //CREATE
+<<<<<<< HEAD
         //It really said "US Navy", but hey
         User user = new User(4, "Usnavi");
+=======
+        User user = new User(4, "Usnavi", 1000);
+>>>>>>> 2e13dd5553664b159b9a303f83e2cfc20561da22
         entity = new HttpEntity<>(user, headers);
         ObjectMapper mapper = new ObjectMapper();
         try {

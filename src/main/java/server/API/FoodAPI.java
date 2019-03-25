@@ -1,12 +1,13 @@
-package client.foodAPI;
+package server.API;
 
+import client.model.Meal;
 import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
-import static client.foodAPI.Meal.JSONToMeal;
+import static client.model.Meal.JSONToMeal;
 
 /**
  *  This class is the integration of TheFoodDB api. This is an online database of various meals which

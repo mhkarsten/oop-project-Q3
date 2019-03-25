@@ -18,14 +18,12 @@ import java.util.Arrays;
 //side code can use both XML and JSON. Later this might be changed so everything uses
 //JSON for the sake of simplicity;
 
-public class ClientController {
+public class UserController {
 
-    //static final String URL = "localhost:8090";
-
-    private static String URL_USERS = "localhost:8090/users";
-    private static String URL_NEWUSER = "localhost:8090/users/new";
-    private static String URL_CHOOSEUSER = "localhost:8090/users/{userID}";
-    private static String URL_ARBUSER = "localhost:8090/users";
+    private static final String URL_USERS = "http://localhost:8090/users";
+    private static final String URL_NEWUSER = "http://localhost:8090/users/new";
+    private static final String URL_CHOOSEUSER = "http://localhost:8090/users/{userID}";
+    private static final String URL_ARBUSER = "http://localhost:8090/users";
     private static final String USER_NAME = "tom";
     private static final String PASSWORD = "123";
 
@@ -70,10 +68,7 @@ public class ClientController {
 
             if (list != null) {
 
-                for (User u : list) {
-
-                    userList.add(u);
-                }
+                userList.addAll(Arrays.asList(list));
 
                 return userList;
             }
@@ -84,7 +79,7 @@ public class ClientController {
 
     /**Method to return a specified user.
      *
-     * @param userID The userid of the user you try to get
+     * @param userID The userID of the user you try to get
      * @return Return a user from the server
      */
     @SuppressWarnings("Duplicates")
@@ -98,10 +93,10 @@ public class ClientController {
         HttpEntity<User[]> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        Object[] uriValue = new Object[] {userID};
+        Object[] uriValues = new Object[] {userID};
 
         ResponseEntity<User> response = restTemplate.exchange(URL_CHOOSEUSER,
-            HttpMethod.POST, entity, User.class, uriValue);
+            HttpMethod.POST, entity, User.class, uriValues);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
@@ -109,16 +104,14 @@ public class ClientController {
         if (statusCode == HttpStatus.OK) {
 
             User[] userArray = new User[1];
-
             userArray[0] = response.getBody();
 
-            if (userArray != null) {
+            if (response.getBody() != null) {
 
-                System.out.println(userArray[0].toString());
                 return userArray;
             } else {
 
-                System.out.println("(Client Side) The spesified user was null or doesnt exist.");
+                System.out.println("(Client Side) The specified user was null or doesnt exist.");
             }
         }
 
@@ -170,7 +163,6 @@ public class ClientController {
         String updatedUserUrl = URL_ARBUSER + "/update";
         System.out.println("This is the url; "+updatedUserUrl);
         restTemplate.put(updatedUserUrl, requestBody);
-
     }
 
     /**Method to delete an existing user (DELETE).
@@ -196,5 +188,4 @@ public class ClientController {
                     + " or does not exist.");
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package client.foodAPI;
+package server.model;
 
 import org.json.simple.JSONObject;
 
@@ -70,7 +70,6 @@ public class Meal {
 
             newMeal.setStrTags(tempList);
         }
-
 
         for (int i = 1; i < 15; i++) {
 

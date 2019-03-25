@@ -1,6 +1,10 @@
 package server.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "tracking_options")
@@ -13,7 +17,10 @@ public class TrackingOption {
     private String description;
     private int score;
 
-    protected TrackingOption(){};
+    protected TrackingOption() {
+    }
+
+    ;
 
     public TrackingOption(String name, String description, int score) {
         this.name = name;

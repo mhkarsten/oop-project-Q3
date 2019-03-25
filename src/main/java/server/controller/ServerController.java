@@ -35,26 +35,6 @@ public class ServerController {
      * @return Message stating you are connected
      */
 
-    @RequestMapping("/")
-    @ResponseBody
-    public String connect() {
-        return "You are connected";
-    }
-
-    /**
-     * Gets all users.
-     * @return List of all users
-     */
-    @RequestMapping(value = "/users",
-            method = {RequestMethod.POST,RequestMethod.GET},
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
-    @ResponseBody
-
-    public List<User> getUsers() {
-        return userRepository.findAll();
-    }
-
     /**
      * Helper function that returns a user if it exists or null if either the string is not an id or it does not exist.
      * @param userID the userid to check and retrieve
@@ -75,18 +55,18 @@ public class ServerController {
         }
     }
 
-//    /**
-//     * Gets a specific user by userID.
-//     * @param userID The userID to look for
-//     * @return The user if it exists
-//     */
-//    @PostMapping(value = "/user/{userID}",
-//            produces = {MediaType.APPLICATION_XML_VALUE,
-//                    MediaType.APPLICATION_JSON_VALUE})
-//    @ResponseBody
-//    public User getUser(@PathVariable("userID") String userID) {
-//        return parseUserID(userID);
-//    }
+    /**
+     * Gets a specific user by userID.
+     * @param userID The userID to look for
+     * @return The user if it exists
+     */
+    @PostMapping(value = "/user/{userID}",
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public User getUser(@PathVariable("userID") String userID) {
+        return parseUserID(userID);
+    }
 
     /**Adds a new user (CREATE).
      *
@@ -113,8 +93,6 @@ public class ServerController {
             MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public User Register(@RequestBody User user) {
-        System.out.println(user.getName());
-        System.out.println(user.getPassword());
         User savedUser = userDetailsService.registerNewUserAccount(user);
         return savedUser;
     }
@@ -128,10 +106,10 @@ public class ServerController {
         produces = {MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public UserDetails getUserByUsername(@PathVariable("username") String username) {
+    public User getUserByUsername(@PathVariable("username") String username) {
         try {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            return userDetails;
+            User user = userRepository.findByName(username);
+            return user;
         } catch (UsernameNotFoundException e) {
             return null;
         }
@@ -170,6 +148,7 @@ public class ServerController {
         }
         return "Could not delete user " + userID;
     }
+
     //Get for CO2
 
 

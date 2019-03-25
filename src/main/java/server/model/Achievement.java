@@ -1,27 +1,34 @@
-package client.model;
+package server.model;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name = "achievements")
 public class Achievement {
-
+    @Id
     private long id;
     private String title;
     private String description;
     private String path;
-    private Set<User> user;
+    @ManyToMany(mappedBy = "achievement")
+    private List<User> user;
 
     public Achievement() {
 
     }
 
-    /** Constructor for the Achievement class.
+    /**
+     * Constructor for the Achievement class.
      *
-     * @param achID Achievement ID
-     * @param title Title of the model
+     * @param achID       Achievement ID
+     * @param title       Title of the model
      * @param description description of the model
-     * @param path path to the badge image for this model
+     * @param path        path to the badge image for this model
      */
     public Achievement(long achID, String title, String description, String path) {
         this.id = achID;
@@ -40,9 +47,9 @@ public class Achievement {
         }
         Achievement that = (Achievement) obj;
         return Objects.equals(id, that.id)
-            && Objects.equals(title, that.title)
-            && Objects.equals(description, that.description)
-            && Objects.equals(path, that.path);
+                && Objects.equals(title, that.title)
+                && Objects.equals(description, that.description)
+                && Objects.equals(path, that.path);
     }
 
     public long getID() {

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -13,22 +14,18 @@ public class ClientGui extends Application {
 
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
 
-        try {
-//            URL resourceUrl = getClass().getResource("src/main/resources/loginScreen.fxml");
-            URL resourceUrl = getClass().getResource("/loginScreen.fxml");
-            Parent root = FXMLLoader.load(resourceUrl);
+//        URL resourceUrl = getClass().getResource("src/main/resources/loginScreen.fxml");
 
-            Scene scene = new Scene(root, 600, 400);
+        URL resourceUrl = getClass().getResource("/loginScreen.fxml");
+        Parent root = FXMLLoader.load(resourceUrl);
 
-            stage.setScene(scene);
-            stage.show();
+        Scene scene = new Scene(root, 600,400);
 
-        } catch (IOException e) {
-            System.out.println("There was an issue loading the fxml.");
-            e.printStackTrace();
-        }
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {

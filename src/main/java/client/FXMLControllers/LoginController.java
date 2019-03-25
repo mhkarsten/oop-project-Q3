@@ -1,6 +1,9 @@
-package client;
+package client.FXMLControllers;
+
+
 
 import client.Service.UserSession;
+import client.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.Cookie;
 
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -34,12 +37,16 @@ public class LoginController {
     private RestTemplate restTemplate = new RestTemplate();
 
 
+    @FXML
+    public void onEnter(ActionEvent ae) throws IOException {
+        login(ae);
+    }
+
     /**Login method.
      *
-     * @param event Added an event parameter
      * @throws Exception Throws exception if the event is invalid
      */
-    public void login(ActionEvent event) throws Exception {
+    public void login(ActionEvent ae) throws IOException {
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(usernameField.getText(), passwordField.getText()));
 
         try {
@@ -47,14 +54,13 @@ public class LoginController {
             ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
 
             HttpHeaders headers = response.getHeaders();
-
             UserSession.getInstace().setUserName(usernameField.getText());
             UserSession.getInstace().setPassword(passwordField.getText());
 
             loginStatus.setText("Status: You have logged in!");
 
             Stage mainStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/mainScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/rootScreen.fxml"));
 
             Scene scene = new Scene(root, 600, 400);
 

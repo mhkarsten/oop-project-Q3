@@ -2,7 +2,7 @@ package client;
 
 
 import client.Service.UserSession;
-import javafx.fxml.FXML;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.RestTemplate;

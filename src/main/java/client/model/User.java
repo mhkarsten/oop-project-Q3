@@ -1,31 +1,15 @@
-package server.model;
+package client.model;
 
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import java.util.Set;
 
-
-@Entity
-@Table(name = "users")
 public class User {
 
-    @Id
     private long id;
     private String name;
     private String password;
     private int points;
-
-    @ManyToMany
-    @JoinTable(
-        name = "user_achievement",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "achievement_id"))
-    private List<Achievement> achievement;
+    private Set<Achievement> achievement;
 
     public User() {
 
@@ -45,8 +29,8 @@ public class User {
     }
 
 
-    /** Constructor for the User class.
-     * @param id The numeric id of the user
+     /** Constructor for the User class.
+        * @param id The numeric id of the user
      * @param name The name of the user
      * @param points The points of the user
      */
@@ -69,7 +53,6 @@ public class User {
         this.name = name;
         this.points = points;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -109,27 +92,21 @@ public class User {
         this.points = userPoints;
     }
 
-    public List<Achievement> getAchievements() {
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", points=" + points +
+            ", achievement=" + achievement +
+            '}';
+    }
+
+    public Set<Achievement> getAchievements() {
         return this.achievement;
     }
-
-    public void setAchievements(List<Achievement> achievement) {
-        this.achievement = achievement;
-    }
-
-    public List<Achievement> getAchievement() {
-        return achievement;
-    }
-
-    public void setAchievement(List<Achievement> achievement) {
-        this.achievement = achievement;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAchievements(Set<Achievement> achievement) {
+        this.achievement=achievement;
     }
 }
+

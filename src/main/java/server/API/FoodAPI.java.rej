@@ -1,0 +1,7 @@
+diff a/src/main/java/client/foodAPI/FoodAPI.java b/src/main/java/client/foodAPI/FoodAPI.java	(rejected hunks)
+@@ -1,4 +0,4 @@
+-package client;
++package client.foodAPI;
+ 
+ import org.json.simple.JSONObject;
+ import org.springframework.http.*;

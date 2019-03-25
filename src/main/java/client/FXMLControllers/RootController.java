@@ -130,9 +130,36 @@ public void openFoodScreen() throws IOException {
                          )
          );
         rowMove.getKeyFrames().addAll(
-          new KeyFrame(Duration.seconds(5),
+          new KeyFrame(Duration.seconds(2),
                   new KeyValue(stretchbutton.scaleXProperty(),200)
           )
+        );
+
+        fade.play();
+        fade.setOnFinished(e -> rowMove.play());
+        rowMove.setOnFinished(e -> fade.stop());
+        rowMove.setOnFinished(e -> rowMove.stop());
+    }
+
+    public void moveBackButton(){
+        Timeline rowMove = new Timeline();
+
+        Timeline fade = new Timeline();
+        fade.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(action.opacityProperty(), 1),
+                        new KeyValue(profile.opacityProperty(), 1),
+                        new KeyValue(score.opacityProperty(), 1),
+                        new KeyValue(compare.opacityProperty(), 1),
+                        new KeyValue(food.opacityProperty(), 1),
+                        new KeyValue(transport.opacityProperty(), 1),
+                        new KeyValue(energy.opacityProperty(), 1)
+                )
+        );
+        rowMove.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(stretchbutton.scaleXProperty(),1)
+                )
         );
 
         fade.play();

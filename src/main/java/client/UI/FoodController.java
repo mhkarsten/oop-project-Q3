@@ -1,4 +1,4 @@
-package client.FXMLControllers;
+package client.UI;
 
 import client.model.Meal;
 import client.model.User;
@@ -15,8 +15,8 @@ import javafx.scene.layout.CornerRadii;
 import java.net.URL;
 import java.util.*;
 
-import static client.serverCommunication.FoodRetrieve.*;
-import static client.serverCommunication.UserRetrieve.*;
+import static client.retrive.FoodRetrieve.*;
+import static client.retrive.UserRetrieve.*;
 import static javafx.scene.paint.Color.RED;
 import static javafx.scene.paint.Color.WHITE;
 

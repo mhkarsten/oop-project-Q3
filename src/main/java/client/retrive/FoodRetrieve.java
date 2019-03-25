@@ -1,4 +1,4 @@
-package client.serverCommunication;
+package client.retrive;
 
 import client.model.Meal;
 import org.springframework.http.*;
@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static client.serverCommunication.UserRetrieve.setAuthHeaders;
+import static client.retrive.UserRetrieve.setAuthHeaders;
 
 /**
  * The type Food retrieve.

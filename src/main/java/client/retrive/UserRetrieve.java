@@ -1,4 +1,4 @@
-package client.serverCommunication;
+package client.retrive;
 
 import client.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;

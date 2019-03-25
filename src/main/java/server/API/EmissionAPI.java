@@ -10,7 +10,7 @@ import server.model.VehicleEmission;
 
 import java.util.ArrayList;
 
-import static client.serverCommunication.UserRetrieve.setAuthHeaders;
+import static client.retrive.UserRetrieve.setAuthHeaders;
 import static server.model.DietEmission.JSONtoDiet;
 import static server.model.EnergyEmission.JSONtoEnergy;
 import static server.model.FlightEmission.JSONtoFlight;

@@ -1,11 +1,11 @@
 package server.model;
 
-import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "achievements")
@@ -47,9 +47,9 @@ public class Achievement {
         }
         Achievement that = (Achievement) obj;
         return Objects.equals(id, that.id)
-                && Objects.equals(title, that.title)
-                && Objects.equals(description, that.description)
-                && Objects.equals(path, that.path);
+            && Objects.equals(title, that.title)
+            && Objects.equals(description, that.description)
+            && Objects.equals(path, that.path);
     }
 
     public long getID() {

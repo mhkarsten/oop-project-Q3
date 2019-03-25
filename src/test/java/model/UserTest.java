@@ -25,6 +25,7 @@ public class UserTest {
     void equalsTest2() {
         Assertions.assertEquals(us1, new User(id1, name1));
     }
+
     @Test
     void equalsTest3() {
         Assertions.assertNotEquals(us1, null);
@@ -34,23 +35,28 @@ public class UserTest {
     void equalsTest4() {
         Assertions.assertNotEquals(us1, us2);
     }
+
     @Test
     void equalsTest5() {
         Assertions.assertNotEquals(us1, new User(id1, name2));
     }
+
     @Test
     void equalsTest6() {
         Assertions.assertNotEquals(us1, new User(id2, name1));
     }
+
     @Test
     void equalsTest7() {
         Assertions.assertNotEquals(us1, new Achievement());
     }
+
     @Test
     void equalsTest8() {
         us1.setPoints(100);
         Assertions.assertNotEquals(us1, new User(id1, name1));
     }
+
     @Test
     void getUserID() {
         Assertions.assertEquals(id1, us1.getID());

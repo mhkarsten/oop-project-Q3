@@ -1,9 +1,5 @@
 package client.FXMLControllers;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -11,14 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class RootController implements Initializable {
 
@@ -34,132 +32,106 @@ public class RootController implements Initializable {
     public SplitPane mainPane;
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
-    public LineChart<String,Number> lineChart;
+    public LineChart<String, Number> lineChart;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-       action.setOnAction((ActionEvent evt) -> {
-        try {
-            openFoodScreen();
-        } catch (IOException e) {
-             e.printStackTrace();
-          }
-     });
+        action.setOnAction((ActionEvent evt) -> {
+            try {
+                openFoodScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-   score.setOnAction((ActionEvent evt) -> {
-      try {
+        score.setOnAction((ActionEvent evt) -> {
+            try {
 
-             openScoreScreen();
-         } catch (IOException e) {
-              e.printStackTrace();;
-         }
-   });
+                openScoreScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+                ;
+            }
+        });
     }
 
-public void openFoodScreen() throws IOException {
+    public void openFoodScreen() throws IOException {
 
-   FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/foodScreen.fxml"));
-     changePane = newScreen.load();
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/foodScreen.fxml"));
+        changePane = newScreen.load();
 
-     mainPane.getItems().set(1, changePane);
- }
-
- public void openScoreScreen() throws IOException {
-
-    FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
-
-    changePane = newScreen.load();
-
-    mainPane.getItems().set(1, changePane);
-}
-
-  public void openProfileScreen() throws IOException {
-
-        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/profileScreen.fxml"));
-
-       changePane = newScreen.load();
-
-       mainPane.getItems().set(1, changePane);
-   }
-
-  public void openCompareScreen() throws IOException {
-       FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/compareScreen.fxml"));
-
-      changePane = newScreen.load();
-
-       mainPane.getItems().set(1, changePane);
-    }
-
-    public void openMyScore() throws IOException {
-       FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
-
-       changePane = newScreen.load();
-
-       mainPane.getItems().set(1, changePane);
-    }
-
-    public void openTransportScreen() throws  IOException {
-       FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/transportScreen.fxml"));
-
-      changePane = newScreen.load();
         mainPane.getItems().set(1, changePane);
-   }
+    }
 
-  public void openEnergyScreen() throws  IOException {
-       FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/energyScreen.fxml"));
+    public void openScoreScreen() throws IOException {
+
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
 
         changePane = newScreen.load();
 
         mainPane.getItems().set(1, changePane);
     }
 
-    public void moveButtons(){
-        Timeline rowMove = new Timeline();
+    public void openProfileScreen() throws IOException {
 
-        Timeline fade = new Timeline();
-         fade.getKeyFrames().addAll(
-                 new KeyFrame(Duration.seconds(1),
-                         new KeyValue(action.opacityProperty(), 0),
-                         new KeyValue(profile.opacityProperty(), 0),
-                         new KeyValue(score.opacityProperty(), 0),
-                         new KeyValue(compare.opacityProperty(), 0),
-                         new KeyValue(food.opacityProperty(), 0),
-                         new KeyValue(transport.opacityProperty(), 0),
-                         new KeyValue(energy.opacityProperty(), 0)
-                         )
-         );
-        rowMove.getKeyFrames().addAll(
-          new KeyFrame(Duration.seconds(2),
-                  new KeyValue(stretchbutton.scaleXProperty(),200)
-          )
-        );
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/profileScreen.fxml"));
 
-        fade.play();
-        fade.setOnFinished(e -> rowMove.play());
-        rowMove.setOnFinished(e -> fade.stop());
-        rowMove.setOnFinished(e -> rowMove.stop());
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
     }
 
-    public void moveBackButton(){
+    public void openCompareScreen() throws IOException {
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/compareScreen.fxml"));
+
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
+    }
+
+    public void openMyScore() throws IOException {
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
+
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
+    }
+
+    public void openTransportScreen() throws IOException {
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/transportScreen.fxml"));
+
+        changePane = newScreen.load();
+        mainPane.getItems().set(1, changePane);
+    }
+
+    public void openEnergyScreen() throws IOException {
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/energyScreen.fxml"));
+
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
+    }
+
+    public void moveButtons() {
         Timeline rowMove = new Timeline();
 
         Timeline fade = new Timeline();
         fade.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(1),
-                        new KeyValue(action.opacityProperty(), 1),
-                        new KeyValue(profile.opacityProperty(), 1),
-                        new KeyValue(score.opacityProperty(), 1),
-                        new KeyValue(compare.opacityProperty(), 1),
-                        new KeyValue(food.opacityProperty(), 1),
-                        new KeyValue(transport.opacityProperty(), 1),
-                        new KeyValue(energy.opacityProperty(), 1)
-                )
+            new KeyFrame(Duration.seconds(1),
+                new KeyValue(action.opacityProperty(), 0),
+                new KeyValue(profile.opacityProperty(), 0),
+                new KeyValue(score.opacityProperty(), 0),
+                new KeyValue(compare.opacityProperty(), 0),
+                new KeyValue(food.opacityProperty(), 0),
+                new KeyValue(transport.opacityProperty(), 0),
+                new KeyValue(energy.opacityProperty(), 0)
+            )
         );
         rowMove.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(2),
-                        new KeyValue(stretchbutton.scaleXProperty(),1)
-                )
+            new KeyFrame(Duration.seconds(2),
+                new KeyValue(stretchbutton.scaleXProperty(), 200)
+            )
         );
 
         fade.play();
@@ -168,9 +140,36 @@ public void openFoodScreen() throws IOException {
         rowMove.setOnFinished(e -> rowMove.stop());
     }
 
-    public void btn(ActionEvent event){
+    public void moveBackButton() {
+        Timeline rowMove = new Timeline();
+
+        Timeline fade = new Timeline();
+        fade.getKeyFrames().addAll(
+            new KeyFrame(Duration.seconds(1),
+                new KeyValue(action.opacityProperty(), 1),
+                new KeyValue(profile.opacityProperty(), 1),
+                new KeyValue(score.opacityProperty(), 1),
+                new KeyValue(compare.opacityProperty(), 1),
+                new KeyValue(food.opacityProperty(), 1),
+                new KeyValue(transport.opacityProperty(), 1),
+                new KeyValue(energy.opacityProperty(), 1)
+            )
+        );
+        rowMove.getKeyFrames().addAll(
+            new KeyFrame(Duration.seconds(2),
+                new KeyValue(stretchbutton.scaleXProperty(), 1)
+            )
+        );
+
+        fade.play();
+        fade.setOnFinished(e -> rowMove.play());
+        rowMove.setOnFinished(e -> fade.stop());
+        rowMove.setOnFinished(e -> rowMove.stop());
+    }
+
+    public void btn(ActionEvent event) {
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        series.getData().add( new XYChart.Data<String, Number>("Jan", 200));
+        series.getData().add(new XYChart.Data<String, Number>("Jan", 200));
         lineChart.getData().add(series);
     }
 

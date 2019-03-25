@@ -1,24 +1,21 @@
 package server.model;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "feats")
 public class Feat {
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "time_completed")
+    Date timeCompleted;
     @Id
     private long id;
     private int points;
-    @Column(name="action_id")
+    @Column(name = "action_id")
     private int actionId;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="time_completed")
-    Date timeCompleted;
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Feat() {
@@ -28,7 +25,7 @@ public class Feat {
         this.id = id;
         this.points = points;
         this.actionId = actionId;
-        this.timeCompleted=timeCompleted;
+        this.timeCompleted = timeCompleted;
     }
 
     public long getId() {
@@ -42,21 +39,24 @@ public class Feat {
     public int getPoints() {
         return points;
     }
-    public void setPoints(int points)
-    {
-        this.points=points;
+
+    public void setPoints(int points) {
+        this.points = points;
     }
+
     public int getActionId() {
         return actionId;
     }
-    public void setActionId(int actionId)
-    {
-        this.actionId=actionId;
+
+    public void setActionId(int actionId) {
+        this.actionId = actionId;
     }
-    public void setTimeCompleted(Date timeCompleted) {
-        this.timeCompleted=timeCompleted;
-    }
+
     public Date getTimeCompleted() {
         return timeCompleted;
+    }
+
+    public void setTimeCompleted(Date timeCompleted) {
+        this.timeCompleted = timeCompleted;
     }
 }

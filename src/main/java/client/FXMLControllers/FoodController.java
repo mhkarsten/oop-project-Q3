@@ -15,12 +15,11 @@ import javafx.scene.shape.Circle;
 import java.net.URL;
 import java.util.*;
 
+import static client.serverCommunication.UserController.getUser;
+import static client.serverCommunication.UserController.updateUser;
 import static server.API.FoodAPI.*;
-import static client.serverCommunication.UserController.*;
 
 public class FoodController implements Initializable {
-
-    private Label mealChoice;
 
     @FXML
     public Label meal1;
@@ -28,19 +27,16 @@ public class FoodController implements Initializable {
     public Label meal3;
     public Label meal4;
     public Label mealBoxText;
-
     public Circle selectCircle1;
     public Circle selectCircle2;
     public Circle selectCircle3;
     public Circle selectCircle4;
-
     public CheckBox veganOpt;
     public CheckBox vegOpt;
     public CheckBox meatOpt;
-
     public Button upBtn;
     public Button downBtn;
-
+    private Label mealChoice;
     private int mealOffset;
     private ArrayList<Meal[]> meatMeals;
     private ArrayList<Meal[]> veganMeals;
@@ -163,7 +159,6 @@ public class FoodController implements Initializable {
             currentUser[0].setPoints(currentUser[0].getPoints() + 100);
 
             mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
-
 
 
             updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());

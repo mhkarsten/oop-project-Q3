@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
-#anchor {
-   -fx-border-color: red;
 
-   -fx-border-width: 2;
+#anchor {
+    -fx-border-color: red;
+
+    -fx-border-width: 2;
 
 
 }
-#label{
+
+#label {
     -fx-font-size: 40;
     -fx-font-family: Montserrat;
 }

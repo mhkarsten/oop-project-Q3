@@ -1,7 +1,6 @@
 package client.serverCommunication;
 
 import client.model.Achievement;
-import client.model.User;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -91,7 +90,7 @@ public class AchievementController {
             Achievement[] ach = new Achievement[1];
             ach[0] = response.getBody();
 
-            if(response.getBody() != null) {
+            if (response.getBody() != null) {
 
                 return ach[0];
             }

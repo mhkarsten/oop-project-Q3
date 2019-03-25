@@ -5,42 +5,34 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import server.model.Achievement;
 import server.model.User;
 import server.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
-import javax.validation.Valid;
 
 @RestController
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-    @ExceptionHandler({NoSuchElementException.class})
+
+    @ExceptionHandler( {NoSuchElementException.class})
     public ResponseEntity<?> handleNoSuchElementException(
-            NoSuchElementException ex) {
+        NoSuchElementException ex) {
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
+
+    @ExceptionHandler( {MethodArgumentTypeMismatchException.class})
     public ResponseEntity<?> handleMethodArgumentTypeMismatch(
-            MethodArgumentTypeMismatchException ex) {
+        MethodArgumentTypeMismatchException ex) {
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
@@ -60,9 +52,9 @@ public class UserController {
      * @return List of all users
      */
     @RequestMapping(value = "/users",
-            method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
 
     public List<User> getUsers() {
@@ -76,8 +68,8 @@ public class UserController {
      * @return The user if it exists
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/users/{userID}",
-            produces = {MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public User getUser(@PathVariable("userID") long userID) {
         Optional<User> optionalUser = userRepository.findById(userID);
@@ -92,8 +84,8 @@ public class UserController {
      * @return returns the updated user
      */
     @PutMapping(value = "/users/update",
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> updateUser(@RequestBody User usr) {
         if (userRepository.findById(usr.getID()).isPresent()) {
@@ -112,16 +104,16 @@ public class UserController {
      * @return Returns the user that has been added
      */
     @PostMapping(value = "/users/new",
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> addUser(@RequestBody User usr) {
         User savedUser = userRepository.save(usr);
         System.out.println("Creating new user with ID" + savedUser.getID());
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/users/{userID}")
-                .buildAndExpand(savedUser.getID()).toUri();
+            .fromCurrentContextPath().path("/users/{userID}")
+            .buildAndExpand(savedUser.getID()).toUri();
         return ResponseEntity.created(location).build();
     }
 
@@ -140,6 +132,7 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
+
     /**
      * A mapping to only get the users someone is following.
      *
@@ -147,11 +140,12 @@ public class UserController {
      * @return the followers if any and if the user exists
      */
     @RequestMapping(value = "/users/{userID}/following", method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public Set<User> getUserFollowing(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
         return user.get().getFollowing();
     }
+
     /**
      * A mapping to only get the followers of a certain user.
      *
@@ -159,7 +153,7 @@ public class UserController {
      * @return the followers if any and if the user exists
      */
     @RequestMapping(value = "/users/{userID}/followers", method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public Set<User> getUserFollowers(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
         return user.get().getFollowers();

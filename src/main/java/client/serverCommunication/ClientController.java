@@ -2,12 +2,7 @@ package client.serverCommunication;
 
 import client.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
@@ -22,12 +17,12 @@ public class ClientController {
 
     //static final String URL = "localhost:8090";
 
+    private static final String USER_NAME = "tom";
+    private static final String PASSWORD = "123";
     private static String URL_USERS = "localhost:8090/users";
     private static String URL_NEWUSER = "localhost:8090/users/new";
     private static String URL_CHOOSEUSER = "localhost:8090/users/{userID}";
     private static String URL_ARBUSER = "localhost:8090/users";
-    private static final String USER_NAME = "tom";
-    private static final String PASSWORD = "123";
 
     public static HttpHeaders setAuthHeaders(HttpHeaders headers) {
 
@@ -40,49 +35,8 @@ public class ClientController {
         return headers;
     }
 
-    /**Method to return an ArrayList of all users.
-     *
-     * @return Return all users from the server
-     */
-    @SuppressWarnings("Duplicates")
-    public ArrayList<User> getUsers() {
-
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers);
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
-        headers.setContentType(MediaType.APPLICATION_XML);
-
-        HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
-        RestTemplate restTemplate = new RestTemplate();
-
-        ResponseEntity<User[]> response = restTemplate.exchange(URL_USERS,
-                HttpMethod.POST, entity, User[].class);
-
-        HttpStatus statusCode = response.getStatusCode();
-        System.out.println("(Client Side) The http status code is: " + statusCode);
-
-        //If status == 200
-        if (statusCode == HttpStatus.OK) {
-
-            User[] list = response.getBody();
-
-            ArrayList<User> userList = new ArrayList<User>();
-
-            if (list != null) {
-
-                for (User u : list) {
-
-                    userList.add(u);
-                }
-
-                return userList;
-            }
-        }
-
-        return null;
-    }
-
-    /**Method to return a specified user.
+    /**
+     * Method to return a specified user.
      *
      * @param userID The userid of the user you try to get
      * @return Return a user from the server
@@ -125,10 +79,11 @@ public class ClientController {
         return null;
     }
 
-    /**Method to post a new user (CREATE).
+    /**
+     * Method to post a new user (CREATE).
      *
      * @param userName New Username
-     * @param userID New UserID
+     * @param userID   New UserID
      */
     public static void postUser(String userName, long userID) {
 
@@ -153,7 +108,8 @@ public class ClientController {
         }
     }
 
-    /**Method to update a users information.
+    /**
+     * Method to update a users information.
      * Update user information (UPDATE)
      */
     public static void updateUser(long userID, String userName, int points) {
@@ -168,12 +124,56 @@ public class ClientController {
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
 
         String updatedUserUrl = URL_ARBUSER + "/update";
-        System.out.println("This is the url; "+updatedUserUrl);
+        System.out.println("This is the url; " + updatedUserUrl);
         restTemplate.put(updatedUserUrl, requestBody);
 
     }
 
-    /**Method to delete an existing user (DELETE).
+    /**
+     * Method to return an ArrayList of all users.
+     *
+     * @return Return all users from the server
+     */
+    @SuppressWarnings("Duplicates")
+    public ArrayList<User> getUsers() {
+
+        HttpHeaders headers = new HttpHeaders();
+        setAuthHeaders(headers);
+        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
+        headers.setContentType(MediaType.APPLICATION_XML);
+
+        HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<User[]> response = restTemplate.exchange(URL_USERS,
+            HttpMethod.POST, entity, User[].class);
+
+        HttpStatus statusCode = response.getStatusCode();
+        System.out.println("(Client Side) The http status code is: " + statusCode);
+
+        //If status == 200
+        if (statusCode == HttpStatus.OK) {
+
+            User[] list = response.getBody();
+
+            ArrayList<User> userList = new ArrayList<User>();
+
+            if (list != null) {
+
+                for (User u : list) {
+
+                    userList.add(u);
+                }
+
+                return userList;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Method to delete an existing user (DELETE).
      *
      * @param userID UserID of the user to delete
      */
@@ -193,7 +193,7 @@ public class ClientController {
         } else {
 
             System.out.println("(Client Side) The selected client cannot be found"
-                    + " or does not exist.");
+                + " or does not exist.");
         }
     }
 

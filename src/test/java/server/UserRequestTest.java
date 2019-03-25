@@ -2,12 +2,8 @@ package server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Assert;
-import org.springframework.web.client.HttpStatusCodeException;
-import server.controller.UserController;
-import server.model.Achievement;
-import server.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.hamcrest.collection.IsArrayContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -18,30 +14,31 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.hamcrest.collection.IsArrayContainingInAnyOrder;
+import server.controller.UserController;
+import server.model.Achievement;
+import server.model.User;
 
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserRequestTest {
+    HttpHeaders headers;
+    HttpEntity<User> entity;
+    String domain;
+    User us1, us2, us3;
     @LocalServerPort
     private int port;
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
     private UserController controller;
-    HttpHeaders headers;
-    HttpEntity<User> entity;
-    String domain;
-    User us1, us2, us3;
 
     /**
      * The setting up of the headers for the test.
@@ -55,7 +52,7 @@ public class UserRequestTest {
     public void setup() {
         //Create a basic set of headers with a specification of the type of body sent to and expected from the server
         headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
         headers.setContentType(MediaType.APPLICATION_JSON);
         String username = "tom";
         String password = "123";
@@ -70,13 +67,12 @@ public class UserRequestTest {
     }
 
     @Test
-    public void getAchievementsTest()
-    {
+    public void getAchievementsTest() {
 
         Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
         Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
         Achievement a3 = restTemplate.postForObject(domain + "/achievements/3", entity, Achievement.class);
-        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/achievements/", entity, Achievement[].class),new Achievement[]{a1,a2,a3});
+        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/achievements/", entity, Achievement[].class), new Achievement[] {a1, a2, a3});
     }
 
     @Test
@@ -130,7 +126,7 @@ public class UserRequestTest {
 
     @Test
     public void getUsersThreeFollows() {
-        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/users/3/following", entity, User[].class), new User[]{});
+        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/users/3/following", entity, User[].class), new User[] {});
     }
 
     @Test
@@ -168,17 +164,18 @@ public class UserRequestTest {
         updatedUser = restTemplate.postForObject(domain + "/users/" + userOne.getID(), new HttpEntity<>(headers), User.class);
         Assertions.assertEquals(updatedUser, userOne);
     }
+
     @Test
     public void setFollowingFollowersTest() {
         User user = new User(24601, "Jean Valjean");
         //These lines of code make me really sad...
         //Is there any way to neatly initialize a set?
-        Set<User> following=new HashSet<>(Arrays.asList(new User[]{us1,us2}));
-        Set<User> follower=new HashSet<>(Arrays.asList(new User[]{us2,us3}));
+        Set<User> following = new HashSet<>(Arrays.asList(new User[] {us1, us2}));
+        Set<User> follower = new HashSet<>(Arrays.asList(new User[] {us2, us3}));
         user.setFollower(follower);
         user.setFollowing(following);
-        Assertions.assertEquals(user.getFollowing(),following);
-        Assertions.assertEquals(user.getFollowers(),follower);
+        Assertions.assertEquals(user.getFollowing(), following);
+        Assertions.assertEquals(user.getFollowers(), follower);
 
     }
 

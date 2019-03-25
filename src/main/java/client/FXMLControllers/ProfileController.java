@@ -1,4 +1,5 @@
 package client.FXMLControllers;
+
 import client.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

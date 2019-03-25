@@ -5,12 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import server.model.Achievement;
 import server.model.User;
@@ -29,14 +24,15 @@ public class AchievementController {
     @Autowired
     private UserRepository userRepository;
 
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
+    @ExceptionHandler( {MethodArgumentTypeMismatchException.class})
     public ResponseEntity<?> handleMethodArgumentTypeMismatch(
-            MethodArgumentTypeMismatchException ex) {
+        MethodArgumentTypeMismatchException ex) {
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler({NoSuchElementException.class})
+
+    @ExceptionHandler( {NoSuchElementException.class})
     public ResponseEntity<?> handleNoSuchElementException(
-            NoSuchElementException ex) {
+        NoSuchElementException ex) {
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
@@ -46,9 +42,9 @@ public class AchievementController {
      * @return the list of achievements
      */
     @RequestMapping(value = "/achievements",
-            method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public List<Achievement> getAchievements() {
         return achievementRepository.findAllByOrderByIdAsc();
@@ -61,8 +57,8 @@ public class AchievementController {
      * @return The achievement if it exists
      */
     @RequestMapping(value = "/achievements/{achID}", method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Achievement getAchievement(@PathVariable("achID") long achID) {
         Optional<Achievement> ach = achievementRepository.findById(achID);
@@ -76,7 +72,7 @@ public class AchievementController {
      * @return the unlocked achievements if any and if the user exists
      */
     @RequestMapping(value = "/users/{userID}/achievements", method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public Set<Achievement> getUserAchievements(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
         return user.get().getAchievements();

@@ -5,15 +5,16 @@ import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import static client.model.Meal.JSONToMeal;
 
 /**
- *  This class is the integration of TheFoodDB api. This is an online database of various meals which
- *  contains various information on each item of food, such as ingredients, and instructions on how
- *  to make them. These are given as JSON objects, and are then converted to a meal object which
- *  can be displayed in various ways.
+ * This class is the integration of TheFoodDB api. This is an online database of various meals which
+ * contains various information on each item of food, such as ingredients, and instructions on how
+ * to make them. These are given as JSON objects, and are then converted to a meal object which
+ * can be displayed in various ways.
  */
 public class FoodAPI {
 
@@ -62,10 +63,10 @@ public class FoodAPI {
         return null;
     }
 
-    /** @Param mealName
-     *  This parameter is the name of the meal that you would like to get from the database
-     *
-     *  @return This method will return one specific meal from the database.
+    /**
+     * @return This method will return one specific meal from the database.
+     * @Param mealName
+     * This parameter is the name of the meal that you would like to get from the database
      */
     public static Meal[] getMeal(String mealName) {
 
@@ -93,9 +94,8 @@ public class FoodAPI {
         return null;
     }
 
-    /**@param mealName
-     * This parameter is the name of the meal category that you would like returned.
-     *
+    /**
+     * @param mealName This parameter is the name of the meal category that you would like returned.
      * @return This method returns an ArrayList of all meals in a specific category.
      */
     public static ArrayList<Meal[]> getMealCategory(String mealName) {

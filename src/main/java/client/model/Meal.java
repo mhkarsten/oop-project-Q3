@@ -26,9 +26,8 @@ public class Meal {
     }
 
     public Meal(String strMeal, String idMeal, String strCategory, String strArea, ArrayList<String>
-                strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
-                String strMealThumb, String strYoutube, String strInstructions)
-    {
+        strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
+                String strMealThumb, String strYoutube, String strInstructions) {
         this.strMeal = strMeal;
         this.idMeal = idMeal;
         this.strCategory = strCategory;
@@ -54,7 +53,7 @@ public class Meal {
         newMeal.setIdMeal((String) LinkedMeal.get("idMeal"));
         newMeal.setStrArea((String) LinkedMeal.get("strArea"));
         newMeal.setStrCategory((String) LinkedMeal.get("strCategory"));
-        newMeal.setStrMealThumb ((String) LinkedMeal.get("strMealThumb"));
+        newMeal.setStrMealThumb((String) LinkedMeal.get("strMealThumb"));
         newMeal.setStrSource((String) LinkedMeal.get("strSource"));
         newMeal.setStrYoutube((String) LinkedMeal.get("strYoutube"));
         newMeal.setStrInstructions((String) LinkedMeal.get("strInstructions"));

@@ -11,15 +11,15 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.EnergyController">
    <children>
-      <ScrollPane layoutX="50.0" layoutY="55.0" prefHeight="290.0" prefWidth="205.0" style="-fx-background: none;">
+      <ScrollPane layoutX="14.0" layoutY="55.0" prefHeight="290.0" prefWidth="205.0" style="-fx-background: none;">
          <content>
             <VBox prefHeight="285.0" prefWidth="200.0" styleClass="EVBox">
                <children>
-                  <Label fx:id="energyBoxText" prefHeight="35.0" prefWidth="224.0" text="Pick your option!" />
-                  <Label fx:id="energy1" prefHeight="40.0" prefWidth="206.0" text="Turn out the lights" />
-                   <Label fx:id="energy2" prefHeight="40.0" prefWidth="206.0" text="Low brightness" />
-                   <Label fx:id="energy3" prefHeight="40.0" prefWidth="206.0" text="Solar panels" />
-                   <Label fx:id="energy4" prefHeight="40.0" prefWidth="206.0" text="Turn of your devices" />
+                   <Label fx:id="energyBoxText" prefHeight="35.0" prefWidth="224.0" text="Pick your option!" />
+                   <Label fx:id="energy1" onMouseClicked="#selectEnergy" prefHeight="40.0" prefWidth="206.0" text="Turn out the lights" />
+                   <Label fx:id="energy2" onMouseClicked="#selectEnergy" prefHeight="40.0" prefWidth="206.0" text="Low brightness" />
+                   <Label fx:id="energy3" onMouseClicked="#selectEnergy" prefHeight="40.0" prefWidth="206.0" text="Solar panels" />
+                   <Label fx:id="energy4" onMouseClicked="#selectEnergy" prefHeight="40.0" prefWidth="206.0" text="Turn of your devices" />
                    <Button mnemonicParsing="false" onAction="#getEnergyPoints" style="-fx-border-color: black;" text="Select Energy Saving" />
                    <Button fx:id="upBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Next" />
                    <Button fx:id="downBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Previous" />
@@ -27,15 +27,27 @@
             </VBox>
          </content>
       </ScrollPane>
-      <VBox layoutX="300.0" layoutY="55.0" prefHeight="290.0" prefWidth="175.0" styleClass="VBox">
+      <VBox layoutX="225.0" layoutY="55.0" prefHeight="290.0" prefWidth="175.0" styleClass="VBox">
          <children>
             <Label prefWidth="167.0" text="Search saving method" />
             <TextField />
             <Label prefHeight="21.0" prefWidth="196.0" text="Or pick a category:" />
-            <CheckBox mnemonicParsing="false" text="Green energy" />
-            <CheckBox mnemonicParsing="false" text="Energy saving" />
-            <CheckBox mnemonicParsing="false" text="Energy management" />
+            <CheckBox fx:id="greenEnergy" mnemonicParsing="false" onMouseClicked="#displayGreenEnergy" text="Green energy" />
+            <CheckBox fx:id="energySaving" mnemonicParsing="false" onMouseClicked="#displayEnergySaving" text="Energy saving" />
+            <CheckBox fx:id="energyManagement" mnemonicParsing="false" onMouseClicked="#displayEnergyManagement" text="Energy management" />
          </children></VBox>
+      <VBox layoutX="411.0" layoutY="55.0" prefHeight="290.0" prefWidth="71.0" styleClass="VBox">
+         <children>
+            <Label prefWidth="180.0" text="Enter stuff" />
+            <TextField fx:id="field1" />
+            <Label text="Enter stuff" />
+            <TextField fx:id="field2" />
+            <Label text="Enter stuff" />
+            <TextField fx:id="field3" />
+            <Label text="Enter stuff" />
+            <TextField fx:id="field4" />
+         </children>
+      </VBox>
    </children>
     <stylesheets>
         <URL value="@GeneralTemplate.css" />

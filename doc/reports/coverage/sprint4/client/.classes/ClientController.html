@@ -61,7 +61,7 @@
     0%
   </span>
   <span class="absValue">
-    (0/ 80)
+    (0/ 79)
   </span>
 </td>
 </tr>
@@ -74,231 +74,233 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package client;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import org.apache.tomcat.util.codec.binary.Base64;
-<i>4</i>&nbsp;import org.springframework.http.HttpEntity;
-<i>5</i>&nbsp;import org.springframework.http.HttpHeaders;
-<i>6</i>&nbsp;import org.springframework.http.HttpMethod;
-<i>7</i>&nbsp;import org.springframework.http.HttpStatus;
-<i>8</i>&nbsp;import org.springframework.http.MediaType;
-<i>9</i>&nbsp;import org.springframework.http.ResponseEntity;
-<i>10</i>&nbsp;import org.springframework.web.client.RestTemplate;
-<i>11</i>&nbsp;
-<i>12</i>&nbsp;import java.nio.charset.Charset;
-<i>13</i>&nbsp;import java.util.ArrayList;
-<i>14</i>&nbsp;import java.util.Arrays;
-<i>15</i>&nbsp;
-<i>16</i>&nbsp;//Currently this client side code is build to work with XML code whereas the server
-<i>17</i>&nbsp;//side code can use both XML and JSON. Later this might be changed so everything uses
-<i>18</i>&nbsp;//JSON for the sake of simplicity;
-<i>19</i>&nbsp;
-<b class="nc"><i>20</i>&nbsp;public class ClientController {</b>
+<i>3</i>&nbsp;import client.repository.AchievementRepository;
+<i>4</i>&nbsp;import org.apache.tomcat.util.codec.binary.Base64;
+<i>5</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>6</i>&nbsp;import org.springframework.http.HttpEntity;
+<i>7</i>&nbsp;import org.springframework.http.HttpHeaders;
+<i>8</i>&nbsp;import org.springframework.http.HttpMethod;
+<i>9</i>&nbsp;import org.springframework.http.HttpStatus;
+<i>10</i>&nbsp;import org.springframework.http.MediaType;
+<i>11</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i>12</i>&nbsp;import org.springframework.web.client.RestTemplate;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.nio.charset.Charset;
+<i>15</i>&nbsp;import java.util.ArrayList;
+<i>16</i>&nbsp;import java.util.Arrays;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;//Currently this client side code is build to work with XML code whereas the server
+<i>19</i>&nbsp;//side code can use both XML and JSON. Later this might be changed so everything uses
+<i>20</i>&nbsp;//JSON for the sake of simplicity;
 <i>21</i>&nbsp;
-<i>22</i>&nbsp;    static final String URL_USERS = &quot;http://localhost:8080/users&quot;;
-<i>23</i>&nbsp;    static final String URL_NEWUSER = &quot;http://localhost:8080/newUser&quot;;
-<i>24</i>&nbsp;    static final String URL_CHOOSEUSER = &quot;http://localhost:8080/user/{userID}&quot;;
-<i>25</i>&nbsp;    static final String URL_ARBUSER = &quot;http://localhost:8080/user&quot;;
+<b class="nc"><i>22</i>&nbsp;public class ClientController {</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Autowired
+<i>25</i>&nbsp;    private AchievementRepository achievementRepository;
 <i>26</i>&nbsp;
-<i>27</i>&nbsp;
-<i>28</i>&nbsp;    static final String USER_NAME = &quot;tom&quot;;
-<i>29</i>&nbsp;    static final String PASSWORD = &quot;123&quot;;
-<i>30</i>&nbsp;
-<i>31</i>&nbsp;    /**
-<i>32</i>&nbsp;     * Authenticated get (READ).
-<i>33</i>&nbsp;     */
-<i>34</i>&nbsp;    public void authGet() {
+<i>27</i>&nbsp;    static final String URL_USERS = &quot;http://localhost:8080/users&quot;;
+<i>28</i>&nbsp;    static final String URL_NEWUSER = &quot;http://localhost:8080/newUser&quot;;
+<i>29</i>&nbsp;    static final String URL_CHOOSEUSER = &quot;http://localhost:8080/user/{userID}&quot;;
+<i>30</i>&nbsp;    static final String URL_ARBUSER = &quot;http://localhost:8080/user&quot;;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    static final String USER_NAME = &quot;tom&quot;;
+<i>34</i>&nbsp;    static final String PASSWORD = &quot;123&quot;;
 <i>35</i>&nbsp;
-<b class="nc"><i>36</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
-<i>37</i>&nbsp;
-<b class="nc"><i>38</i>&nbsp;        String auth = USER_NAME + &quot;:&quot; + PASSWORD;</b>
-<b class="nc"><i>39</i>&nbsp;        byte[] encAuth = Base64.encodeBase64(auth.getBytes(Charset.forName(&quot;US-ASCII&quot;)));</b>
-<b class="nc"><i>40</i>&nbsp;        String authHeader = &quot;Basic &quot; + new String(encAuth);</b>
-<i>41</i>&nbsp;
-<b class="nc"><i>42</i>&nbsp;        headers.set(&quot;Authorization&quot;, authHeader);</b>
-<b class="nc"><i>43</i>&nbsp;        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));</b>
-<b class="nc"><i>44</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_JSON);</b>
-<b class="nc"><i>45</i>&nbsp;        headers.set(&quot;my_other_key&quot;, &quot;my_other_value&quot;);</b>
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Authenticated get (READ).
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public void authGet() {
+<i>40</i>&nbsp;
+<b class="nc"><i>41</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<i>42</i>&nbsp;
+<b class="nc"><i>43</i>&nbsp;        String auth = USER_NAME + &quot;:&quot; + PASSWORD;</b>
+<b class="nc"><i>44</i>&nbsp;        byte[] encAuth = Base64.encodeBase64(auth.getBytes(Charset.forName(&quot;US-ASCII&quot;)));</b>
+<b class="nc"><i>45</i>&nbsp;        String authHeader = &quot;Basic &quot; + new String(encAuth);</b>
 <i>46</i>&nbsp;
-<b class="nc"><i>47</i>&nbsp;        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(headers);</b>
-<b class="nc"><i>48</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
-<i>49</i>&nbsp;
-<b class="nc"><i>50</i>&nbsp;        ResponseEntity&lt;String&gt; response = restTemplate.exchange(URL_USERS, //</b>
-<i>51</i>&nbsp;            HttpMethod.GET, entity, String.class);
-<i>52</i>&nbsp;
-<b class="nc"><i>53</i>&nbsp;        String result = response.getBody();</b>
+<b class="nc"><i>47</i>&nbsp;        headers.set(&quot;Authorization&quot;, authHeader);</b>
+<b class="nc"><i>48</i>&nbsp;        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));</b>
+<b class="nc"><i>49</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_JSON);</b>
+<b class="nc"><i>50</i>&nbsp;        headers.set(&quot;my_other_key&quot;, &quot;my_other_value&quot;);</b>
+<i>51</i>&nbsp;
+<b class="nc"><i>52</i>&nbsp;        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(headers);</b>
+<b class="nc"><i>53</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
 <i>54</i>&nbsp;
-<b class="nc"><i>55</i>&nbsp;        System.out.println(result);</b>
-<b class="nc"><i>56</i>&nbsp;    }</b>
+<b class="nc"><i>55</i>&nbsp;        ResponseEntity&lt;String&gt; response = restTemplate.exchange(URL_USERS, //</b>
+<i>56</i>&nbsp;            HttpMethod.GET, entity, String.class);
 <i>57</i>&nbsp;
-<i>58</i>&nbsp;    /**Method to return an arraylist of all users.
-<i>59</i>&nbsp;     *
-<i>60</i>&nbsp;     * @return Return all users from the server
-<i>61</i>&nbsp;     */
-<i>62</i>&nbsp;    public ArrayList&lt;User&gt; getUsers() {
-<i>63</i>&nbsp;
-<b class="nc"><i>64</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
-<b class="nc"><i>65</i>&nbsp;        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));</b>
-<b class="nc"><i>66</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
-<i>67</i>&nbsp;
-<b class="nc"><i>68</i>&nbsp;        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;User[]&gt;(headers);</b>
-<b class="nc"><i>69</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
-<i>70</i>&nbsp;
-<b class="nc"><i>71</i>&nbsp;        ResponseEntity&lt;User[]&gt; response = restTemplate.exchange(URL_USERS,</b>
-<i>72</i>&nbsp;                HttpMethod.POST, entity, User[].class);
-<i>73</i>&nbsp;
-<b class="nc"><i>74</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
-<b class="nc"><i>75</i>&nbsp;        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</b>
-<i>76</i>&nbsp;
-<i>77</i>&nbsp;        //If status == 200
-<b class="nc"><i>78</i>&nbsp;        if (statusCode == HttpStatus.OK) {</b>
-<i>79</i>&nbsp;
-<b class="nc"><i>80</i>&nbsp;            User[] list = response.getBody();</b>
+<b class="nc"><i>58</i>&nbsp;        String result = response.getBody();</b>
+<i>59</i>&nbsp;
+<b class="nc"><i>60</i>&nbsp;        System.out.println(result);</b>
+<b class="nc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**Method to return an arraylist of all users.
+<i>64</i>&nbsp;     *
+<i>65</i>&nbsp;     * @return Return all users from the server
+<i>66</i>&nbsp;     */
+<i>67</i>&nbsp;    public ArrayList&lt;User&gt; getUsers() {
+<i>68</i>&nbsp;
+<b class="nc"><i>69</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<b class="nc"><i>70</i>&nbsp;        headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));</b>
+<b class="nc"><i>71</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
+<i>72</i>&nbsp;
+<b class="nc"><i>73</i>&nbsp;        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;&gt;(headers);</b>
+<b class="nc"><i>74</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<i>75</i>&nbsp;
+<b class="nc"><i>76</i>&nbsp;        ResponseEntity&lt;User[]&gt; response = restTemplate.exchange(URL_USERS,</b>
+<i>77</i>&nbsp;                HttpMethod.POST, entity, User[].class);
+<i>78</i>&nbsp;
+<b class="nc"><i>79</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
+<b class="nc"><i>80</i>&nbsp;        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</b>
 <i>81</i>&nbsp;
-<b class="nc"><i>82</i>&nbsp;            ArrayList&lt;User&gt; userList = new ArrayList&lt;User&gt;();</b>
-<i>83</i>&nbsp;
-<b class="nc"><i>84</i>&nbsp;            if (list != null) {</b>
-<i>85</i>&nbsp;
-<b class="nc"><i>86</i>&nbsp;                for (User u : list) {</b>
-<i>87</i>&nbsp;
-<b class="nc"><i>88</i>&nbsp;                    userList.add(u);</b>
-<i>89</i>&nbsp;                }
+<i>82</i>&nbsp;        //If status == 200
+<b class="nc"><i>83</i>&nbsp;        if (statusCode == HttpStatus.OK) {</b>
+<i>84</i>&nbsp;
+<b class="nc"><i>85</i>&nbsp;            User[] list = response.getBody();</b>
+<i>86</i>&nbsp;
+<b class="nc"><i>87</i>&nbsp;            ArrayList&lt;User&gt; userList = new ArrayList&lt;&gt;();</b>
+<i>88</i>&nbsp;
+<b class="nc"><i>89</i>&nbsp;            if (list != null) {</b>
 <i>90</i>&nbsp;
-<b class="nc"><i>91</i>&nbsp;                return userList;</b>
-<i>92</i>&nbsp;            }
-<i>93</i>&nbsp;        }
-<i>94</i>&nbsp;
-<b class="nc"><i>95</i>&nbsp;        return null;</b>
-<i>96</i>&nbsp;    }
-<i>97</i>&nbsp;
-<i>98</i>&nbsp;    /**Method to return a specified user.
-<i>99</i>&nbsp;     *
-<i>100</i>&nbsp;     * @param userID The userid of the user you try to get
-<i>101</i>&nbsp;     * @return Return a user from the server
-<i>102</i>&nbsp;     */
-<i>103</i>&nbsp;    public User[] getUser(String userID) {
-<i>104</i>&nbsp;
-<b class="nc"><i>105</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
-<b class="nc"><i>106</i>&nbsp;        headers.set(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
-<b class="nc"><i>107</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
-<i>108</i>&nbsp;
-<b class="nc"><i>109</i>&nbsp;        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;&gt;(headers);</b>
-<b class="nc"><i>110</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
-<i>111</i>&nbsp;
-<b class="nc"><i>112</i>&nbsp;        Object[] uriValue = new Object[] {userID};</b>
+<b class="nc"><i>91</i>&nbsp;                userList.addAll(Arrays.asList(list));</b>
+<i>92</i>&nbsp;
+<b class="nc"><i>93</i>&nbsp;                return userList;</b>
+<i>94</i>&nbsp;            }
+<i>95</i>&nbsp;        }
+<i>96</i>&nbsp;
+<b class="nc"><i>97</i>&nbsp;        return null;</b>
+<i>98</i>&nbsp;    }
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    /**Method to return a specified user.
+<i>101</i>&nbsp;     *
+<i>102</i>&nbsp;     * @param userID The userid of the user you try to get
+<i>103</i>&nbsp;     * @return Return a user from the server
+<i>104</i>&nbsp;     */
+<i>105</i>&nbsp;    public User[] getUser(String userID) {
+<i>106</i>&nbsp;
+<b class="nc"><i>107</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<b class="nc"><i>108</i>&nbsp;        headers.set(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
+<b class="nc"><i>109</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
+<i>110</i>&nbsp;
+<b class="nc"><i>111</i>&nbsp;        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;&gt;(headers);</b>
+<b class="nc"><i>112</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
 <i>113</i>&nbsp;
-<b class="nc"><i>114</i>&nbsp;        ResponseEntity&lt;User[]&gt; response = restTemplate.exchange(URL_CHOOSEUSER,</b>
-<i>115</i>&nbsp;            HttpMethod.POST, entity, User[].class, uriValue);
-<i>116</i>&nbsp;
-<b class="nc"><i>117</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
-<b class="nc"><i>118</i>&nbsp;        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</b>
-<i>119</i>&nbsp;
-<b class="nc"><i>120</i>&nbsp;        if (statusCode == HttpStatus.OK) {</b>
+<b class="nc"><i>114</i>&nbsp;        Object[] uriValue = new Object[] {userID};</b>
+<i>115</i>&nbsp;
+<b class="nc"><i>116</i>&nbsp;        ResponseEntity&lt;User[]&gt; response = restTemplate.exchange(URL_CHOOSEUSER,</b>
+<i>117</i>&nbsp;            HttpMethod.POST, entity, User[].class, uriValue);
+<i>118</i>&nbsp;
+<b class="nc"><i>119</i>&nbsp;        HttpStatus statusCode = response.getStatusCode();</b>
+<b class="nc"><i>120</i>&nbsp;        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</b>
 <i>121</i>&nbsp;
-<b class="nc"><i>122</i>&nbsp;            User[] specificUser = response.getBody();</b>
+<b class="nc"><i>122</i>&nbsp;        if (statusCode == HttpStatus.OK) {</b>
 <i>123</i>&nbsp;
-<b class="nc"><i>124</i>&nbsp;            if ( specificUser != null) {</b>
+<b class="nc"><i>124</i>&nbsp;            User[] specificUser = response.getBody();</b>
 <i>125</i>&nbsp;
-<b class="nc"><i>126</i>&nbsp;                return specificUser;</b>
-<i>127</i>&nbsp;            } else {
-<i>128</i>&nbsp;
-<b class="nc"><i>129</i>&nbsp;                System.out.println(&quot;(Client Side) The spesified user was null or doesnt exist.&quot;);</b>
-<i>130</i>&nbsp;            }
-<i>131</i>&nbsp;        }
-<i>132</i>&nbsp;
-<b class="nc"><i>133</i>&nbsp;        return null;</b>
-<i>134</i>&nbsp;    }
-<i>135</i>&nbsp;
-<i>136</i>&nbsp;    /**Method to post a new user (CREATE).
-<i>137</i>&nbsp;     *
-<i>138</i>&nbsp;     * @param userName New Username
-<i>139</i>&nbsp;     * @param userID New UserID
-<i>140</i>&nbsp;     */
-<i>141</i>&nbsp;    public void postUser(long userID,String userName) {
-<i>142</i>&nbsp;
-<b class="nc"><i>143</i>&nbsp;        User newUser = new User(userID, userName, 0);</b>
+<b class="nc"><i>126</i>&nbsp;            if ( specificUser != null) {</b>
+<i>127</i>&nbsp;
+<b class="nc"><i>128</i>&nbsp;                return specificUser;</b>
+<i>129</i>&nbsp;            } else {
+<i>130</i>&nbsp;
+<b class="nc"><i>131</i>&nbsp;                System.out.println(&quot;(Client Side) The spesified user was null or doesnt exist.&quot;);</b>
+<i>132</i>&nbsp;            }
+<i>133</i>&nbsp;        }
+<i>134</i>&nbsp;
+<b class="nc"><i>135</i>&nbsp;        return null;</b>
+<i>136</i>&nbsp;    }
+<i>137</i>&nbsp;
+<i>138</i>&nbsp;    /**Method to post a new user (CREATE).
+<i>139</i>&nbsp;     *
+<i>140</i>&nbsp;     * @param userName New Username
+<i>141</i>&nbsp;     * @param userID New UserID
+<i>142</i>&nbsp;     */
+<i>143</i>&nbsp;    public void postUser(long userID,String userName) {
 <i>144</i>&nbsp;
-<b class="nc"><i>145</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
-<b class="nc"><i>146</i>&nbsp;        headers.add(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
-<b class="nc"><i>147</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
-<i>148</i>&nbsp;
-<b class="nc"><i>149</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
-<b class="nc"><i>150</i>&nbsp;        HttpEntity&lt;User&gt; requestBody = new HttpEntity&lt;&gt;(newUser, headers);</b>
-<i>151</i>&nbsp;
-<b class="nc"><i>152</i>&nbsp;        User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);</b>
+<b class="nc"><i>145</i>&nbsp;        User newUser = new User(userID, userName, 0);</b>
+<i>146</i>&nbsp;
+<b class="nc"><i>147</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<b class="nc"><i>148</i>&nbsp;        headers.add(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
+<b class="nc"><i>149</i>&nbsp;        headers.setContentType(MediaType.APPLICATION_XML);</b>
+<i>150</i>&nbsp;
+<b class="nc"><i>151</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<b class="nc"><i>152</i>&nbsp;        HttpEntity&lt;User&gt; requestBody = new HttpEntity&lt;&gt;(newUser, headers);</b>
 <i>153</i>&nbsp;
-<b class="nc"><i>154</i>&nbsp;        if (user != null &amp;&amp; user.getID() != 0) {</b>
+<b class="nc"><i>154</i>&nbsp;        User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);</b>
 <i>155</i>&nbsp;
-<b class="nc"><i>156</i>&nbsp;            System.out.println(&quot;(Client Side) New user created&quot; + user.getID());</b>
-<i>157</i>&nbsp;        } else {
-<i>158</i>&nbsp;
-<b class="nc"><i>159</i>&nbsp;            System.out.println(&quot;(Client Side) Something went wrong.&quot;);</b>
-<i>160</i>&nbsp;        }
-<b class="nc"><i>161</i>&nbsp;    }</b>
-<i>162</i>&nbsp;
-<i>163</i>&nbsp;    /**Method to update a users information.
-<i>164</i>&nbsp;     * Update user information (UPDATE)
-<i>165</i>&nbsp;     */
-<i>166</i>&nbsp;    public void updateUser(long userID, String userName, int points) {
-<i>167</i>&nbsp;
-<b class="nc"><i>168</i>&nbsp;        User updatedUser = new User(userID, userName, points);</b>
+<b class="nc"><i>156</i>&nbsp;        if (user != null &amp;&amp; user.getID() != 0) {</b>
+<i>157</i>&nbsp;
+<b class="nc"><i>158</i>&nbsp;            System.out.println(&quot;(Client Side) New user created&quot; + user.getID());</b>
+<i>159</i>&nbsp;        } else {
+<i>160</i>&nbsp;
+<b class="nc"><i>161</i>&nbsp;            System.out.println(&quot;(Client Side) Something went wrong.&quot;);</b>
+<i>162</i>&nbsp;        }
+<b class="nc"><i>163</i>&nbsp;    }</b>
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;    /**Method to update a users information.
+<i>166</i>&nbsp;     * Update user information (UPDATE)
+<i>167</i>&nbsp;     */
+<i>168</i>&nbsp;    public void updateUser(long userID, String userName, int points) {
 <i>169</i>&nbsp;
-<b class="nc"><i>170</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
-<b class="nc"><i>171</i>&nbsp;        headers.add(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
-<i>172</i>&nbsp;
-<b class="nc"><i>173</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
-<b class="nc"><i>174</i>&nbsp;        HttpEntity&lt;User&gt; requestBody = new HttpEntity&lt;&gt;(updatedUser, headers);</b>
-<i>175</i>&nbsp;
-<i>176</i>&nbsp;
-<b class="nc"><i>177</i>&nbsp;        restTemplate.put(URL_ARBUSER, requestBody, new Object[]{});</b>
+<b class="nc"><i>170</i>&nbsp;        User updatedUser = new User(userID, userName, points);</b>
+<i>171</i>&nbsp;
+<b class="nc"><i>172</i>&nbsp;        HttpHeaders headers = new HttpHeaders();</b>
+<b class="nc"><i>173</i>&nbsp;        headers.add(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</b>
+<i>174</i>&nbsp;
+<b class="nc"><i>175</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<b class="nc"><i>176</i>&nbsp;        HttpEntity&lt;User&gt; requestBody = new HttpEntity&lt;&gt;(updatedUser, headers);</b>
+<i>177</i>&nbsp;
 <i>178</i>&nbsp;
-<b class="nc"><i>179</i>&nbsp;        String updatedUserUrl = URL_ARBUSER + &quot;/&quot; + userID;</b>
+<b class="nc"><i>179</i>&nbsp;        restTemplate.put(URL_ARBUSER, requestBody);</b>
 <i>180</i>&nbsp;
-<b class="nc"><i>181</i>&nbsp;        User user = restTemplate.getForObject(updatedUserUrl, User.class);</b>
+<b class="nc"><i>181</i>&nbsp;        String updatedUserUrl = URL_ARBUSER + &quot;/&quot; + userID;</b>
 <i>182</i>&nbsp;
-<b class="nc"><i>183</i>&nbsp;        if (user != null) {</b>
+<b class="nc"><i>183</i>&nbsp;        User user = restTemplate.getForObject(updatedUserUrl, User.class);</b>
 <i>184</i>&nbsp;
-<b class="nc"><i>185</i>&nbsp;            System.out.println(</b>
-<i>186</i>&nbsp;                    &quot;(Client Side) User after info update.&quot;
-<b class="nc"><i>187</i>&nbsp;                    + user.getName()</b>
-<b class="nc"><i>188</i>&nbsp;                    + user.getID()</b>
-<b class="nc"><i>189</i>&nbsp;                    + user.getPoints()</b>
-<i>190</i>&nbsp;            );
-<i>191</i>&nbsp;        } else {
-<i>192</i>&nbsp;
-<b class="nc"><i>193</i>&nbsp;            System.out.println(&quot;(Client Side) Something went wrong, the user doesnt exits&quot;);</b>
-<i>194</i>&nbsp;        }
-<b class="nc"><i>195</i>&nbsp;    }</b>
-<i>196</i>&nbsp;
-<i>197</i>&nbsp;    /**Method to delete an existing user (DELETE).
-<i>198</i>&nbsp;     *
-<i>199</i>&nbsp;     * @param userID UserID of the user to delete
-<i>200</i>&nbsp;     */
-<i>201</i>&nbsp;    public void deleteUser(String userID) {
-<i>202</i>&nbsp;
-<b class="nc"><i>203</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
+<b class="nc"><i>185</i>&nbsp;        if (user != null) {</b>
+<i>186</i>&nbsp;
+<b class="nc"><i>187</i>&nbsp;            System.out.println(</b>
+<i>188</i>&nbsp;                    &quot;(Client Side) User after info update.&quot;
+<b class="nc"><i>189</i>&nbsp;                    + user.getName()</b>
+<b class="nc"><i>190</i>&nbsp;                    + user.getID()</b>
+<b class="nc"><i>191</i>&nbsp;                    + user.getPoints()</b>
+<i>192</i>&nbsp;            );
+<i>193</i>&nbsp;        } else {
+<i>194</i>&nbsp;
+<b class="nc"><i>195</i>&nbsp;            System.out.println(&quot;(Client Side) Something went wrong, the user doesnt exits&quot;);</b>
+<i>196</i>&nbsp;        }
+<b class="nc"><i>197</i>&nbsp;    }</b>
+<i>198</i>&nbsp;
+<i>199</i>&nbsp;    /**Method to delete an existing user (DELETE).
+<i>200</i>&nbsp;     *
+<i>201</i>&nbsp;     * @param userID UserID of the user to delete
+<i>202</i>&nbsp;     */
+<i>203</i>&nbsp;    public void deleteUser(String userID) {
 <i>204</i>&nbsp;
-<b class="nc"><i>205</i>&nbsp;        Object[] uriValue = new Object[] {userID};</b>
+<b class="nc"><i>205</i>&nbsp;        RestTemplate restTemplate = new RestTemplate();</b>
 <i>206</i>&nbsp;
-<b class="nc"><i>207</i>&nbsp;        restTemplate.delete(URL_CHOOSEUSER, uriValue);</b>
+<b class="nc"><i>207</i>&nbsp;        Object[] uriValue = new Object[] {userID};</b>
 <i>208</i>&nbsp;
-<b class="nc"><i>209</i>&nbsp;        User user = restTemplate.getForObject(URL_ARBUSER, User.class);</b>
+<b class="nc"><i>209</i>&nbsp;        restTemplate.delete(URL_CHOOSEUSER, uriValue);</b>
 <i>210</i>&nbsp;
-<b class="nc"><i>211</i>&nbsp;        if (user != null) {</b>
+<b class="nc"><i>211</i>&nbsp;        User user = restTemplate.getForObject(URL_ARBUSER, User.class);</b>
 <i>212</i>&nbsp;
-<b class="nc"><i>213</i>&nbsp;            System.out.println(&quot;(Client Side) User &quot; + user.getName() + &quot; has been deleted.&quot;);</b>
-<i>214</i>&nbsp;        } else {
-<i>215</i>&nbsp;
-<b class="nc"><i>216</i>&nbsp;            System.out.println(&quot;(Client Side) The selected client cannot be found&quot;</b>
-<i>217</i>&nbsp;                    + &quot; or does not exist.&quot;);
-<i>218</i>&nbsp;        }
-<b class="nc"><i>219</i>&nbsp;    }</b>
-<i>220</i>&nbsp;
-<i>221</i>&nbsp;}
+<b class="nc"><i>213</i>&nbsp;        if (user != null) {</b>
+<i>214</i>&nbsp;
+<b class="nc"><i>215</i>&nbsp;            System.out.println(&quot;(Client Side) User &quot; + user.getName() + &quot; has been deleted.&quot;);</b>
+<i>216</i>&nbsp;        } else {
+<i>217</i>&nbsp;
+<b class="nc"><i>218</i>&nbsp;            System.out.println(&quot;(Client Side) The selected client cannot be found&quot;</b>
+<i>219</i>&nbsp;                    + &quot; or does not exist.&quot;);
+<i>220</i>&nbsp;        }
+<b class="nc"><i>221</i>&nbsp;    }</b>
+<i>222</i>&nbsp;
+<i>223</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2019-03-05 18:37</div>
+    <div style="float:right;">generated on 2019-03-09 14:14</div>
 </div>
 </body>
 </html>

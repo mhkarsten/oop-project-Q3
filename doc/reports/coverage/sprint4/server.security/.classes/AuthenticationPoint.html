@@ -80,37 +80,36 @@
 <i>6</i>&nbsp;
 <i>7</i>&nbsp;import java.io.IOException;
 <i>8</i>&nbsp;import java.io.PrintWriter;
-<i>9</i>&nbsp;import javax.servlet.ServletException;
-<i>10</i>&nbsp;import javax.servlet.http.HttpServletRequest;
-<i>11</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>9</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i>10</i>&nbsp;import javax.servlet.http.HttpServletResponse;
+<i>11</i>&nbsp;
 <i>12</i>&nbsp;
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;@Component
-<b class="fc"><i>15</i>&nbsp;public class AuthenticationPoint extends BasicAuthenticationEntryPoint {</b>
-<i>16</i>&nbsp;
-<i>17</i>&nbsp;    @Override
-<i>18</i>&nbsp;    public void commence(HttpServletRequest request, HttpServletResponse response,
-<i>19</i>&nbsp;                         AuthenticationException authEx) throws IOException, ServletException {
-<i>20</i>&nbsp;
-<b class="fc"><i>21</i>&nbsp;        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=&quot; + getRealmName());</b>
-<b class="fc"><i>22</i>&nbsp;        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</b>
-<b class="fc"><i>23</i>&nbsp;        PrintWriter writer = response.getWriter();</b>
-<b class="fc"><i>24</i>&nbsp;        writer.println(&quot;HTTP Status 401 - &quot; + authEx.getMessage());</b>
-<b class="fc"><i>25</i>&nbsp;    }</b>
-<i>26</i>&nbsp;
-<i>27</i>&nbsp;    @Override
-<i>28</i>&nbsp;    public void afterPropertiesSet() throws Exception {
-<i>29</i>&nbsp;
-<b class="fc"><i>30</i>&nbsp;        setRealmName(&quot;GoGreenProject&quot;);</b>
-<b class="fc"><i>31</i>&nbsp;        super.afterPropertiesSet();</b>
-<b class="fc"><i>32</i>&nbsp;    }</b>
-<i>33</i>&nbsp;}
+<i>13</i>&nbsp;@Component
+<b class="fc"><i>14</i>&nbsp;public class AuthenticationPoint extends BasicAuthenticationEntryPoint {</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    @Override
+<i>17</i>&nbsp;    public void commence(HttpServletRequest request, HttpServletResponse response,
+<i>18</i>&nbsp;                         AuthenticationException authEx) throws IOException {
+<i>19</i>&nbsp;
+<b class="fc"><i>20</i>&nbsp;        response.addHeader(&quot;WWW-Authenticate&quot;, &quot;Basic realm=&quot; + getRealmName());</b>
+<b class="fc"><i>21</i>&nbsp;        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</b>
+<b class="fc"><i>22</i>&nbsp;        PrintWriter writer = response.getWriter();</b>
+<b class="fc"><i>23</i>&nbsp;        writer.println(&quot;HTTP Status 401 - &quot; + authEx.getMessage());</b>
+<b class="fc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Override
+<i>27</i>&nbsp;    public void afterPropertiesSet() throws Exception {
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;        setRealmName(&quot;GoGreenProject&quot;);</b>
+<b class="fc"><i>30</i>&nbsp;        super.afterPropertiesSet();</b>
+<b class="fc"><i>31</i>&nbsp;    }</b>
+<i>32</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2019-03-05 18:37</div>
+    <div style="float:right;">generated on 2019-03-09 14:14</div>
 </div>
 </body>
 </html>

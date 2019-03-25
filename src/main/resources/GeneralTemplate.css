@@ -1,0 +1,49 @@
+/*Self made styleClass*/
+.AnchorPane {
+    -fx-background-color: linear-gradient(#80B152, #9ace6b, #80B152);
+}
+
+.button {
+    -fx-background-color: linear-gradient(#bdf7b9, white);
+}
+
+.button:pressed {
+    -fx-translate-y: 1px;
+}
+
+/*Self made styleClass*/
+.Pane {
+    -fx-background-color: linear-gradient(#9ace6b, #cef8d0);
+    -fx-border-color: black;
+    -fx-smooth: clear;
+}
+
+.titled-pane > * {
+    -fx-border-color: black;
+}
+
+.titled-pane > .title {
+    -fx-background-color: linear-gradient(#9ace6b, #cef8d0);
+}
+
+.titled-pane > .content {
+    -fx-background-color: #cef8d0;
+}
+
+.label {
+    -fx-text-fill: black;
+}
+
+/*Self made styleClass*/
+.VBox {
+    -fx-border-color: black;
+}
+
+/*Self made styleClass*/
+.EVBOX {
+
+}
+
+.scroll-pane {
+    -fx-border-color: black;
+}

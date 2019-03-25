@@ -1,6 +1,7 @@
 package client;
 
 
+import client.Service.UrlEndPoints;
 import client.Service.UserSession;
 import javafx.fxml.FXML;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,8 @@ public class MainController {
     public void clickMe(javafx.event.ActionEvent event) {
 
         try {
-            String fooResourceUrl = "http://localhost:8080/";
-            ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, String.class);
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
+            String url = UrlEndPoints.BASE_URL;
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
             System.out.println("Status: You have logged in!");
 

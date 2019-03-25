@@ -1,29 +1,48 @@
 package server.model;
 
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
-    @GeneratedValue(generator = "user_generator")
-    @SequenceGenerator(
-            name = "user_generator",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
     private long id;
     private String name;
     private String password;
     private int points;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_achievement",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "achievement_id"))
+    private List<Achievement> achievement;
+
     public User() {
 
+    }
+
+    /**
+     * Constructor for the User class.
+     *
+     * @param id     The numeric id of the user
+     * @param name   The name of the user
+     * @param points The points of the user
+     */
+    public User(long id, String name, int points) {
+
+        this.id = id;
+        this.name = name;
+        this.points = points;
     }
 
     /**
@@ -32,10 +51,9 @@ public class User {
      * @param name The name of the user
      * @param points The points of the user
      */
-    public User(long id, String name, String password, int points) {
-        this.id = id;
-        this.password = password;
+    public User(String name, String password, int points) {
         this.name = name;
+        this.password = password;
         this.points = points;
     }
 
@@ -75,6 +93,14 @@ public class User {
 
     public void setPoints(int userPoints) {
         this.points = userPoints;
+    }
+
+    public List<Achievement> getAchievements() {
+        return this.achievement;
+    }
+
+    public void setAchievements(List<Achievement> achievement) {
+        this.achievement = achievement;
     }
 
     public String getPassword() {

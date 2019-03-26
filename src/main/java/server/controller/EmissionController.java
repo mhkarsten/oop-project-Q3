@@ -12,6 +12,7 @@ import server.model.*;
 
 import java.util.HashMap;
 
+import static java.lang.Integer.parseInt;
 import static server.API.EmissionAPI.*;
 
 /**
@@ -33,8 +34,8 @@ public class EmissionController {
     public ResponseEntity<VehicleEmission> vehicleEmission(@RequestBody HashMap parameters) {
 
         return new ResponseEntity<VehicleEmission>(getVehicleEmission(
-            (Integer) parameters.get("distance"),
-            (Integer) parameters.get("duration"),
+            (int) parseInt((String) parameters.get("distance")),
+            (int) parseInt((String) parameters.get("duration")),
             (String) parameters.get("sizeClass")
         ), HttpStatus.OK);
     }
@@ -52,10 +53,10 @@ public class EmissionController {
     public ResponseEntity<EnergyEmission> energyEmission(@RequestBody HashMap parameters) {
 
         return new ResponseEntity<EnergyEmission>(getEnergyEmission(
-            (Integer) parameters.get("greenEnergy"),
+            (int) parseInt((String) parameters.get("greenEnergy")),
             (String) parameters.get("airConditionerUse"),
             (String) parameters.get("dishwasherUse"),
-            (Integer) parameters.get("naturalGasCost")
+            (int) parseInt((String) parameters.get("naturalGasCost"))
         ), HttpStatus.OK);
     }
 
@@ -90,10 +91,10 @@ public class EmissionController {
     public ResponseEntity<DietEmission> dietEmission(@RequestBody HashMap parameters) {
 
         return new ResponseEntity<DietEmission>(getDietEmission(
-            (Float) parameters.get("fishShare"),
-            (Float) parameters.get("redMeatShare"),
-            (Float) parameters.get("poultryShare"),
-            (Integer) parameters.get("size")
+            (float) parameters.get("fishShare"),
+            (float) parameters.get("redMeatShare"),
+            (float) parameters.get("poultryShare"),
+            (int) parameters.get("size")
         ), HttpStatus.OK);
     }
 }

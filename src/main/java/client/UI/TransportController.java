@@ -40,7 +40,7 @@ public class TransportController {
             return parseInt(getField1Text());
         }
         catch (NumberFormatException e) {
-            return null;
+            return 0;
         }
     }
 
@@ -54,7 +54,7 @@ public class TransportController {
             return parseInt(getField2Text());
         }
         catch (NumberFormatException e) {
-            return null;
+            return 0;
         }
     }
 

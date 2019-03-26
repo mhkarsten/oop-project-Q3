@@ -50,7 +50,7 @@ public class EnergyController implements Initializable {
             return parseInt(getField1Text());
         }
         catch ( NumberFormatException e) {
-            return null;
+            return 0;
         }
     }
 
@@ -71,13 +71,15 @@ public class EnergyController implements Initializable {
             return parseInt(getField4Text());
         }
         catch (NumberFormatException e) {
-            return null;
+            return 0;
         }
     }
 
     public void getEnergyEmission() {
         EnergyEmission em = EmissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
-        System.out.println(em);
+        System.out.println(em.getCarbon());
+        System.out.println(em.getDirtyEnergy());
+        System.out.println(em.getNaturalGasConsumed());
     }
 
     public void selectEnergyEmission(MouseEvent event) {

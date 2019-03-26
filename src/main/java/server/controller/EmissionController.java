@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.springframework.web.bind.annotation.RestController;
 import server.model.*;
 
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import static server.API.EmissionAPI.*;
 /**
  * The type Emission controller.
  */
+@RestController
 public class EmissionController {
 
     /**

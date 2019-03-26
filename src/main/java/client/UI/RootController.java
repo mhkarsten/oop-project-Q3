@@ -8,9 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.WHITE;
 
 public class RootController implements Initializable {
 
@@ -111,5 +115,18 @@ public class RootController implements Initializable {
         changePane = newScreen.load();
 
         mainPane.getItems().set(1, changePane);
+    }
+
+    public static Label selectOption(MouseEvent event, Label choice) {
+
+        if (choice != null) {
+
+            choice.setBackground(new Background(new BackgroundFill(RED, null, null)));
+        }
+
+        Label chosenOption = (Label) event.getSource();
+
+        chosenOption.setBackground(new Background(new BackgroundFill(WHITE, new CornerRadii(1), null)));
+        return chosenOption;
     }
 }

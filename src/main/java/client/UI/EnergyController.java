@@ -1,20 +1,18 @@
 package client.UI;
 
+import server.model.EnergyEmission;
+import client.retrive.EmissionsRetrieve;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static javafx.scene.paint.Color.RED;
-import static javafx.scene.paint.Color.WHITE;
+import static java.lang.Integer.parseInt;
 
 public class EnergyController implements Initializable {
 
@@ -26,57 +24,34 @@ public class EnergyController implements Initializable {
     public Label energy3;
     public Label energy4;
 
-    public CheckBox greenEnergy;
-    public CheckBox energySaving;
-    public CheckBox energyManagement;
+    public Label Labelfield1;
+    public Label Labelfield2;
+    public Label Labelfield3;
+    public Label Labelfield4;
 
     public TextField field1;
     public TextField field2;
     public TextField field3;
     public TextField field4;
 
-    public void getEnergyPoints() {
-
-    }
-
-    public void selectEnergy(MouseEvent event) {
-
-        if (energyChoice != null) {
-
-            energyChoice.setBackground(new Background(new BackgroundFill(RED, null, null)));
-        }
-
-        Label chosenEnergy = (Label) event.getSource();
-
-        chosenEnergy.setBackground(new Background(new BackgroundFill(WHITE, new CornerRadii(1), null)));
-        energyChoice = chosenEnergy;
-    }
+    public TextArea description;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public void displayGreenEnergy() {
-        energySaving.setSelected(false);
-        energyManagement.setSelected(false);
-
-    }
-
-    public void displayEnergySaving() {
-        greenEnergy.setSelected(false);
-        energyManagement.setSelected(false);
-
-    }
-
-    public void displayEnergyManagement() {
-        greenEnergy.setSelected(false);
-        energySaving.setSelected(false);
-
-    }
-
     public String getField1Text() {
         return field1.getText();
+    }
+
+    public Integer getIntField1() {
+        try {
+            return parseInt(getField1Text());
+        }
+        catch ( NumberFormatException e) {
+            return null;
+        }
     }
 
     public String getField2Text() {
@@ -91,7 +66,41 @@ public class EnergyController implements Initializable {
         return field4.getText();
     }
 
+    public Integer getIntField4() {
+        try {
+            return parseInt(getField4Text());
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
+    }
 
+    public void getEnergyEmission() {
+        EnergyEmission em = EmissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
+    }
+
+    public void selectEnergyEmission(MouseEvent event) {
+        energyChoice = RootController.selectOption(event, energyChoice);
+        Labelfield1.setVisible(true);
+        field1.setVisible(true);
+        Labelfield2.setVisible(true);
+        field2.setVisible(true);
+        Labelfield3.setVisible(true);
+        field3.setVisible(true);
+        Labelfield4.setVisible(true);
+        field4.setVisible(true);
+
+        Labelfield1.setText("Enter the amount of green energy you use");
+        Labelfield2.setText("Enter your dishwasher use in KW/H");
+        Labelfield3.setText("Enter your air conditioner use");
+        Labelfield4.setText("Enter your monthly gas costs in USD");
+    }
+
+    public void getEmission() {
+        if(energyChoice == energy1) {
+            getEnergyEmission();
+        }
+    }
 
 
 }

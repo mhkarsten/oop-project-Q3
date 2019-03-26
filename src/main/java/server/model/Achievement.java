@@ -14,8 +14,11 @@ public class Achievement {
     private String title;
     private String description;
     private String path;
-    @ManyToMany(mappedBy = "achievement")
-    private Set<User> user;
+    @ManyToMany(mappedBy = "unlockedAchievements",cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    private Set<User> unlocker;
 
     public Achievement() {
 
@@ -50,7 +53,9 @@ public class Achievement {
             && Objects.equals(description, that.description)
             && Objects.equals(path, that.path);
     }
-
+    public void addUser(User user) {
+        unlocker.add(user);
+    }
     public long getID() {
         return id;
     }

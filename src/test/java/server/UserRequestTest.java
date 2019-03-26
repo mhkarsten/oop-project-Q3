@@ -155,7 +155,6 @@ public class UserRequestTest {
     public void updateUserAndUndo() {
         User userOne = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
 
-        //UPDATE
         userOne.setName("Jack");
         entity = new HttpEntity<>(userOne, headers);
         restTemplate.put(domain + "/users/update/", entity);
@@ -186,7 +185,7 @@ public class UserRequestTest {
         User user1 = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
 
         URI featLocation = restTemplate.postForLocation(domain + "/users/1/feats/new", new HttpEntity<>(feat, headers));
-/*
+
         Feat retrievedFeat=restTemplate.postForObject(featLocation, new HttpEntity<>(headers), Feat.class);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -195,26 +194,27 @@ public class UserRequestTest {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-*/
+
         User changedUser1 = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
 
         Assertions.assertEquals(user1.getPoints()+150,changedUser1.getPoints());
     }
-    //@Test
+    @Test
     public void fullCrudTest() {
         //CREATE
         User user = new User(4, "Usnavi");
         entity = new HttpEntity<>(user, headers);
-        /*
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            System.out.println(mapper.writeValueAsString(user));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }*/
         URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity);
         //READ
         user = restTemplate.postForObject(usnaviLocation, new HttpEntity<>(headers), User.class);
+
+
+            //Unlocking of achievement test:
+            restTemplate.postForObject(domain + "/users/"+user.getID()+"/achievements/unlock/1", new HttpEntity<>(headers), User.class);
+            Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
+            Achievement[] usnaviAch=restTemplate.postForObject(domain + "/users/"+user.getID()+"/achievements", entity, Achievement[].class);
+            System.out.println("Number of achievements: "+usnaviAch.length);
+            assertThat(usnaviAch, IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1));
 
         //UPDATE
         user.setName("Lin-Manuel");

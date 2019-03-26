@@ -37,6 +37,20 @@ public class FeatController {
         return user.get().getFeats();
     }
 
+    /**
+     * Gets a specific feat by featId.
+     *
+     * @param featId The featId to look for
+     * @return The feat if it exists
+     */
+    @RequestMapping(value = "/feats/{featId}", method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Feat getAchievement(@PathVariable("featId") long featId) {
+        Optional<Feat> feat = featRepository.findById(featId);
+        return feat.get();
+    }
 
     /**
      * Gets all of the feats of all users.
@@ -65,8 +79,7 @@ public class FeatController {
     @ResponseBody
     public ResponseEntity<?> addFeat(@PathVariable("userId")@Valid long userID, @RequestBody Feat feat) {
         //Feat savedFeat = featRepository.save(feat);
-        Optional<User> optUser = userRepository.findById(userID);
-        User user=optUser.get();
+        User user= userRepository.findById(userID).get();
         feat.setUser(user);
         feat=featRepository.save(feat);
 
@@ -74,24 +87,7 @@ public class FeatController {
 
         user.addFeat(feat);
         URI location = ServletUriComponentsBuilder
-            .fromCurrentContextPath().path("/user/feats/").build().toUri();
+            .fromCurrentContextPath().path("/feats/{featId}").buildAndExpand(feat.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
-    /*
-    @PostMapping(value = "/users/{userId}/feats/new",
-        produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE})
-    @ResponseBody
-    public ResponseEntity<?> addFeat(@PathVariable("userId")@Valid long userID, @RequestBody Feat feat) {
-        //Feat savedFeat = featRepository.save(feat);
-        Optional<User> optUser = userRepository.findById(userID);
-        User user=optUser.get();
-        user.addFeat(feat);
-        userRepository.save(user);
-        System.out.println("Creating new feat with ID");
-
-        URI location = ServletUriComponentsBuilder
-            .fromCurrentContextPath().path("/user/feats/").build().toUri();
-        return ResponseEntity.created(location).build();
-    }*/
 }

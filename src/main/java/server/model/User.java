@@ -18,12 +18,15 @@ public class User {
     private String name;
     @Column(columnDefinition = "int default 0")
     private int points = 0;
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
     @JoinTable(
         name = "user_achievement",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "achievement_id"))
-    private Set<Achievement> achievement;
+    private Set<Achievement> unlockedAchievements;
 
     /**
      * This is a more intricate part of the user class. As the User class participates at both ends of the FOLLOW relation,
@@ -119,11 +122,15 @@ public class User {
     }
 
     public Set<Achievement> getAchievements() {
-        return this.achievement;
+        return this.unlockedAchievements;
     }
 
+    public void addAchievement(Achievement achievement)
+    {
+        unlockedAchievements.add(achievement);
+    }
     public void setAchievements(Set<Achievement> achievement) {
-        this.achievement = achievement;
+        this.unlockedAchievements = achievement;
     }
 
     //To prevent recursive trouble when returning a user object (a user having followers that have followers that have followers...), the JsonIgnore

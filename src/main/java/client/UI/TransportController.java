@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import server.model.FlightEmission;
 import server.model.VehicleEmission;
 
+import static client.UI.RootController.addPointsUser;
 import static java.lang.Integer.parseInt;
 
 public class TransportController {
@@ -62,12 +63,20 @@ public class TransportController {
         return field3.getText();
     }
 
+    public int calculatePoints(String points) {
+        return parseInt(points.split("\\.")[0]) / 10;
+    }
+
     public void getFlightEmission() {
         FlightEmission fm = EmissionsRetrieve.getFlightEmission(getField1Text(), getField2Text());
+        System.out.println(fm.getCarbon());
+        addPointsUser(calculatePoints(fm.getCarbon()));
     }
 
     public void getVehicleEmission() {
-        VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2(), getField3Text());
+        VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
+        System.out.println(vm.getCarbon());
+        addPointsUser(calculatePoints(vm.getCarbon()));
     }
 
     public void selectFlightEmission(MouseEvent event) {
@@ -95,7 +104,7 @@ public class TransportController {
         field3.setVisible(true);
 
         Labelfield1.setText("Enter the distance in km");
-        Labelfield2.setText("Enter the duration in seconds");
+        Labelfield2.setText("Enter the duration in minutes");
         Labelfield3.setText("Enter the size of your car");
 
     }

@@ -22,10 +22,10 @@ import static server.model.VehicleEmission.JSONtoVehicle;
 public class EmissionAPI {
     private static final String KEY = "key=5a927d96eca397b6659a3c361ce32254&green_electricity=23&dishwasher_use=42&";
     private static final String URL_BASE = "http://impact.brighterplanet.com";
-    private static final String URL_CAR = URL_BASE + "/automobile_trips.json";
-    private static final String URL_ENERGY = URL_BASE + "/residences.json";
-    private static final String URL_DIET = URL_BASE + "/diets.json";
-    private static final String URL_FLIGHT = URL_BASE + "/flights.json";
+    private static final String URL_CAR = URL_BASE + "/automobile_trips.json?";
+    private static final String URL_ENERGY = URL_BASE + "/residences.json?";
+    private static final String URL_DIET = URL_BASE + "/diets.json?";
+    private static final String URL_FLIGHT = URL_BASE + "/flights.json?";
 
     /**
      * Gets vehicle emission.
@@ -37,9 +37,9 @@ public class EmissionAPI {
      */
     @SuppressWarnings("Duplicates")
     public static VehicleEmission getVehicleEmission(int distance, int duration, String sizeClass) {
-        String distanceString = "&distance=" + distance; //in kilometers
-        String durationString = "&duration=" + duration; //in seconds
-        String sizeClassString = "&size_class" + sizeClass; //a description (i.e. midsized)
+        String distanceString = "&daily_distance=" + distance; //in kilometers
+        String durationString = "&daily_duration=" + duration; //in seconds
+        String sizeClassString = "&size_class=" + sizeClass; //a description (i.e. midsized)
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
@@ -53,7 +53,7 @@ public class EmissionAPI {
 
         for (int i = 0; i < 3; i++) {
 
-            if (uriStrings.get(i).get(0) != null) {
+            if (uriStrings.get(i).get(0) != null && uriStrings.get(i).get(0) != "0") {
 
                 keyString.append(uriStrings.get(i).get(1));
             }
@@ -115,8 +115,9 @@ public class EmissionAPI {
         for (int i = 0; i < 4; i++) {
 
             if (uriStrings.get(i).get(0) != null) {
-
-                keyString.append(uriStrings.get(i).get(1));
+                if(uriStrings.get(i).get(0) != "0") {
+                    keyString.append(uriStrings.get(i).get(1));
+                }
             }
         }
 
@@ -181,8 +182,9 @@ public class EmissionAPI {
         for (int i = 0; i < 4; i++) {
 
             if (uriStrings.get(i).get(0) != null) {
-
-                keyString.append(uriStrings.get(i).get(1));
+                if(uriStrings.get(i).get(0) != "0") {
+                    keyString.append(uriStrings.get(i).get(1));
+                }
             }
         }
 
@@ -236,8 +238,9 @@ public class EmissionAPI {
         for (int i = 0; i < 2; i++) {
 
             if (uriStrings.get(i).get(0) != null) {
-
-                keyString.append(uriStrings.get(i).get(1));
+                if(uriStrings.get(i).get(0) != "0") {
+                    keyString.append(uriStrings.get(i).get(1));
+                }
             } else {
 
                 System.out.println("(Server Side) both a start and end destination are needed for an accurate.");

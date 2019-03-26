@@ -3,6 +3,8 @@ package client.UI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import client.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,8 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
+import static client.retrive.UserRetrieve.getUser;
+import static client.retrive.UserRetrieve.updateUser;
 import static javafx.scene.paint.Color.RED;
 import static javafx.scene.paint.Color.WHITE;
 
@@ -128,5 +132,15 @@ public class RootController implements Initializable {
 
         chosenOption.setBackground(new Background(new BackgroundFill(WHITE, new CornerRadii(1), null)));
         return chosenOption;
+    }
+
+    public static void addPointsUser(int points) {
+//      UserSession.getInstance().getUser.getId()
+        User[] currentUser = getUser(1L);
+        currentUser[0].setPoints(currentUser[0].getPoints() + points);
+
+        updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+
+        System.out.println(currentUser.toString());
     }
 }

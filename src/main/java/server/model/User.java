@@ -23,18 +23,22 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "achievement_id"))
     private Set<Achievement> achievement;
 
+    /**
+     * This is a more intricate part of the user class. As the User class participates at both ends of the FOLLOW relation,
+     * it both maps other User objects and is mapped by other User objects (Compare this to the @ManyToMany user_achievement relation for instance)
+     */
     @ManyToMany
     @JoinTable(
         name = "followers",
         joinColumns = @JoinColumn(name = "follower", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "followed", referencedColumnName = "id"))
     private Set<User> following;
+    @ManyToMany(mappedBy = "following")
+    private Set<User> follower;
 
     @OneToMany(mappedBy = "user")
     private Set<Feat> feat;
 
-    @ManyToMany(mappedBy = "following")
-    private Set<User> follower;
 
     public User() {
 
@@ -82,6 +86,9 @@ public class User {
         this.name = userName;
     }
 
+    /**
+     * The @PostLoad annotation ensures that whenever the database changes, feats are added etc, the user's points are updated.
+     */
     @PostLoad
     public void calculatePoints() {
         points = 0;
@@ -115,6 +122,8 @@ public class User {
         this.achievement = achievement;
     }
 
+    //To prevent recursive trouble when returning a user object (a user having followers that have followers that have followers...), the JsonIgnore
+    //annotation is used. Note that the reason that this is here is that only public fields are included in the Json serialization
     @JsonIgnore
     public Set<User> getFollowers() {
         return follower;
@@ -123,7 +132,8 @@ public class User {
     public void setFollower(Set<User> follower) {
         this.follower = follower;
     }
-
+    //To prevent recursive trouble when returning a user object (a user following users that follow users that follow users...), the JsonIgnore
+    //annotation is used.
     @JsonIgnore
     public Set<User> getFollowing() {
         return following;

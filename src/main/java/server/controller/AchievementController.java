@@ -24,18 +24,6 @@ public class AchievementController {
     @Autowired
     private UserRepository userRepository;
 
-    @ExceptionHandler( {MethodArgumentTypeMismatchException.class})
-    public ResponseEntity<?> handleMethodArgumentTypeMismatch(
-        MethodArgumentTypeMismatchException ex) {
-        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler( {NoSuchElementException.class})
-    public ResponseEntity<?> handleNoSuchElementException(
-        NoSuchElementException ex) {
-        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
-    }
-
     /**
      * Gets all of the achievements that can currently be unlocked by users.
      *

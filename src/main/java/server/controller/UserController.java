@@ -24,18 +24,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @ExceptionHandler( {NoSuchElementException.class})
-    public ResponseEntity<?> handleNoSuchElementException(
-        NoSuchElementException ex) {
-        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler( {MethodArgumentTypeMismatchException.class})
-    public ResponseEntity<?> handleMethodArgumentTypeMismatch(
-        MethodArgumentTypeMismatchException ex) {
-        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
-
     /**
      * Initial connect message.
      *

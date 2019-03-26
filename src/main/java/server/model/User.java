@@ -16,7 +16,7 @@ public class User {
     private String name;
     @Column(columnDefinition = "int default 0")
     private int points = 0;
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
         name = "user_achievement",
         joinColumns = @JoinColumn(name = "user_id"),
@@ -33,10 +33,9 @@ public class User {
         joinColumns = @JoinColumn(name = "follower", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "followed", referencedColumnName = "id"))
     private Set<User> following;
-    @ManyToMany(mappedBy = "following")
+    @ManyToMany(mappedBy = "following",cascade=CascadeType.ALL)
     private Set<User> follower;
-
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
     private Set<Feat> feats;
 
 
@@ -106,6 +105,9 @@ public class User {
         this.points = points;
     }
 
+    public void addFeat(Feat feat) {
+        this.feats.add(feat);
+    }
     public Set<Feat> getFeats() {
         return this.feats;
     }

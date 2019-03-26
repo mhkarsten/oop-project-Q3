@@ -8,6 +8,4 @@ import java.util.Set;
 
 @Repository
 public interface FeatRepository extends JpaRepository<Feat, Long> {
-    List<Feat> findAllByOrderByIdAsc();
-    Set<Feat> findByUserId(long userId);
 }

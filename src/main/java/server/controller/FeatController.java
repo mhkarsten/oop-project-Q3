@@ -10,7 +10,9 @@ import server.model.User;
 import server.repository.FeatRepository;
 import server.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.net.URI;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
@@ -38,19 +40,39 @@ public class FeatController {
      * Adds a new feat (CREATE).
      *
      * @param feat Parameter for the feat to be added
-     * @return Returns the user that has been added
+     * @return Returns the path at which the created feat is located
      */
-    @PostMapping(value = "/feats/new",
+    @PostMapping(value = "/users/{userId}/feats/new",
         produces = {MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<?> addFeat(@RequestBody Feat feat) {
-        Feat savedFeat = featRepository.save(feat);
-        System.out.println("Creating new feat with ID" + savedFeat.getId());
+    public ResponseEntity<?> addFeat(@PathVariable("userId")@Valid long userID) {
+        //Feat savedFeat = featRepository.save(feat);
+        Optional<User> optUser = userRepository.findById(userID);
+        User user=optUser.get();
+        user.addFeat(new Feat(1,1,1,new Date()));
+        userRepository.save(user);
+        System.out.println("Creating new feat with ID");
 
         URI location = ServletUriComponentsBuilder
-            .fromCurrentContextPath().path("/feats/{featId}")
-            .buildAndExpand(savedFeat.getId()).toUri();
+            .fromCurrentContextPath().path("/user/feats/").build().toUri();
         return ResponseEntity.created(location).build();
     }
+    /*
+    @PostMapping(value = "/users/{userId}/feats/new",
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity<?> addFeat(@PathVariable("userId")@Valid long userID, @RequestBody Feat feat) {
+        //Feat savedFeat = featRepository.save(feat);
+        Optional<User> optUser = userRepository.findById(userID);
+        User user=optUser.get();
+        user.addFeat(feat);
+        userRepository.save(user);
+        System.out.println("Creating new feat with ID");
+
+        URI location = ServletUriComponentsBuilder
+            .fromCurrentContextPath().path("/user/feats/").build().toUri();
+        return ResponseEntity.created(location).build();
+    }*/
 }

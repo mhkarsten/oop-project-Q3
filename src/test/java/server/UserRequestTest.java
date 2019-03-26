@@ -16,11 +16,13 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import server.controller.UserController;
 import server.model.Achievement;
+import server.model.Feat;
 import server.model.User;
 
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -180,20 +182,38 @@ public class UserRequestTest {
     }
     @Test
     public void updateFeatsTest() {
+        Feat feat = new Feat(1,150,4, new Date());
+        User user1 = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
+        Assertions.assertEquals(1884,user1.getPoints());
 
+        URI featLocation = restTemplate.postForLocation(domain + "/users/1/feats/new", new HttpEntity<>(feat, headers));
+/*
+        Feat retrievedFeat=restTemplate.postForObject(featLocation, new HttpEntity<>(headers), Feat.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            System.out.println(mapper.writeValueAsString(retrievedFeat));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+*/
+        User changedUser1 = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
+
+        Assertions.assertEquals(2034,changedUser1.getPoints());
     }
     @Test
     public void fullCrudTest() {
         //CREATE
         User user = new User(4, "Usnavi");
         entity = new HttpEntity<>(user, headers);
+        /*
         ObjectMapper mapper = new ObjectMapper();
         try {
             System.out.println(mapper.writeValueAsString(user));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        }
-        URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity, User.class);
+        }*/
+        URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity);
         //READ
         user = restTemplate.postForObject(usnaviLocation, new HttpEntity<>(headers), User.class);
 

@@ -86,7 +86,7 @@ public class UserController {
      * Adds a new user (CREATE).
      *
      * @param usr Parameter for the user to be added
-     * @return Returns the user that has been added
+     * @return Returns the path at which the new user is located
      */
     @PostMapping(value = "/users/new",
         produces = {MediaType.APPLICATION_JSON_VALUE,

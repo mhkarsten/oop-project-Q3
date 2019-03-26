@@ -9,9 +9,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@SequenceGenerator(name="user_seq", initialValue=1,allocationSize = 1)
 public class User {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")
     private long id;
     private String name;
     @Column(columnDefinition = "int default 0")

@@ -182,7 +182,7 @@ public class UserRequestTest {
     }
     @Test
     public void updateFeatsTest() {
-        Feat feat = new Feat(1,150,4, new Date());
+        Feat feat = new Feat(1,150,4, new Date(),null);
         User user1 = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
         Assertions.assertEquals(1884,user1.getPoints());
 

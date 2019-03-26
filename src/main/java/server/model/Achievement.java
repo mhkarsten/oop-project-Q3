@@ -1,16 +1,15 @@
 package server.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "achievements")
+@SequenceGenerator(name="achievement_seq", initialValue=1,allocationSize = 1)
 public class Achievement {
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="achievement_seq")
     private long id;
     private String title;
     private String description;

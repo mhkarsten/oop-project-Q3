@@ -13,6 +13,7 @@ import server.repository.UserRepository;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,6 +37,22 @@ public class FeatController {
         return user.get().getFeats();
     }
 
+
+    /**
+     * Gets all of the feats of all users.
+     *
+     * @return the list of feats
+     */
+    @RequestMapping(value = "/feats",
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public List<Feat> getFeats() {
+        return featRepository.findAllByOrderByIdAsc();
+    }
+
+
     /**
      * Adds a new feat (CREATE).
      *
@@ -46,14 +63,16 @@ public class FeatController {
         produces = {MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<?> addFeat(@PathVariable("userId")@Valid long userID) {
+    public ResponseEntity<?> addFeat(@PathVariable("userId")@Valid long userID, @RequestBody Feat feat) {
         //Feat savedFeat = featRepository.save(feat);
         Optional<User> optUser = userRepository.findById(userID);
         User user=optUser.get();
-        user.addFeat(new Feat(1,1,1,new Date()));
-        userRepository.save(user);
-        System.out.println("Creating new feat with ID");
+        feat.setUser(user);
+        feat=featRepository.save(feat);
 
+        System.out.println("Creating new feat with ID "+feat.getId());
+
+        user.addFeat(feat);
         URI location = ServletUriComponentsBuilder
             .fromCurrentContextPath().path("/user/feats/").build().toUri();
         return ResponseEntity.created(location).build();

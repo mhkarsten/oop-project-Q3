@@ -184,7 +184,6 @@ public class UserRequestTest {
     public void updateFeatsTest() {
         Feat feat = new Feat(1,150,4, new Date(),null);
         User user1 = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
-        Assertions.assertEquals(1884,user1.getPoints());
 
         URI featLocation = restTemplate.postForLocation(domain + "/users/1/feats/new", new HttpEntity<>(feat, headers));
 /*
@@ -199,7 +198,7 @@ public class UserRequestTest {
 */
         User changedUser1 = restTemplate.postForObject(domain + "/users/1", new HttpEntity<>(headers), User.class);
 
-        Assertions.assertEquals(2034,changedUser1.getPoints());
+        Assertions.assertEquals(user1.getPoints()+150,changedUser1.getPoints());
     }
     //@Test
     public void fullCrudTest() {

@@ -22,26 +22,20 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByName(username);
 
-        if (user == null) {
-            throw  new UsernameNotFoundException(username);
-        }
+        if (user == null) throw new UsernameNotFoundException(username);
+
         return new MyUserPrincipal(user);
     }
 
     public boolean userExists(User user) {
         if (null == userRepository.findByName(user.getName())) return false;
-
         return true;
     }
 
     public User registerNewUserAccount(User user) {
-        if (userExists(user)) {
-          return null;
-        }
-
+        if (userExists(user)) return null;
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         return userRepository.save(user);
     }
 

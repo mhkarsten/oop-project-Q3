@@ -2,12 +2,7 @@ package server.model;
 
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -15,7 +10,9 @@ import javax.persistence.Table;
 public class User {
 
     @Id
+    @GeneratedValue
     private long id;
+
     private String name;
     private String password;
     private int points;

@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static client.serverCommunication.UserController.getUser;
+
 public class ScoreController implements Initializable {
 
     @FXML
@@ -19,7 +21,7 @@ public class ScoreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        User[] currentUser = userController.getUser(1L);
+        User[] currentUser = getUser(1L);
 
         userPoints.setText("Your Points: " + currentUser[0].getPoints());
     }

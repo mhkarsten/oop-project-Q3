@@ -1,5 +1,6 @@
 package client.serverCommunication;
 
+import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
 import client.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 //side code can use both XML and JSON. Later this might be changed so everything uses
 //JSON for the sake of simplicity;
 
-public class UserController extends BaseController {
+public class UserController {
 
 
 
@@ -29,9 +30,11 @@ public class UserController extends BaseController {
      * @return Return all users from the server
      */
     @SuppressWarnings("Duplicates")
-    public ArrayList<User> getUsers() {
+    public static ArrayList<User> getUsers() {
+        MyRestTemplate restTemplate = new MyRestTemplate();
 
-        HttpHeaders headers = this.getBaseHeaders(MediaType.APPLICATION_XML);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+
         HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
 
         String url =  UrlEndPoints.User.ALL_USERS;
@@ -65,15 +68,18 @@ public class UserController extends BaseController {
      * @return Return a user from the server
      */
     @SuppressWarnings("Duplicates")
-    public User[] getUser(long userID) {
+    public static User[] getUser(long userID) {
 
-        HttpHeaders headers = this.getBaseHeaders(MediaType.APPLICATION_XML);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<User[]> entity = new HttpEntity<>(headers);
 
         Object[] uriValues = new Object[] {userID};
 
         String url =  UrlEndPoints.User.USER_BY_ID;
+
+        MyRestTemplate restTemplate = new MyRestTemplate();
+
         ResponseEntity<User> response = restTemplate.exchange(url,
             HttpMethod.POST, entity, User.class, uriValues);
 
@@ -100,11 +106,11 @@ public class UserController extends BaseController {
     /**Method to update a users information.
      * Update user information (UPDATE)
      */
-    public void updateUser(long userID, String userName, int points) {
-
+    public static void updateUser(long userID, String userName, int points) {
+        MyRestTemplate restTemplate = new MyRestTemplate();
         User updatedUser = new User(userID, userName, points);
 
-        HttpHeaders headers = this.getBaseHeaders(MediaType.APPLICATION_XML);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
 
         System.out.println("This is the url; "+ UrlEndPoints.User.UPDATE);
@@ -115,7 +121,8 @@ public class UserController extends BaseController {
      *
      * @param userID UserID of the user to delete
      */
-    public void deleteUser(String userID) {
+    public static void deleteUser(String userID) {
+        MyRestTemplate restTemplate = new MyRestTemplate();
 
         Object[] uriValue = new Object[] {userID};
 

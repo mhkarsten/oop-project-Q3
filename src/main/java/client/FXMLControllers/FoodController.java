@@ -3,7 +3,6 @@ package client.FXMLControllers;
 import client.model.Achievement;
 import client.model.Meal;
 import client.model.User;
-import client.serverCommunication.UserController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,6 +15,8 @@ import javafx.scene.shape.Circle;
 import java.net.URL;
 import java.util.*;
 
+import static client.serverCommunication.UserController.getUser;
+import static client.serverCommunication.UserController.updateUser;
 import static server.API.FoodAPI.*;
 
 
@@ -46,8 +47,6 @@ public class FoodController implements Initializable {
     private ArrayList<Meal[]> meatMeals;
     private ArrayList<Meal[]> veganMeals;
     private ArrayList<Meal[]> vegetarianMeals;
-
-    private UserController userController = new UserController();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -158,7 +157,7 @@ public class FoodController implements Initializable {
 
     public void getMealPoints() {
 
-        User[] currentUser = userController.getUser(1L);
+        User[] currentUser = getUser(1L);
         Set<Achievement> achives = new HashSet<>();
 
         if (veganOpt.isSelected()) {
@@ -169,7 +168,7 @@ public class FoodController implements Initializable {
 
 
 
-            userController.updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
 
             System.out.println(currentUser.toString());
 
@@ -185,14 +184,14 @@ public class FoodController implements Initializable {
 
             System.out.println(currentUser.toString());
 
-            userController.updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
         } else {
 
             currentUser[0].setPoints(currentUser[0].getPoints() + 25);
 
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
-            userController.updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
         }
     }
 

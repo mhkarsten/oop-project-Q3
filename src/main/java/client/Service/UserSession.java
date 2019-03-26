@@ -1,5 +1,8 @@
 package client.Service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public final class UserSession {
 
     private static UserSession instance;

@@ -1,5 +1,7 @@
 package client.FXMLControllers;
 
+import client.Service.MyRestTemplate;
+import client.Service.MyStage;
 import client.Service.UrlEndPoints;
 import client.Service.UserSession;
 import client.model.User;
@@ -35,9 +37,6 @@ public class LoginController {
     @FXML
     private TextField usernameField;
 
-    private RestTemplate restTemplate = new RestTemplate();
-
-
     @FXML
     public void onEnter(ActionEvent ae) throws IOException {
         login(ae);
@@ -48,27 +47,18 @@ public class LoginController {
      * @throws Exception Throws exception if the event is invalid
      */
     public void login(ActionEvent event) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(usernameField.getText(), passwordField.getText()));
 
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(UrlEndPoints.BASE_URL, String.class);
-
+            ResponseEntity<String> response = restTemplate.getForEntity(UrlEndPoints.Auth.LOGIN, String.class);
 
             UserSession.getInstace().setUserName(usernameField.getText());
             UserSession.getInstace().setPassword(passwordField.getText());
 
             loginStatus.setText("Status: You have logged in!");
 
-            Stage mainStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/rootScreen.fxml"));
-
-            Scene scene = new Scene(root, 600, 400);
-
-            mainStage.setScene(scene);
-            mainStage.show();
-
-            Stage oldStage = (Stage) loginStatus.getScene().getWindow();
-            oldStage.close();
+            MyStage.switchScene(MyStage.Screens.ROOT);
         } catch (Exception e) {
             loginStatus.setText("Status: Username or password is not correct.");
             System.out.println(e);
@@ -80,24 +70,22 @@ public class LoginController {
      *
      * }
      */
-    public void register(ActionEvent event) {
+    public void register(ActionEvent event) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         User newUser = new User(usernameField.getText(), passwordField.getText(), 0);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
-        headers.setContentType(MediaType.APPLICATION_XML);
-
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
-
-        User user = restTemplate.postForObject(UrlEndPoints.User.REGISTER, requestBody, User.class);
+        User user = restTemplate.postForObject(UrlEndPoints.Auth.REGISTER, requestBody, User.class);
 
         if (user != null && user.getID() != 0) {
-
             loginStatus.setText("(Client Side) New user created" + user.getName());
-        } else {
 
+            UserSession.getInstace().setUserName(usernameField.getText());
+            UserSession.getInstace().setPassword(passwordField.getText());
+            MyStage.switchScene(MyStage.Screens.ROOT);
+        } else {
             loginStatus.setText("User already exists.");
         }
     }

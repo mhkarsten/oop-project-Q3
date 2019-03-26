@@ -36,7 +36,7 @@
          </image>
       </ImageView>
       <Label fx:id="label" layoutX="236.0" layoutY="34.0" prefHeight="21.0" prefWidth="314.0" text="Greendr" />
-      <Button layoutX="280.0" layoutY="304.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: red;" text="Register" textFill="#e6e6e6" />
-       <!--<Button fx:id="registerButton"  onAction="#register" layoutX="226.0" layoutY="250.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="167.0" text="Register" />-->
+      <Button fx:id="registerButton"  onAction="#register" layoutX="280.0" layoutY="304.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: red;" text="Register" textFill="#e6e6e6" />
+
    </children>
 </AnchorPane>

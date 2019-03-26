@@ -1,5 +1,6 @@
 package client.serverCommunication;
 
+import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
 import client.model.Achievement;
 import client.model.User;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 /**
  * The type Achievement controller.
  */
-public class AchievementController extends BaseController {
+public class AchievementController {
 
 
     /**
@@ -23,9 +24,10 @@ public class AchievementController extends BaseController {
     @SuppressWarnings("Duplicates")
     public  ArrayList<Achievement> achGetAll() {
         //GET ALL ACHIEVEMENTS
-        HttpHeaders headers = this.getBaseHeaders(MediaType.APPLICATION_XML);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
 
+        MyRestTemplate restTemplate = new MyRestTemplate();
         ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGETALL,
             HttpMethod.POST, entity, Achievement[].class);
 
@@ -57,11 +59,12 @@ public class AchievementController extends BaseController {
     @SuppressWarnings("Duplicates")
     public  Achievement achGet(long achID) {
         //GET SPECIFIC ACHIEVEMENT
-        HttpHeaders headers = this.getBaseHeaders(MediaType.APPLICATION_XML);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement> entity = new HttpEntity<>(headers);
 
         Object[] uriValues = new Object[] {achID};
 
+        MyRestTemplate restTemplate = new MyRestTemplate();
         ResponseEntity<Achievement> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGET,
             HttpMethod.POST, entity, Achievement.class, uriValues);
 
@@ -90,7 +93,9 @@ public class AchievementController extends BaseController {
     @SuppressWarnings("Duplicates")
     public  ArrayList<Achievement> achGetUnlocked(long usrID) {
         //GET ALL UNLOCKED ACHIEVEMENTS BY A USER
-        HttpHeaders headers = this.getBaseHeaders(MediaType.APPLICATION_XML);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
 
         Object[] uriValues = new Object[] {usrID};

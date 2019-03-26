@@ -1,27 +1,23 @@
-package client.serverCommunication;
+package client.Service;
 
-import client.Service.UserSession;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 
-public class BaseController {
+@Service
+public class MyRestTemplate extends RestTemplate {
 
-    protected RestTemplate restTemplate ;
-
-    public BaseController() {
-        this.restTemplate = new RestTemplate();
-
-
+    public MyRestTemplate() {
         UserSession session = UserSession.getInstace();
-        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(
+        this.getInterceptors().add(new BasicAuthenticationInterceptor(
             session.getUserName(), session.getPassword()));
     }
 
-    public HttpHeaders getBaseHeaders(MediaType type) {
+    public static HttpHeaders getBaseHeaders(MediaType type) {
         HttpHeaders headers = new HttpHeaders();
 
         headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));

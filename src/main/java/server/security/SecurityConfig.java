@@ -30,7 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //Example whitelist route
             .antMatchers(GET, "/").permitAll()
             .antMatchers(POST, "/").permitAll()
-            .antMatchers(POST, "/register").permitAll()
+
+            .antMatchers(GET, "/auth/login").permitAll()
+            .antMatchers(POST, "/auth/login").permitAll()
+            .antMatchers(POST, "/auth/register").permitAll()
             .anyRequest().fullyAuthenticated()
             .and().httpBasic()
             .and().csrf().disable();

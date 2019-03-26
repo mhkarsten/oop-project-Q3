@@ -1,5 +1,6 @@
 package client;
 
+import client.Service.MyStage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,19 +16,10 @@ public class ClientGui extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        URL url = new File("src/main/resources/loginScreen.fxml").toURL();
-        Parent root = FXMLLoader.load(url);
-
-        Scene scene = new Scene(root, 600,400);
-
-
-        stage.setScene(scene);
-        stage.show();
+        MyStage.switchScene(MyStage.Screens.LOGIN);
     }
 
     public static void main(String[] args) {
-
         launch(args);
     }
 }

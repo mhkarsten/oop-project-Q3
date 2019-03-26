@@ -4,13 +4,16 @@ public class UrlEndPoints {
 
     public static String BASE_URL = "http://localhost:8090/";
 
+    public static class Auth {
+        public  static final String REGISTER = BASE_URL + "auth/register";
+        public  static final String LOGIN = BASE_URL + "auth/login";
+    }
 
     public static class User {
-        public static String ALL_USERS = BASE_URL + "users";
-        public  static String REGISTER = BASE_URL + "register";
+        public static final String ALL_USERS = BASE_URL + "users";
 
-        public static String UPDATE =  BASE_URL + "users/update";
-        public static String USER_BY_ID = BASE_URL + "users/{userID}";
+        public static final String UPDATE =  BASE_URL + "users/update";
+        public static final String USER_BY_ID = BASE_URL + "users/{userID}";
 
     }
 

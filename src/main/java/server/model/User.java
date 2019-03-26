@@ -37,7 +37,7 @@ public class User {
     private Set<User> follower;
 
     @OneToMany(mappedBy = "user")
-    private Set<Feat> feat;
+    private Set<Feat> feats;
 
 
     public User() {
@@ -92,7 +92,7 @@ public class User {
     @PostLoad
     public void calculatePoints() {
         points = 0;
-        for (Feat x : feat) {
+        for (Feat x : feats) {
             points += x.getPoints();
         }
     }
@@ -106,12 +106,12 @@ public class User {
         this.points = points;
     }
 
-    public Set<Feat> getFeat() {
-        return this.feat;
+    public Set<Feat> getFeats() {
+        return this.feats;
     }
 
-    public void setFeat(Set<Feat> achievement) {
-        this.feat = feat;
+    public void setFeats(Set<Feat> achievement) {
+        this.feats = feats;
     }
 
     public Set<Achievement> getAchievements() {

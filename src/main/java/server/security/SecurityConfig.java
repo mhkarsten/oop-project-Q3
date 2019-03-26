@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
+        //This line is to allow for H2 console database debugging
         http.headers().frameOptions().disable();
         http.authorizeRequests().anyRequest().authenticated();
 

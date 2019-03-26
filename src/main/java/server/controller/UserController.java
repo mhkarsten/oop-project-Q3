@@ -1,12 +1,10 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.User;
 import server.repository.UserRepository;
@@ -14,7 +12,6 @@ import server.repository.UserRepository;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -29,9 +26,9 @@ public class UserController {
      *
      * @return Message stating you are connected
      */
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/")
-    public ResponseEntity<?> connect() {
-        return ResponseEntity.ok().build();
+    public void connect() {
     }
 
     /**

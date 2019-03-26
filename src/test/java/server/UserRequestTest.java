@@ -178,7 +178,10 @@ public class UserRequestTest {
         Assertions.assertEquals(user.getFollowers(), follower);
 
     }
+    @Test
+    public void updateFeatsTest() {
 
+    }
     @Test
     public void fullCrudTest() {
         //CREATE

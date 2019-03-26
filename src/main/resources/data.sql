@@ -35,9 +35,9 @@ VALUES (2,134, 3, 1, CURRENT_TIMESTAMP);
 INSERT INTO feats (id, points, action_id, user_id, time_completed)
 VALUES (3,633, 2, 1, CURRENT_TIMESTAMP);
 INSERT INTO feats (id, points, action_id, user_id, time_completed)
-VALUES (4,261, 5, 1, CURRENT_TIMESTAMP);
+VALUES (4,261, 5, 3, CURRENT_TIMESTAMP);
 INSERT INTO feats (id, points, action_id, user_id, time_completed)
-VALUES (5,278, 6, 2, CURRENT_TIMESTAMP);
+VALUES (5,278, 6, 3, CURRENT_TIMESTAMP);
 INSERT INTO feats (id, points, action_id, user_id, time_completed)
 VALUES (6,421, 1, 2, CURRENT_TIMESTAMP);
 INSERT INTO feats (id, points, action_id, user_id, time_completed)

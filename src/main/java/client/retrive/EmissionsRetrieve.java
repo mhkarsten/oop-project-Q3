@@ -30,7 +30,7 @@ public class EmissionsRetrieve {
      * @param sizeClass the size class
      * @return the vehicle emission
      */
-    public static VehicleEmission getVehicleEmission(int distance, int duration, String sizeClass) {
+    public static VehicleEmission getVehicleEmission(Integer distance, Integer duration, String sizeClass) {
 
         HashMap parameters = new HashMap();
         parameters.put("distance", distance);
@@ -93,7 +93,7 @@ public class EmissionsRetrieve {
      * @param naturalGasCost    the natural gas cost
      * @return the energy emission
      */
-    public static EnergyEmission getEnergyEmission(int greenEnergy, String airConditionerUse, String dishwasherUse, int naturalGasCost) {
+    public static EnergyEmission getEnergyEmission(Integer greenEnergy, String airConditionerUse, String dishwasherUse, Integer naturalGasCost) {
         HashMap parameters = new HashMap();
         parameters.put("greenEnergy", greenEnergy);
         parameters.put("airConditionerUse", airConditionerUse);
@@ -126,7 +126,7 @@ public class EmissionsRetrieve {
      * @param size         the size
      * @return the diet emission
      */
-    public static DietEmission getDietEmission(float fishShare, float redMeatShare, float poultryShare, int size) {
+    public static DietEmission getDietEmission(Float fishShare, Float redMeatShare, Float poultryShare, Integer size) {
         HashMap parameters = new HashMap();
         parameters.put("fishShare", fishShare);
         parameters.put("redMeatShare", redMeatShare);

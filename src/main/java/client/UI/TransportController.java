@@ -50,6 +50,7 @@ public class TransportController {
 
     public Integer getIntField2() {
         try {
+            System.out.print(true);
             return parseInt(getField2Text());
         }
         catch (NumberFormatException e) {

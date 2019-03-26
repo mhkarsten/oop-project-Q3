@@ -33,8 +33,8 @@ public class EmissionController {
     public ResponseEntity<VehicleEmission> vehicleEmission(@RequestBody HashMap parameters) {
 
         return new ResponseEntity<VehicleEmission>(getVehicleEmission(
-            (int) parameters.get("distance"),
-            (int) parameters.get("duration"),
+            (Integer) parameters.get("distance"),
+            (Integer) parameters.get("duration"),
             (String) parameters.get("sizeClass")
         ), HttpStatus.OK);
     }
@@ -52,10 +52,10 @@ public class EmissionController {
     public ResponseEntity<EnergyEmission> energyEmission(@RequestBody HashMap parameters) {
 
         return new ResponseEntity<EnergyEmission>(getEnergyEmission(
-            (int) parameters.get("greenEnergy"),
+            (Integer) parameters.get("greenEnergy"),
             (String) parameters.get("airConditionerUse"),
             (String) parameters.get("dishwasherUse"),
-            (int) parameters.get("naturalGasCost")
+            (Integer) parameters.get("naturalGasCost")
         ), HttpStatus.OK);
     }
 
@@ -90,10 +90,10 @@ public class EmissionController {
     public ResponseEntity<DietEmission> dietEmission(@RequestBody HashMap parameters) {
 
         return new ResponseEntity<DietEmission>(getDietEmission(
-            (float) parameters.get("fishShare"),
-            (float) parameters.get("redMeatShare"),
-            (float) parameters.get("poultryShare"),
-            (int) parameters.get("size")
+            (Float) parameters.get("fishShare"),
+            (Float) parameters.get("redMeatShare"),
+            (Float) parameters.get("poultryShare"),
+            (Integer) parameters.get("size")
         ), HttpStatus.OK);
     }
 }

@@ -36,7 +36,7 @@ public class EmissionAPI {
      * @return the vehicle emission
      */
     @SuppressWarnings("Duplicates")
-    public static VehicleEmission getVehicleEmission(int distance, int duration, String sizeClass) {
+    public static VehicleEmission getVehicleEmission(Integer distance, Integer duration, String sizeClass) {
         String distanceString = "&distance=" + distance; //in kilometers
         String durationString = "&duration=" + duration; //in seconds
         String sizeClassString = "&size_class" + sizeClass; //a description (i.e. midsized)
@@ -95,7 +95,7 @@ public class EmissionAPI {
      * @return the energy emission
      */
     @SuppressWarnings("Duplicates")
-    public static EnergyEmission getEnergyEmission(int greenEnergy, String airConditionerUse, String dishwasherUse, int naturalGasCost) {
+    public static EnergyEmission getEnergyEmission(Integer greenEnergy, String airConditionerUse, String dishwasherUse, Integer naturalGasCost) {
         String dishwasherUseString = "&dishwasher_use=" + dishwasherUse; //in kwh (i think)
         String airConditionerUseString = "&air_conditioner_use=" + airConditionerUse; //a description
         String greenEnergyString = "&green_electricity=" + greenEnergy; //a description
@@ -156,7 +156,7 @@ public class EmissionAPI {
      * @return the diet emission
      */
     @SuppressWarnings("Duplicates")
-    public static DietEmission getDietEmission(float fishShare, float redMeatShare, float poultryShare, int size) {
+    public static DietEmission getDietEmission(Float fishShare, Float redMeatShare, Float poultryShare, Integer size) {
         String startDate = "&start_date=2019-01-01"; //a date
         String endDate = "&end_date=2019-02-01"; //a date
 

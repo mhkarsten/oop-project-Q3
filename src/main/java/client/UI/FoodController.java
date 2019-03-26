@@ -8,17 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 
 import java.net.URL;
 import java.util.*;
 
 import static client.retrive.FoodRetrieve.*;
 import static client.retrive.UserRetrieve.*;
-import static javafx.scene.paint.Color.RED;
-import static javafx.scene.paint.Color.WHITE;
 
 /**
  * The type Food controller.
@@ -167,16 +162,7 @@ public class FoodController implements Initializable {
      * @param event the event
      */
     public void selectMeal(MouseEvent event) {
-
-        if (mealChoice != null) {
-
-            mealChoice.setBackground(new Background(new BackgroundFill(RED, null, null)));
-        }
-
-        Label chosenMeal = (Label) event.getSource();
-
-        chosenMeal.setBackground(new Background(new BackgroundFill(WHITE, new CornerRadii(1), null)));
-        mealChoice = chosenMeal;
+        mealChoice = RootController.selectOption(event, mealChoice);
     }
 
     /**

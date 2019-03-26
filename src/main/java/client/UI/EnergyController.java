@@ -77,6 +77,7 @@ public class EnergyController implements Initializable {
 
     public void getEnergyEmission() {
         EnergyEmission em = EmissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
+        System.out.println(em);
     }
 
     public void selectEnergyEmission(MouseEvent event) {

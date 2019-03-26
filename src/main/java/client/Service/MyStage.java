@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
+/**
+ * Manages the stage/windown by providing a singleton class.
+ */
 public class MyStage {
 
     private static Stage instance;
@@ -20,6 +24,13 @@ public class MyStage {
         public final static String ROOT =  BASE_DIR + "rootScreen.fxml";
     }
 
+
+
+    /**
+     * Checks if the instance is already instantiated, and if so return the single instance.
+     * If not creates the single instance and returns it.
+     * @return the singleton instance of the stage
+     */
     public static Stage getInstance() {
         if(instance == null) {
             instance = new Stage();
@@ -28,6 +39,13 @@ public class MyStage {
         return instance;
     }
 
+    /**
+     * Constructor for providing the initial stage.
+     *
+     * Checks if the instance is already instantiated, and if so return the single instance.
+     * If not creates the single instance and returns it.
+     * @return the singleton instance of the stage
+     */
     public static Stage getInstance(Stage stage) {
         if(instance == null) {
             instance = stage;
@@ -35,6 +53,12 @@ public class MyStage {
 
         return instance;
     }
+
+    /**
+     * Creates a new scene based on the provides screen name (managed in MyStage.Screens) and sets the singleton stage's screen.
+     * @param sceneName
+     * @throws IOException
+     */
     public static void switchScene(String sceneName) throws IOException {
         URL url = new File(sceneName).toURL();
         Parent root = FXMLLoader.load(url);

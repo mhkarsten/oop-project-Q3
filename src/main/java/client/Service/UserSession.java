@@ -11,9 +11,13 @@ public final class UserSession {
     private String password;
 
     private UserSession() {
-
     }
 
+    /**
+     * Checks if the instance is already instantiated, and if so return the single instance.
+     * If not creates the single instance and returns it.
+     * @return
+     */
     public static UserSession getInstace() {
         if(instance == null) {
             instance = new UserSession();
@@ -38,8 +42,12 @@ public final class UserSession {
         this.password = password;
     }
 
+    /**
+     * Clears out the session by setting all properties to null again.
+     */
     public void cleanUserSession() {
         userName = null;// or null
+        password = null;// or null
     }
 
     @Override

@@ -6,6 +6,9 @@ import server.model.User;
 
 import java.util.Collection;
 
+/**
+ * Exposes the user details after authentication
+ */
 public class MyUserPrincipal implements UserDetails {
     private  User user;
 
@@ -20,13 +23,15 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return "";
     }
 
     @Override
     public String getUsername() {
         return user.getName();
     }
+
+
 
     @Override
     public boolean isAccountNonExpired() {

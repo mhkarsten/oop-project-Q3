@@ -19,10 +19,11 @@ public class AuthController {
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
+
     /**
-     * Initial connect message.
+     * Authenticates the user by basic authentication against the security configuration.
      *
-     * @return Message stating you are connected
+     * @return a simple 200 message is successfully connected.
      */
     @RequestMapping("/auth/login")
     public ResponseEntity<?> login() {
@@ -31,9 +32,10 @@ public class AuthController {
 
 
     /**
-     * Adds a new user (CREATE).
+     * Registers a new user.
+     *  First does the required checking and encryption and then persists the new user.
      *
-     * @param usr Parameter for the user to be added
+     * @param user Parameter for the user to be added
      * @return Returns the user that has been added
      */
     @PostMapping(value = "/auth/register",

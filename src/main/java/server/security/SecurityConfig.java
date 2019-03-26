@@ -18,11 +18,15 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-
     @Autowired
     private MyUserDetailsService userDetailsService;
 
+    /**
+     * Configures the authentication routes
+     * All routes Besides the routes listed require full basic authentication
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http)
         throws Exception {
@@ -40,16 +44,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    /**Configures a few (temporary) user accounts for authorization.
-     //     *
-     //     * @param auth  Parameter for an authenticator
-     //     * @throws Exception Throws exception  if the authenticator is invalid
-     //     */
+
+    /**
+     * Specifies to use a custom authentication provider in order to authenticate for users in the database
+     * @param auth
+     * @throws Exception
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    /**
+     * Specifies the authentication provider and the userDetailsService to handle the authentication
+     * @return
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -58,6 +67,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
 
+    /**
+     * Specifies the encryption to be used in the authentication provider.
+     * @return
+     */
     @Bean
     PasswordEncoder encoder() {
         return  new BCryptPasswordEncoder(11);

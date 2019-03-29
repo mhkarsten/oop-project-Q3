@@ -1,8 +1,9 @@
 package model;
 
-import server.model.Achievement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import server.model.Achievement;
+import server.model.User;
 
 class AchievementTest {
 
@@ -30,12 +31,27 @@ class AchievementTest {
 
     @Test
     void equalsTest3() {
-        Assertions.assertNotEquals(ach1, new Achievement(ID1, "Mother Nature's disciple", descrip1, path1));
+        Assertions.assertNotEquals(ach1, new Achievement(ID1, title2, descrip1, path1));
     }
 
     @Test
     void equalsTest4() {
         Assertions.assertNotEquals(ach1, null);
+    }
+
+    @Test
+    void equalsTest5() {
+        Assertions.assertNotEquals(ach1, new Achievement(ID1, title1, descrip2, path1));
+    }
+
+    @Test
+    void equalsTest6() {
+        Assertions.assertNotEquals(ach1, new User());
+    }
+
+    @Test
+    void equalsTest7() {
+        Assertions.assertNotEquals(ach1, new Achievement(ID1, title1, descrip1, path2));
     }
 
     @Test

@@ -86,7 +86,7 @@ public class AchievementRetrieve {
             Achievement[] ach = new Achievement[1];
             ach[0] = response.getBody();
 
-            if(response.getBody() != null) {
+            if (response.getBody() != null) {
 
                 return ach[0];
             }
@@ -133,14 +133,7 @@ public class AchievementRetrieve {
         System.out.println("(Client Side) Getting all Achievements failed.");
         return null;
     }
-
-    public static void deleteUserAch(long usrID, long achID) {
-        //REMOVE USER ACHIEVEMENT
-
-    }
-
     public static void addUserAch(long usrID, long achID) {
-        //ADD USER ACHIEVEMENT
 
     }
 }

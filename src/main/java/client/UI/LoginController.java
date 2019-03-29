@@ -28,7 +28,8 @@ public class LoginController {
         login();
     }
 
-    /**Login method.
+    /**
+     * Login method.
      *
      * @throws Exception Throws exception if the event is invalid
      */

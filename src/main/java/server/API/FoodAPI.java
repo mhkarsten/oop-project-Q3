@@ -1,13 +1,13 @@
 package server.API;
 
-import client.model.Meal;
+import server.model.Meal;
 import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
-
-import static client.model.Meal.JSONToMeal;
+;
+import static server.model.Meal.JSONToMeal;
 
 /**
  *  This class is the integration of TheFoodDB api. This is an online database of various meals which
@@ -67,6 +67,7 @@ public class FoodAPI {
      *
      *  @return This method will return one specific meal from the database.
      */
+    @SuppressWarnings("Duplicates")
     public static Meal[] getMeal(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
@@ -98,6 +99,7 @@ public class FoodAPI {
      *
      * @return This method returns an ArrayList of all meals in a specific category.
      */
+    @SuppressWarnings("Duplicates")
     public static ArrayList<Meal[]> getMealCategory(String mealName) {
 
         HttpHeaders headers = acceptHeaders();

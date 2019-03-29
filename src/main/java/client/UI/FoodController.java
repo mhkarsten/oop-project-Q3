@@ -1,6 +1,5 @@
-package client.FXMLControllers;
+package client.UI;
 
-import client.model.Achievement;
 import client.model.Meal;
 import client.model.User;
 import javafx.fxml.FXML;
@@ -9,30 +8,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.*;
 
-import static server.API.FoodAPI.*;
-import static client.serverCommunication.UserController.*;
+import static client.retrive.FoodRetrieve.*;
+import static client.retrive.UserRetrieve.*;
 
+/**
+ * The type Food controller.
+ */
 public class FoodController implements Initializable {
 
     private Label mealChoice;
 
+    /**
+     * The Meal 1.
+     */
     @FXML
     public Label meal1;
     public Label meal2;
     public Label meal3;
     public Label meal4;
     public Label mealBoxText;
-
-    public Circle selectCircle1;
-    public Circle selectCircle2;
-    public Circle selectCircle3;
-    public Circle selectCircle4;
 
     public CheckBox veganOpt;
     public CheckBox vegOpt;
@@ -42,10 +40,15 @@ public class FoodController implements Initializable {
     public Button downBtn;
 
     private int mealOffset;
-    private ArrayList<Meal[]> meatMeals;
-    private ArrayList<Meal[]> veganMeals;
-    private ArrayList<Meal[]> vegetarianMeals;
+    private ArrayList<Meal> meatMeals;
+    private ArrayList<Meal> veganMeals;
+    private ArrayList<Meal> vegetarianMeals;
 
+    /**
+     * Gets selected category.
+     *
+     * @return the selected category
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -62,8 +65,12 @@ public class FoodController implements Initializable {
         downBtn.setOnAction((event -> changeMeals(downBtn)));
     }
 
-
-    public ArrayList<Meal[]> getSelectedCategory() {
+    /**
+     * Gets selected category.
+     *
+     * @return the selected category
+     */
+    public ArrayList<Meal> getSelectedCategory() {
 
         if (vegOpt.isSelected()) {
 
@@ -78,7 +85,13 @@ public class FoodController implements Initializable {
         return null;
     }
 
-    public void setMealStrings(ArrayList<Meal[]> mealCategory, int offset) {
+    /**
+     * Sets meal strings.
+     *
+     * @param mealCategory the meal category
+     * @param offset       the offset
+     */
+    public void setMealStrings(ArrayList<Meal> mealCategory, int offset) {
 
         HashMap<String, Label> varNameMap = new HashMap<>();
         varNameMap.put("meal1", meal1);
@@ -92,7 +105,7 @@ public class FoodController implements Initializable {
 
             for (int i = 1; i < mealCategory.size() + 1; i++) {
 
-                varNameMap.get("meal" + i).setText(mealCategory.get(offset + offsetAddition)[0].getStrMeal());
+                varNameMap.get("meal" + i).setText(mealCategory.get(offset + offsetAddition).getStrMeal());
 
                 offsetAddition++;
             }
@@ -103,13 +116,16 @@ public class FoodController implements Initializable {
             }
         } else {
 
-            meal1.setText(mealCategory.get(offset)[0].getStrMeal());
-            meal2.setText(mealCategory.get(offset + 1)[0].getStrMeal());
-            meal3.setText(mealCategory.get(offset + 2)[0].getStrMeal());
-            meal4.setText(mealCategory.get(offset + 3)[0].getStrMeal());
+            meal1.setText(mealCategory.get(offset).getStrMeal());
+            meal2.setText(mealCategory.get(offset + 1).getStrMeal());
+            meal3.setText(mealCategory.get(offset + 2).getStrMeal());
+            meal4.setText(mealCategory.get(offset + 3).getStrMeal());
         }
     }
 
+    /**
+     * Display veg meals.
+     */
     public void displayVegMeals() {
 
         meatOpt.setSelected(false);
@@ -118,6 +134,9 @@ public class FoodController implements Initializable {
         setMealStrings(vegetarianMeals, 0);
     }
 
+    /**
+     * Display vegan meals.
+     */
     public void displayVeganMeals() {
 
         meatOpt.setSelected(false);
@@ -126,6 +145,9 @@ public class FoodController implements Initializable {
         setMealStrings(veganMeals, 0);
     }
 
+    /**
+     * Display meat meals.
+     */
     public void displayMeatMeals() {
 
         vegOpt.setSelected(false);
@@ -134,29 +156,21 @@ public class FoodController implements Initializable {
         setMealStrings(meatMeals, 0);
     }
 
+    /**
+     * Select meal.
+     *
+     * @param event the event
+     */
     public void selectMeal(MouseEvent event) {
-
-        Color circleDeselectColor = Color.web("#dadfe4");
-
-        if (mealChoice != null) {
-
-            Circle oldChoice = (Circle) mealChoice.getGraphic();
-            oldChoice.setFill(circleDeselectColor);
-        }
-
-        Label chosenMeal = (Label) event.getSource();
-
-        Circle selectedMealCircle = (Circle) chosenMeal.getGraphic();
-
-        selectedMealCircle.setFill(javafx.scene.paint.Color.RED);
-
-        mealChoice = chosenMeal;
+        mealChoice = RootController.selectOption(event, mealChoice);
     }
 
+    /**
+     * Gets meal points.
+     */
     public void getMealPoints() {
 
         User[] currentUser = getUser(1L);
-        Set<Achievement> achives = new HashSet<>();
 
         if (veganOpt.isSelected()) {
 
@@ -193,6 +207,11 @@ public class FoodController implements Initializable {
         }
     }
 
+    /**
+     * Change meals.
+     *
+     * @param button the button
+     */
     public void changeMeals(Button button) {
 
         if (button == downBtn) {

@@ -1,4 +1,4 @@
-package client.serverCommunication;
+package client.retrive;
 
 import client.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -14,12 +14,19 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//Currently this client side code is build to work with XML code whereas the server
-//side code can use both XML and JSON. Later this might be changed so everything uses
-//JSON for the sake of simplicity;
+/**Method to return an ArrayList of all users.
+ *Currently this client side code is build to work with XML code whereas the server
+ *side code can use both XML and JSON. Later this might be changed so everything uses
+ *JSON for the sake of simplicity;
+ *
+ * @return Return all users from the server
+ */
+public class UserRetrieve {
 
-public class UserController {
-
+    /**Method to return an ArrayList of all users.
+     *
+     * @return Return all users from the server
+     */
     private static final String URL_USERS = "http://localhost:8090/users";
     private static final String URL_NEWUSER = "http://localhost:8090/users/new";
     private static final String URL_CHOOSEUSER = "http://localhost:8090/users/{userID}";
@@ -27,13 +34,23 @@ public class UserController {
     private static final String USER_NAME = "tom";
     private static final String PASSWORD = "123";
 
-    public static HttpHeaders setAuthHeaders(HttpHeaders headers) {
+    public static HttpHeaders setAuthHeaders(HttpHeaders headers, boolean list) {
 
         String auth = USER_NAME + ":" + PASSWORD;
         byte[] encAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
         String authHeader = "Basic " + new String(encAuth);
 
         headers.set("Authorization", authHeader);
+
+        if (list) {
+
+            headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
+            headers.setContentType(MediaType.APPLICATION_XML);
+        } else {
+
+            headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
+            headers.setContentType(MediaType.APPLICATION_XML);
+        }
 
         return headers;
     }
@@ -46,9 +63,7 @@ public class UserController {
     public ArrayList<User> getUsers() {
 
         HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers);
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
-        headers.setContentType(MediaType.APPLICATION_XML);
+        setAuthHeaders(headers, true);
 
         HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -86,9 +101,7 @@ public class UserController {
     public static User[] getUser(long userID) {
 
         HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers);
-        headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
-        headers.setContentType(MediaType.APPLICATION_XML);
+        setAuthHeaders(headers, false);
 
         HttpEntity<User[]> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -128,9 +141,7 @@ public class UserController {
         User newUser = new User(userID, userName, 0);
 
         HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers);
-        headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
-        headers.setContentType(MediaType.APPLICATION_XML);
+        setAuthHeaders(headers, false);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
@@ -154,8 +165,7 @@ public class UserController {
         User updatedUser = new User(userID, userName, points);
 
         HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers);
-        headers.add("Accept", MediaType.APPLICATION_XML_VALUE);
+        setAuthHeaders(headers, false);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);

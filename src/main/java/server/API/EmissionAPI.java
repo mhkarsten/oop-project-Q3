@@ -53,11 +53,13 @@ public class EmissionAPI {
 
         for (int i = 0; i < 3; i++) {
 
-            if (uriStrings.get(i).get(0) != null && uriStrings.get(i).get(0) != "0") {
+            if (uriStrings.get(i).get(0) != null && uriStrings.get(i).get(1) != "0") {
 
                 keyString.append(uriStrings.get(i).get(1));
             }
         }
+
+        System.out.println(keyString);
 
         HttpHeaders headers = new HttpHeaders();
         setAuthHeaders(headers, true);

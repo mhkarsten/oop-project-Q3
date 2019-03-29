@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static client.UI.RootController.addPointsUser;
 import static java.lang.Integer.parseInt;
 
 public class EnergyController implements Initializable {
@@ -75,11 +76,14 @@ public class EnergyController implements Initializable {
         }
     }
 
+    public int calculatePoints(String points) {
+        return parseInt(points.split("\\.")[0]);
+    }
+
     public void getEnergyEmission() {
         EnergyEmission em = EmissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
         System.out.println(em.getCarbon());
-        System.out.println(em.getDirtyEnergy());
-        System.out.println(em.getNaturalGasConsumed());
+        addPointsUser(calculatePoints(em.getCarbon()));
     }
 
     public void selectEnergyEmission(MouseEvent event) {

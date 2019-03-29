@@ -14,6 +14,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
+
 
 import static client.retrive.UserRetrieve.getUser;
 import static client.retrive.UserRetrieve.updateUser;
@@ -23,40 +31,35 @@ import static javafx.scene.paint.Color.WHITE;
 public class RootController implements Initializable {
 
     @FXML
-    public Button actionBtn;
-    public Button scoreBtn;
-    public Button profileBtn;
-
-    public Button foodBtn;
-    public Button achievementBtn;
-    public Button myScoreBtn;
-
+    public Button profile;
+    public Button action;
+    public Button stretchbutton;
+    public Button score;
+    public Button compare;
+    public Button food;
+    public Button transport;
+    public Button energy;
     public SplitPane mainPane;
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
-
-    public VBox scoreSidebar;
-    public VBox actionSidebar;
+    public LineChart<String,Number> lineChart;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        actionBtn.setOnAction((ActionEvent evt) -> {
+        action.setOnAction((ActionEvent evt) -> {
             try {
-
                 openFoodScreen();
             } catch (IOException e) {
-
                 e.printStackTrace();
             }
         });
 
-        scoreBtn.setOnAction((ActionEvent evt) -> {
+        score.setOnAction((ActionEvent evt) -> {
             try {
 
                 openScoreScreen();
             } catch (IOException e) {
-
                 e.printStackTrace();;
             }
         });
@@ -65,7 +68,6 @@ public class RootController implements Initializable {
     public void openFoodScreen() throws IOException {
 
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/foodScreen.fxml"));
-
         changePane = newScreen.load();
 
         mainPane.getItems().set(1, changePane);
@@ -109,7 +111,6 @@ public class RootController implements Initializable {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/transportScreen.fxml"));
 
         changePane = newScreen.load();
-
         mainPane.getItems().set(1, changePane);
     }
 
@@ -120,6 +121,67 @@ public class RootController implements Initializable {
 
         mainPane.getItems().set(1, changePane);
     }
+
+    public void moveButtons(){
+        Timeline rowMove = new Timeline();
+
+        Timeline fade = new Timeline();
+        fade.getKeyFrames().addAll(
+            new KeyFrame(Duration.seconds(1),
+                new KeyValue(action.opacityProperty(), 0),
+                new KeyValue(profile.opacityProperty(), 0),
+                new KeyValue(score.opacityProperty(), 0),
+                new KeyValue(compare.opacityProperty(), 0),
+                new KeyValue(food.opacityProperty(), 0),
+                new KeyValue(transport.opacityProperty(), 0),
+                new KeyValue(energy.opacityProperty(), 0)
+            )
+        );
+        rowMove.getKeyFrames().addAll(
+            new KeyFrame(Duration.seconds(2),
+                new KeyValue(stretchbutton.scaleXProperty(),200)
+            )
+        );
+
+        fade.play();
+        fade.setOnFinished(e -> rowMove.play());
+        rowMove.setOnFinished(e -> fade.stop());
+        rowMove.setOnFinished(e -> rowMove.stop());
+    }
+
+    public void moveBackButton(){
+        Timeline rowMove = new Timeline();
+
+        Timeline fade = new Timeline();
+        fade.getKeyFrames().addAll(
+            new KeyFrame(Duration.seconds(1),
+                new KeyValue(action.opacityProperty(), 1),
+                new KeyValue(profile.opacityProperty(), 1),
+                new KeyValue(score.opacityProperty(), 1),
+                new KeyValue(compare.opacityProperty(), 1),
+                new KeyValue(food.opacityProperty(), 1),
+                new KeyValue(transport.opacityProperty(), 1),
+                new KeyValue(energy.opacityProperty(), 1)
+            )
+        );
+        rowMove.getKeyFrames().addAll(
+            new KeyFrame(Duration.seconds(2),
+                new KeyValue(stretchbutton.scaleXProperty(),1)
+            )
+        );
+
+        fade.play();
+        fade.setOnFinished(e -> rowMove.play());
+        rowMove.setOnFinished(e -> fade.stop());
+        rowMove.setOnFinished(e -> rowMove.stop());
+    }
+
+    public void btn(ActionEvent event){
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+        series.getData().add( new XYChart.Data<String, Number>("Jan", 200));
+        lineChart.getData().add(series);
+    }
+
 
     public static Label selectOption(MouseEvent event, Label choice) {
 

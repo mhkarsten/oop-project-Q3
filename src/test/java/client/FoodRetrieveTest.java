@@ -14,7 +14,7 @@ class FoodRetrieveTest {
 
         Meal[] randomMeal = getRandomMeal();
 
-        Assertions.assertTrue(randomMeal instanceof Meal[]);
+        Assertions.assertNotNull(randomMeal);
     }
 
     @Test

@@ -68,4 +68,8 @@ public class MyStage {
         MyStage.getInstance().setScene(scene);
         MyStage.getInstance().show();
     }
+
+    public static void clearInstance() {
+        instance = null;
+    }
 }

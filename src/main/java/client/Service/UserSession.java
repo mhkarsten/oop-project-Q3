@@ -2,6 +2,8 @@ package client.Service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public final class UserSession {
 
@@ -55,5 +57,23 @@ public final class UserSession {
         return "UserSession{" +
             "userName='" + userName + '\'' +
             '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UserSession session = (UserSession) o;
+        return Objects.equals(userName, session.userName) &&
+            Objects.equals(password, session.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, password);
     }
 }

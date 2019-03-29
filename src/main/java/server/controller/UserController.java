@@ -1,29 +1,19 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.User;
 import server.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import java.util.Set;
 
 @RestController
 public class UserController {
@@ -31,20 +21,14 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
-    public ResponseEntity<?> handleMethodArgumentTypeMismatch(
-            MethodArgumentTypeMismatchException ex) {
-        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
-
     /**
      * Initial connect message.
      *
      * @return Message stating you are connected
      */
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/")
-    public ResponseEntity<?> connect() {
-        return ResponseEntity.ok().build();
+    public void connect() {
     }
 
     /**
@@ -53,9 +37,9 @@ public class UserController {
      * @return List of all users
      */
     @RequestMapping(value = "/users",
-            method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
 
     public List<User> getUsers() {
@@ -69,12 +53,12 @@ public class UserController {
      * @return The user if it exists
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/users/{userID}",
-            produces = {MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<User> getUser(@PathVariable("userID") long userID) {
+    public User getUser(@PathVariable("userID") long userID) {
         Optional<User> optionalUser = userRepository.findById(userID);
-        return optionalUser.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return optionalUser.get();
     }
 
 
@@ -85,8 +69,8 @@ public class UserController {
      * @return returns the updated user
      */
     @PutMapping(value = "/users/update",
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> updateUser(@RequestBody User usr) {
         if (userRepository.findById(usr.getID()).isPresent()) {
@@ -102,19 +86,19 @@ public class UserController {
      * Adds a new user (CREATE).
      *
      * @param usr Parameter for the user to be added
-     * @return Returns the user that has been added
+     * @return Returns the path at which the new user is located
      */
     @PostMapping(value = "/users/new",
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> addUser(@RequestBody User usr) {
         User savedUser = userRepository.save(usr);
         System.out.println("Creating new user with ID" + savedUser.getID());
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/users/{userID}")
-                .buildAndExpand(savedUser.getID()).toUri();
+            .fromCurrentContextPath().path("/users/{userID}")
+            .buildAndExpand(savedUser.getID()).toUri();
         return ResponseEntity.created(location).build();
     }
 
@@ -132,5 +116,31 @@ public class UserController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * A mapping to only get the users someone is following.
+     *
+     * @param userID the user id of the user
+     * @return the followers if any and if the user exists
+     */
+    @RequestMapping(value = "/users/{userID}/following", method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public Set<User> getUserFollowing(@PathVariable("userID") long userID) {
+        Optional<User> user = userRepository.findById(userID);
+        return user.get().getFollowing();
+    }
+
+    /**
+     * A mapping to only get the followers of a certain user.
+     *
+     * @param userID the user id of the user
+     * @return the followers if any and if the user exists
+     */
+    @RequestMapping(value = "/users/{userID}/followers", method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public Set<User> getUserFollowers(@PathVariable("userID") long userID) {
+        Optional<User> user = userRepository.findById(userID);
+        return user.get().getFollowers();
     }
 }

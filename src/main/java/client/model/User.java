@@ -16,8 +16,9 @@ public class User {
 
     /**
      * Constructor for the User class.
-     * @param id The numeric id of the user
-     * @param name The name of the user
+     *
+     * @param id     The numeric id of the user
+     * @param name   The name of the user
      * @param points The points of the user
      */
     public User(long id, String name, int points) {
@@ -78,8 +79,9 @@ public class User {
     public Set<Achievement> getAchievements() {
         return this.achievement;
     }
+
     public void setAchievements(Set<Achievement> achievement) {
-        this.achievement=achievement;
+        this.achievement = achievement;
     }
 }
 

@@ -13,21 +13,21 @@ import java.net.URL;
 public class ClientGui extends Application {
 
 
+    public static void main(String[] args) {
+
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
 
         URL url = new File("src/main/resources/loginScreen.fxml").toURL();
         Parent root = FXMLLoader.load(url);
 
-        Scene scene = new Scene(root, 600,400);
+        Scene scene = new Scene(root, 600, 400);
 
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-
-        launch(args);
     }
 }

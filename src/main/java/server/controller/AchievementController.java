@@ -1,24 +1,17 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.bind.annotation.*;
 import server.model.Achievement;
+import server.model.Feat;
 import server.model.User;
 import server.repository.AchievementRepository;
 import server.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class AchievementController {
@@ -27,21 +20,15 @@ public class AchievementController {
     @Autowired
     private UserRepository userRepository;
 
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
-    public ResponseEntity<?> handleMethodArgumentTypeMismatch(
-            MethodArgumentTypeMismatchException ex) {
-        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
-
     /**
      * Gets all of the achievements that can currently be unlocked by users.
      *
      * @return the list of achievements
      */
     @RequestMapping(value = "/achievements",
-            method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public List<Achievement> getAchievements() {
         return achievementRepository.findAllByOrderByIdAsc();
@@ -53,14 +40,13 @@ public class AchievementController {
      * @param achID The achID to look for
      * @return The achievement if it exists
      */
-    @RequestMapping(value = "/achievements/{achID}",
-            method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_XML_VALUE,
-                        MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/achievements/{achID}", method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<Achievement> getAchievement(@PathVariable("achID") long achID) {
+    public Achievement getAchievement(@PathVariable("achID") long achID) {
         Optional<Achievement> ach = achievementRepository.findById(achID);
-        return ach.map(achievement -> new ResponseEntity<>(achievement, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return ach.get();
     }
 
     /**
@@ -69,15 +55,28 @@ public class AchievementController {
      * @param userID the user id of the user
      * @return the unlocked achievements if any and if the user exists
      */
-    @RequestMapping(value = "/users/{userID}/achievements",
-            method = {RequestMethod.POST, RequestMethod.GET},
-            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public List<Achievement> getUserAchievements(@PathVariable("userID") long userID) {
+    @RequestMapping(value = "/users/{userID}/achievements", method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public Set<Achievement> getUserAchievements(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
-        if (user.isPresent()) {
-            return user.get().getAchievements();
-        } else {
-            return null;
-        }
+        return user.get().getAchievements();
+    }
+
+    /**
+     * A mapping for unlocking an achievement
+     *
+     * @param userID the user id of the user
+     * @return the unlocked achievements if any and if the user exists
+     */
+    @RequestMapping(value = "/users/{userId}/achievements/unlock/{achId}", method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public void unlockAchievement(@PathVariable("userId") long userID, @PathVariable("achId") long achId) {
+        User user= userRepository.findById(userID).get();
+        Achievement achievement = achievementRepository.findById(achId).get();
+        achievement.addUser(user);
+        achievement=achievementRepository.save(achievement);
+        user.addAchievement(achievement);
+        userRepository.save(user);
+        System.out.println("Tried to add an achievement");
     }
 }

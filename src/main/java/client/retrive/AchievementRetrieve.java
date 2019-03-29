@@ -86,7 +86,7 @@ public class AchievementRetrieve {
             Achievement[] ach = new Achievement[1];
             ach[0] = response.getBody();
 
-            if(response.getBody() != null) {
+            if (response.getBody() != null) {
 
                 return ach[0];
             }
@@ -135,7 +135,6 @@ public class AchievementRetrieve {
     }
 
     public static void addUserAch(long usrID, long achID) {
-        //ADD USER ACHIEVEMENT
 
     }
 }

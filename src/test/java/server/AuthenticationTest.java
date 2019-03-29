@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.ResourceAccessException;
 import server.model.User;
@@ -20,18 +22,18 @@ import java.util.Arrays;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AuthenticationTest {
+    HttpHeaders headers;
+    HttpEntity<User> entity;
+    String domain;
     @LocalServerPort
     private int port;
     @Autowired
     private TestRestTemplate restTemplate;
-    HttpHeaders headers;
-    HttpEntity<User> entity;
-    String domain;
 
     @Before
     public void setup() {
         headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
         headers.setContentType(MediaType.APPLICATION_JSON);
         byte[] encAuth = Base64.encodeBase64("tom:123".getBytes(Charset.forName("US-ASCII")));
         headers.set("Authorization", "Basic " + new String(encAuth));
@@ -52,7 +54,7 @@ public class AuthenticationTest {
     @Test
     public void connectNoAuthHeaders() {
         HttpHeaders noPwdHeaders = new HttpHeaders();
-        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        noPwdHeaders.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
         noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
         Assertions.assertFalse(tryToConnect(noPwdHeaders));
     }
@@ -60,7 +62,7 @@ public class AuthenticationTest {
     @Test
     public void connectAllWrong() {
         HttpHeaders noPwdHeaders = new HttpHeaders();
-        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        noPwdHeaders.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
         noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
         byte[] encAuth = Base64.encodeBase64("gandalf:mellon".getBytes(Charset.forName("US-ASCII")));
         noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
@@ -70,7 +72,7 @@ public class AuthenticationTest {
     @Test
     public void connectWrongUser() {
         HttpHeaders noPwdHeaders = new HttpHeaders();
-        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        noPwdHeaders.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
         noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
         byte[] encAuth = Base64.encodeBase64("gandalf:123".getBytes(Charset.forName("US-ASCII")));
         noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));
@@ -80,7 +82,7 @@ public class AuthenticationTest {
     @Test
     public void connectWrongPassword() {
         HttpHeaders noPwdHeaders = new HttpHeaders();
-        noPwdHeaders.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
+        noPwdHeaders.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
         noPwdHeaders.setContentType(MediaType.APPLICATION_JSON);
         byte[] encAuth = Base64.encodeBase64("tom:mellon".getBytes(Charset.forName("US-ASCII")));
         noPwdHeaders.set("Authorization", "Basic " + new String(encAuth));

@@ -20,7 +20,7 @@ public class FoodRetrieve {
      * @param mealName the meal name
      * @return the meal [ ]
      */
-    private static final String URL_BASE = "http://localhost:8090";
+    private static final String URL_BASE = "http://localhost:8080";
     private static final String URL_MEAL = URL_BASE + "/meal/{mealName}";
     private static final String URL_MEALCATEGORY = URL_BASE + "/meals/{categoryName}";
     private static final String URL_RANDOMMEAL = URL_BASE + "/randomMeal";

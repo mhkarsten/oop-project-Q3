@@ -5,13 +5,12 @@ import org.json.simple.JSONObject;
 import java.util.LinkedHashMap;
 
 /**
- * The type Vehicle emission.
+ * The type train emission
  */
-public class VehicleEmission {
-//    INPUT VALUES
-//    int distance; in kilometers
-//    int duration; in seconds
-//    String sizeClass; a description (i.e. midsized)
+public class TrainEmission {
+//  INPUT VALUES
+//  int distance; in kilometers
+//  int duration; in seconds
 
     //RETURN VALUES
     private String carbon;
@@ -19,18 +18,12 @@ public class VehicleEmission {
     private String fuelUse;
     private String distance;
 
-    /**
-     * Json to vehicle vehicle emission.
-     *
-     * @param JSONVehicleEmission the json vehicle emission
-     * @return the vehicle emission
-     */
     @SuppressWarnings("Duplicates")
-    public static VehicleEmission JSONtoVehicle(JSONObject JSONVehicleEmission) {
+    public static TrainEmission JSONtoTrain(JSONObject JSONTrainEmission) {
 
-        VehicleEmission newEmission = new VehicleEmission();
+        TrainEmission newEmission = new TrainEmission();
 
-        LinkedHashMap mainBody = (LinkedHashMap) JSONVehicleEmission.get("decisions");
+        LinkedHashMap mainBody = (LinkedHashMap) JSONTrainEmission.get("decisions");
 
         LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
         newEmission.setCarbon((String) carbon.get("description"));
@@ -48,10 +41,10 @@ public class VehicleEmission {
     }
 
     /**
-     * Instantiates a new Vehicle emission.
+     * Instantiates a new Train emission.
      */
     //Basic Constructor
-    public VehicleEmission() {
+    public TrainEmission() {
 
     }
 
@@ -63,7 +56,7 @@ public class VehicleEmission {
      * @param fuelUse  the fuel use
      * @param distance the distance
      */
-    public VehicleEmission(String carbon, String energy, String fuelUse, String distance) {
+    public TrainEmission(String carbon, String energy, String fuelUse, String distance) {
         this.carbon = carbon;
         this.energy = energy;
         this.fuelUse = fuelUse;

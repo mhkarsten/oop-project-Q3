@@ -16,7 +16,7 @@ import static client.retrive.UserRetrieve.setAuthHeaders;
  * The type Emissions retrieve.
  */
 public class EmissionsRetrieve {
-    private static final String URL_BASE = "http://localhost:8090";
+    private static final String URL_BASE = "http://localhost:8080";
     private static final String URL_VEHICLE = URL_BASE + "/vehicleEmission";
     private static final String URL_DIET =  URL_BASE + "/dietEmission";
     private static final String URL_FLIGHT = URL_BASE + "/flightEmission";

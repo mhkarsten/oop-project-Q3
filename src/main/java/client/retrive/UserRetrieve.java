@@ -27,10 +27,10 @@ public class UserRetrieve {
      *
      * @return Return all users from the server
      */
-    private static final String URL_USERS = "http://localhost:8090/users";
-    private static final String URL_NEWUSER = "http://localhost:8090/users/new";
-    private static final String URL_CHOOSEUSER = "http://localhost:8090/users/{userID}";
-    private static final String URL_ARBUSER = "http://localhost:8090/users";
+    private static final String URL_USERS = "http://localhost:8080/users";
+    private static final String URL_NEWUSER = "http://localhost:8080/users/new";
+    private static final String URL_CHOOSEUSER = "http://localhost:8080/users/{userID}";
+    private static final String URL_ARBUSER = "http://localhost:8080/users";
     private static final String USER_NAME = "tom";
     private static final String PASSWORD = "123";
 

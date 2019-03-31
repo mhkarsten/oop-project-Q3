@@ -132,7 +132,19 @@ public class UserControllerTest {
         updatedUser = restTemplate.postForObject(domain + "/users/" + userOne.getID(), new HttpEntity<>(headers), User.class);
         Assertions.assertEquals(updatedUser, userOne);
     }
+    @Test
+    public void addFollowerDB() {
+        User user = new User(22828, "Kamasi");
+        entity = new HttpEntity<>(user, headers);
+        URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity);
+        user = restTemplate.postForObject(usnaviLocation, new HttpEntity<>(headers), User.class);
 
+        restTemplate.postForObject(domain + "/users/"+user.getID()+"/follow/1", new HttpEntity<>(headers), User.class);
+        restTemplate.postForObject(domain + "/users/"+user.getID()+"/follow/2", new HttpEntity<>(headers), User.class);
+        User[] kamasiFollowsWho=restTemplate.postForObject(domain + "/users/"+user.getID()+"/following", entity, User[].class);
+        System.out.println("Number of followers: "+kamasiFollowsWho.length);
+        assertThat(kamasiFollowsWho, IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(us1,us2));
+    }
     @Test
     public void setFollowingFollowersTest() {
         User user = new User(24601, "Jean Valjean");

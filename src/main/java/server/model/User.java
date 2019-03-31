@@ -129,6 +129,14 @@ public class User {
     {
         unlockedAchievements.add(achievement);
     }
+    public void followUser(User user)
+    {
+        following.add(user);
+    }
+    public void addFollower(User user)
+    {
+        follower.add(user);
+    }
     public void setAchievements(Set<Achievement> achievement) {
         this.unlockedAchievements = achievement;
     }

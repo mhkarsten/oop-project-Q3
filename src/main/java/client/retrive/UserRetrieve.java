@@ -13,11 +13,13 @@ import org.springframework.web.client.RestTemplate;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
-/**Method to return an ArrayList of all users.
- *Currently this client side code is build to work with XML code whereas the server
- *side code can use both XML and JSON. Later this might be changed so everything uses
- *JSON for the sake of simplicity;
+/**
+ * Method to return an ArrayList of all users.
+ * Currently this client side code is build to work with XML code whereas the server
+ * side code can use both XML and JSON. Later this might be changed so everything uses
+ * JSON for the sake of simplicity;
  *
  * @return Return all users from the server
  */
@@ -27,6 +29,8 @@ public class UserRetrieve {
      *
      * @return Return all users from the server
      */
+    private static final String URL_FOLLOWERS = "http://localhost:8090/users/{userID}/followers";
+    private static final String URL_FOLLOWING = "http://localhost:8090/users/{userID}/following";
     private static final String URL_USERS = "http://localhost:8090/users";
     private static final String URL_NEWUSER = "http://localhost:8090/users/new";
     private static final String URL_CHOOSEUSER = "http://localhost:8090/users/{userID}";
@@ -171,7 +175,7 @@ public class UserRetrieve {
         HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
 
         String updatedUserUrl = URL_ARBUSER + "/update";
-        System.out.println("This is the url; "+updatedUserUrl);
+        System.out.println("This is the url; "+ updatedUserUrl);
         restTemplate.put(updatedUserUrl, requestBody);
     }
 
@@ -197,5 +201,52 @@ public class UserRetrieve {
             System.out.println("(Client Side) The selected client cannot be found"
                     + " or does not exist.");
         }
+    }
+
+    /**
+     * Gets a users followers, or the users a given user is following
+     *
+     * @param selectFollow true for followers, false for following
+     * @param userID       the user id
+     * @return the user follow
+     */
+    public Set<User> getUserFollow(boolean selectFollow, String userID) {
+
+        HttpHeaders headers = new HttpHeaders();
+        setAuthHeaders(headers, false);
+
+        String URL;
+
+        if (selectFollow) {
+
+            URL = URL_FOLLOWERS;
+        } else {
+
+            URL = URL_FOLLOWING;
+        }
+
+        HttpEntity<Set<User>> entity = new HttpEntity<Set<User>>(headers);
+        RestTemplate restTemplate = new RestTemplate();
+
+        Object[] uriValues = new Object[] {userID};
+
+        ResponseEntity<Set> response = restTemplate.exchange(URL,
+            HttpMethod.POST, entity, Set.class, uriValues);
+
+        HttpStatus statusCode = response.getStatusCode();
+        System.out.println("(Client Side) The http status code is: " + statusCode);
+
+        //If status == 200
+        if (statusCode == HttpStatus.OK) {
+
+            Set<User> followers = response.getBody();
+
+            if (followers != null) {
+
+                return followers;
+            }
+        }
+
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package client.UI;
 
 import client.model.User;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -14,12 +15,19 @@ import java.util.Set;
 
 import static client.retrive.UserRetrieve.getUserFollow;
 import static client.retrive.UserRetrieve.getUsers;
+import static client.retrive.UserRetrieve.updateUserFollowing;
 
+/**
+ * The type Compare controller.
+ */
 public class CompareController implements Initializable {
 
+    /**
+     * The Follow btn.
+     */
     @FXML
     Button followBtn;
-
+    
     @FXML
     Label userName;
     @FXML
@@ -30,18 +38,15 @@ public class CompareController implements Initializable {
     Label comparePoints;
     @FXML
     Label findStatus;
-
     @FXML
     TextField userInput;
-
     @FXML
     ListView userFollowing;
 
-    //UserSession.getInstace().getUser();
+//UserSession.getInstace().getUser();
     User activeUser = new User();
-    Set<User> userFollows = getUserFollow(false, activeUser.getID());
-
-    ArrayList<User> allUsers = getUsers();
+    Set<User> userFollows;
+    ArrayList<User> allUsers;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,12 +55,58 @@ public class CompareController implements Initializable {
 
         userName.setText(activeUser.getName());
         userPoints.setText(Integer.toString(activeUser.getPoints()));
-        userFollowing.getItems().addAll(userFollows);
+
+        User[] followingList = userFollows.toArray(new User[0]);
+
+        for (int i = 0; i < userFollows.size(); i++) {
+
+            userFollowing.getItems().add(followingList[i].getName());
+        }
+
+        allUsers = getUsers();
+        userFollows = getUserFollow(false, activeUser.getID());
     }
 
+    /**
+     * Find user follow.
+     */
     public void findUserFollow() {
-        String nameToFind = userInput.getText();
 
+        String nameToFind = userInput.getText();
+        User foundUser = findUserByName(nameToFind);
+        if ( foundUser != null) {
+
+            userFollows.add(foundUser);
+            updateUserFollowing(userFollows, activeUser.getID());
+
+            findStatus.setText("You are now following" + foundUser.getName());
+        } else {
+
+            findStatus.setText("This user does not exist");
+        }
+    }
+
+    /**
+     * Sets compare.
+     */
+    public void setCompare() {
+
+        ObservableList<String> usersFollowing;
+        usersFollowing = userFollowing.getSelectionModel().getSelectedItems();
+
+        User selectedUser = findUserByName(usersFollowing.get(0));
+
+        compareName.setText(selectedUser.getName());
+        comparePoints.setText(Integer.toString(selectedUser.getPoints()));
+    }
+
+    /**
+     * Find user by name user.
+     *
+     * @param nameToFind the name to find
+     * @return the user
+     */
+    public User findUserByName(String nameToFind) {
         Iterator findUser = allUsers.iterator();
 
         while(findUser.hasNext()) {
@@ -64,8 +115,11 @@ public class CompareController implements Initializable {
 
             if (cUser.getName().equals(nameToFind)) {
 
-
+                return cUser;
             }
         }
+
+        System.out.println("(Client Side) The user was not found.");
+        return null;
     }
 }

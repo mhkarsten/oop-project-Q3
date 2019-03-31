@@ -146,6 +146,8 @@ public class UserController {
         return user.get().getFollowers();
     }
 
+    //This is a temporary method for updating a users followers.
+    //Feel free to delete this Thom when you've made the new one
     @PutMapping(value = "/users/update/followers",
         produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})

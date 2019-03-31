@@ -22,5 +22,6 @@
       <Label fx:id="compareName" layoutX="218.0" layoutY="200.0" text="Label" />
       <Label fx:id="userPoints" layoutX="55.0" layoutY="240.0" text="Label" />
       <Label fx:id="comparePoints" layoutX="218.0" layoutY="240.0" text="Label" />
+      <Button fx:id="compareBtn" layoutX="418.0" layoutY="291.0" mnemonicParsing="false" onAction="#setCompare" text="Compare" />
    </children>
 </AnchorPane>

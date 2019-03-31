@@ -250,8 +250,10 @@ public class UserRetrieve {
         return null;
     }
 
-    public void updateUserFollowing(Set<User> newFollowing) {
+    public static void updateUserFollowing(Set<User> newFollowing ,long userID) {
+        if (true) {
 
 
+        }
     }
 }

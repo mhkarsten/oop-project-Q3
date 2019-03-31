@@ -64,7 +64,7 @@ public class UserRetrieve {
      * @return Return all users from the server
      */
     @SuppressWarnings("Duplicates")
-    public ArrayList<User> getUsers() {
+    public static ArrayList<User> getUsers() {
 
         HttpHeaders headers = new HttpHeaders();
         setAuthHeaders(headers, true);
@@ -210,7 +210,7 @@ public class UserRetrieve {
      * @param userID       the user id
      * @return the user follow
      */
-    public Set<User> getUserFollow(boolean selectFollow, String userID) {
+    public static Set<User> getUserFollow(boolean selectFollow, long userID) {
 
         HttpHeaders headers = new HttpHeaders();
         setAuthHeaders(headers, false);
@@ -248,5 +248,10 @@ public class UserRetrieve {
         }
 
         return null;
+    }
+
+    public void updateUserFollowing(Set<User> newFollowing) {
+
+
     }
 }

@@ -11,6 +11,7 @@ import server.repository.UserRepository;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class UserController {
     @RequestMapping(value = "/users",
         method = {RequestMethod.POST, RequestMethod.GET},
         produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE})
+                    MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
 
     public List<User> getUsers() {
@@ -54,13 +55,12 @@ public class UserController {
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/users/{userID}",
         produces = {MediaType.APPLICATION_XML_VALUE,
-            MediaType.APPLICATION_JSON_VALUE})
+                    MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public User getUser(@PathVariable("userID") long userID) {
         Optional<User> optionalUser = userRepository.findById(userID);
         return optionalUser.get();
     }
-
 
     /**
      * Updates user information (POST).
@@ -70,7 +70,7 @@ public class UserController {
      */
     @PutMapping(value = "/users/update",
         produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE})
+                    MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> updateUser(@RequestBody User usr) {
         if (userRepository.findById(usr.getID()).isPresent()) {
@@ -90,7 +90,7 @@ public class UserController {
      */
     @PostMapping(value = "/users/new",
         produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE})
+                    MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> addUser(@RequestBody User usr) {
         User savedUser = userRepository.save(usr);
@@ -125,7 +125,8 @@ public class UserController {
      * @return the followers if any and if the user exists
      */
     @RequestMapping(value = "/users/{userID}/following", method = {RequestMethod.POST, RequestMethod.GET},
-        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
     public Set<User> getUserFollowing(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
         return user.get().getFollowing();
@@ -138,9 +139,29 @@ public class UserController {
      * @return the followers if any and if the user exists
      */
     @RequestMapping(value = "/users/{userID}/followers", method = {RequestMethod.POST, RequestMethod.GET},
-        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
     public Set<User> getUserFollowers(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
         return user.get().getFollowers();
+    }
+
+    @PutMapping(value = "/users/update/followers",
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<?> updateUser(@RequestBody HashMap newFollowers) {
+        if (userRepository.findById((long) newFollowers.get("userID")).isPresent()) {
+            System.out.println("Updating user " + newFollowers.get("userID"));
+
+            User usr = userRepository.getOne((long) newFollowers.get("userID"));
+            usr.setFollowing((Set<User>) newFollowers.get("Following"));
+
+            userRepository.save(usr);
+            return ResponseEntity.ok().build();
+        } else {
+
+            return ResponseEntity.notFound().build();
+        }
     }
 }

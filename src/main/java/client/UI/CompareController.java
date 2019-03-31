@@ -1,15 +1,19 @@
 package client.UI;
 
+import client.model.User;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
+
+import static client.retrive.UserRetrieve.getUserFollow;
+import static client.retrive.UserRetrieve.getUsers;
 
 public class CompareController implements Initializable {
 
@@ -33,21 +37,35 @@ public class CompareController implements Initializable {
     @FXML
     ListView userFollowing;
 
+    //UserSession.getInstace().getUser();
+    User activeUser = new User();
+    Set<User> userFollows = getUserFollow(false, activeUser.getID());
+
+    ArrayList<User> allUsers = getUsers();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        UserSession.getInstace().getUser.getId();
+        userFollowing.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+        userName.setText(activeUser.getName());
+        userPoints.setText(Integer.toString(activeUser.getPoints()));
+        userFollowing.getItems().addAll(userFollows);
     }
 
     public void findUserFollow() {
+        String nameToFind = userInput.getText();
+
+        Iterator findUser = allUsers.iterator();
+
+        while(findUser.hasNext()) {
+
+            User cUser = (User) findUser.next();
+
+            if (cUser.getName().equals(nameToFind)) {
 
 
+            }
+        }
     }
-
-
-
-
-
-
 }

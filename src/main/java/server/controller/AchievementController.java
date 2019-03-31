@@ -45,8 +45,7 @@ public class AchievementController {
             MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Achievement getAchievement(@PathVariable("achID") long achID) {
-        Optional<Achievement> ach = achievementRepository.findById(achID);
-        return ach.get();
+        return achievementRepository.findById(achID).get();
     }
 
     /**
@@ -58,8 +57,7 @@ public class AchievementController {
     @RequestMapping(value = "/users/{userID}/achievements", method = {RequestMethod.POST, RequestMethod.GET},
         produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public Set<Achievement> getUserAchievements(@PathVariable("userID") long userID) {
-        Optional<User> user = userRepository.findById(userID);
-        return user.get().getAchievements();
+        return userRepository.findById(userID).get().getAchievements();
     }
 
     /**

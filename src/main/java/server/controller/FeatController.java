@@ -33,8 +33,7 @@ public class FeatController {
     @RequestMapping(value = "/users/{userID}/feats", method = {RequestMethod.POST, RequestMethod.GET},
         produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public Set<Feat> getUserFeats(@PathVariable("userID") long userID) {
-        Optional<User> user = userRepository.findById(userID);
-        return user.get().getFeats();
+        return userRepository.findById(userID).get().getFeats();
     }
 
     /**
@@ -48,8 +47,7 @@ public class FeatController {
             MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Feat getAchievement(@PathVariable("featId") long featId) {
-        Optional<Feat> feat = featRepository.findById(featId);
-        return feat.get();
+        return featRepository.findById(featId).get();
     }
 
     /**

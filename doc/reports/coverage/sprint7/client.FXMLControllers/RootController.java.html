@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RootController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.FXMLControllers</a> &gt; <span class="el_source">RootController.java</span></div><h1>RootController.java</h1><pre class="source lang-java linenums">package client.FXMLControllers;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+<span class="nc" id="L21">public class RootController implements Initializable {</span>
+
+    @FXML
+    public Button profile;
+    public Button action;
+    public Button stretchbutton;
+    public Button score;
+    public Button compare;
+    public Button food;
+    public Button transport;
+    public Button energy;
+    public SplitPane mainPane;
+    public AnchorPane sidebarPane;
+    public AnchorPane changePane;
+    public LineChart&lt;String, Number&gt; lineChart;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+<span class="nc" id="L40">        action.setOnAction((ActionEvent evt) -&gt; {</span>
+            try {
+<span class="nc" id="L42">                openFoodScreen();</span>
+<span class="nc" id="L43">            } catch (IOException e) {</span>
+<span class="nc" id="L44">                e.printStackTrace();</span>
+<span class="nc" id="L45">            }</span>
+<span class="nc" id="L46">        });</span>
+
+<span class="nc" id="L48">        score.setOnAction((ActionEvent evt) -&gt; {</span>
+            try {
+
+<span class="nc" id="L51">                openScoreScreen();</span>
+<span class="nc" id="L52">            } catch (IOException e) {</span>
+<span class="nc" id="L53">                e.printStackTrace();</span>
+                ;
+<span class="nc" id="L55">            }</span>
+<span class="nc" id="L56">        });</span>
+<span class="nc" id="L57">    }</span>
+
+    public void openFoodScreen() throws IOException {
+
+<span class="nc" id="L61">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/foodScreen.fxml&quot;));</span>
+<span class="nc" id="L62">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L64">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L65">    }</span>
+
+    public void openScoreScreen() throws IOException {
+
+<span class="nc" id="L69">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/scoreScreen.fxml&quot;));</span>
+
+<span class="nc" id="L71">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L73">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L74">    }</span>
+
+    public void openProfileScreen() throws IOException {
+
+<span class="nc" id="L78">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/profileScreen.fxml&quot;));</span>
+
+<span class="nc" id="L80">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L82">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L83">    }</span>
+
+    public void openCompareScreen() throws IOException {
+<span class="nc" id="L86">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/compareScreen.fxml&quot;));</span>
+
+<span class="nc" id="L88">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L90">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L91">    }</span>
+
+    public void openMyScore() throws IOException {
+<span class="nc" id="L94">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/scoreScreen.fxml&quot;));</span>
+
+<span class="nc" id="L96">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L98">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L99">    }</span>
+
+    public void openTransportScreen() throws IOException {
+<span class="nc" id="L102">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/transportScreen.fxml&quot;));</span>
+
+<span class="nc" id="L104">        changePane = newScreen.load();</span>
+<span class="nc" id="L105">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L106">    }</span>
+
+    public void openEnergyScreen() throws IOException {
+<span class="nc" id="L109">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/energyScreen.fxml&quot;));</span>
+
+<span class="nc" id="L111">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L113">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L114">    }</span>
+
+    public void moveButtons() {
+<span class="nc" id="L117">        Timeline rowMove = new Timeline();</span>
+
+<span class="nc" id="L119">        Timeline fade = new Timeline();</span>
+<span class="nc" id="L120">        fade.getKeyFrames().addAll(</span>
+<span class="nc" id="L121">            new KeyFrame(Duration.seconds(1),</span>
+<span class="nc" id="L122">                new KeyValue(action.opacityProperty(), 0),</span>
+<span class="nc" id="L123">                new KeyValue(profile.opacityProperty(), 0),</span>
+<span class="nc" id="L124">                new KeyValue(score.opacityProperty(), 0),</span>
+<span class="nc" id="L125">                new KeyValue(compare.opacityProperty(), 0),</span>
+<span class="nc" id="L126">                new KeyValue(food.opacityProperty(), 0),</span>
+<span class="nc" id="L127">                new KeyValue(transport.opacityProperty(), 0),</span>
+<span class="nc" id="L128">                new KeyValue(energy.opacityProperty(), 0)</span>
+            )
+        );
+<span class="nc" id="L131">        rowMove.getKeyFrames().addAll(</span>
+<span class="nc" id="L132">            new KeyFrame(Duration.seconds(2),</span>
+<span class="nc" id="L133">                new KeyValue(stretchbutton.scaleXProperty(), 200)</span>
+            )
+        );
+
+<span class="nc" id="L137">        fade.play();</span>
+<span class="nc" id="L138">        fade.setOnFinished(e -&gt; rowMove.play());</span>
+<span class="nc" id="L139">        rowMove.setOnFinished(e -&gt; fade.stop());</span>
+<span class="nc" id="L140">        rowMove.setOnFinished(e -&gt; rowMove.stop());</span>
+<span class="nc" id="L141">    }</span>
+
+    public void moveBackButton() {
+<span class="nc" id="L144">        Timeline rowMove = new Timeline();</span>
+
+<span class="nc" id="L146">        Timeline fade = new Timeline();</span>
+<span class="nc" id="L147">        fade.getKeyFrames().addAll(</span>
+<span class="nc" id="L148">            new KeyFrame(Duration.seconds(1),</span>
+<span class="nc" id="L149">                new KeyValue(action.opacityProperty(), 1),</span>
+<span class="nc" id="L150">                new KeyValue(profile.opacityProperty(), 1),</span>
+<span class="nc" id="L151">                new KeyValue(score.opacityProperty(), 1),</span>
+<span class="nc" id="L152">                new KeyValue(compare.opacityProperty(), 1),</span>
+<span class="nc" id="L153">                new KeyValue(food.opacityProperty(), 1),</span>
+<span class="nc" id="L154">                new KeyValue(transport.opacityProperty(), 1),</span>
+<span class="nc" id="L155">                new KeyValue(energy.opacityProperty(), 1)</span>
+            )
+        );
+<span class="nc" id="L158">        rowMove.getKeyFrames().addAll(</span>
+<span class="nc" id="L159">            new KeyFrame(Duration.seconds(2),</span>
+<span class="nc" id="L160">                new KeyValue(stretchbutton.scaleXProperty(), 1)</span>
+            )
+        );
+
+<span class="nc" id="L164">        fade.play();</span>
+<span class="nc" id="L165">        fade.setOnFinished(e -&gt; rowMove.play());</span>
+<span class="nc" id="L166">        rowMove.setOnFinished(e -&gt; fade.stop());</span>
+<span class="nc" id="L167">        rowMove.setOnFinished(e -&gt; rowMove.stop());</span>
+<span class="nc" id="L168">    }</span>
+
+    public void btn(ActionEvent event) {
+<span class="nc" id="L171">        XYChart.Series&lt;String, Number&gt; series = new XYChart.Series&lt;String, Number&gt;();</span>
+<span class="nc" id="L172">        series.getData().add(new XYChart.Data&lt;String, Number&gt;(&quot;Jan&quot;, 200));</span>
+<span class="nc" id="L173">        lineChart.getData().add(series);</span>
+<span class="nc" id="L174">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

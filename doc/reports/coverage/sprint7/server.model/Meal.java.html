@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Meal.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.model</a> &gt; <span class="el_source">Meal.java</span></div><h1>Meal.java</h1><pre class="source lang-java linenums">package server.model;
+
+import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+
+public class Meal {
+
+    private String strMeal;
+    private String idMeal;
+    private String strCategory;
+    private String strArea;
+    private String strInstructions;
+
+    private ArrayList&lt;String&gt; strTags;
+    private ArrayList&lt;String&gt; strIngredients;
+    private ArrayList&lt;String&gt; strMeasures;
+
+    private String strSource;
+    private String strMealThumb;
+    private String strYoutube;
+
+<span class="nc" id="L25">    public Meal() {</span>
+<span class="nc" id="L26">    }</span>
+
+    public Meal(String strMeal, String idMeal, String strCategory, String strArea, ArrayList&lt;String&gt;
+        strTags, ArrayList&lt;String&gt; strIngredients, ArrayList&lt;String&gt; strMeasures, String strSource,
+<span class="nc" id="L30">                String strMealThumb, String strYoutube, String strInstructions) {</span>
+<span class="nc" id="L31">        this.strMeal = strMeal;</span>
+<span class="nc" id="L32">        this.idMeal = idMeal;</span>
+<span class="nc" id="L33">        this.strCategory = strCategory;</span>
+<span class="nc" id="L34">        this.strArea = strArea;</span>
+<span class="nc" id="L35">        this.strTags = strTags;</span>
+<span class="nc" id="L36">        this.strIngredients = strIngredients;</span>
+<span class="nc" id="L37">        this.strMeasures = strMeasures;</span>
+<span class="nc" id="L38">        this.strSource = strSource;</span>
+<span class="nc" id="L39">        this.strMealThumb = strMealThumb;</span>
+<span class="nc" id="L40">        this.strYoutube = strYoutube;</span>
+<span class="nc" id="L41">        this.strInstructions = strInstructions;</span>
+<span class="nc" id="L42">    }</span>
+
+    public static Meal[] JSONToMeal(JSONObject JSONMeal) {
+
+<span class="nc" id="L46">        Object mealList = JSONMeal.get(&quot;meals&quot;);</span>
+<span class="nc" id="L47">        ArrayList&lt;LinkedHashMap&gt; meal = (ArrayList&lt;LinkedHashMap&gt;) mealList;</span>
+<span class="nc" id="L48">        LinkedHashMap LinkedMeal = meal.get(0);</span>
+
+<span class="nc" id="L50">        Meal newMeal = new Meal();</span>
+
+<span class="nc" id="L52">        newMeal.setStrMeal((String) LinkedMeal.get(&quot;strMeal&quot;));</span>
+<span class="nc" id="L53">        newMeal.setIdMeal((String) LinkedMeal.get(&quot;idMeal&quot;));</span>
+<span class="nc" id="L54">        newMeal.setStrArea((String) LinkedMeal.get(&quot;strArea&quot;));</span>
+<span class="nc" id="L55">        newMeal.setStrCategory((String) LinkedMeal.get(&quot;strCategory&quot;));</span>
+<span class="nc" id="L56">        newMeal.setStrMealThumb((String) LinkedMeal.get(&quot;strMealThumb&quot;));</span>
+<span class="nc" id="L57">        newMeal.setStrSource((String) LinkedMeal.get(&quot;strSource&quot;));</span>
+<span class="nc" id="L58">        newMeal.setStrYoutube((String) LinkedMeal.get(&quot;strYoutube&quot;));</span>
+<span class="nc" id="L59">        newMeal.setStrInstructions((String) LinkedMeal.get(&quot;strInstructions&quot;));</span>
+
+<span class="nc" id="L61">        String tempTags = (String) LinkedMeal.get(&quot;strTags&quot;);</span>
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (tempTags != null) {</span>
+
+<span class="nc" id="L65">            String[] tempArray = tempTags.split(&quot;,&quot;);</span>
+
+<span class="nc" id="L67">            ArrayList&lt;String&gt; tempList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L68">            tempList.addAll(Arrays.asList(tempArray));</span>
+
+<span class="nc" id="L70">            newMeal.setStrTags(tempList);</span>
+        }
+
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        for (int i = 1; i &lt; 15; i++) {</span>
+
+<span class="nc" id="L75">            ArrayList&lt;String&gt; tempIngredients = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L77">            tempIngredients.add((String) LinkedMeal.get(&quot;strIngredient&quot; + i));</span>
+
+<span class="nc" id="L79">            newMeal.setStrIngredients(tempIngredients);</span>
+        }
+
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        for (int i = 1; i &lt; 15; i++) {</span>
+
+<span class="nc" id="L84">            ArrayList&lt;String&gt; tempMeasure = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L86">            tempMeasure.add((String) LinkedMeal.get(&quot;strMeasure&quot; + i));</span>
+
+<span class="nc" id="L88">            newMeal.setStrMeasures(tempMeasure);</span>
+        }
+
+<span class="nc" id="L91">        Meal[] encasedMeal = new Meal[1];</span>
+<span class="nc" id="L92">        encasedMeal[0] = newMeal;</span>
+
+<span class="nc" id="L94">        return encasedMeal;</span>
+    }
+
+    public String getStrMeal() {
+<span class="nc" id="L98">        return strMeal;</span>
+    }
+
+    public void setStrMeal(String strMeal) {
+<span class="nc" id="L102">        this.strMeal = strMeal;</span>
+<span class="nc" id="L103">    }</span>
+
+    public String getIdMeal() {
+<span class="nc" id="L106">        return idMeal;</span>
+    }
+
+    public void setIdMeal(String idMeal) {
+<span class="nc" id="L110">        this.idMeal = idMeal;</span>
+<span class="nc" id="L111">    }</span>
+
+    public String getStrCategory() {
+<span class="nc" id="L114">        return strCategory;</span>
+    }
+
+    public void setStrCategory(String strCategory) {
+<span class="nc" id="L118">        this.strCategory = strCategory;</span>
+<span class="nc" id="L119">    }</span>
+
+    public String getStrArea() {
+<span class="nc" id="L122">        return strArea;</span>
+    }
+
+    public void setStrArea(String strArea) {
+<span class="nc" id="L126">        this.strArea = strArea;</span>
+<span class="nc" id="L127">    }</span>
+
+    public ArrayList&lt;String&gt; getStrTags() {
+<span class="nc" id="L130">        return strTags;</span>
+    }
+
+    public void setStrTags(ArrayList&lt;String&gt; strTags) {
+<span class="nc" id="L134">        this.strTags = strTags;</span>
+<span class="nc" id="L135">    }</span>
+
+    public ArrayList&lt;String&gt; getStrIngredients() {
+<span class="nc" id="L138">        return strIngredients;</span>
+    }
+
+    public void setStrIngredients(ArrayList&lt;String&gt; strIngredients) {
+<span class="nc" id="L142">        this.strIngredients = strIngredients;</span>
+<span class="nc" id="L143">    }</span>
+
+    public ArrayList&lt;String&gt; getStrMeasures() {
+<span class="nc" id="L146">        return strMeasures;</span>
+    }
+
+    public void setStrMeasures(ArrayList&lt;String&gt; strMeasures) {
+<span class="nc" id="L150">        this.strMeasures = strMeasures;</span>
+<span class="nc" id="L151">    }</span>
+
+    public String getStrSource() {
+<span class="nc" id="L154">        return strSource;</span>
+    }
+
+    public void setStrSource(String strSource) {
+<span class="nc" id="L158">        this.strSource = strSource;</span>
+<span class="nc" id="L159">    }</span>
+
+    public String getStrMealThumb() {
+<span class="nc" id="L162">        return strMealThumb;</span>
+    }
+
+    public void setStrMealThumb(String strMealThumb) {
+<span class="nc" id="L166">        this.strMealThumb = strMealThumb;</span>
+<span class="nc" id="L167">    }</span>
+
+    public String getStrYoutube() {
+<span class="nc" id="L170">        return strYoutube;</span>
+    }
+
+    public void setStrYoutube(String strYoutube) {
+<span class="nc" id="L174">        this.strYoutube = strYoutube;</span>
+<span class="nc" id="L175">    }</span>
+
+    public String getStrInstructions() {
+<span class="nc" id="L178">        return strInstructions;</span>
+    }
+
+    public void setStrInstructions(String strInstructions) {
+<span class="nc" id="L182">        this.strInstructions = strInstructions;</span>
+<span class="nc" id="L183">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

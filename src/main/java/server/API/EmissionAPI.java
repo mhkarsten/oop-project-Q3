@@ -1,5 +1,6 @@
 package server.API;
 
+import client.Service.MyRestTemplate;
 import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -7,7 +8,7 @@ import server.model.*;
 
 import java.util.ArrayList;
 
-import static client.retrive.UserRetrieve.setAuthHeaders;
+
 import static server.model.DietEmission.JSONtoDiet;
 import static server.model.EnergyEmission.JSONtoEnergy;
 import static server.model.FlightEmission.JSONtoFlight;
@@ -60,8 +61,7 @@ public class EmissionAPI {
 
         System.out.println(keyString);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -122,8 +122,7 @@ public class EmissionAPI {
             }
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -189,8 +188,7 @@ public class EmissionAPI {
             }
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -249,8 +247,7 @@ public class EmissionAPI {
             }
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -306,11 +303,10 @@ public class EmissionAPI {
 
         System.out.println(keyString);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
-
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
-        RestTemplate restTemplate = new RestTemplate();
+        MyRestTemplate restTemplate = new MyRestTemplate();
+
 
         ResponseEntity<JSONObject> response = restTemplate.exchange(URL_TRAIN,
             HttpMethod.POST, entity, JSONObject.class);

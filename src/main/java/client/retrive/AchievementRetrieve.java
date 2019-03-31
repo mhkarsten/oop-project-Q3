@@ -1,5 +1,7 @@
 package client.retrive;
 
+import client.Service.MyRestTemplate;
+import client.Service.UrlEndPoints;
 import client.model.Achievement;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -7,20 +9,13 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static client.retrive.UserRetrieve.setAuthHeaders;
+
 
 /**
  * The type Achievement controller.
  */
 public class AchievementRetrieve {
 
-    /**
-     * The Url base.
-     */
-    private static final String URL_BASE = "http://localhost:8080";
-    private static final String URL_ACHGETALL = URL_BASE + "/achievements";
-    private static final String URL_ACHGET = URL_BASE + "/achievements/{achID}";
-    private static final String URL_ACHUNLOCKED = URL_BASE + "/users/{userID}/achievements";
 
     /**
      * Ach get all array list.
@@ -30,13 +25,11 @@ public class AchievementRetrieve {
     @SuppressWarnings("Duplicates")
     public static ArrayList<Achievement> achGetAll() {
         //GET ALL ACHIEVEMENTS
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
-
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<Achievement[]> response = restTemplate.exchange(URL_ACHGETALL,
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGETALL,
             HttpMethod.POST, entity, Achievement[].class);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -67,15 +60,13 @@ public class AchievementRetrieve {
     @SuppressWarnings("Duplicates")
     public static Achievement achGet(long achID) {
         //GET SPECIFIC ACHIEVEMENT
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
-
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement> entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
 
         Object[] uriValues = new Object[] {achID};
 
-        ResponseEntity<Achievement> response = restTemplate.exchange(URL_ACHGET,
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        ResponseEntity<Achievement> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGET,
             HttpMethod.POST, entity, Achievement.class, uriValues);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -103,15 +94,14 @@ public class AchievementRetrieve {
     @SuppressWarnings("Duplicates")
     public static ArrayList<Achievement> achGetUnlocked(long usrID) {
         //GET ALL UNLOCKED ACHIEVEMENTS BY A USER
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
+        MyRestTemplate restTemplate = new MyRestTemplate();
 
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
 
         Object[] uriValues = new Object[] {usrID};
 
-        ResponseEntity<Achievement[]> response = restTemplate.exchange(URL_ACHUNLOCKED,
+        ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHUNLOCKED,
             HttpMethod.POST, entity, Achievement[].class, uriValues);
 
         HttpStatus statusCode = response.getStatusCode();

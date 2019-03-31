@@ -4,20 +4,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Objects;
+import javax.persistence.*;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "users")
-@SequenceGenerator(name="user_seq", initialValue=1,allocationSize = 1)
+@SequenceGenerator(name="user_seq", initialValue=10,allocationSize = 1)
 public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")
     private long id;
+
     private String name;
+    private String password;
+
+//    @ManyToMany
     @Column(columnDefinition = "int default 0")
     private int points = 0;
+
     @ManyToMany(cascade = {
         CascadeType.PERSIST,
         CascadeType.MERGE
@@ -58,6 +64,15 @@ public class User {
 
         this.id = id;
         this.name = name;
+    }
+
+    /**
+     * Constructor for the User class.
+     * @param name The name of the user
+     */
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
     @Override
@@ -160,5 +175,13 @@ public class User {
 
     public void setFollowing(Set<User> following) {
         this.following = following;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

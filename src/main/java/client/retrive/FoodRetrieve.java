@@ -1,13 +1,12 @@
 package client.retrive;
 
+import client.Service.MyRestTemplate;
 import client.model.Meal;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static client.retrive.UserRetrieve.setAuthHeaders;
 
 /**
  * The type Food retrieve.
@@ -34,11 +33,11 @@ public class FoodRetrieve {
     @SuppressWarnings("Duplicates")
     public static Meal[] getRandomMeal() {
         //GETS A RANDOM MEAL OFF OF THE SERVER SIDE API
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<Meal> entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
+
 
         ResponseEntity<Meal> response = restTemplate.exchange(URL_RANDOMMEAL,
             HttpMethod.POST, entity, Meal.class);
@@ -72,11 +71,10 @@ public class FoodRetrieve {
     @SuppressWarnings("Duplicates")
     public static Meal[] getMeal(String mealName) {
         //GETS A SPECIFIC MEAL FROM THE API ON THE SERVER
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<Meal> entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
 
         Object[] uriValues = new Object[] {mealName};
 
@@ -112,11 +110,10 @@ public class FoodRetrieve {
     @SuppressWarnings("Duplicates")
     public static ArrayList<Meal> getMealCategory(String category ) {
         //GETS A SPECIFIC MEAL CATEGORY OFF OF THE SERVER SIDE API
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<Meal[]> entity = new HttpEntity<Meal[]>(headers);
-        RestTemplate restTemplate = new RestTemplate();
 
         Object[] uriValues = new Object[] {category};
 
@@ -155,11 +152,10 @@ public class FoodRetrieve {
     @SuppressWarnings("Duplicates")
     public static ArrayList<Meal> getAllMeatMeals() {
         //GETS ALL OF THE MEALS WITH MEAT OFF OF THE SERVER API
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<Meal[]> entity = new HttpEntity<Meal[]>(headers);
-        RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<Meal[]> response = restTemplate.exchange(URL_MEATMEALs,
             HttpMethod.POST, entity, Meal[].class);

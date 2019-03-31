@@ -1,10 +1,12 @@
 package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.User;
 import server.repository.UserRepository;
@@ -21,6 +23,15 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    public UserController() {
+    }
+
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
+    public ResponseEntity<?> handleMethodArgumentTypeMismatch(
+        MethodArgumentTypeMismatchException ex) {
+        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
 
     /**
      * Initial connect message.
@@ -93,6 +104,7 @@ public class UserController {
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> addUser(@RequestBody User usr) {
+        usr.setID(0);
         User savedUser = userRepository.save(usr);
         System.out.println("Creating new user with ID" + savedUser.getID());
 
@@ -146,24 +158,20 @@ public class UserController {
         return user.get().getFollowers();
     }
 
-    //This is a temporary method for updating a users followers.
-    //Feel free to delete this Thom when you've made the new one
-    @PutMapping(value = "/users/update/followers",
-        produces = {MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public ResponseEntity<?> updateUser(@RequestBody HashMap newFollowers) {
-        if (userRepository.findById((long) newFollowers.get("userID")).isPresent()) {
-            System.out.println("Updating user " + newFollowers.get("userID"));
-
-            User usr = userRepository.getOne((long) newFollowers.get("userID"));
-            usr.setFollowing((Set<User>) newFollowers.get("Following"));
-
-            userRepository.save(usr);
-            return ResponseEntity.ok().build();
-        } else {
-
-            return ResponseEntity.notFound().build();
-        }
+    /**
+     * A mapping for following a user
+     *
+     * @param followerId the one who is going to follow the followee
+     * @param followeeId the one which is going to be followed by the follower
+     */
+    @RequestMapping(value = "/users/{followerId}/follow/{followeeId}", method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public void followUser(@PathVariable("followerId") long followerId, @PathVariable("followeeId") long followeeId) {
+        User follower = userRepository.findById(followerId).get();
+        User followee = userRepository.findById(followeeId).get();
+        followee.addFollower(follower);
+        followee=userRepository.save(followee);
+        follower.followUser(followee);
+        userRepository.save(follower);
     }
 }

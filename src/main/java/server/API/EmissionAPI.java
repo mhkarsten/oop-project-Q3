@@ -4,10 +4,7 @@ import client.Service.MyRestTemplate;
 import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import server.model.DietEmission;
-import server.model.EnergyEmission;
-import server.model.FlightEmission;
-import server.model.VehicleEmission;
+import server.model.*;
 
 import java.util.ArrayList;
 
@@ -15,6 +12,7 @@ import java.util.ArrayList;
 import static server.model.DietEmission.JSONtoDiet;
 import static server.model.EnergyEmission.JSONtoEnergy;
 import static server.model.FlightEmission.JSONtoFlight;
+import static server.model.TrainEmission.JSONtoTrain;
 import static server.model.VehicleEmission.JSONtoVehicle;
 
 /**
@@ -27,6 +25,7 @@ public class EmissionAPI {
     private static final String URL_ENERGY = URL_BASE + "/residences.json?";
     private static final String URL_DIET = URL_BASE + "/diets.json?";
     private static final String URL_FLIGHT = URL_BASE + "/flights.json?";
+    private static final String URL_TRAIN = URL_BASE + "/rail_trips.json?";
 
     /**
      * Gets vehicle emission.
@@ -272,4 +271,62 @@ public class EmissionAPI {
         System.out.println("(Client Side) Getting the desired emission failed or the object was null.");
         return null;
     }
+
+    /**
+     * Gets train emission.
+     *
+     * @param distance  the distance
+     * @param duration  the duration
+     * @return the train emission
+     */
+    @SuppressWarnings("Duplicates")
+    public static TrainEmission getTrainEmission(int distance, int duration) {
+        String distanceString = "&distance=" + distance; //in kilometers
+        String durationString = "&duration=" + duration; //in seconds
+
+        ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
+            {
+                add(new ArrayList<Object>(){{add(distance); add(distanceString);}});
+                add(new ArrayList<Object>(){{add(duration); add(durationString);}});
+            }
+        };
+
+        StringBuilder keyString = new StringBuilder(KEY);
+
+        for (int i = 0; i < 2; i++) {
+
+            if (uriStrings.get(i).get(0) != null && uriStrings.get(i).get(1) != "0") {
+                System.out.println(uriStrings.get(i).get(1));
+                keyString.append(uriStrings.get(i).get(1));
+            }
+        }
+
+        System.out.println(keyString);
+
+        HttpHeaders headers = new HttpHeaders();
+        setAuthHeaders(headers, true);
+
+        HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_TRAIN,
+            HttpMethod.POST, entity, JSONObject.class);
+
+        HttpStatus statusCode = response.getStatusCode();
+        System.out.println("(Client Side) The http status code is: " + statusCode);
+
+        if (statusCode == HttpStatus.OK) {
+
+            JSONObject emissionResponse = response.getBody();
+
+            if (emissionResponse != null) {
+
+                return JSONtoTrain(emissionResponse);
+            }
+        }
+
+        System.out.println("(Client Side) Getting the desired emission failed or the object was null.");
+        return null;
+    }
+
 }

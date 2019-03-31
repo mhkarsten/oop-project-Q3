@@ -5,10 +5,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
-import server.model.DietEmission;
-import server.model.EnergyEmission;
-import server.model.FlightEmission;
-import server.model.VehicleEmission;
+import server.model.*;
 
 import java.util.HashMap;
 
@@ -21,6 +18,7 @@ public class EmissionsRetrieve {
     private static final String URL_DIET =  URL_BASE + "/dietEmission";
     private static final String URL_FLIGHT = URL_BASE + "/flightEmission";
     private static final String URL_ENERGY = URL_BASE + "/energyEmission";
+    private static final String URL_TRAIN = URL_BASE + "/trainEmission";
 
     /**
      * Gets vehicle emission.
@@ -33,8 +31,8 @@ public class EmissionsRetrieve {
     public static VehicleEmission getVehicleEmission(int distance, int duration, String sizeClass) {
 
         HashMap parameters = new HashMap();
-        parameters.put("distance", distance);
-        parameters.put("duration", duration);
+        parameters.put("daily_distance", distance);
+        parameters.put("daily_duration", duration);
         parameters.put("sizeClass", sizeClass);
 
         MyRestTemplate restTemplate = new MyRestTemplate();
@@ -139,6 +137,35 @@ public class EmissionsRetrieve {
 
         if (emission != null) {
 
+            return emission;
+        }
+
+        System.out.println("(Client Side) The request was bad, the returned object was null.");
+        return null;
+    }
+
+    /**
+     * Gets train emission.
+     *
+     * @param distance  the distance
+     * @param duration  the duration
+     * @return the train emission
+     */
+    public static TrainEmission getTrainEmission(int distance, int duration) {
+
+        HashMap parameters = new HashMap();
+        parameters.put("distance", distance);
+        parameters.put("duration", duration);
+
+        HttpHeaders headers = new HttpHeaders();
+        setAuthHeaders(headers, false);
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
+
+        TrainEmission emission = restTemplate.postForObject(URL_TRAIN, requestBody, TrainEmission.class);
+
+        if (emission != null) {
             return emission;
         }
 

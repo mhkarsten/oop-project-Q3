@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static client.UI.RootController.addPointsUser;
+import static client.UI.RootController.stringToPoints;
 import static java.lang.Integer.parseInt;
 
 public class EnergyController implements Initializable {
@@ -76,18 +77,17 @@ public class EnergyController implements Initializable {
         }
     }
 
-    public int calculatePoints(String points) {
-        return parseInt(points.split("\\.")[0]);
-    }
-
     public void getEnergyEmission() {
         EnergyEmission em = EmissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
         System.out.println(em.getCarbon());
-        addPointsUser(calculatePoints(em.getCarbon()));
+        addPointsUser(stringToPoints(em.getCarbon()));
     }
 
+    @SuppressWarnings("Duplicates")
     public void selectEnergyEmission(MouseEvent event) {
         energyChoice = RootController.selectOption(event, energyChoice);
+        clearFields();
+
         Labelfield1.setVisible(true);
         field1.setVisible(true);
         Labelfield2.setVisible(true);
@@ -109,5 +109,11 @@ public class EnergyController implements Initializable {
         }
     }
 
+    public void clearFields() {
+        field1.setText("");
+        field2.setText("");
+        field3.setText("");
+        field4.setText("");
+    }
 
 }

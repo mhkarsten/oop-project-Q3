@@ -104,6 +104,7 @@ public class UserController {
             MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> addUser(@RequestBody User usr) {
+        usr.setID(0);
         User savedUser = userRepository.save(usr);
         System.out.println("Creating new user with ID" + savedUser.getID());
 
@@ -153,5 +154,22 @@ public class UserController {
     public Set<User> getUserFollowers(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
         return user.get().getFollowers();
+    }
+
+    /**
+     * A mapping for following a user
+     *
+     * @param followerId the one who is going to follow the followee
+     * @param followeeId the one which is going to be followed by the follower
+     */
+    @RequestMapping(value = "/users/{followerId}/follow/{followeeId}", method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public void followUser(@PathVariable("followerId") long followerId, @PathVariable("followeeId") long followeeId) {
+        User follower = userRepository.findById(followerId).get();
+        User followee = userRepository.findById(followeeId).get();
+        followee.addFollower(follower);
+        followee=userRepository.save(followee);
+        follower.followUser(followee);
+        userRepository.save(follower);
     }
 }

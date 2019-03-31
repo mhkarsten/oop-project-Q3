@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DietEmissionTest {
 
+    /*
     @Test
     public void testJSONtoDiet() {
         // Setup
@@ -21,7 +22,7 @@ public class DietEmissionTest {
         // Verify the results 
         assertEquals(expectedResult, result);
     }
-
+*/
     @Test
     public void testDietEmissionContructor() {
 

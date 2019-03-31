@@ -67,42 +67,9 @@ public class UserControllerTest {
         us2 = restTemplate.postForObject(domain + "/users/2", entity, User.class);
         us3 = restTemplate.postForObject(domain + "/users/3", entity, User.class);
     }
-
-    @Test
-    public void getAchievementsTest() {
-
-        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
-        Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
-        Achievement a3 = restTemplate.postForObject(domain + "/achievements/3", entity, Achievement.class);
-        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/achievements/", entity, Achievement[].class), new Achievement[] {a1, a2, a3});
-    }
-
     @Test
     public void testConnection() {
         this.restTemplate.postForObject(domain + "/", entity, String.class);
-    }
-
-    @Test
-    public void retrieveUserOneAchievements() {
-
-        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
-        Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
-        assertThat(restTemplate.postForObject(domain + "/users/1/achievements", entity, Achievement[].class), IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1, a2));
-    }
-
-    @Test
-    public void retrieveUserMinusOneAchievements() {
-        Assertions.assertNull(restTemplate.postForObject(domain + "/users/-1/achievements", entity, Achievement[].class));
-    }
-
-    @Test
-    public void retrieveAchievementMinusOne() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/achievements/-1", entity, Achievement.class));
-    }
-
-    @Test
-    public void retrieveAchievementsWrong() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/achievements/ach1", entity, Achievement.class));
     }
 
     @Test
@@ -165,7 +132,19 @@ public class UserControllerTest {
         updatedUser = restTemplate.postForObject(domain + "/users/" + userOne.getID(), new HttpEntity<>(headers), User.class);
         Assertions.assertEquals(updatedUser, userOne);
     }
+    @Test
+    public void addFollowerDB() {
+        User user = new User(22828, "Kamasi");
+        entity = new HttpEntity<>(user, headers);
+        URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity);
+        user = restTemplate.postForObject(usnaviLocation, new HttpEntity<>(headers), User.class);
 
+        restTemplate.postForObject(domain + "/users/"+user.getID()+"/follow/1", new HttpEntity<>(headers), User.class);
+        restTemplate.postForObject(domain + "/users/"+user.getID()+"/follow/2", new HttpEntity<>(headers), User.class);
+        User[] kamasiFollowsWho=restTemplate.postForObject(domain + "/users/"+user.getID()+"/following", entity, User[].class);
+        System.out.println("Number of followers: "+kamasiFollowsWho.length);
+        assertThat(kamasiFollowsWho, IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(us1,us2));
+    }
     @Test
     public void setFollowingFollowersTest() {
         User user = new User(24601, "Jean Valjean");
@@ -207,15 +186,6 @@ public class UserControllerTest {
         URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity);
         //READ
         user = restTemplate.postForObject(usnaviLocation, new HttpEntity<>(headers), User.class);
-
-
-            //Unlocking of achievement test:
-            restTemplate.postForObject(domain + "/users/"+user.getID()+"/achievements/unlock/1", new HttpEntity<>(headers), User.class);
-            Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
-            Achievement[] usnaviAch=restTemplate.postForObject(domain + "/users/"+user.getID()+"/achievements", entity, Achievement[].class);
-            System.out.println("Number of achievements: "+usnaviAch.length);
-            assertThat(usnaviAch, IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1));
-
         //UPDATE
         user.setName("Lin-Manuel");
         entity = new HttpEntity<>(user, headers);

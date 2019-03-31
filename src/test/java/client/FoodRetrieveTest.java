@@ -9,7 +9,7 @@ import static client.retrive.FoodRetrieve.getRandomMeal;
 
 class FoodRetrieveTest {
 
-    @Test
+    //@Test
     void getRandomMealTest() {
 
         Meal[] randomMeal = getRandomMeal();

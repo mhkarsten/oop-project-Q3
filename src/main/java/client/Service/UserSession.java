@@ -1,5 +1,6 @@
 package client.Service;
 
+import client.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -11,6 +12,7 @@ public final class UserSession {
 
     private String userName;
     private String password;
+    private User currentUser;
 
     private UserSession() {
     }
@@ -75,5 +77,13 @@ public final class UserSession {
     @Override
     public int hashCode() {
         return Objects.hash(userName, password);
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.User;
@@ -25,9 +26,19 @@ public class AuthController {
      *
      * @return a simple 200 message is successfully connected.
      */
-    @RequestMapping("/auth/login")
-    public ResponseEntity<?> login() {
-        return ResponseEntity.ok().build();
+    @PostMapping(value = "/auth/login/{username}",
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity<?> login(@PathVariable("username") String username) {
+        System.out.println(username);
+
+        User user = userRepository.findByName(username);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 

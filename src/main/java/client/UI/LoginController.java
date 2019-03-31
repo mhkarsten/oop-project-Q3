@@ -52,14 +52,28 @@ public class LoginController {
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(usernameField.getText(), passwordField.getText()));
 
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(UrlEndPoints.Auth.LOGIN, String.class);
+
+            HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+            HttpEntity<User> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<User> response = restTemplate.exchange(UrlEndPoints.Auth.LOGIN + "/" + usernameField.getText(),
+                HttpMethod.POST, entity, User.class);
+
+            User user = response.getBody();
 
             UserSession.getInstace().setUserName(usernameField.getText());
             UserSession.getInstace().setPassword(passwordField.getText());
+            UserSession.getInstace().setCurrentUser(user);
 
-            loginStatus.setText("Status: You have logged in!");
+            System.out.println(UserSession.getInstace().getCurrentUser().toString());
 
-            MyStage.switchScene(MyStage.Screens.ROOT);
+            if (user != null) {
+                loginStatus.setText("Status: You have logged in!");
+                MyStage.switchScene(MyStage.Screens.ROOT);
+            }
+
+            loginStatus.setText("Status: Username or password is not correct.");
+
         } catch (Exception e) {
             loginStatus.setText("Status: Username or password is not correct.");
             System.out.println(e);
@@ -75,19 +89,25 @@ public class LoginController {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        User newUser = new User(usernameField.getText(), passwordField.getText());
+        try {
+            User newUser = new User(usernameField.getText(), passwordField.getText());
 
-        HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
-        User user = restTemplate.postForObject(UrlEndPoints.Auth.REGISTER, requestBody, User.class);
+            HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
 
-        if (user != null && user.getID() != 0) {
-            loginStatus.setText("(Client Side) New user created" + user.getName());
+            User user = restTemplate.postForObject(UrlEndPoints.Auth.REGISTER, requestBody, User.class);
 
-            UserSession.getInstace().setUserName(usernameField.getText());
-            UserSession.getInstace().setPassword(passwordField.getText());
-            MyStage.switchScene(MyStage.Screens.ROOT);
-        } else {
+            UserSession.getInstace().setCurrentUser(user);
+
+            if (user != null && user.getID() != 0) {
+                loginStatus.setText("(Client Side) New user created" + user.getName());
+
+                UserSession.getInstace().setUserName(usernameField.getText());
+                UserSession.getInstace().setPassword(passwordField.getText());
+                MyStage.switchScene(MyStage.Screens.ROOT);
+            }
+        } catch(Exception e) {
             loginStatus.setText("User already exists.");
+            System.out.println(e);
         }
     }
 }

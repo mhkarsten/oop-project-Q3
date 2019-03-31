@@ -5,7 +5,7 @@ package client.Service;
  */
 public class UrlEndPoints {
 
-    public static String BASE_URL = "http://localhost:8090/";
+    public static String BASE_URL = "http://localhost:8080/";
 
     /**
      * All authentication related API endpoints

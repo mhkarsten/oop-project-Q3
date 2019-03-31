@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="profileScreen.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.ProfileController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="profileScreen.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.UI.ProfileController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="402.0" opacity="0.26" stroke="BLACK" strokeType="INSIDE" width="141.0" />
       <BarChart layoutX="162.0" layoutY="202.0" prefHeight="183.0" prefWidth="323.0">

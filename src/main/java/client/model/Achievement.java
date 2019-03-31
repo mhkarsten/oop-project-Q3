@@ -16,12 +16,13 @@ public class Achievement {
 
     }
 
-    /** Constructor for the Achievement class.
+    /**
+     * Constructor for the Achievement class.
      *
-     * @param achID Achievement ID
-     * @param title Title of the model
+     * @param achID       Achievement ID
+     * @param title       Title of the model
      * @param description description of the model
-     * @param path path to the badge image for this model
+     * @param path        path to the badge image for this model
      */
     public Achievement(long achID, String title, String description, String path) {
         this.id = achID;

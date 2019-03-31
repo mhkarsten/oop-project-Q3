@@ -2,23 +2,24 @@ package server;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import server.model.Achievement;
 import server.model.User;
 
 
 public class UserTest {
-    long UsID5 = 5;
-    long UsID20 = 20;
-    String UsName5 = "Max";
-    String UsName20 = "Jason";
-
     String password = "password";
 
     int points = 200;
     int points300 = 300;
 
+    long id1 = 1;
+    long id2 = 2;
+    String name1 = "Max";
+    String name2 = "Jason";
 
-    User us1 = new User(UsID5, UsName5, points);
-    User us2 = new User(UsID20, UsName20, points300);
+
+    User us1 = new User(id1, name1);
+    User us2 = new User(id2, name2);
 
     @Test
     void equalsTest1() {
@@ -27,22 +28,43 @@ public class UserTest {
 
     @Test
     void equalsTest2() {
-        Assertions.assertEquals(us1, new User(UsID5, UsName5, points));
+        Assertions.assertEquals(us1, new User(id1, name1));
     }
 
     @Test
     void equalsTest3() {
-        Assertions.assertNotEquals(us1, new User(UsID5, UsName5, 42));
-    }
-
-    @Test
-    void equalsTest4() {
         Assertions.assertNotEquals(us1, null);
     }
 
     @Test
+    void equalsTest4() {
+        Assertions.assertNotEquals(us1, us2);
+    }
+
+    @Test
+    void equalsTest5() {
+        Assertions.assertNotEquals(us1, new User(id1, name2));
+    }
+
+    @Test
+    void equalsTest6() {
+        Assertions.assertNotEquals(us1, new User(id2, name1));
+    }
+
+    @Test
+    void equalsTest7() {
+        Assertions.assertNotEquals(us1, new Achievement());
+    }
+
+    @Test
+    void equalsTest8() {
+        us1.setPoints(100);
+        Assertions.assertNotEquals(us1, new User(id1, name1));
+    }
+
+    @Test
     void getUserID() {
-        Assertions.assertEquals(UsID5, us1.getID());
+        Assertions.assertEquals(id1, us1.getID());
     }
 
     @Test
@@ -53,7 +75,7 @@ public class UserTest {
 
     @Test
     void getUserName() {
-        Assertions.assertEquals(UsName20, us2.getName());
+        Assertions.assertEquals(name2, us2.getName());
     }
 
     @Test
@@ -64,12 +86,6 @@ public class UserTest {
 
     @Test
     void getUserPoints() {
-        Assertions.assertEquals(200, us1.getPoints());
-    }
-
-    @Test
-    void setUserPoints() {
-        us2.setPoints(21);
-        Assertions.assertEquals(21, us2.getPoints());
+        Assertions.assertEquals(0, us1.getPoints());
     }
 }

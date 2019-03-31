@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="anchor" prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.TransportController">
+<AnchorPane prefHeight="400.0" prefWidth="750.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.UI.TransportController">
    <children>
-      <VBox layoutX="364.0" layoutY="68.0" prefHeight="150.0" prefWidth="154.0" styleClass="VBox">
-         <children>
-            <Label text="Select one:" />
-            <CheckBox mnemonicParsing="false" text="Public transport" />
-            <CheckBox mnemonicParsing="false" text="Car" />
-            <CheckBox mnemonicParsing="false" text="Emmision free" />
-         </children></VBox>
-      <ScrollPane layoutX="74.0" layoutY="68.0" prefHeight="278.0" prefWidth="200.0" style="-fx-background: none;">
+      <ScrollPane layoutX="40.0" layoutY="55.0" prefHeight="290.0" prefWidth="205.0" style="-fx-background: none;">
          <content>
-            <VBox prefHeight="272.0" prefWidth="148.0" styleClass="EVBox" />
+            <VBox prefHeight="285.0" prefWidth="200.0" styleClass="EVBox">
+               <children>
+                  <Label fx:id="transportBoxText" prefHeight="35.0" prefWidth="200.0" text="Pick your transport!" />
+                  <Label fx:id="transport1" onMouseClicked="#selectFlightEmission" prefHeight="40.0" prefWidth="200.0" text="Airplane flight" />
+                  <Label fx:id="transport2" onMouseClicked="#selectVehicleEmission" prefHeight="40.0" prefWidth="200.0" text="Car" />
+                  <Label fx:id="transport3" prefHeight="40.0" prefWidth="200.0" text="Label" />
+                  <Label fx:id="transport4" prefHeight="40.0" prefWidth="200.0" text="Label" />
+                  <Button mnemonicParsing="false" onMouseClicked="#getEmission" style="-fx-border-color: black;" text="Select Transport" />
+                  <Button fx:id="upBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Next" />
+                  <Button fx:id="downBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Previous" />
+               </children>
+            </VBox>
          </content>
       </ScrollPane>
+      <VBox layoutX="500.0" layoutY="55.0" prefHeight="290.0" prefWidth="71.0" styleClass="VBox">
+         <children>
+            <Label fx:id="Labelfield1" prefWidth="180.0" text="Enter stuff" visible="false" />
+            <TextField fx:id="field1" visible="false" />
+            <Label fx:id="Labelfield2" text="Enter stuff" visible="false" />
+            <TextField fx:id="field2" visible="false" />
+            <Label fx:id="Labelfield3" text="Enter stuff" visible="false" />
+            <TextField fx:id="field3" visible="false" />
+         </children>
+      </VBox>
+      <TextArea fx:id="description" layoutX="288.0" layoutY="55.0" prefHeight="290.0" prefWidth="175.0" />
    </children>
    <stylesheets>
       <URL value="@GeneralTemplate.css" />

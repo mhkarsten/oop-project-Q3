@@ -14,7 +14,9 @@ import java.net.URL;
 public class ClientGui extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException { MyStage.switchScene(MyStage.Screens.LOGIN); }
+    public void start(Stage stage) throws IOException {
+        MyStage.switchScene(MyStage.Screens.LOGIN);
+    }
 
     public static void main(String[] args) {
         launch(args);

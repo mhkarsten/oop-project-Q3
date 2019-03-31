@@ -7,9 +7,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import server.model.FlightEmission;
+import server.model.TrainEmission;
 import server.model.VehicleEmission;
 
 import static client.UI.RootController.addPointsUser;
+import static client.UI.RootController.stringToPoints;
 import static java.lang.Integer.parseInt;
 
 public class TransportController {
@@ -63,24 +65,32 @@ public class TransportController {
         return field3.getText();
     }
 
-    public int calculatePoints(String points) {
-        return parseInt(points.split("\\.")[0]) / 10;
-    }
-
     public void getFlightEmission() {
         FlightEmission fm = EmissionsRetrieve.getFlightEmission(getField1Text(), getField2Text());
         System.out.println(fm.getCarbon());
-        addPointsUser(calculatePoints(fm.getCarbon()));
+        addPointsUser(stringToPoints(fm.getCarbon()));
     }
 
     public void getVehicleEmission() {
         VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
         System.out.println(vm.getCarbon());
-        addPointsUser(calculatePoints(vm.getCarbon()));
+        addPointsUser(stringToPoints(vm.getCarbon()));
     }
 
+    public void getTrainCarEmission() {
+        VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
+        TrainEmission tm = EmissionsRetrieve.getTrainEmission(getIntField1(), getIntField2() * 60);
+        int CarEmission = stringToPoints(vm.getCarbon());
+        int TrainEmission = stringToPoints(tm.getCarbon());
+        int TrainCarEmission = CarEmission - TrainEmission;
+
+        addPointsUser(TrainCarEmission);
+    }
+
+    @SuppressWarnings("Duplicates")
     public void selectFlightEmission(MouseEvent event) {
         transportChoice = RootController.selectOption(event, transportChoice);
+        clearFields();
 
         Labelfield1.setVisible(true);
         field1.setVisible(true);
@@ -93,8 +103,10 @@ public class TransportController {
         Labelfield2.setText("Enter your arrival airport");
     }
 
+    @SuppressWarnings("Duplicates")
     public void selectVehicleEmission(MouseEvent event) {
         transportChoice = RootController.selectOption(event, transportChoice);
+        clearFields();
 
         Labelfield1.setVisible(true);
         field1.setVisible(true);
@@ -106,7 +118,18 @@ public class TransportController {
         Labelfield1.setText("Enter the distance in km");
         Labelfield2.setText("Enter the duration in minutes");
         Labelfield3.setText("Enter the size of your car");
+    }
 
+    public void selectTrainCarEmission(MouseEvent event) {
+        selectVehicleEmission(event);
+        Labelfield3.setVisible(false);
+        field3.setVisible(false);
+    }
+
+    public void clearFields() {
+        field1.setText("");
+        field2.setText("");
+        field3.setText("");
     }
 
     public void getEmission() {
@@ -115,6 +138,9 @@ public class TransportController {
         }
         else if(transportChoice == transport2) {
             getVehicleEmission();
+        }
+        if(transportChoice == transport3) {
+            getTrainCarEmission();
         }
     }
 }

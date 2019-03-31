@@ -5,7 +5,7 @@
 }
 
 .button {
-    -fx-background-color: white;
+    -fx-background-color: #E57373;
 }
 
 .button:pressed {
@@ -14,7 +14,7 @@
 
 /*Self made styleClass*/
 .Pane {
-    -fx-background-color: red;
+    -fx-background-color: #EF9A9A;
     -fx-border-color: black;
     -fx-smooth: clear;
 }
@@ -23,7 +23,7 @@
 }
 
 .titled-pane > .title {
-    -fx-background-color: red;
+    -fx-background-color: #EF9A9A;
 }
 
 .titled-pane > .content {
@@ -42,7 +42,7 @@
 
 /*Self made styleClass*/
 .EVBox {
-    -fx-background-color: red;
+    -fx-background-color: #EF9A9A;
     -fx-pref-width: 200;
 }
 

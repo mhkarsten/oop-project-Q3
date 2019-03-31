@@ -17,7 +17,7 @@ public class AchievementRetrieve {
     /**
      * The Url base.
      */
-    private static final String URL_BASE = "http://localhost:8090";
+    private static final String URL_BASE = "http://localhost:8080";
     private static final String URL_ACHGETALL = URL_BASE + "/achievements";
     private static final String URL_ACHGET = URL_BASE + "/achievements/{achID}";
     private static final String URL_ACHUNLOCKED = URL_BASE + "/users/{userID}/achievements";

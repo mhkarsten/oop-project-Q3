@@ -97,4 +97,22 @@ public class EmissionController {
             (int) parameters.get("size")
         ), HttpStatus.OK);
     }
+
+    /**
+        * Train emission response entity.
+        *
+        * @param parameters the parameters
+     * @return the response entity
+     */
+    @PostMapping(value = "/trainEmission",
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity<TrainEmission> trainEmission(@RequestBody HashMap parameters) {
+
+        return new ResponseEntity<TrainEmission>(getTrainEmission(
+            (int) parseInt((String) parameters.get("distance")),
+            (int) parseInt((String) parameters.get("duration"))
+        ), HttpStatus.OK);
+    }
 }

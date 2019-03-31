@@ -7,17 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * The type Flight emission.
  */
-public class FlightEmission {
-//    INPUT VALUES
-//    String startPort;
-//    String endPort;
-
-    //RETURN VALUES
-    private String carbon;
-    private String energy;
-    private String distance;
-    private String fuelUse;
-
+public class FlightEmission extends VehicleEmission {
     /**
      * Jso nto flight flight emission.
      *
@@ -62,41 +52,10 @@ public class FlightEmission {
      * @param fuelUse  the fuel use
      */
     public FlightEmission(String carbon, String energy, String distance, String fuelUse) {
-        this.carbon = carbon;
-        this.energy = energy;
-        this.distance = distance;
-        this.fuelUse = fuelUse;
+        setCarbon(carbon);
+        setEnergy(energy);
+        setDistance(distance);
+        setFuelUse(fuelUse);
     }
 
-    public String getCarbon() {
-        return carbon;
-    }
-
-    public void setCarbon(String carbon) {
-        this.carbon = carbon;
-    }
-
-    public String getEnergy() {
-        return energy;
-    }
-
-    public void setEnergy(String energy) {
-        this.energy = energy;
-    }
-
-    public String getDistance() {
-        return distance;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
-    }
-
-    public String getFuelUse() {
-        return fuelUse;
-    }
-
-    public void setFuelUse(String fuelUse) {
-        this.fuelUse = fuelUse;
-    }
 }

@@ -20,7 +20,7 @@ public class VehicleEmission {
     private String distance;
 
     /**
-     * Jso nto vehicle vehicle emission.
+     * Json to vehicle vehicle emission.
      *
      * @param JSONVehicleEmission the json vehicle emission
      * @return the vehicle emission

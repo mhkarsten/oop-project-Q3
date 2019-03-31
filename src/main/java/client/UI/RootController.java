@@ -20,12 +20,13 @@ import javafx.animation.Timeline;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 
 import static client.retrive.UserRetrieve.getUser;
 import static client.retrive.UserRetrieve.updateUser;
-import static javafx.scene.paint.Color.RED;
+import static java.lang.Integer.parseInt;
 import static javafx.scene.paint.Color.WHITE;
 
 public class RootController implements Initializable {
@@ -185,15 +186,21 @@ public class RootController implements Initializable {
 
     public static Label selectOption(MouseEvent event, Label choice) {
 
+        Color redVbox = Color.rgb(239, 154, 154);
+
         if (choice != null) {
 
-            choice.setBackground(new Background(new BackgroundFill(RED, null, null)));
+            choice.setBackground(new Background(new BackgroundFill(redVbox, null, null)));
         }
 
         Label chosenOption = (Label) event.getSource();
 
         chosenOption.setBackground(new Background(new BackgroundFill(WHITE, new CornerRadii(1), null)));
         return chosenOption;
+    }
+
+    public static int stringToPoints(String points) {
+        return parseInt(points.split("\\.")[0]);
     }
 
     public static void addPointsUser(int points) {

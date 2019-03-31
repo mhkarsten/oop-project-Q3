@@ -10,6 +10,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import server.API.FoodAPI;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -17,19 +18,6 @@ import java.util.Optional;
  */
 @RestController
 public class FoodController {
-
-    /**
-     * Handle method argument type mismatch response entity.
-     *
-     * @param ex the ex
-     * @return the response entity
-     */
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
-    public ResponseEntity<?> handleMethodArgumentTypeMismatch(
-        MethodArgumentTypeMismatchException ex) {
-        return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
-
     /**
      * Gets random meal.
      *
@@ -41,10 +29,8 @@ public class FoodController {
             produces = {MediaType.APPLICATION_XML_VALUE,
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<Meal[]> getRandomMeal() {
-
-        Optional<Meal[]> randomMeal = Optional.of(FoodAPI.getRandomMeal());
-        return randomMeal.map(achievement -> new ResponseEntity<>(achievement, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+    public Meal[] getRandomMeal() {
+        return FoodAPI.getRandomMeal().get();
     }
 
     /**
@@ -59,10 +45,8 @@ public class FoodController {
             produces = {MediaType.APPLICATION_XML_VALUE,
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<Meal[]> getMeal(@PathVariable("mealName") String mealName) {
-
-        Optional<Meal[]> meal = Optional.of(FoodAPI.getMeal(mealName));
-        return meal.map(achievement -> new ResponseEntity<>(achievement, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+    public Meal[] getMeal(@PathVariable("mealName") String mealName) {
+        return FoodAPI.getMeal(mealName).get();
     }
 
     /**
@@ -79,15 +63,12 @@ public class FoodController {
     @ResponseBody
     public List<Meal[]> getMealCategory(@PathVariable("categoryName") String categoryName) {
 
-        List<Meal[]> meals = FoodAPI.getMealCategory(categoryName);
+        List<Meal[]> meals = FoodAPI.getMealCategory(categoryName).get();
 
         if (!meals.isEmpty()) {
-
             return meals;
         } else {
-
-            System.out.println("(Server Side) The category doesnt exist or is empty.");
-            return null;
+            throw new NoSuchElementException("(Server Side) The category doesnt exist or is empty.");
         }
     }
 
@@ -107,12 +88,9 @@ public class FoodController {
         List<Meal[]> meatMeals = FoodAPI.getAllMeatMeals();
 
         if (!meatMeals.isEmpty()) {
-
             return meatMeals;
         } else  {
-
-            System.out.println("(Server Side) Something went wrong, all meals with meat could not be accessed.");
-            return null;
+            throw new NoSuchElementException("(Server Side) The category doesnt exist or is empty.");
         }
     }
 }

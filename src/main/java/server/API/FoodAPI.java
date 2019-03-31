@@ -34,7 +34,7 @@ public class FoodAPI {
     /**
      * @return This method returns a random meal from TheMealDB
      */
-    public static Meal[] getRandomMeal() {
+    public static Optional<Meal[]> getRandomMeal() {
 
         HttpHeaders headers = acceptHeaders();
 
@@ -45,21 +45,11 @@ public class FoodAPI {
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
-        System.out.println("(Client Side) The http status code is: " + statusCode);
-
+        Meal[] meal=null;
         if (statusCode == HttpStatus.OK) {
-            Meal[] meal = JSONToMeal(response.getBody());
-
-            if (meal != null) {
-
-                return meal;
-            } else {
-
-                System.out.println("(Client Side) The returned meal does not exist.");
-            }
+            meal = JSONToMeal(response.getBody());
         }
-
-        return null;
+        return Optional.of(meal);
     }
 
     /** @Param mealName
@@ -68,7 +58,7 @@ public class FoodAPI {
      *  @return This method will return one specific meal from the database.
      */
     @SuppressWarnings("Duplicates")
-    public static Meal[] getMeal(String mealName) {
+    public static Optional<Meal[]> getMeal(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
 
@@ -80,18 +70,12 @@ public class FoodAPI {
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
-
+        Meal[] meal=null;
         if (statusCode == HttpStatus.OK) {
-
-            Meal[] meal = JSONToMeal(response.getBody());
-
-            if (meal != null) {
-
-                return meal;
-            }
+            meal = JSONToMeal(response.getBody());
         }
 
-        return null;
+        return Optional.of(meal);
     }
 
     /**@param mealName
@@ -100,7 +84,7 @@ public class FoodAPI {
      * @return This method returns an ArrayList of all meals in a specific category.
      */
     @SuppressWarnings("Duplicates")
-    public static ArrayList<Meal[]> getMealCategory(String mealName) {
+    public static Optional<ArrayList<Meal[]>> getMealCategory(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
 
@@ -112,10 +96,10 @@ public class FoodAPI {
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
-
+        ArrayList<Meal[]> categoryMeals=null;
         if (statusCode == HttpStatus.OK) {
 
-            ArrayList<Meal[]> categoryMeals = new ArrayList<>();
+            categoryMeals = new ArrayList<>();
 
             Object mealList = response.getBody().get("meals");
             ArrayList<LinkedHashMap> meal = (ArrayList<LinkedHashMap>) mealList;
@@ -124,13 +108,11 @@ public class FoodAPI {
 
                 LinkedHashMap LinkedMeal = meal.get(i);
 
-                categoryMeals.add(getMeal((String) LinkedMeal.get("strMeal")));
+                categoryMeals.add(getMeal((String) LinkedMeal.get("strMeal")).get());
             }
-
-            return categoryMeals;
         }
 
-        return null;
+        return Optional.of(categoryMeals);
     }
 
     /**
@@ -144,7 +126,7 @@ public class FoodAPI {
 
         for (int i = 0; i < 5; i++) {
 
-            meatMeals.addAll(getMealCategory(meatCategories[i]));
+            meatMeals.addAll(getMealCategory(meatCategories[i]).get());
         }
 
         return meatMeals;

@@ -20,10 +20,11 @@ public class UrlEndPoints {
      */
     public static class User {
         public static final String ALL_USERS = BASE_URL + "users";
-
         public static final String UPDATE =  BASE_URL + "users/update";
         public static final String USER_BY_ID = BASE_URL + "users/{userID}";
-
+        public static final String USER_FOLLOWERS = BASE_URL + "/users/{userID}/followers";
+        public static final String USER_FOLLOWING = BASE_URL + "/users/{userID}/following";
+        public static final String UPDATE_FOLLOW = BASE_URL + "/users/{followerId}/follow/{followeeId}";
     }
 
     /**

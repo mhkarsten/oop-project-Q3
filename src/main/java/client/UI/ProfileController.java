@@ -1,4 +1,5 @@
 package client.UI;
+import client.Service.UserSession;
 import client.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,10 +20,10 @@ public class ProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        User[] currentUser = getUser(1L);
+        User currentUser = UserSession.getInstace().getCurrentUser();
 
-        userName.setText("User Name: " + currentUser[0].getName());
-        userID.setText("User ID: " + currentUser[0].getID());
-        userPoints.setText("User Points: " + currentUser[0].getPoints());
+        userName.setText("User Name: " + currentUser.getName());
+        userID.setText("User ID: " + currentUser.getID());
+        userPoints.setText("User Points: " + currentUser.getPoints());
     }
 }

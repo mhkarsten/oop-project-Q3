@@ -1,5 +1,6 @@
 package client.UI;
 
+import client.Service.UserSession;
 import client.model.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,18 +44,25 @@ public class CompareController implements Initializable {
     @FXML
     ListView userFollowing;
 
-//UserSession.getInstace().getUser();
-    User activeUser = new User();
-    Set<User> userFollows;
-    ArrayList<User> allUsers;
+    private User activeUser;
+    private Set<User> userFollows;
+    private ArrayList<User> allUsers;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        userFollowing.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        activeUser = UserSession.getInstace().getCurrentUser();
+        allUsers = getUsers();
+        userFollows = getUserFollow(false, activeUser.getID());
 
+        userFollowing.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         userName.setText(activeUser.getName());
         userPoints.setText(Integer.toString(activeUser.getPoints()));
+
+        updateListView();
+    }
+
+    public void updateListView() {
 
         User[] followingList = userFollows.toArray(new User[0]);
 
@@ -62,9 +70,6 @@ public class CompareController implements Initializable {
 
             userFollowing.getItems().add(followingList[i].getName());
         }
-
-        allUsers = getUsers();
-        userFollows = getUserFollow(false, activeUser.getID());
     }
 
     /**
@@ -77,7 +82,10 @@ public class CompareController implements Initializable {
         if ( foundUser != null) {
 
             userFollows.add(foundUser);
-            updateUserFollowing(userFollows, activeUser.getID());
+
+            updateUserFollowing(foundUser.getID(), activeUser.getID());
+            userFollows = getUserFollow(false, activeUser.getID());
+            updateListView();
 
             findStatus.setText("You are now following" + foundUser.getName());
         } else {

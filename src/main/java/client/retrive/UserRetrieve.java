@@ -4,6 +4,7 @@ import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
 import client.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.json.HTTP;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 /**Method to return an ArrayList of all users.
  *Currently this client side code is build to work with XML code whereas the server
@@ -152,21 +154,20 @@ public class UserRetrieve {
      */
     public static Set<User> getUserFollow(boolean selectFollow, long userID) {
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         String URL;
 
         if (selectFollow) {
 
-            URL = URL_FOLLOWERS;
+            URL = UrlEndPoints.User.USER_FOLLOWERS;
         } else {
 
-            URL = URL_FOLLOWING;
+            URL = UrlEndPoints.User.USER_FOLLOWING;
         }
 
         HttpEntity<Set<User>> entity = new HttpEntity<Set<User>>(headers);
-        RestTemplate restTemplate = new RestTemplate();
+        MyRestTemplate restTemplate = new MyRestTemplate();
 
         Object[] uriValues = new Object[] {userID};
 
@@ -190,10 +191,21 @@ public class UserRetrieve {
         return null;
     }
 
-    public static void updateUserFollowing(Set<User> newFollowing ,long userID) {
-        if (true) {
+    public static void updateUserFollowing(long followerId, long followeeId) {
 
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        }
+        String URL = UrlEndPoints.User.UPDATE_FOLLOW;
+
+        HttpEntity<Object> entity = new HttpEntity<Object>(headers);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+
+        Object[] uriValues = new Object[] {followerId, followeeId};
+
+        ResponseEntity<Object> response = restTemplate.exchange(URL,
+            HttpMethod.POST, entity, Object.class, uriValues);
+
+        HttpStatus statusCode = response.getStatusCode();
+        System.out.println("(Client Side) The http status code is: " + statusCode);
     }
 }

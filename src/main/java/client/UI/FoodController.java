@@ -1,5 +1,6 @@
 package client.UI;
 
+import client.Service.UserSession;
 import client.model.Meal;
 import client.model.User;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class FoodController implements Initializable {
     private ArrayList<Meal> meatMeals;
     private ArrayList<Meal> veganMeals;
     private ArrayList<Meal> vegetarianMeals;
-
+    private User currentUser = UserSession.getInstace().getCurrentUser();
     /**
      * Gets selected category.
      *
@@ -170,17 +171,17 @@ public class FoodController implements Initializable {
      */
     public void getMealPoints() {
 
-        User[] currentUser = getUser(1L);
+
 
         if (veganOpt.isSelected()) {
 
-            currentUser[0].setPoints(currentUser[0].getPoints() + 100);
+            currentUser.setPoints(currentUser.getPoints() + 100);
 
             mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
 
 
 
-            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+            updateUser(1L, currentUser.getName(), currentUser.getPoints());
 
             System.out.println(currentUser.toString());
 
@@ -190,20 +191,20 @@ public class FoodController implements Initializable {
 
         } else if (vegOpt.isSelected()) {
 
-            currentUser[0].setPoints(currentUser[0].getPoints() + 50);
+            currentUser.setPoints(currentUser.getPoints() + 50);
 
             mealBoxText.setText("You have earned 50 pts for eating a vegetarian meal!");
 
             System.out.println(currentUser.toString());
 
-            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+            updateUser(1L, currentUser.getName(), currentUser.getPoints());
         } else {
 
-            currentUser[0].setPoints(currentUser[0].getPoints() + 25);
+            currentUser.setPoints(currentUser.getPoints() + 25);
 
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
-            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+            updateUser(1L, currentUser.getName(), currentUser.getPoints());
         }
     }
 

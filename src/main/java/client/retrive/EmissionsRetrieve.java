@@ -1,6 +1,7 @@
 package client.retrive;
 
 import client.Service.MyRestTemplate;
+import client.Service.UrlEndPoints;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -157,10 +158,9 @@ public class EmissionsRetrieve {
         parameters.put("distance", distance);
         parameters.put("duration", duration);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+        MyRestTemplate restTemplate = new MyRestTemplate();
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
         TrainEmission emission = restTemplate.postForObject(URL_TRAIN, requestBody, TrainEmission.class);

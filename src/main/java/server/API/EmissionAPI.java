@@ -303,11 +303,10 @@ public class EmissionAPI {
 
         System.out.println(keyString);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, true);
-
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
-        RestTemplate restTemplate = new RestTemplate();
+        MyRestTemplate restTemplate = new MyRestTemplate();
+
 
         ResponseEntity<JSONObject> response = restTemplate.exchange(URL_TRAIN,
             HttpMethod.POST, entity, JSONObject.class);

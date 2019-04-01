@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.UI.CompareController">
+<AnchorPane prefHeight="400.0" prefWidth="886.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.UI.CompareController">
    <stylesheets>
       <URL value="@GeneralTemplate.css" />
    </stylesheets>
@@ -22,6 +22,9 @@
       <Label fx:id="compareName" layoutX="218.0" layoutY="200.0" text="Label" />
       <Label fx:id="userPoints" layoutX="55.0" layoutY="240.0" text="Label" />
       <Label fx:id="comparePoints" layoutX="218.0" layoutY="240.0" text="Label" />
-      <Button fx:id="compareBtn" layoutX="418.0" layoutY="291.0" mnemonicParsing="false" onAction="#setCompare" text="Compare" />
+      <Button fx:id="compareBtn" layoutX="411.0" layoutY="291.0" mnemonicParsing="false" onAction="#setCompare" text="Compare" />
+      <ListView fx:id="followeeListView" layoutX="622.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="685.0" layoutY="51.0" text="Following you" />
+      <Button fx:id="followeeCompare" layoutX="697.0" layoutY="291.0" mnemonicParsing="false" text="Compare" />
    </children>
 </AnchorPane>

@@ -1,13 +1,14 @@
 package client.retrive;
 
+import client.Service.MyRestTemplate;
+import client.Service.UrlEndPoints;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import server.model.*;
 
 import java.util.HashMap;
-
-import static client.retrive.UserRetrieve.setAuthHeaders;
 
 /**
  * The type Emissions retrieve.
@@ -35,10 +36,9 @@ public class EmissionsRetrieve {
         parameters.put("daily_duration", duration);
         parameters.put("sizeClass", sizeClass);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
         VehicleEmission emission = restTemplate.postForObject(URL_VEHICLE, requestBody, VehicleEmission.class);
@@ -65,10 +65,9 @@ public class EmissionsRetrieve {
         parameters.put("startingPort", startingPort);
         parameters.put("endingPort", endingPort);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
         FlightEmission emission = restTemplate.postForObject(URL_FLIGHT, requestBody, FlightEmission.class);
@@ -98,10 +97,9 @@ public class EmissionsRetrieve {
         parameters.put("dishwasherUse", dishwasherUse);
         parameters.put("naturalGasCost", naturalGasCost);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
         EnergyEmission emission = restTemplate.postForObject(URL_ENERGY, requestBody, EnergyEmission.class);
@@ -131,10 +129,9 @@ public class EmissionsRetrieve {
         parameters.put("poultryShare", poultryShare);
         parameters.put("size", size);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
         DietEmission emission = restTemplate.postForObject(URL_DIET, requestBody, DietEmission.class);
@@ -161,10 +158,9 @@ public class EmissionsRetrieve {
         parameters.put("distance", distance);
         parameters.put("duration", duration);
 
-        HttpHeaders headers = new HttpHeaders();
-        setAuthHeaders(headers, false);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+        MyRestTemplate restTemplate = new MyRestTemplate();
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
         TrainEmission emission = restTemplate.postForObject(URL_TRAIN, requestBody, TrainEmission.class);

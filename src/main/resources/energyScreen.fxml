@@ -21,8 +21,6 @@
                    <Label fx:id="energy3" prefHeight="40.0" prefWidth="206.0" />
                    <Label fx:id="energy4" prefHeight="40.0" prefWidth="206.0" />
                    <Button mnemonicParsing="false" onAction="#getEmission" text="Select Energy Saving" />
-                   <Button fx:id="upBtn" mnemonicParsing="false" text="Show Next" />
-                   <Button fx:id="downBtn" mnemonicParsing="false" text="Show Previous" />
                </children>
             </VBox>
          </content>

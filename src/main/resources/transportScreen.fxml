@@ -19,10 +19,8 @@
                   <Label fx:id="transport1" onMouseClicked="#selectFlightEmission" prefHeight="40.0" prefWidth="200.0" text="Airplane flight" />
                   <Label fx:id="transport2" onMouseClicked="#selectVehicleEmission" prefHeight="40.0" prefWidth="200.0" text="Bike instead of using the Car" />
                   <Label fx:id="transport3" onMouseClicked="#selectTrainCarEmission" prefHeight="40.0" prefWidth="200.0" text="Train instead of the car" />
-                  <Label fx:id="transport4" prefHeight="40.0" prefWidth="200.0" text="Label" />
+                  <Label fx:id="transport4" prefHeight="40.0" prefWidth="200.0" />
                   <Button mnemonicParsing="false" onMouseClicked="#getEmission" text="Select Transport" />
-                  <Button fx:id="upBtn" mnemonicParsing="false" text="Show Next" />
-                  <Button fx:id="downBtn" mnemonicParsing="false" text="Show Previous" />
                </children>
             </VBox>
          </content>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import client.Service.UserSession;
 import client.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,8 +25,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 
+import static client.retrive.UserRetrieve.addGenericFeat;
 import static client.retrive.UserRetrieve.getUser;
-import static client.retrive.UserRetrieve.updateUserPoints;
 import static java.lang.Integer.parseInt;
 import static javafx.scene.paint.Color.WHITE;
 
@@ -205,11 +206,11 @@ public class RootController implements Initializable {
 
     public static void addPointsUser(int points) {
 //      UserSession.getInstance().getUser.getId()
-        User[] currentUser = getUser(1L);
-        currentUser[0].setPoints(currentUser[0].getPoints() + points);
 
-        updateUserPoints(currentUser[0].getPoints());
+        int pointsToUpdate = UserSession.getInstace().getCurrentUser().getPoints();
+        pointsToUpdate += points;
 
-        System.out.println(currentUser.toString());
+        UserSession.getInstace().getCurrentUser().setPoints(pointsToUpdate);
+        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), pointsToUpdate);
     }
 }

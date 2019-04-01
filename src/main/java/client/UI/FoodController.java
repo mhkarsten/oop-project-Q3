@@ -179,7 +179,7 @@ public class FoodController implements Initializable {
 
             mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
 
-            updateUserPoints(currentUser.getPoints());
+            addGenericFeat(currentUser.getID(), currentUser.getPoints());
 
             System.out.println(currentUser.toString());
 
@@ -195,14 +195,14 @@ public class FoodController implements Initializable {
 
             System.out.println(currentUser.toString());
 
-            updateUserPoints(currentUser.getPoints());
+            addGenericFeat(currentUser.getID(), currentUser.getPoints());
         } else {
 
             currentUser.setPoints(currentUser.getPoints() + 25);
 
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
-            updateUserPoints(currentUser.getPoints());
+            addGenericFeat(currentUser.getID(), currentUser.getPoints());
         }
     }
 

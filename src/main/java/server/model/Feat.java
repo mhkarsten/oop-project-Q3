@@ -33,6 +33,12 @@ public class Feat {
         this.user=user;
     }
 
+    public Feat(int points, int actionId, User user) {
+        this.points = points;
+        this.actionId = actionId;
+        this.user=user;
+    }
+
     public long getId() {
         return id;
     }

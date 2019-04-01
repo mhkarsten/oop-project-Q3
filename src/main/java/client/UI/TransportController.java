@@ -1,5 +1,6 @@
 package client.UI;
 
+import client.Service.UserSession;
 import client.retrive.EmissionsRetrieve;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import server.model.VehicleEmission;
 
 import static client.UI.RootController.addPointsUser;
 import static client.UI.RootController.stringToPoints;
+import static client.retrive.UserRetrieve.addGenericFeat;
 import static java.lang.Integer.parseInt;
 
 public class TransportController {
@@ -69,12 +71,16 @@ public class TransportController {
         FlightEmission fm = EmissionsRetrieve.getFlightEmission(getField1Text(), getField2Text());
         System.out.println(fm.getCarbon());
         addPointsUser(stringToPoints(fm.getCarbon()));
+
+//        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), stringToPoints(fm.getCarbon()));
     }
 
     public void getVehicleEmission() {
         VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
         System.out.println(vm.getCarbon());
         addPointsUser(stringToPoints(vm.getCarbon()));
+
+//        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), stringToPoints(vm.getCarbon()));
     }
 
     public void getTrainCarEmission() {
@@ -84,7 +90,8 @@ public class TransportController {
         int TrainEmission = stringToPoints(tm.getCarbon());
         int TrainCarEmission = CarEmission - TrainEmission;
 
-        addPointsUser(TrainCarEmission);
+//        addPointsUser(TrainCarEmission);
+        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), TrainCarEmission);
     }
 
     @SuppressWarnings("Duplicates")

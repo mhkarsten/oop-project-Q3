@@ -1,5 +1,6 @@
 package client.UI;
 
+import client.Service.UserSession;
 import server.model.EnergyEmission;
 import client.retrive.EmissionsRetrieve;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
 
 import static client.UI.RootController.addPointsUser;
 import static client.UI.RootController.stringToPoints;
+import static client.retrive.UserRetrieve.addGenericFeat;
 import static java.lang.Integer.parseInt;
 
 public class EnergyController implements Initializable {

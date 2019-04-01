@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import server.model.Feat;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -112,17 +113,37 @@ public class UserRetrieve {
      * There should be a method updateUserPoints that takes the ID/username and points to be added.
      *
      */
-    public static void updateUserPoints(int points) {
+//    public static void updateUserPoints(int points) {
+//        MyRestTemplate restTemplate = new MyRestTemplate();
+//
+//        UserSession.getInstace().getCurrentUser().setPoints(points);
+//        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+//
+//        HttpEntity<User> requestBody = new HttpEntity<>(UserSession.getInstace().getCurrentUser(), headers);
+//
+//        System.out.println("This is the url; "+ UrlEndPoints.User.UPDATE);
+//        restTemplate.put(UrlEndPoints.User.UPDATE, requestBody);
+//    }
+//
+
+    /**Method to update a users information.
+     * Update user information (UPDATE)
+     *
+     * TODO: this method is not gonna work with the current security setup.
+     * There should be a method updateUserPoints that takes the ID/username and points to be added.
+     *
+     */
+    public static void addGenericFeat(Long userId, int points) {
         MyRestTemplate restTemplate = new MyRestTemplate();
 
-        UserSession.getInstace().getCurrentUser().setPoints(points);
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+        HttpEntity<Object> entity = new HttpEntity<Object>(headers);
 
-        HttpEntity<User> requestBody = new HttpEntity<>(UserSession.getInstace().getCurrentUser(), headers);
-
-        System.out.println("This is the url; "+ UrlEndPoints.User.UPDATE);
-        restTemplate.put(UrlEndPoints.User.UPDATE, requestBody);
+//        System.out.println("This is the url; "+ UrlEndPoints.User.ALL_USERS + "/" + userId + "/feats/new");
+        restTemplate.exchange(UrlEndPoints.User.ALL_USERS + "/" + userId + "/feats/new/" + points,
+            HttpMethod.POST, entity, Object.class);
     }
+
 
 
 

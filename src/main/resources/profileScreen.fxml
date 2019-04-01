@@ -25,10 +25,11 @@
             <!--maybe add a picture later on for each user, use this for now-->
             <Image url="@../images/person.png" />
          </image></ImageView>
-      <Label fx:id="userPoints" layoutX="7.0" layoutY="201.0" prefHeight="17.0" prefWidth="111.0" text="User Points: " />
+      <Label layoutX="7.0" layoutY="201.0" prefHeight="17.0" prefWidth="76.0" text="User Points: " />
       <Label fx:id="userID" layoutX="10.0" layoutY="160.0" text="User ID:" />
       <Label fx:id="userName" layoutX="10.0" layoutY="126.0" prefHeight="17.0" prefWidth="124.0" text="User Name:" />
       <Label fx:id="statText" layoutX="200.0" layoutY="181.0" prefHeight="17.0" prefWidth="124.0" text="STATS" />
       <Rectangle id="top-rectangle" arcHeight="5.0" arcWidth="5.0" height="81.0" layoutX="141.0" width="467.0" />
+      <Label fx:id="userPoints" layoutX="3.0" layoutY="218.0" prefHeight="17.0" prefWidth="131.0" />
    </children>
 </AnchorPane>

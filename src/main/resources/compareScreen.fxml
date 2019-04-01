@@ -17,7 +17,7 @@
       <TextField fx:id="userInput" layoutX="83.0" layoutY="91.0" />
       <Button fx:id="followBtn" layoutX="83.0" layoutY="123.0" mnemonicParsing="false" onAction="#findUserFollow" text="Follow" />
       <ListView fx:id="userFollowing" layoutX="344.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label fx:id="findStatus" layoutX="152.0" layoutY="116.0" prefHeight="25.0" prefWidth="71.0" text="Label" />
+      <Label fx:id="findStatus" layoutX="152.0" layoutY="116.0" prefHeight="25.0" prefWidth="180.0" text="Label" />
       <Label fx:id="userName" layoutX="55.0" layoutY="200.0" text="Label" />
       <Label fx:id="compareName" layoutX="218.0" layoutY="200.0" text="Label" />
       <Label fx:id="userPoints" layoutX="55.0" layoutY="240.0" text="Label" />
@@ -25,6 +25,6 @@
       <Button fx:id="compareBtn" layoutX="411.0" layoutY="291.0" mnemonicParsing="false" onAction="#setCompare" text="Compare" />
       <ListView fx:id="followeeListView" layoutX="622.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="685.0" layoutY="51.0" text="Following you" />
-      <Button fx:id="followeeCompare" layoutX="697.0" layoutY="291.0" mnemonicParsing="false" text="Compare" />
+      <Button fx:id="followeeCompare" layoutX="697.0" layoutY="291.0" mnemonicParsing="false" onAction="#setCompareFollowee" text="Compare" />
    </children>
 </AnchorPane>

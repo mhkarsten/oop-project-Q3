@@ -2,13 +2,16 @@ package client.UI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import client.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -17,8 +20,6 @@ import javafx.scene.layout.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -43,7 +44,7 @@ public class RootController implements Initializable {
     public SplitPane mainPane;
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
-    public LineChart<String,Number> lineChart;
+    public BarChart<String, Number> barChart;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,7 +62,8 @@ public class RootController implements Initializable {
 
                 openScoreScreen();
             } catch (IOException e) {
-                e.printStackTrace();;
+                e.printStackTrace();
+                ;
             }
         });
     }
@@ -108,14 +110,14 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
-    public void openTransportScreen() throws  IOException {
+    public void openTransportScreen() throws IOException {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/transportScreen.fxml"));
 
         changePane = newScreen.load();
         mainPane.getItems().set(1, changePane);
     }
 
-    public void openEnergyScreen() throws  IOException {
+    public void openEnergyScreen() throws IOException {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/energyScreen.fxml"));
 
         changePane = newScreen.load();
@@ -123,25 +125,25 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
-    public void moveButtons(){
+    public void moveButtons() {
         Timeline rowMove = new Timeline();
 
         Timeline fade = new Timeline();
         fade.getKeyFrames().addAll(
-            new KeyFrame(Duration.seconds(1),
-                new KeyValue(action.opacityProperty(), 0),
-                new KeyValue(profile.opacityProperty(), 0),
-                new KeyValue(score.opacityProperty(), 0),
-                new KeyValue(compare.opacityProperty(), 0),
-                new KeyValue(food.opacityProperty(), 0),
-                new KeyValue(transport.opacityProperty(), 0),
-                new KeyValue(energy.opacityProperty(), 0)
-            )
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(action.opacityProperty(), 0),
+                        new KeyValue(profile.opacityProperty(), 0),
+                        new KeyValue(score.opacityProperty(), 0),
+                        new KeyValue(compare.opacityProperty(), 0),
+                        new KeyValue(food.opacityProperty(), 0),
+                        new KeyValue(transport.opacityProperty(), 0),
+                        new KeyValue(energy.opacityProperty(), 0)
+                )
         );
         rowMove.getKeyFrames().addAll(
-            new KeyFrame(Duration.seconds(2),
-                new KeyValue(stretchbutton.scaleXProperty(),200)
-            )
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(stretchbutton.scaleXProperty(), 200)
+                )
         );
 
         fade.play();
@@ -150,25 +152,25 @@ public class RootController implements Initializable {
         rowMove.setOnFinished(e -> rowMove.stop());
     }
 
-    public void moveBackButton(){
+    public void moveBackButton() {
         Timeline rowMove = new Timeline();
 
         Timeline fade = new Timeline();
         fade.getKeyFrames().addAll(
-            new KeyFrame(Duration.seconds(1),
-                new KeyValue(action.opacityProperty(), 1),
-                new KeyValue(profile.opacityProperty(), 1),
-                new KeyValue(score.opacityProperty(), 1),
-                new KeyValue(compare.opacityProperty(), 1),
-                new KeyValue(food.opacityProperty(), 1),
-                new KeyValue(transport.opacityProperty(), 1),
-                new KeyValue(energy.opacityProperty(), 1)
-            )
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(action.opacityProperty(), 1),
+                        new KeyValue(profile.opacityProperty(), 1),
+                        new KeyValue(score.opacityProperty(), 1),
+                        new KeyValue(compare.opacityProperty(), 1),
+                        new KeyValue(food.opacityProperty(), 1),
+                        new KeyValue(transport.opacityProperty(), 1),
+                        new KeyValue(energy.opacityProperty(), 1)
+                )
         );
         rowMove.getKeyFrames().addAll(
-            new KeyFrame(Duration.seconds(2),
-                new KeyValue(stretchbutton.scaleXProperty(),1)
-            )
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(stretchbutton.scaleXProperty(), 1)
+                )
         );
 
         fade.play();
@@ -177,10 +179,40 @@ public class RootController implements Initializable {
         rowMove.setOnFinished(e -> rowMove.stop());
     }
 
-    public void btn(ActionEvent event){
-        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        series.getData().add( new XYChart.Data<String, Number>("Jan", 200));
-        lineChart.getData().add(series);
+    public void btn(ActionEvent event) {
+        User[] currentUser = getUser(1L);
+        Set<User> following = currentUser[0].getFollowing();
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        barChart = new BarChart<>(xAxis, yAxis);
+
+        xAxis.setLabel("Username");
+        yAxis.setLabel("Points");
+
+        XYChart.Series series = new XYChart.Series();
+        series.getData().add(new XYChart.Data(currentUser[0].getName(), currentUser[0].getPoints()));
+
+        Iterator<User> iterator = following.iterator();
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+            XYChart.Data xyChart = new XYChart.Data(user.getName(), user.getPoints());
+            series.getData().add(xyChart);
+        }
+
+        barChart.getData().addAll(series);
+    }
+
+    public int getMax(Set<User> users) {
+        int points = getUser(1L)[0].getPoints();
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext()) {
+            int temp = iterator.next().getPoints();
+            if (temp > points) {
+                points = temp;
+            }
+        }
+        return points;
     }
 
 

@@ -207,6 +207,7 @@ public class FoodController implements Initializable {
             currentUser.setPoints(currentUser.getPoints() + 15);
 
             mealBoxText.setText("You have earned 15 points for eating local produce");
+            addGenericFeat(currentUser.getID(), 15);
         }
 
         if (veganOpt.isSelected()) {
@@ -215,7 +216,7 @@ public class FoodController implements Initializable {
 
             mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
 
-            addGenericFeat(currentUser.getID(), currentUser.getPoints());
+            addGenericFeat(currentUser.getID(), 100);
 
             System.out.println(currentUser.toString());
 
@@ -231,14 +232,14 @@ public class FoodController implements Initializable {
 
             System.out.println(currentUser.toString());
 
-            addGenericFeat(currentUser.getID(), currentUser.getPoints());
+            addGenericFeat(currentUser.getID(), 50);
         } else {
 
             currentUser.setPoints(currentUser.getPoints() + 25);
 
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
-            addGenericFeat(currentUser.getID(), currentUser.getPoints());
+            addGenericFeat(currentUser.getID(), 25);
         }
     }
 }

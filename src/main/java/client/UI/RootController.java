@@ -221,8 +221,9 @@ public class RootController implements Initializable {
 
         int pointsToUpdate = UserSession.getInstace().getCurrentUser().getPoints();
         pointsToUpdate += points;
-
         UserSession.getInstace().getCurrentUser().setPoints(pointsToUpdate);
-        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), pointsToUpdate);
+
+
+        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), points);
     }
 }

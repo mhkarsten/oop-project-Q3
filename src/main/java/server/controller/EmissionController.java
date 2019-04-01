@@ -34,8 +34,8 @@ public class EmissionController {
     public ResponseEntity<VehicleEmission> vehicleEmission(@RequestBody HashMap parameters) {
 
         return new ResponseEntity<VehicleEmission>(getVehicleEmission(
-            (int) parseInt((String) parameters.get("distance")),
-            (int) parseInt((String) parameters.get("duration")),
+            (int) parseInt((String) parameters.get("daily_distance")),
+            (int) parseInt((String) parameters.get("daily_duration")),
             (String) parameters.get("sizeClass")
         ), HttpStatus.OK);
     }

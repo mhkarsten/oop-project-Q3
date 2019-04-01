@@ -25,7 +25,7 @@ import javafx.util.Duration;
 
 
 import static client.retrive.UserRetrieve.getUser;
-import static client.retrive.UserRetrieve.updateUser;
+import static client.retrive.UserRetrieve.updateUserPoints;
 import static java.lang.Integer.parseInt;
 import static javafx.scene.paint.Color.WHITE;
 
@@ -208,7 +208,7 @@ public class RootController implements Initializable {
         User[] currentUser = getUser(1L);
         currentUser[0].setPoints(currentUser[0].getPoints() + points);
 
-        updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+        updateUserPoints(currentUser[0].getPoints());
 
         System.out.println(currentUser.toString());
     }

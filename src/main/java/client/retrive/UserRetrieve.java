@@ -2,6 +2,7 @@ package client.retrive;
 
 import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
+import client.Service.UserSession;
 import client.model.User;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.HTTP;
@@ -111,16 +112,19 @@ public class UserRetrieve {
      * There should be a method updateUserPoints that takes the ID/username and points to be added.
      *
      */
-    public static void updateUser(long userID, String userName, int points) {
-//        MyRestTemplate restTemplate = new MyRestTemplate();
-//        User updatedUser = new User(userID, userName, points);
-//
-//        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
-//        HttpEntity<User> requestBody = new HttpEntity<>(updatedUser, headers);
-//
-//        System.out.println("This is the url; "+ UrlEndPoints.User.UPDATE);
-//        restTemplate.put(UrlEndPoints.User.UPDATE, requestBody);
+    public static void updateUserPoints(int points) {
+        MyRestTemplate restTemplate = new MyRestTemplate();
+
+        UserSession.getInstace().getCurrentUser().setPoints(points);
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+
+        HttpEntity<User> requestBody = new HttpEntity<>(UserSession.getInstace().getCurrentUser(), headers);
+
+        System.out.println("This is the url; "+ UrlEndPoints.User.UPDATE);
+        restTemplate.put(UrlEndPoints.User.UPDATE, requestBody);
     }
+
+
 
     /**Method to delete an existing user (DELETE).
      *

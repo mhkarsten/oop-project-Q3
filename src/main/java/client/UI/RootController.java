@@ -58,7 +58,7 @@ public class RootController implements Initializable {
         score.setOnAction((ActionEvent evt) -> {
             try {
 
-                openScoreScreen();
+                openProfileScreen();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -72,19 +72,6 @@ public class RootController implements Initializable {
     public void openFoodScreen() throws IOException {
 
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/foodScreen.fxml"));
-        changePane = newScreen.load();
-
-        mainPane.getItems().set(1, changePane);
-    }
-
-    /**
-     * Method to open the ScoreScreen on the side pane.
-     * @throws IOException Exception if the screen fails to be loaded
-     */
-    public void openScoreScreen() throws IOException {
-
-        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
-
         changePane = newScreen.load();
 
         mainPane.getItems().set(1, changePane);

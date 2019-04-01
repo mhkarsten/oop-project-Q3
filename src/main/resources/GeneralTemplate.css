@@ -1,6 +1,8 @@
 /*Self made styleClass*/
 .AnchorPane {
     -fx-background-color: white;
+    -fx-border-color: red;
+    -fx-border-width: 2px;
 
 }
 

@@ -15,7 +15,7 @@ class FlightEmissionTest {
     String fuel_usetest = "837";
     String distance = "847";
     String distancetest = "666";
-    FlightEmission fm = new FlightEmission(carbon, energy, fuel_use, distance);
+    FlightEmission fm = new FlightEmission(carbon, energy, distance, fuel_use);
 
     @Test
     void JSONtoFlight() {

@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@SequenceGenerator(name="user_seq", initialValue=10,allocationSize = 1)
+@SequenceGenerator(name="user_seq", initialValue=20,allocationSize = 1)
 public class User {
 
     @Id

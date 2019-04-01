@@ -9,8 +9,6 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static client.retrive.UserRetrieve.getUser;
-
 public class ProfileController implements Initializable {
 
     @FXML

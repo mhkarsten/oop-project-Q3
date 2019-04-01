@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import client.Service.UserSession;
 import client.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -110,18 +109,6 @@ public class RootController implements Initializable {
      */
     public void openCompareScreen() throws IOException {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/compareScreen.fxml"));
-
-        changePane = newScreen.load();
-
-        mainPane.getItems().set(1, changePane);
-    }
-
-    /**
-     * Method to open the ScoreScreen on the side pane.
-     * @throws IOException Exception if the screen fails to be loaded
-     */
-    public void openMyScore() throws IOException {
-        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
 
         changePane = newScreen.load();
 

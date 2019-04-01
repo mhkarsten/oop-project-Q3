@@ -9,63 +9,39 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" dividerPositions="0.29" maxHeight="-Infinity" maxWidth="-Infinity"
-           minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0"
-           stylesheets="root.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
-           fx:controller="client.UI.RootController">
+<SplitPane fx:id="mainPane" dividerPositions="0.29" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0" stylesheets="root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.UI.RootController">
 
     <items>
         <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="300.0">
             <children>
-                <Button fx:id="compare" layoutX="27.0" layoutY="150.0" mnemonicParsing="false"
-                        onAction="#openCompareScreen" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0"
-                        style="-fx-background-color: #E57373;" text="Compare"/>
-                <Button fx:id="profile" layoutY="39.0" mnemonicParsing="false" onAction="#openProfileScreen"
-                        onMouseClicked="#moveButtons" prefHeight="62.0" prefWidth="134.0"
-                        style="-fx-background-color: #EF9A9A;" text="My Info"/>
-                <Button fx:id="action" layoutY="199.0" mnemonicParsing="false" onAction="#openFoodScreen"
-                        onMouseClicked="#moveButtons" prefHeight="62.0" prefWidth="134.0"
-                        style="-fx-background-color: #EF9A9A;" text="Action"/>
-                <Button fx:id="score" layoutX="27.0" layoutY="109.0" mnemonicParsing="false" onAction="#openMyScore"
-                        onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0"
-                        style="-fx-background-color: #E57373;" text="Profile"/>
-                <Button fx:id="food" layoutX="27.0" layoutY="271.0" mnemonicParsing="false" onAction="#openFoodScreen"
-                        onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0"
-                        style="-fx-background-color: #E57373;" text="Food"/>
-                <Button fx:id="transport" layoutX="27.0" layoutY="349.0" mnemonicParsing="false"
-                        onAction="#openTransportScreen" onMouseClicked="#moveButtons" prefHeight="31.0"
-                        prefWidth="120.0" style="-fx-background-color: #E57373;" text="Transport"/>
-                <Button fx:id="energy" layoutX="27.0" layoutY="310.0" mnemonicParsing="false"
-                        onAction="#openEnergyScreen" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0"
-                        style="-fx-background-color: #E57373;" text="Energy"/>
-                <Button fx:id="stretchbutton" accessibleText="#F08080" mnemonicParsing="false"
-                        onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="8.0"
-                        style="-fx-background-color: #F08080;"/>
-                <Button fx:id="action1" layoutX="10.0" layoutY="414.0" mnemonicParsing="false"
-                        onAction="#moveBackButton" prefHeight="19.0" prefWidth="75.0"
-                        style="-fx-background-color: #EF9A9A;" text="Back"/>
+                <Button fx:id="compare" layoutX="27.0" layoutY="150.0" mnemonicParsing="false" onAction="#openCompareScreen" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #E57373;" text="Compare" />
+                <Button fx:id="profile" layoutY="39.0" mnemonicParsing="false" onMouseClicked="#moveButtons" prefHeight="62.0" prefWidth="134.0" style="-fx-background-color: #EF9A9A;" text="My Info" />
+                <Button fx:id="action" layoutY="199.0" mnemonicParsing="false" onMouseClicked="#moveButtons" prefHeight="62.0" prefWidth="134.0" style="-fx-background-color: #EF9A9A;" text="Action" />
+                <Button fx:id="score" layoutX="27.0" layoutY="109.0" mnemonicParsing="false" onAction="#openProfileScreen" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #E57373;" text="Profile" />
+                <Button fx:id="food" layoutX="27.0" layoutY="271.0" mnemonicParsing="false" onAction="#openFoodScreen" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #E57373;" text="Food" />
+                <Button fx:id="transport" layoutX="27.0" layoutY="349.0" mnemonicParsing="false" onAction="#openTransportScreen" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #E57373;" text="Transport" />
+                <Button fx:id="energy" layoutX="27.0" layoutY="310.0" mnemonicParsing="false" onAction="#openEnergyScreen" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #E57373;" text="Energy" />
+                <Button fx:id="stretchbutton" accessibleText="#F08080" mnemonicParsing="false" onMouseClicked="#moveButtons" prefHeight="31.0" prefWidth="8.0" style="-fx-background-color: #F08080;" />
+                <Button fx:id="action1" layoutX="10.0" layoutY="414.0" mnemonicParsing="false" onAction="#moveBackButton" prefHeight="19.0" prefWidth="75.0" style="-fx-background-color: #EF9A9A;" text="Back" />
 
             </children>
         </AnchorPane>
         <AnchorPane fx:id="changePane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="40.0">
             <children>
-                <ImageView fitHeight="31.0" fitWidth="44.0" layoutX="414.0" layoutY="14.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="31.0" fitWidth="44.0" layoutX="414.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/heartlogo.jpeg"/>
+                        <Image url="@../images/heartlogo.jpeg" />
                     </image>
                 </ImageView>
-                <LineChart fx:id="linechart" layoutX="56.0" layoutY="143.0" prefHeight="257.0" prefWidth="360.0"
-                           title="Statistics">
+                <LineChart fx:id="linechart" layoutX="56.0" layoutY="143.0" prefHeight="257.0" prefWidth="360.0" title="Statistics">
                     <xAxis>
-                        <CategoryAxis side="BOTTOM"/>
+                        <CategoryAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis side="LEFT"/>
+                        <NumberAxis side="LEFT" />
                     </yAxis>
                 </LineChart>
-                <Button layoutX="169.0" layoutY="400.0" mnemonicParsing="false" onAction="#btn" prefHeight="0.0"
-                        prefWidth="134.0" text="Load graph!"/>
+                <Button layoutX="169.0" layoutY="400.0" mnemonicParsing="false" onAction="#btn" prefHeight="0.0" prefWidth="134.0" text="Load graph!" />
             </children>
         </AnchorPane>
 

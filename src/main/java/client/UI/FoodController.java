@@ -45,10 +45,9 @@ public class FoodController implements Initializable {
     private ArrayList<Meal> veganMeals;
     private ArrayList<Meal> vegetarianMeals;
     private User currentUser = UserSession.getInstace().getCurrentUser();
+
     /**
      * Gets selected category.
-     *
-     * @return the selected category
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -63,7 +62,7 @@ public class FoodController implements Initializable {
         vegetarianMeals = getMealCategory("Vegetarian");
 
         upBtn.setOnAction(event -> changeMeals(upBtn));
-        downBtn.setOnAction((event -> changeMeals(downBtn)));
+        downBtn.setOnAction(event -> changeMeals(downBtn));
     }
 
     /**

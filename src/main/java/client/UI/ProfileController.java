@@ -1,4 +1,5 @@
 package client.UI;
+
 import client.Service.UserSession;
 import client.model.User;
 import javafx.fxml.FXML;

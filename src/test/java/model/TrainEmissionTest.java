@@ -14,7 +14,7 @@ class TrainEmissionTest {
     String fuel_usetest = "7826286";
     String distance = "45";
     String distancetest = "83";
-    TrainEmission tm = new TrainEmission(carbon, energy, distance, fuel_use);
+    TrainEmission tm = new TrainEmission(carbon, energy, fuel_use, distance);
 
     @Test
     void JSONtoTrain() {

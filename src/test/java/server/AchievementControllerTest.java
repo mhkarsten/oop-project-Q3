@@ -47,11 +47,13 @@ public class AchievementControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         String username = "tom";
         String password = "123";
+        User tom=new User("tom","123");
         //The basic authentication as it works right now, [user]:[password]
         byte[] encAuth = Base64.encodeBase64((username + ':' + password).getBytes(Charset.forName("US-ASCII")));
         headers.set("Authorization", "Basic " + new String(encAuth));
         entity = new HttpEntity<>(headers);
         domain = "http://localhost:" + port;
+        restTemplate.postForObject(domain + "/auth/register", new HttpEntity<>(tom,headers), User.class);
     }
 
     @Test

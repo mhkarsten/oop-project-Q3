@@ -44,7 +44,7 @@ public class AuthenticationTest {
     public boolean tryToConnect(HttpHeaders h) {
         boolean connectionSuccess = false;
         try {
-            this.restTemplate.postForObject(domain + "/", new HttpEntity<>(h), String.class);
+            this.restTemplate.postForObject(domain + "/feats", new HttpEntity<>(h), String.class);
             connectionSuccess = true;
         } catch (ResourceAccessException excp) {
         }

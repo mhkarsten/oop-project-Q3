@@ -12,7 +12,7 @@ class FoodRetrieveTest {
     //@Test
     void getRandomMealTest() {
 
-        Meal[] randomMeal = getRandomMeal();
+        Meal randomMeal = getRandomMeal();
 
         Assertions.assertNotNull(randomMeal);
     }

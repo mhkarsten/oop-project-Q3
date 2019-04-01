@@ -49,6 +49,7 @@ public class FoodAPI {
         if (statusCode == HttpStatus.OK) {
             meal = JSONToMeal(response.getBody());
         }
+
         return Optional.of(meal);
     }
 

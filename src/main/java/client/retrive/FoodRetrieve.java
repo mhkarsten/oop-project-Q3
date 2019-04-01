@@ -31,13 +31,12 @@ public class FoodRetrieve {
      * @return the meal [ ]
      */
     @SuppressWarnings("Duplicates")
-    public static Meal[] getRandomMeal() {
+    public static Meal getRandomMeal() {
         //GETS A RANDOM MEAL OFF OF THE SERVER SIDE API
         MyRestTemplate restTemplate = new MyRestTemplate();
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<Meal> entity = new HttpEntity<>(headers);
-
 
         ResponseEntity<Meal> response = restTemplate.exchange(URL_RANDOMMEAL,
             HttpMethod.POST, entity, Meal.class);
@@ -47,12 +46,13 @@ public class FoodRetrieve {
 
         if (statusCode == HttpStatus.OK) {
 
-            Meal[] mealArray = new Meal[1];
-            mealArray[0] = response.getBody();
+            Meal randomMeal = response.getBody();
 
-            if (response.getBody() != null) {
+            System.out.println(randomMeal.getStrMeal());
 
-                return mealArray;
+            if (randomMeal != null) {
+
+                return randomMeal;
             } else {
 
                 System.out.println("(Client Side) The specified meal was null or doesnt exist.");
@@ -69,7 +69,7 @@ public class FoodRetrieve {
      * @return the meal [ ]
      */
     @SuppressWarnings("Duplicates")
-    public static Meal[] getMeal(String mealName) {
+    public static Meal getMeal(String mealName) {
         //GETS A SPECIFIC MEAL FROM THE API ON THE SERVER
         MyRestTemplate restTemplate = new MyRestTemplate();
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
@@ -86,12 +86,9 @@ public class FoodRetrieve {
 
         if (statusCode == HttpStatus.OK) {
 
-            Meal[] mealArray = new Meal[1];
-            mealArray[0] = response.getBody();
-
             if (response.getBody() != null) {
 
-                return mealArray;
+                return response.getBody();
             } else {
 
                 System.out.println("(Client Side) The specified meal was null or doesnt exist.");

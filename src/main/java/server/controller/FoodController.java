@@ -29,8 +29,15 @@ public class FoodController {
             produces = {MediaType.APPLICATION_XML_VALUE,
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Meal[] getRandomMeal() {
-        return FoodAPI.getRandomMeal().get();
+    public Meal getRandomMeal() {
+
+        Optional<Meal[]> randomMeal = FoodAPI.getRandomMeal();
+        if (randomMeal.isPresent()) {
+
+            System.out.println(randomMeal.get()[0].getStrMeal());
+            return randomMeal.get()[0];
+        }
+        return null;
     }
 
     /**

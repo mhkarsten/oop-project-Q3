@@ -96,6 +96,11 @@ public class EnergyController implements Initializable {
         addPointsUser(stringToPoints(em.getCarbon()));
     }
 
+    public void getSolarPanelEmission() {
+        int SolarPanels = getIntField1() * 100;
+        addPointsUser(SolarPanels);
+    }
+
     /**
      * Changes the labels and fields to correspond with the selected option.
      * @param event The event which activated this method (Mouseclick for this method)
@@ -120,12 +125,31 @@ public class EnergyController implements Initializable {
         Labelfield4.setText("Enter your monthly gas costs in USD");
     }
 
+    public void selectSolarPanelsEmission(MouseEvent event) {
+        energyChoice = RootController.selectOption(event, energyChoice);
+        clearFields();
+
+        Labelfield1.setVisible(true);
+        field1.setVisible(true);
+        Labelfield2.setVisible(false);
+        field2.setVisible(false);
+        Labelfield3.setVisible(false);
+        field3.setVisible(false);
+        Labelfield4.setVisible(false);
+        field4.setVisible(false);
+
+        Labelfield1.setText("Enter the amount of solar panels you installed");
+    }
+
     /**
      * Method behind the select button to choose what option has to be executed.
      */
     public void getEmission() {
         if (energyChoice == energy1) {
             getEnergyEmission();
+        }
+        if (energyChoice == energy2) {
+            getSolarPanelEmission();
         }
     }
 

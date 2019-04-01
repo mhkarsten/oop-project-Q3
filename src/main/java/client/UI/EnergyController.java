@@ -18,6 +18,8 @@ import static client.UI.RootController.stringToPoints;
 import static client.retrive.UserRetrieve.addGenericFeat;
 import static java.lang.Integer.parseInt;
 
+import server.model.EnergyEmission;
+
 public class EnergyController implements Initializable {
 
     private Label energyChoice;
@@ -33,12 +35,12 @@ public class EnergyController implements Initializable {
     public Label Labelfield3;
     public Label Labelfield4;
 
+    public TextArea description;
+
     public TextField field1;
     public TextField field2;
     public TextField field3;
     public TextField field4;
-
-    public TextArea description;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,11 +51,14 @@ public class EnergyController implements Initializable {
         return field1.getText();
     }
 
+    /**
+     * Method to extract an Integer from the textfield with label Textfield1.
+     * @return an integer from a string if not compatible returns 0
+     */
     public Integer getIntField1() {
         try {
             return parseInt(getField1Text());
-        }
-        catch ( NumberFormatException e) {
+        } catch ( NumberFormatException e) {
             return 0;
         }
     }
@@ -70,21 +75,31 @@ public class EnergyController implements Initializable {
         return field4.getText();
     }
 
+    /**
+     * Method to extract an Integer from the textfield with label Textfield4.
+     * @return an integer from a string if not compatible returns 0
+     */
     public Integer getIntField4() {
         try {
             return parseInt(getField4Text());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
 
+    /**
+     * Method to call other methods to get EnergyEmission and to add points to the user.
+     */
     public void getEnergyEmission() {
         EnergyEmission em = EmissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
         System.out.println(em.getCarbon());
         addPointsUser(stringToPoints(em.getCarbon()));
     }
 
+    /**
+     * Changes the labels and fields to correspond with the selected option.
+     * @param event The event which activated this method (Mouseclick for this method)
+     */
     @SuppressWarnings("Duplicates")
     public void selectEnergyEmission(MouseEvent event) {
         energyChoice = RootController.selectOption(event, energyChoice);
@@ -105,12 +120,18 @@ public class EnergyController implements Initializable {
         Labelfield4.setText("Enter your monthly gas costs in USD");
     }
 
+    /**
+     * Method behind the select button to choose what option has to be executed.
+     */
     public void getEmission() {
-        if(energyChoice == energy1) {
+        if (energyChoice == energy1) {
             getEnergyEmission();
         }
     }
 
+    /**
+     * Method to clear all the textfields.
+     */
     public void clearFields() {
         field1.setText("");
         field2.setText("");

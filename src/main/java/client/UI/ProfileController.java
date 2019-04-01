@@ -1,4 +1,5 @@
 package client.UI;
+
 import client.Service.UserSession;
 import client.model.User;
 import javafx.fxml.FXML;
@@ -7,8 +8,6 @@ import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static client.retrive.UserRetrieve.getUser;
 
 public class ProfileController implements Initializable {
 

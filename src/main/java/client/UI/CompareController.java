@@ -9,10 +9,7 @@ import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 import static client.retrive.UserRetrieve.getUserFollow;
 import static client.retrive.UserRetrieve.getUsers;
@@ -59,16 +56,18 @@ public class CompareController implements Initializable {
         userName.setText(activeUser.getName());
         userPoints.setText(Integer.toString(activeUser.getPoints()));
 
-        updateListView();
-    }
+        ObservableList<String> listViewContents = userFollowing.getItems();
 
-    public void updateListView() {
+        ArrayList<Object> tempArray = new ArrayList<>();
+        tempArray.addAll(userFollows);
 
-        User[] followingList = userFollows.toArray(new User[0]);
+        for (int i = 0; i < tempArray.size(); i++) {
 
-        for (int i = 0; i < userFollows.size(); i++) {
+            LinkedHashMap tempMap = (LinkedHashMap) tempArray.get(i);
 
-            userFollowing.getItems().add(followingList[i].getName());
+            String userName = (String) tempMap.get("name");
+
+            listViewContents.add(userName);
         }
     }
 
@@ -83,9 +82,8 @@ public class CompareController implements Initializable {
 
             userFollows.add(foundUser);
 
-            updateUserFollowing(foundUser.getID(), activeUser.getID());
-            userFollows = getUserFollow(false, activeUser.getID());
-            updateListView();
+            updateUserFollowing(activeUser.getID(), foundUser.getID());
+            userFollowing.getItems().add(foundUser.getName());
 
             findStatus.setText("You are now following" + foundUser.getName());
         } else {

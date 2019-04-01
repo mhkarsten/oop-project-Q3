@@ -21,10 +21,9 @@ import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.Cookie;
-
-
 import java.io.IOException;
+
+import javax.servlet.http.Cookie;
 
 public class LoginController {
 
@@ -83,7 +82,6 @@ public class LoginController {
 
     /**Method to post a new user (CREATE).
      *
-     * }
      */
     public void register(ActionEvent event) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
@@ -105,7 +103,7 @@ public class LoginController {
                 UserSession.getInstace().setPassword(passwordField.getText());
                 MyStage.switchScene(MyStage.Screens.ROOT);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             loginStatus.setText("User already exists.");
             System.out.println(e);
         }

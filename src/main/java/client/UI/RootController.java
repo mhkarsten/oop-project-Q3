@@ -60,13 +60,17 @@ public class RootController implements Initializable {
         score.setOnAction((ActionEvent evt) -> {
             try {
 
-                openScoreScreen();
+                openProfileScreen();
             } catch (IOException e) {
-                e.printStackTrace();;
+                e.printStackTrace();
             }
         });
     }
 
+    /**
+     * Method to open the FoodScreen on the side pane.
+     * @throws IOException Exception if the screen fails to be loaded
+     */
     public void openFoodScreen() throws IOException {
 
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/foodScreen.fxml"));
@@ -75,15 +79,10 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
-    public void openScoreScreen() throws IOException {
-
-        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
-
-        changePane = newScreen.load();
-
-        mainPane.getItems().set(1, changePane);
-    }
-
+    /**
+     * Method to open the ProfileScreen on the side pane.
+     * @throws IOException Exception if the screen fails to be loaded
+     */
     public void openProfileScreen() throws IOException {
 
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/profileScreen.fxml"));
@@ -93,6 +92,10 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
+    /**
+     * Method to open the CompareScreen on the side pane.
+     * @throws IOException Exception if the screen fails to be loaded
+     */
     public void openCompareScreen() throws IOException {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/compareScreen.fxml"));
 
@@ -101,14 +104,10 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
-    public void openMyScore() throws IOException {
-        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/scoreScreen.fxml"));
-
-        changePane = newScreen.load();
-
-        mainPane.getItems().set(1, changePane);
-    }
-
+    /**
+     * Method to open the TransportScreen on the side pane.
+     * @throws IOException Exception if the screen fails to be loaded
+     */
     public void openTransportScreen() throws  IOException {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/transportScreen.fxml"));
 
@@ -116,6 +115,10 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
+    /**
+     * Method to open the EnergyScreen on the side pane.
+     * @throws IOException Exception if the screen fails to be loaded
+     */
     public void openEnergyScreen() throws  IOException {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/energyScreen.fxml"));
 
@@ -124,7 +127,7 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
-    public void moveButtons(){
+    public void moveButtons() {
         Timeline rowMove = new Timeline();
 
         Timeline fade = new Timeline();
@@ -151,7 +154,7 @@ public class RootController implements Initializable {
         rowMove.setOnFinished(e -> rowMove.stop());
     }
 
-    public void moveBackButton(){
+    public void moveBackButton() {
         Timeline rowMove = new Timeline();
 
         Timeline fade = new Timeline();
@@ -178,13 +181,18 @@ public class RootController implements Initializable {
         rowMove.setOnFinished(e -> rowMove.stop());
     }
 
-    public void btn(ActionEvent event){
+    public void btn(ActionEvent event) {
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
         series.getData().add( new XYChart.Data<String, Number>("Jan", 200));
         lineChart.getData().add(series);
     }
 
-
+    /**
+     * Method to highlight and remove the highlight from selected/ unselected option.
+     * @param event The event from which you get which label has been pressed
+     * @param choice The Label that was highlighted before the change
+     * @return
+     */
     public static Label selectOption(MouseEvent event, Label choice) {
 
         Color redVbox = Color.rgb(239, 154, 154);
@@ -204,6 +212,10 @@ public class RootController implements Initializable {
         return parseInt(points.split("\\.")[0]);
     }
 
+    /**
+     * Method to make calls to update the points of the current user.
+     * @param points The amount of points that should be added to the user
+     */
     public static void addPointsUser(int points) {
 //      UserSession.getInstance().getUser.getId()
 

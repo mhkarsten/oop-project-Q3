@@ -3,11 +3,14 @@ package client.UI;
 import client.Service.UserSession;
 import client.model.Meal;
 import client.model.User;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -27,44 +30,62 @@ public class FoodController implements Initializable {
      * The Meal 1.
      */
     @FXML
-    public Label meal1;
-    public Label meal2;
-    public Label meal3;
-    public Label meal4;
     public Label mealBoxText;
+    public Label searchStatus;
+    public Label searchMealName;
 
     public CheckBox veganOpt;
     public CheckBox vegOpt;
     public CheckBox meatOpt;
+    public CheckBox localProduceBtn;
 
-    public Button upBtn;
-    public Button downBtn;
+    public Button searchBtn;
+    public Button selectMeal;
 
-    private int mealOffset;
+    public ListView mealView;
+
+    public TextField searchInput;
+
     private ArrayList<Meal> meatMeals;
     private ArrayList<Meal> veganMeals;
     private ArrayList<Meal> vegetarianMeals;
     private User currentUser = UserSession.getInstace().getCurrentUser();
+
     /**
      * Gets selected category.
-     *
-     * @return the selected category
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        meal1.setText(getRandomMeal()[0].getStrMeal());
-        meal2.setText(getRandomMeal()[0].getStrMeal());
-        meal3.setText(getRandomMeal()[0].getStrMeal());
-        meal4.setText(getRandomMeal()[0].getStrMeal());
+        gettingMeals.stateProperty().addListener((observable, oldState, newState) -> {
+            if(newState==Worker.State.SUCCEEDED){
 
-        meatMeals = getAllMeatMeals();
-        veganMeals = getMealCategory("Vegan");
-        vegetarianMeals = getMealCategory("Vegetarian");
+                ArrayList<Meal> randomMeals = new ArrayList<>();
 
-        upBtn.setOnAction(event -> changeMeals(upBtn));
-        downBtn.setOnAction((event -> changeMeals(downBtn)));
+                for (int i = 0; i < 10; i++) {
+                    Meal randomMeal = getRandomMeal();
+                    randomMeals.add(randomMeal);
+                    System.out.println(randomMeal.getStrMeal());
+                }
+
+                setMealStrings(randomMeals);
+            }
+        });
+
+        new Thread(gettingMeals).start();
     }
+
+    Task<Void> gettingMeals = new Task<Void>() {
+        @Override
+        protected Void call() throws Exception {
+
+            meatMeals = getAllMeatMeals();
+            veganMeals = getMealCategory("Vegan");
+            vegetarianMeals = getMealCategory("Vegetarian");
+
+            return null;
+        }
+    };
 
     /**
      * Gets selected category.
@@ -86,42 +107,61 @@ public class FoodController implements Initializable {
         return null;
     }
 
+    public Meal findMeal(String mealName) {
+        ArrayList<Meal> allMeals = new ArrayList();
+        allMeals.addAll(veganMeals);
+        allMeals.addAll(vegetarianMeals);
+        allMeals.addAll(meatMeals);
+
+        for (int i = 0; i < allMeals.size(); i++) {
+
+            if (allMeals.get(i).getStrMeal().equals(mealName)) {
+
+                return allMeals.get(i);
+            }
+        }
+
+        return null;
+    }
+
+    public void searchMealConfirm() {
+
+        currentUser.setPoints(currentUser.getPoints() + 25);
+        mealBoxText.setText("You have earned 25 pts for finding a meal!");
+
+
+        addGenericFeat(currentUser.getID(), currentUser.getPoints());
+    }
+
+    public void search() {
+
+        String mealName = searchInput.getText();
+        Meal foundMeal = findMeal(mealName);
+
+        if (foundMeal != null) {
+
+            searchStatus.setText(foundMeal.getStrMeal() + "has been selected!");
+            searchMealName.setText(foundMeal.getStrMeal());
+        } else {
+
+            searchStatus.setText("This meal does not exist");
+        }
+    }
+
     /**
      * Sets meal strings.
      *
      * @param mealCategory the meal category
-     * @param offset       the offset
      */
-    public void setMealStrings(ArrayList<Meal> mealCategory, int offset) {
+    public void setMealStrings(ArrayList<Meal> mealCategory) {
 
-        HashMap<String, Label> varNameMap = new HashMap<>();
-        varNameMap.put("meal1", meal1);
-        varNameMap.put("meal2", meal2);
-        varNameMap.put("meal3", meal3);
-        varNameMap.put("meal4", meal4);
+        ObservableList<String> mealViewContents = mealView.getItems();
+        mealViewContents.remove(0,mealViewContents.size());
 
-        if (mealCategory.size() < 4) {
+        mealCategory.forEach(meal -> {
 
-            int offsetAddition = 0;
-
-            for (int i = 1; i < mealCategory.size() + 1; i++) {
-
-                varNameMap.get("meal" + i).setText(mealCategory.get(offset + offsetAddition).getStrMeal());
-
-                offsetAddition++;
-            }
-
-            for (int i = mealCategory.size() + 1; i <= 4; i++) {
-
-                varNameMap.get("meal" + i).setText("");
-            }
-        } else {
-
-            meal1.setText(mealCategory.get(offset).getStrMeal());
-            meal2.setText(mealCategory.get(offset + 1).getStrMeal());
-            meal3.setText(mealCategory.get(offset + 2).getStrMeal());
-            meal4.setText(mealCategory.get(offset + 3).getStrMeal());
-        }
+            mealViewContents.add(meal.getStrMeal());
+        });
     }
 
     /**
@@ -132,7 +172,7 @@ public class FoodController implements Initializable {
         meatOpt.setSelected(false);
         veganOpt.setSelected(false);
 
-        setMealStrings(vegetarianMeals, 0);
+        setMealStrings(vegetarianMeals);
     }
 
     /**
@@ -143,7 +183,7 @@ public class FoodController implements Initializable {
         meatOpt.setSelected(false);
         vegOpt.setSelected(false);
 
-        setMealStrings(veganMeals, 0);
+        setMealStrings(veganMeals);
     }
 
     /**
@@ -154,16 +194,7 @@ public class FoodController implements Initializable {
         vegOpt.setSelected(false);
         veganOpt.setSelected(false);
 
-        setMealStrings(meatMeals, 0);
-    }
-
-    /**
-     * Select meal.
-     *
-     * @param event the event
-     */
-    public void selectMeal(MouseEvent event) {
-        mealChoice = RootController.selectOption(event, mealChoice);
+        setMealStrings(meatMeals);
     }
 
     /**
@@ -171,7 +202,12 @@ public class FoodController implements Initializable {
      */
     public void getMealPoints() {
 
+        if (localProduceBtn.isSelected()) {
 
+            currentUser.setPoints(currentUser.getPoints() + 15);
+
+            mealBoxText.setText("You have earned 15 points for eating local produce");
+        }
 
         if (veganOpt.isSelected()) {
 
@@ -203,27 +239,6 @@ public class FoodController implements Initializable {
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
             addGenericFeat(currentUser.getID(), currentUser.getPoints());
-        }
-    }
-
-    /**
-     * Change meals.
-     *
-     * @param button the button
-     */
-    public void changeMeals(Button button) {
-
-        if (button == downBtn) {
-
-            mealOffset = mealOffset + 4;
-            setMealStrings(getSelectedCategory(), mealOffset);
-        } else if (button == upBtn) {
-
-            if (mealOffset <= 4) {
-
-                mealOffset = mealOffset - 4;
-                setMealStrings(getSelectedCategory(), mealOffset);
-            }
         }
     }
 }

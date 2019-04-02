@@ -81,8 +81,7 @@ public class UserControllerTest {
 
     @Test
     public void retrieveUserOne() {
-        Assertions.assertEquals("Alex", this.restTemplate.postForObject(domain + "/users/1", entity, User.class
-        ).getName());
+        Assertions.assertEquals("Alex", this.restTemplate.postForObject(domain + "/users/1", entity, User.class).getName());
     }
 
     @Test

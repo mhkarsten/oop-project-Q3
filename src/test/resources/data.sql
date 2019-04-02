@@ -1,9 +1,9 @@
-INSERT INTO users (id, name)
-VALUES (user_seq.NEXTVAL, 'Alex');
-INSERT INTO users (id, name)
-VALUES (user_seq.NEXTVAL, 'Jim');
-INSERT INTO users (id, name)
-VALUES (user_seq.NEXTVAL, 'Jennifer');
+INSERT INTO users (id, name, password)
+VALUES (user_seq.NEXTVAL, 'Alex','asdfas');
+INSERT INTO users (id, name,password)
+VALUES (user_seq.NEXTVAL, 'Jim','asdf');
+INSERT INTO users (id, name,password)
+VALUES (user_seq.NEXTVAL, 'Jennifer','asdf');
 
 INSERT INTO achievements (id, title, description, path)
 VALUES (achievement_seq.NEXTVAL, 'GoGreen', 'Start GoGreen', 'path');

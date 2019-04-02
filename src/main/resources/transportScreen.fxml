@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="750.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.UI.TransportController">
    <children>
-      <ScrollPane layoutX="40.0" layoutY="55.0" prefHeight="290.0" prefWidth="205.0" style="-fx-background: none;">
+      <ScrollPane layoutX="40.0" layoutY="79.0" prefHeight="290.0" prefWidth="205.0" style="-fx-background: none;">
          <content>
             <VBox prefHeight="285.0" prefWidth="200.0" styleClass="EVBox">
                <children>
@@ -27,7 +27,7 @@
             </VBox>
          </content>
       </ScrollPane>
-      <VBox layoutX="500.0" layoutY="55.0" prefHeight="290.0" prefWidth="71.0" styleClass="VBox">
+      <VBox layoutX="501.0" layoutY="79.0" prefHeight="290.0" prefWidth="71.0" styleClass="VBox">
          <children>
             <Label fx:id="Labelfield1" prefWidth="180.0" text="Enter stuff" visible="false" />
             <TextField fx:id="field1" visible="false" />
@@ -37,7 +37,8 @@
             <TextField fx:id="field3" visible="false" />
          </children>
       </VBox>
-      <TextArea fx:id="description" layoutX="288.0" layoutY="55.0" prefHeight="290.0" prefWidth="175.0" />
+      <TextArea fx:id="description" layoutX="288.0" layoutY="79.0" prefHeight="290.0" prefWidth="175.0" />
+      <Button layoutX="671.0" layoutY="14.0" mnemonicParsing="false" onAction="#display" text="Help" />
    </children>
    <stylesheets>
       <URL value="@GeneralTemplate.css" />

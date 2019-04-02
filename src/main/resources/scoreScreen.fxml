@@ -18,8 +18,8 @@
          <children>
             <Button fx:id="1" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Button" />
             <Button fx:id="2" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Button" />
-            <Button fx:id="3" mnemonicParsing="false" prefHeight="50.0" prefWidth="126.0" text="Button" />
-            <Button fx:id="4" mnemonicParsing="false" prefHeight="50.0" prefWidth="124.0" text="Button" />
+            <Button fx:id="3" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Button" />
+            <Button fx:id="4" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Button" />
          </children></VBox>
       <ScrollPane layoutX="116.0" layoutY="147.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background: none;">
          <content>

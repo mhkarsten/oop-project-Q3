@@ -1,5 +1,12 @@
 package client.UI;
 
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import server.model.EnergyEmission;
 import client.retrive.EmissionsRetrieve;
 import javafx.fxml.FXML;
@@ -115,5 +122,30 @@ public class EnergyController implements Initializable {
         field3.setText("");
         field4.setText("");
     }
+    public static void display() {
+
+        String msg = "There are many ways to reduce your energy consumption to help the environment.";
+        Stage window = new Stage();
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Help");
+        window.setMinWidth(250);
+
+        Button closeButton = new Button("Got It!");
+        closeButton.setOnAction(e -> window.close());
+
+        VBox layout = new VBox();
+        layout.getChildren().add(new Text(msg));
+        layout.getChildren().add(closeButton);
+
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+
+
+    }
+
 
 }

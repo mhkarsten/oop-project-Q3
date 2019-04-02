@@ -30,13 +30,14 @@
                     <Label fx:id="meal2" layoutX="10.0" layoutY="47.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="40.0" prefWidth="202.0" text="Steak" />
                     <Label fx:id="meal3" layoutX="10.0" layoutY="84.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="40.0" prefWidth="202.0" text="Mozzarella sandwich" />
                     <Label fx:id="meal4" layoutX="10.0" layoutY="121.0" minHeight="16" minWidth="69" onMouseClicked="#selectMeal" prefHeight="40.0" prefWidth="202.0" text="Chicken" />
-                    <Button mnemonicParsing="false" onAction="#getMealPoints" style="-fx-border-color: black;" text="Select Meal" />
+                    <Button fx:id="" mnemonicParsing="false" onAction="#getMealPoints" style="-fx-border-color: black;" text="Select Meal" />
                     <Button fx:id="upBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Next" />
                     <Button fx:id="downBtn" mnemonicParsing="false" style="-fx-border-color: black;" text="Show Previous" />
                 </children>
             </VBox>
         </content>
       </ScrollPane>
+      <Button layoutX="535.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#display" text="Help" />
     </children>
     <stylesheets>
         <URL value="@GeneralTemplate.css" />

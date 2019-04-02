@@ -14,40 +14,12 @@ import java.util.Set;
 @SequenceGenerator(name="user_seq", initialValue=20,allocationSize = 1)
 public class User {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")
     private long id;
-
     private String name;
     private String password;
-
-    //    @ManyToMany
-    @Column(columnDefinition = "int default 0")
     private int points = 0;
-
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
-    })
-    @JoinTable(
-        name = "user_achievement",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "achievement_id"))
     private Set<Achievement> unlockedAchievements;
 
-    /**
-     * This is a more intricate part of the user class. As the User class participates at both ends of the FOLLOW relation,
-     * it both maps other User objects and is mapped by other User objects (Compare this to the @ManyToMany user_achievement relation for instance)
-     */
-    @ManyToMany
-    @JoinTable(
-        name = "followers",
-        joinColumns = @JoinColumn(name = "follower", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "followed", referencedColumnName = "id"))
-    private Set<User> following;
-    @ManyToMany(mappedBy = "following",cascade=CascadeType.ALL)
-    private Set<User> follower;
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
     private Set<Feat> feats;
 
 
@@ -147,27 +119,6 @@ public class User {
     }
     public void setAchievements(Set<Achievement> achievement) {
         this.unlockedAchievements = achievement;
-    }
-
-    //To prevent recursive trouble when returning a user object (a user having followers that have followers that have followers...), the JsonIgnore
-    //annotation is used. Note that the reason that this is here is that only public fields are included in the Json serialization
-    @JsonIgnore
-    public Set<User> getFollowers() {
-        return follower;
-    }
-
-    public void setFollower(Set<User> follower) {
-        this.follower = follower;
-    }
-    //To prevent recursive trouble when returning a user object (a user following users that follow users that follow users...), the JsonIgnore
-    //annotation is used.
-    @JsonIgnore
-    public Set<User> getFollowing() {
-        return following;
-    }
-
-    public void setFollowing(Set<User> following) {
-        this.following = following;
     }
 
     public String getPassword() {

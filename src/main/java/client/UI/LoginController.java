@@ -88,10 +88,9 @@ public class LoginController {
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         try {
+
             User newUser = new User(usernameField.getText(), passwordField.getText());
-
             HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
-
             User user = restTemplate.postForObject(UrlEndPoints.Auth.REGISTER, requestBody, User.class);
 
             UserSession.getInstace().setCurrentUser(user);

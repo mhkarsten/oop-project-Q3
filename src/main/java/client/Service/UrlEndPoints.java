@@ -34,5 +34,6 @@ public class UrlEndPoints {
         public static final String URL_ACHGETALL = BASE_URL + "achievements";
         public static final String URL_ACHGET = BASE_URL + "achievements/{achID}";
         public static final String URL_ACHUNLOCKED = BASE_URL + "users/{userID}/achievements";
+        public static final String URL_NEWACH = BASE_URL + "/achievements/new";
     }
 }

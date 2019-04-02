@@ -126,5 +126,49 @@ public class AchievementRetrieve {
 
     public static void addUserAch(long usrID, long achID) {
 
+        MyRestTemplate restTemplate = new MyRestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+        Object[] uriValues = new Object[] {usrID, achID};
+        ResponseEntity<Achievement> response;
+
+        try {
+
+            HttpEntity<Achievement> entity = new HttpEntity<>(headers);
+            response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHUNLOCKED,
+                HttpMethod.POST, entity, Achievement.class, uriValues);
+
+        } catch (Exception e) {
+
+            System.out.println("(Client Side) Either the achievement doesnt exist, or the user.");
+            System.out.println(e.toString());
+            return;
+        }
+
+        Achievement responseValue = response.getBody();
+
+        System.out.println("(Client Side) The achievement with id " + responseValue.getID()
+            + "has been unlocked for user " + usrID);
+    }
+
+    public static void addAch(Achievement ach) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+
+        try {
+
+            HttpEntity<Achievement> requestBody = new HttpEntity<>(ach, headers);
+            Achievement newAch = restTemplate.postForObject(UrlEndPoints.Achievements.URL_NEWACH, requestBody, Achievement.class);
+
+            if (newAch != null && newAch.getID() != 0) {
+
+                System.out.println("(Client Side) The achievement " + ach.getTitle() + " has been created.");
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("(Client Side) Creating the achievement " + ach.getTitle() + " failed.");
+            System.out.println(e.toString());
+        }
     }
 }

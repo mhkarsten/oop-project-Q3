@@ -28,44 +28,22 @@ public class CompareController implements Initializable {
     @FXML
     Button followBtn;
 
-    /**
-     * The User name.
-     */
     @FXML
     Label userName;
-    /**
-     * The Compare name.
-     */
     @FXML
     Label compareName;
-    /**
-     * The User points.
-     */
     @FXML
     Label userPoints;
-    /**
-     * The Compare points.
-     */
     @FXML
     Label comparePoints;
-    /**
-     * The Find status.
-     */
     @FXML
     Label findStatus;
-    /**
-     * The User input.
-     */
+
     @FXML
     TextField userInput;
-    /**
-     * The User following.
-     */
+
     @FXML
     ListView userFollowing;
-    /**
-     * The Followee list view.
-     */
     @FXML
     ListView followeeListView;
 

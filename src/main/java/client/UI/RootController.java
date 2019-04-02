@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import client.Service.UserSession;
-import client.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +25,6 @@ import javafx.util.Duration;
 
 
 import static client.retrive.UserRetrieve.addGenericFeat;
-import static client.retrive.UserRetrieve.getUser;
 import static java.lang.Integer.parseInt;
 import static javafx.scene.paint.Color.WHITE;
 
@@ -41,6 +39,7 @@ public class RootController implements Initializable {
     public Button food;
     public Button transport;
     public Button energy;
+    public Button achievement;
     public SplitPane mainPane;
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
@@ -127,6 +126,15 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
+    public void openAchievementScreen() throws IOException {
+
+        FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/AchievementUI.fxml"));
+
+        changePane = newScreen.load();
+
+        mainPane.getItems().set(1, changePane);
+    }
+
     public void moveButtons() {
         Timeline rowMove = new Timeline();
 
@@ -139,7 +147,8 @@ public class RootController implements Initializable {
                 new KeyValue(compare.opacityProperty(), 0),
                 new KeyValue(food.opacityProperty(), 0),
                 new KeyValue(transport.opacityProperty(), 0),
-                new KeyValue(energy.opacityProperty(), 0)
+                new KeyValue(energy.opacityProperty(), 0),
+                new KeyValue(achievement.opacityProperty(), 0)
             )
         );
         rowMove.getKeyFrames().addAll(
@@ -166,7 +175,8 @@ public class RootController implements Initializable {
                 new KeyValue(compare.opacityProperty(), 1),
                 new KeyValue(food.opacityProperty(), 1),
                 new KeyValue(transport.opacityProperty(), 1),
-                new KeyValue(energy.opacityProperty(), 1)
+                new KeyValue(energy.opacityProperty(), 1),
+                new KeyValue(achievement.opacityProperty(), 1)
             )
         );
         rowMove.getKeyFrames().addAll(
@@ -217,7 +227,6 @@ public class RootController implements Initializable {
      * @param points The amount of points that should be added to the user
      */
     public static void addPointsUser(int points) {
-//      UserSession.getInstance().getUser.getId()
 
         int pointsToUpdate = UserSession.getInstace().getCurrentUser().getPoints();
         pointsToUpdate += points;

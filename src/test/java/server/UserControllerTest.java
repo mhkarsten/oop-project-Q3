@@ -58,6 +58,7 @@ public class UserControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         String username = "tom";
         String password = "123";
+
         //The basic authentication as it works right now, [user]:[password]
         byte[] encAuth = Base64.encodeBase64((username + ':' + password).getBytes(Charset.forName("US-ASCII")));
         headers.set("Authorization", "Basic " + new String(encAuth));
@@ -67,6 +68,7 @@ public class UserControllerTest {
         us2 = restTemplate.postForObject(domain + "/users/2", entity, User.class);
         us3 = restTemplate.postForObject(domain + "/users/3", entity, User.class);
     }
+
     @Test
     public void testConnection() {
         this.restTemplate.postForObject(domain + "/", entity, String.class);

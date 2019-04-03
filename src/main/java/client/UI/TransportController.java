@@ -60,8 +60,7 @@ public class TransportController implements Initializable {
     public Integer getIntField1() {
         try {
             return parseInt(getField1Text());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
@@ -74,8 +73,7 @@ public class TransportController implements Initializable {
         try {
             System.out.print(true);
             return parseInt(getField2Text());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
@@ -163,13 +161,12 @@ public class TransportController implements Initializable {
     }
 
     public void getEmission() {
-        if(transportChoice == transport1) {
+        if (transportChoice == transport1) {
             getFlightEmission();
-        }
-        else if(transportChoice == transport2) {
+        } else if (transportChoice == transport2) {
             getVehicleEmission();
         }
-        if(transportChoice == transport3) {
+        if (transportChoice == transport3) {
             getTrainCarEmission();
         }
     }

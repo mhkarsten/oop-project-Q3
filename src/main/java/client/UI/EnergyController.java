@@ -51,7 +51,6 @@ public class EnergyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
     }
 
     public String getField1Text() {
@@ -60,12 +59,13 @@ public class EnergyController implements Initializable {
 
     /**
      * Method to extract an Integer from the textfield with label Textfield1.
+     *
      * @return an integer from a string if not compatible returns 0
      */
     public Integer getIntField1() {
         try {
             return parseInt(getField1Text());
-        } catch ( NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
@@ -84,6 +84,7 @@ public class EnergyController implements Initializable {
 
     /**
      * Method to extract an Integer from the textfield with label Textfield4.
+     *
      * @return an integer from a string if not compatible returns 0
      */
     public Integer getIntField4() {
@@ -116,6 +117,7 @@ public class EnergyController implements Initializable {
 
     /**
      * Changes the labels and fields to correspond with the selected option.
+     *
      * @param event The event which activated this method (Mouseclick for this method)
      */
     @SuppressWarnings("Duplicates")

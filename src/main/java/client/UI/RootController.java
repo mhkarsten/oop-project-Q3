@@ -72,6 +72,7 @@ public class RootController implements Initializable {
 
     /**
      * Method to open the FoodScreen on the side pane.
+     *
      * @throws IOException Exception if the screen fails to be loaded
      */
     public void openFoodScreen() throws IOException {
@@ -84,6 +85,7 @@ public class RootController implements Initializable {
 
     /**
      * Method to open the ProfileScreen on the side pane.
+     *
      * @throws IOException Exception if the screen fails to be loaded
      */
     public void openProfileScreen() throws IOException {
@@ -97,6 +99,7 @@ public class RootController implements Initializable {
 
     /**
      * Method to open the CompareScreen on the side pane.
+     *
      * @throws IOException Exception if the screen fails to be loaded
      */
     public void openCompareScreen() throws IOException {
@@ -109,9 +112,10 @@ public class RootController implements Initializable {
 
     /**
      * Method to open the TransportScreen on the side pane.
+     *
      * @throws IOException Exception if the screen fails to be loaded
      */
-    public void openTransportScreen() throws  IOException {
+    public void openTransportScreen() throws IOException {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/transportScreen.fxml"));
 
         changePane = newScreen.load();
@@ -120,9 +124,10 @@ public class RootController implements Initializable {
 
     /**
      * Method to open the EnergyScreen on the side pane.
+     *
      * @throws IOException Exception if the screen fails to be loaded
      */
-    public void openEnergyScreen() throws  IOException {
+    public void openEnergyScreen() throws IOException {
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/energyScreen.fxml"));
 
         changePane = newScreen.load();
@@ -156,9 +161,9 @@ public class RootController implements Initializable {
             )
         );
         rowMove.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(2),
-                        new KeyValue(stretchbutton.scaleXProperty(), 200)
-                )
+            new KeyFrame(Duration.seconds(2),
+                new KeyValue(stretchbutton.scaleXProperty(), 200)
+            )
         );
 
         fade.play();
@@ -184,9 +189,9 @@ public class RootController implements Initializable {
             )
         );
         rowMove.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(2),
-                        new KeyValue(stretchbutton.scaleXProperty(), 1)
-                )
+            new KeyFrame(Duration.seconds(2),
+                new KeyValue(stretchbutton.scaleXProperty(), 1)
+            )
         );
 
         fade.play();
@@ -238,7 +243,8 @@ public class RootController implements Initializable {
 
     /**
      * Method to highlight and remove the highlight from selected/ unselected option.
-     * @param event The event from which you get which label has been pressed
+     *
+     * @param event  The event from which you get which label has been pressed
      * @param choice The Label that was highlighted before the change
      * @return
      */
@@ -263,6 +269,7 @@ public class RootController implements Initializable {
 
     /**
      * Method to make calls to update the points of the current user.
+     *
      * @param points The amount of points that should be added to the user
      */
     public static void addPointsUser(int points) {

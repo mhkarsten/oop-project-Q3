@@ -23,9 +23,12 @@ public final class UserSession {
      * @return
      */
     public static UserSession getInstace() {
+
         if(instance == null) {
+
             instance = new UserSession();
         }
+
         return instance;
     }
 
@@ -56,9 +59,9 @@ public final class UserSession {
 
     @Override
     public String toString() {
-        return "UserSession{" +
-            "userName='" + userName + '\'' +
-            '}';
+        return "UserSession{"
+            + "userName='" + userName + '\''
+            + '}';
     }
 
     @Override
@@ -70,8 +73,8 @@ public final class UserSession {
             return false;
         }
         UserSession session = (UserSession) o;
-        return Objects.equals(userName, session.userName) &&
-            Objects.equals(password, session.password);
+        return Objects.equals(userName, session.userName)
+            && Objects.equals(password, session.password);
     }
 
     @Override

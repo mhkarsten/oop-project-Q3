@@ -87,26 +87,6 @@ public class FoodController implements Initializable {
         }
     };
 
-    /**
-     * Gets selected category.
-     *
-     * @return the selected category
-     */
-    public ArrayList<Meal> getSelectedCategory() {
-
-        if (vegOpt.isSelected()) {
-
-            return vegetarianMeals;
-        } else if (meatOpt.isSelected()) {
-
-            return meatMeals;
-        } else if (veganOpt.isSelected()) {
-
-            return veganMeals;
-        }
-        return null;
-    }
-
     public Meal findMeal(String mealName) {
         ArrayList<Meal> allMeals = new ArrayList();
         allMeals.addAll(veganMeals);
@@ -208,6 +188,8 @@ public class FoodController implements Initializable {
 
             mealBoxText.setText("You have earned 15 points for eating local produce");
             addGenericFeat(currentUser.getID(), 15);
+
+
         }
 
         if (veganOpt.isSelected()) {

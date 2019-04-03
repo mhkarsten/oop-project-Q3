@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-
 /**
  * The type Achievement controller.
  */
@@ -55,6 +54,7 @@ public class AchievementRetrieve {
     /**
      * Ach get achievement.
      *
+     * @param achID the ach id
      * @return the achievement
      */
     @SuppressWarnings("Duplicates")
@@ -89,6 +89,7 @@ public class AchievementRetrieve {
     /**
      * Ach get unlocked array list.
      *
+     * @param usrID the usr id
      * @return the array list
      */
     @SuppressWarnings("Duplicates")
@@ -124,6 +125,12 @@ public class AchievementRetrieve {
         return null;
     }
 
+    /**
+     * Add user ach.
+     *
+     * @param usrID the usr id
+     * @param achID the ach id
+     */
     public static void addUserAch(long usrID, long achID) {
 
         MyRestTemplate restTemplate = new MyRestTemplate();
@@ -147,9 +154,14 @@ public class AchievementRetrieve {
         Achievement responseValue = response.getBody();
 
         System.out.println("(Client Side) The achievement with id " + responseValue.getID()
-            + "has been unlocked for user " + usrID);
+                            + "has been unlocked for user " + usrID);
     }
 
+    /**
+     * Add ach.
+     *
+     * @param ach the ach
+     */
     public static void addAch(Achievement ach) {
 
         RestTemplate restTemplate = new RestTemplate();
@@ -164,7 +176,6 @@ public class AchievementRetrieve {
 
                 System.out.println("(Client Side) The achievement " + ach.getTitle() + " has been created.");
             }
-
         } catch (Exception e) {
 
             System.out.println("(Client Side) Creating the achievement " + ach.getTitle() + " failed.");

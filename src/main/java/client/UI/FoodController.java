@@ -61,7 +61,7 @@ public class FoodController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         gettingMeals.stateProperty().addListener((observable, oldState, newState) -> {
-            if(newState==Worker.State.SUCCEEDED){
+            if (newState == Worker.State.SUCCEEDED) {
 
                 ArrayList<Meal> randomMeals = new ArrayList<>();
 
@@ -139,7 +139,7 @@ public class FoodController implements Initializable {
     public void setMealStrings(ArrayList<Meal> mealCategory) {
 
         ObservableList<String> mealViewContents = mealView.getItems();
-        mealViewContents.remove(0,mealViewContents.size());
+        mealViewContents.remove(0, mealViewContents.size());
 
         mealCategory.forEach(meal -> {
 

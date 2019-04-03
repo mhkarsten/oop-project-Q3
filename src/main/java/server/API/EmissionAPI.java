@@ -43,9 +43,18 @@ public class EmissionAPI {
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>(){{add(distance); add(distanceString);}});
-                add(new ArrayList<Object>(){{add(duration); add(durationString);}});
-                add(new ArrayList<Object>(){{add(sizeClass); add(sizeClassString);}});
+                add(new ArrayList<Object>() {{
+                    add(distance);
+                    add(distanceString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(duration);
+                    add(durationString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(sizeClass);
+                    add(sizeClassString);
+                }});
             }
         };
 
@@ -100,14 +109,26 @@ public class EmissionAPI {
         String dishwasherUseString = "&dishwasher_use=" + dishwasherUse; //in kwh (i think)
         String airConditionerUseString = "&air_conditioner_use=" + airConditionerUse; //a description
         String greenEnergyString = "&green_electricity=" + greenEnergy; //a description
-        String  naturalGasCostString = "&monthly_natural_gas_cost=" + naturalGasCost; //in USD per month
+        String naturalGasCostString = "&monthly_natural_gas_cost=" + naturalGasCost; //in USD per month
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>(){{add(dishwasherUse); add(dishwasherUseString);}});
-                add(new ArrayList<Object>(){{add(airConditionerUse); add(airConditionerUseString);}});
-                add(new ArrayList<Object>(){{add(greenEnergy); add(greenEnergyString);}});
-                add(new ArrayList<Object>(){{add(naturalGasCost); add(naturalGasCostString);}});
+                add(new ArrayList<Object>() {{
+                    add(dishwasherUse);
+                    add(dishwasherUseString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(airConditionerUse);
+                    add(airConditionerUseString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(greenEnergy);
+                    add(greenEnergyString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(naturalGasCost);
+                    add(naturalGasCostString);
+                }});
             }
         };
 
@@ -116,7 +137,7 @@ public class EmissionAPI {
         for (int i = 0; i < 4; i++) {
 
             if (uriStrings.get(i).get(0) != null) {
-                if(uriStrings.get(i).get(0) != "0") {
+                if (uriStrings.get(i).get(0) != "0") {
                     keyString.append(uriStrings.get(i).get(1));
                 }
             }
@@ -168,10 +189,22 @@ public class EmissionAPI {
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>(){{add(fishShare); add(fishShareString);}});
-                add(new ArrayList<Object>(){{add(redMeatShare); add(redMeatShareString);}});
-                add(new ArrayList<Object>(){{add(poultryShare); add(poultryShareString);}});
-                add(new ArrayList<Object>(){{add(size); add(sizeString);}});
+                add(new ArrayList<Object>() {{
+                    add(fishShare);
+                    add(fishShareString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(redMeatShare);
+                    add(redMeatShareString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(poultryShare);
+                    add(poultryShareString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(size);
+                    add(sizeString);
+                }});
             }
         };
 
@@ -182,7 +215,7 @@ public class EmissionAPI {
         for (int i = 0; i < 4; i++) {
 
             if (uriStrings.get(i).get(0) != null) {
-                if(uriStrings.get(i).get(0) != "0") {
+                if (uriStrings.get(i).get(0) != "0") {
                     keyString.append(uriStrings.get(i).get(1));
                 }
             }
@@ -222,13 +255,19 @@ public class EmissionAPI {
      */
     @SuppressWarnings("Duplicates")
     public static FlightEmission getFlightEmission(String startPort, String endPort) {
-        String startPortString ="&origin_airport=" + startPort; //a, airport
+        String startPortString = "&origin_airport=" + startPort; //a, airport
         String endPortString = "&destination_airport=" + endPort; //an airport
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>(){{add(startPort); add(startPortString);}});
-                add(new ArrayList<Object>(){{add(endPort); add(endPortString);}});
+                add(new ArrayList<Object>() {{
+                    add(startPort);
+                    add(startPortString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(endPort);
+                    add(endPortString);
+                }});
             }
         };
 
@@ -237,7 +276,7 @@ public class EmissionAPI {
         for (int i = 0; i < 2; i++) {
 
             if (uriStrings.get(i).get(0) != null) {
-                if(uriStrings.get(i).get(0) != "0") {
+                if (uriStrings.get(i).get(0) != "0") {
                     keyString.append(uriStrings.get(i).get(1));
                 }
             } else {
@@ -275,8 +314,8 @@ public class EmissionAPI {
     /**
      * Gets train emission.
      *
-     * @param distance  the distance
-     * @param duration  the duration
+     * @param distance the distance
+     * @param duration the duration
      * @return the train emission
      */
     @SuppressWarnings("Duplicates")
@@ -286,8 +325,14 @@ public class EmissionAPI {
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>(){{add(distance); add(distanceString);}});
-                add(new ArrayList<Object>(){{add(duration); add(durationString);}});
+                add(new ArrayList<Object>() {{
+                    add(distance);
+                    add(distanceString);
+                }});
+                add(new ArrayList<Object>() {{
+                    add(duration);
+                    add(durationString);
+                }});
             }
         };
 

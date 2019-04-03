@@ -130,7 +130,7 @@ public class AchievementGenerator {
                 description,
                 getRandomBadge());
 
-            ArrayList<Achievement> allAchives =  achGetAll();
+            ArrayList<Achievement> allAchives = achGetAll();
 
             for (int i = 0; i < allAchives.size(); i++) {
 

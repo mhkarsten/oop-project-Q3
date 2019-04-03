@@ -1,9 +1,5 @@
 package client.model;
 
-import org.json.simple.JSONObject;
-
-import java.util.LinkedHashMap;
-
 /**
  * The type Vehicle emission.
  */
@@ -18,7 +14,6 @@ public class VehicleEmission {
     private String energy;
     private String fuelUse;
     private String distance;
-
 
     /**
      * Instantiates a new Vehicle emission.

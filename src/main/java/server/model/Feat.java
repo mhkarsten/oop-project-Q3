@@ -5,10 +5,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "feats")
-@SequenceGenerator(name="feat_seq", initialValue=1,allocationSize = 1)
+@SequenceGenerator(name = "feat_seq", initialValue = 1, allocationSize = 1)
 public class Feat {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="feat_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feat_seq")
     private long id;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,13 +30,13 @@ public class Feat {
         this.points = points;
         this.actionId = actionId;
         this.timeCompleted = timeCompleted;
-        this.user=user;
+        this.user = user;
     }
 
     public Feat(int points, int actionId, User user) {
         this.points = points;
         this.actionId = actionId;
-        this.user=user;
+        this.user = user;
     }
 
     public long getId() {
@@ -54,10 +54,11 @@ public class Feat {
     public void setPoints(int points) {
         this.points = points;
     }
-    public void setUser(User user)
-    {
-        this.user=user;
+
+    public void setUser(User user) {
+        this.user = user;
     }
+
     public int getActionId() {
         return actionId;
     }

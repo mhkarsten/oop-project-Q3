@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -86,7 +88,15 @@ public class AchievementUIController implements Initializable {
 
         Achievement seleceted = findAchievement(title);
 
-        achievementImage.setImage(new Image(seleceted.getPath()));
+        try {
+
+            achievementImage.setImage(new Image(new FileInputStream(seleceted.getPath())));
+        } catch (FileNotFoundException e) {
+
+            System.out.println("The image was not found");
+        }
+
+
         achievementDescription.setText(seleceted.getDescription());
         achievementName.setText(seleceted.getTitle());
     }
@@ -105,7 +115,7 @@ public class AchievementUIController implements Initializable {
             }
         }
 
-        System.out.println("(Client) This Achievement doesnt exist: " + title);;
+        System.out.println("(Client) This Achievement doesnt exist: " + title);
          return null;
     }
 }

@@ -1,21 +1,23 @@
 package client.UI;
 
+import client.Service.MyStage;
 import client.Service.UserSession;
+import client.model.Achievement;
 import client.model.Meal;
 import client.model.User;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.*;
 
+import static client.Service.AchievementGenerator.achNotification;
+import static client.Service.AchievementGenerator.giveUserAch;
 import static client.retrive.FoodRetrieve.*;
 import static client.retrive.UserRetrieve.*;
 
@@ -50,6 +52,7 @@ public class FoodController implements Initializable {
     private ArrayList<Meal> veganMeals;
     private ArrayList<Meal> vegetarianMeals;
     private User currentUser = UserSession.getInstace().getCurrentUser();
+    private Stage currentStage = MyStage.getInstance();
 
     /**
      * Gets selected category.
@@ -188,8 +191,8 @@ public class FoodController implements Initializable {
 
             mealBoxText.setText("You have earned 15 points for eating local produce");
             addGenericFeat(currentUser.getID(), 15);
-
-
+            Achievement newAch = giveUserAch(currentUser);
+            achNotification(newAch, currentStage);
         }
 
         if (veganOpt.isSelected()) {
@@ -199,13 +202,11 @@ public class FoodController implements Initializable {
             mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
 
             addGenericFeat(currentUser.getID(), 100);
-
-            System.out.println(currentUser.toString());
-
+            Achievement newAch = giveUserAch(currentUser);
+            achNotification(newAch, currentStage);
         } else if (meatOpt.isSelected()) {
 
             mealBoxText.setText("You have earned 0 pts for eating a meal with meat!");
-
         } else if (vegOpt.isSelected()) {
 
             currentUser.setPoints(currentUser.getPoints() + 50);
@@ -215,6 +216,8 @@ public class FoodController implements Initializable {
             System.out.println(currentUser.toString());
 
             addGenericFeat(currentUser.getID(), 50);
+            Achievement newAch = giveUserAch(currentUser);
+            achNotification(newAch, currentStage);
         } else {
 
             currentUser.setPoints(currentUser.getPoints() + 25);
@@ -222,6 +225,8 @@ public class FoodController implements Initializable {
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
             addGenericFeat(currentUser.getID(), 25);
+            Achievement newAch = giveUserAch(currentUser);
+            achNotification(newAch, currentStage);
         }
     }
 }

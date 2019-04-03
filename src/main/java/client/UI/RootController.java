@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import client.Service.UserSession;
+import client.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 
-import static client.retrive.UserRetrieve.addGenericFeat;
+import static client.retrive.UserRetrieve.*;
 import static java.lang.Integer.parseInt;
 import static javafx.scene.paint.Color.WHITE;
 
@@ -45,6 +46,8 @@ public class RootController implements Initializable {
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
     public BarChart<String, Number> barChart;
+
+    private static User currentUser = UserSession.getInstace().getCurrentUser();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -193,8 +196,8 @@ public class RootController implements Initializable {
     }
 
     public void btn(ActionEvent event) {
-        User[] currentUser = getUser(1L);
-        Set<User> following = currentUser[0].getFollowing();
+
+        Set<User> following = getUserFollow(true, currentUser.getID());
 
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -204,7 +207,7 @@ public class RootController implements Initializable {
         yAxis.setLabel("Points");
 
         XYChart.Series series = new XYChart.Series();
-        series.getData().add(new XYChart.Data(currentUser[0].getName(), currentUser[0].getPoints()));
+        series.getData().add(new XYChart.Data(currentUser.getName(), currentUser.getPoints()));
 
         Iterator<User> iterator = following.iterator();
         while (iterator.hasNext()) {
@@ -217,14 +220,18 @@ public class RootController implements Initializable {
     }
 
     public int getMax(Set<User> users) {
-        int points = getUser(1L)[0].getPoints();
+
+        int points = UserSession.getInstace().getCurrentUser().getPoints();
         Iterator<User> iterator = users.iterator();
+
         while (iterator.hasNext()) {
+
             int temp = iterator.next().getPoints();
             if (temp > points) {
                 points = temp;
             }
         }
+
         return points;
     }
 
@@ -260,10 +267,9 @@ public class RootController implements Initializable {
      */
     public static void addPointsUser(int points) {
 
-        int pointsToUpdate = UserSession.getInstace().getCurrentUser().getPoints();
+        int pointsToUpdate = currentUser.getPoints();
         pointsToUpdate += points;
         UserSession.getInstace().getCurrentUser().setPoints(pointsToUpdate);
-
 
         addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), points);
     }

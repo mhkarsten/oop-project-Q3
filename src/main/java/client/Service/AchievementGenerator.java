@@ -3,35 +3,113 @@ package client.Service;
 
 import client.model.Achievement;
 import client.model.User;
+import javafx.scene.control.Label;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import static client.retrive.AchievementRetrieve.*;
 
+/**
+ * The type Achievement generator.
+ */
 public class AchievementGenerator {
 
     private static User activeUser = UserSession.getInstace().getCurrentUser();
 
-    public static String bulBadgepath = "src/main/images/bulbbadge.jpg";
-    public static String batteryBadgePath = "src/main/images/batterybadge.jpg";
-    public static String candleBadge = "src/main/images/candlebadge.jpg";
-    public static String cactusBadge = "src/main/images/cactusbadge.jpg";
-    public static String fishBadge = "src/main/images/fishbadge.jpg";
-    public static String powerPlantBadge = "src/main/images/powerplantbadge.jpg";
-    public static String treeHouseBadge = "src/main/images/treehousebadge.jpg";
-    public static String truckBadge = "src/main/images/truckbadge.jpg";
-    public static String plugBadge = "src/main/images/plugbadge.jpg";
-    public static String worldBadge = "src/main/images/worldbadge.jpg";
+    public static String bulBadgepath = "file:images/bulbbadge.jpg";
+    public static String batteryBadgePath = "file:images/batterybadge.jpg";
+    public static String candleBadge = "file:images/candlebadge.jpg";
+    public static String cactusBadge = "file:images/cactusbadge.jpg";
+    public static String fishBadge = "file:images/fishbadge.jpg";
+    public static String powerPlantBadge = "file:images/powerplantbadge.jpg";
+    public static String treeHouseBadge = "file:images/treehousebadge.jpg";
+    public static String truckBadge = "file:images/truckbadge.jpg";
+    public static String plugBadge = "file:images/plugbadge.jpg";
+    public static String worldBadge = "file:images/worldbadge.jpg";
 
-    public static void giveUserAch(User usr) {
-        Achievement newAch = progressivePointAchivement(usr);
+    /**
+     * Create ach notification popup.
+     *
+     * @param ach the ach
+     * @return the popup
+     */
+    public static Popup createAchNotification(final Achievement ach) {
 
-        
-        addUserAch(usr.getID(), newAch.getID());
+        final Popup popup = new Popup();
+        popup.setAutoFix(true);
+        popup.setAutoHide(true);
+        popup.setHideOnEscape(true);
+
+        Label label = new Label("Congratulations you have earned the achievement: /n" + ach.getTitle());
+        label.setOnMouseReleased(e -> popup.hide());
+        label.getStylesheets().add("popup.css");
+        label.getStyleClass().add("popup");
+
+        popup.getContent().add(label);
+        return popup;
     }
 
-    public static Achievement progressivePointAchivement(User usr) {
+    /**
+     * Ach notification.
+     *
+     * @param ach   the ach
+     * @param stage the stage
+     */
+    public static void achNotification(final Achievement ach, final Stage stage) {
+
+        if (ach == null) {
+
+            return;
+        }
+
+        final Popup popup = createAchNotification(ach);
+        popup.setOnShown(e -> {
+            popup.setX(stage.getX() + stage.getWidth() / 2 - popup.getWidth() / 2);
+            popup.setY(stage.getY() + stage.getHeight() / 2 - popup.getHeight() / 2);
+        });
+    }
+
+    /**
+     * Give user ach.
+     *
+     * @param usr the usr
+     */
+    public static Achievement giveUserAch(User usr) {
+
+        Achievement newAch = progressivePointAchievement(usr);
+        ArrayList<Achievement> allAchieves = achGetAll();
+        ArrayList<Achievement> usersAch = achGetUnlocked(usr.getID());
+
+        for (Achievement ach : usersAch) {
+            if (ach.getTitle().equals(newAch.getTitle())) {
+
+                System.out.println("(Client Side) This user already has the achievement.");
+                return null;
+            }
+        }
+
+        for (int i = 0; i < allAchieves.size(); i++) {
+            if (allAchieves.get(i).getTitle().equals(newAch.getTitle())) {
+
+                addUserAch(usr.getID(), newAch.getID());
+                return newAch;
+            }
+        }
+
+        System.out.println("(Client Side) There was an issue with getting the achievementID.");
+        return null;
+    }
+
+    /**
+     * Progressive point achievement achievement.
+     *
+     * @param usr the usr
+     * @return the achievement
+     */
+    public static Achievement progressivePointAchievement(User usr) {
 
         if (usr.equals(activeUser)) {
 
@@ -71,16 +149,31 @@ public class AchievementGenerator {
         }
     }
 
+    /**
+     * Food achievement achievement.
+     *
+     * @return the achievement
+     */
     public static Achievement foodAchievement() {
 
         return null;
     }
 
+    /**
+     * Transport achievement achievement.
+     *
+     * @return the achievement
+     */
     public static Achievement transportAchievement() {
 
         return null;
     }
 
+    /**
+     * Energy achievement achievement.
+     *
+     * @return the achievement
+     */
     public static Achievement energyAchievement() {
 
         return null;

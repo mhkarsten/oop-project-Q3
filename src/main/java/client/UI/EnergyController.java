@@ -1,5 +1,10 @@
 package client.UI;
 
+import client.Service.MyStage;
+import client.Service.UserSession;
+import client.model.Achievement;
+import client.model.User;
+import javafx.stage.Stage;
 import server.model.EnergyEmission;
 import client.retrive.EmissionsRetrieve;
 import javafx.fxml.FXML;
@@ -12,6 +17,8 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static client.Service.AchievementGenerator.achNotification;
+import static client.Service.AchievementGenerator.giveUserAch;
 import static client.UI.RootController.addPointsUser;
 import static client.UI.RootController.stringToPoints;
 import static java.lang.Integer.parseInt;
@@ -38,8 +45,12 @@ public class EnergyController implements Initializable {
     public TextField field3;
     public TextField field4;
 
+    private User currentUser = UserSession.getInstace().getCurrentUser();
+    private Stage currentStage = MyStage.getInstance();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
     }
 
@@ -89,12 +100,18 @@ public class EnergyController implements Initializable {
     public void getEnergyEmission() {
         EnergyEmission em = EmissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
         System.out.println(em.getCarbon());
+
         addPointsUser(stringToPoints(em.getCarbon()));
+        Achievement newAch = giveUserAch(currentUser);
+        achNotification(newAch, currentStage);
     }
 
     public void getSolarPanelEmission() {
         int SolarPanels = getIntField1() * 100;
+
         addPointsUser(SolarPanels);
+        Achievement newAch = giveUserAch(currentUser);
+        achNotification(newAch, currentStage);
     }
 
     /**

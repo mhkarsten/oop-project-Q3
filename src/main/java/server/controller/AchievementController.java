@@ -87,7 +87,8 @@ public class AchievementController {
      */
     @RequestMapping(value = "/users/{userId}/achievements/unlock/{achId}",
         method = {RequestMethod.POST, RequestMethod.GET},
-        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
     public void unlockAchievement(@PathVariable("userId") long userID, @PathVariable("achId") long achId) {
         User user= userRepository.findById(userID).get();
         Achievement achievement = achievementRepository.findById(achId).get();
@@ -95,6 +96,5 @@ public class AchievementController {
         achievement=achievementRepository.save(achievement);
         user.addAchievement(achievement);
         userRepository.save(user);
-        System.out.println("Tried to add an achievement");
     }
 }

@@ -1,22 +1,31 @@
 package client.UI;
 
+import client.Service.MyStage;
 import client.Service.UserSession;
+import client.model.Achievement;
+import client.model.User;
 import client.retrive.EmissionsRetrieve;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import server.model.FlightEmission;
 import server.model.TrainEmission;
 import server.model.VehicleEmission;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import static client.Service.AchievementGenerator.achNotification;
+import static client.Service.AchievementGenerator.giveUserAch;
 import static client.UI.RootController.addPointsUser;
 import static client.UI.RootController.stringToPoints;
-import static client.retrive.UserRetrieve.addGenericFeat;
 import static java.lang.Integer.parseInt;
 
-public class TransportController {
+public class TransportController implements Initializable {
 
     public Label transportChoice;
 
@@ -35,6 +44,14 @@ public class TransportController {
     public TextField field3;
 
     public TextArea description;
+
+    private static User currentUser = UserSession.getInstace().getCurrentUser();
+    private Stage currentStage = MyStage.getInstance();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 
     public String getField1Text() {
         return field1.getText();
@@ -68,30 +85,36 @@ public class TransportController {
     }
 
     public void getFlightEmission() {
+
         FlightEmission fm = EmissionsRetrieve.getFlightEmission(getField1Text(), getField2Text());
         System.out.println(fm.getCarbon());
-        addPointsUser(stringToPoints(fm.getCarbon()));
 
-//        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), stringToPoints(fm.getCarbon()));
+        addPointsUser(stringToPoints(fm.getCarbon()));
+        Achievement newAch = giveUserAch(currentUser);
+        achNotification(newAch, currentStage);
     }
 
     public void getVehicleEmission() {
+
         VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
         System.out.println(vm.getCarbon());
-        addPointsUser(stringToPoints(vm.getCarbon()));
 
-//        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), stringToPoints(vm.getCarbon()));
+        addPointsUser(stringToPoints(vm.getCarbon()));
+        Achievement newAch = giveUserAch(currentUser);
+        achNotification(newAch, currentStage);
     }
 
     public void getTrainCarEmission() {
+
         VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
         TrainEmission tm = EmissionsRetrieve.getTrainEmission(getIntField1(), getIntField2() * 60);
         int CarEmission = stringToPoints(vm.getCarbon());
         int TrainEmission = stringToPoints(tm.getCarbon());
         int TrainCarEmission = CarEmission - TrainEmission;
 
-//        addPointsUser(TrainCarEmission);
-        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), TrainCarEmission);
+        addPointsUser(TrainCarEmission);
+        Achievement newAch = giveUserAch(currentUser);
+        achNotification(newAch, currentStage);
     }
 
     @SuppressWarnings("Duplicates")

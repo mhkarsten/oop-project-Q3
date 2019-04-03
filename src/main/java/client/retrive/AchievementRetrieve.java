@@ -150,11 +150,6 @@ public class AchievementRetrieve {
             System.out.println(e.toString());
             return;
         }
-
-        Achievement responseValue = response.getBody();
-
-        System.out.println("(Client Side) The achievement with id " + responseValue.getID()
-                            + "has been unlocked for user " + usrID);
     }
 
     /**
@@ -164,7 +159,7 @@ public class AchievementRetrieve {
      */
     public static void addAch(Achievement ach) {
 
-        RestTemplate restTemplate = new RestTemplate();
+        MyRestTemplate restTemplate = new MyRestTemplate();
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         try {

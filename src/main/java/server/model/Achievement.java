@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "achievements")
-@SequenceGenerator(name="achievement_seq", initialValue=1,allocationSize = 1)
+@SequenceGenerator(name="achievement_seq", allocationSize = 1)
 public class Achievement {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="achievement_seq")

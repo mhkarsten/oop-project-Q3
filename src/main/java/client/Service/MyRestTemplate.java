@@ -29,8 +29,8 @@ public class MyRestTemplate extends RestTemplate {
     public static HttpHeaders getBaseHeaders(MediaType type) {
         HttpHeaders headers = new HttpHeaders();
 
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
-        headers.setContentType(MediaType.APPLICATION_XML);
+        headers.setAccept(Arrays.asList(new MediaType[] {type}));
+        headers.setContentType(type);
 
         return headers;
     }

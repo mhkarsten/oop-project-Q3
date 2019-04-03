@@ -14,6 +14,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import server.controller.UserController;
 import server.model.Achievement;
 import server.model.Feat;
@@ -43,55 +44,51 @@ public class AchievementControllerTest {
     public void setup() {
         //Create a basic set of headers with a specification of the type of body sent to and expected from the server
         headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String username = "tom";
-        String password = "123";
+        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));
+        headers.setContentType(MediaType.APPLICATION_XML);
         User tom=new User("tom","123");
-        //The basic authentication as it works right now, [user]:[password]
-        byte[] encAuth = Base64.encodeBase64((username + ':' + password).getBytes(Charset.forName("US-ASCII")));
-        headers.set("Authorization", "Basic " + new String(encAuth));
-        entity = new HttpEntity<>(headers);
-        domain = "http://localhost:" + port;
-        restTemplate.postForObject(domain + "/auth/register", new HttpEntity<>(tom,headers), User.class);
+        headers.setBasicAuth("tom","123");
+        entity = new HttpEntity<>(tom,headers);
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:" + port));
+        restTemplate.postForObject(domain + "/auth/register", entity, User.class);
     }
 
     @Test
     public void getAchievementsTest() {
 
-        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
-        Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
-        Achievement a3 = restTemplate.postForObject(domain + "/achievements/3", entity, Achievement.class);
-        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/achievements/", entity, Achievement[].class), new Achievement[] {a1, a2, a3});
+        Achievement a1 = restTemplate.postForObject("/achievements/1", entity, Achievement.class);
+        Achievement a2 = restTemplate.postForObject("/achievements/2", entity, Achievement.class);
+        Achievement a3 = restTemplate.postForObject("/achievements/3", entity, Achievement.class);
+        Assertions.assertArrayEquals(restTemplate.postForObject("/achievements/", entity, Achievement[].class), new Achievement[] {a1, a2, a3});
     }
 
     @Test
     public void retrieveUserOneAchievements() {
 
-        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
-        Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
-        assertThat(restTemplate.postForObject(domain + "/users/1/achievements", entity, Achievement[].class), IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1, a2));
+        Achievement a1 = restTemplate.postForObject("/achievements/1", entity, Achievement.class);
+        Achievement a2 = restTemplate.postForObject("/achievements/2", entity, Achievement.class);
+        assertThat(restTemplate.postForObject("/users/1/achievements", entity, Achievement[].class), IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1, a2));
     }
 
     @Test
     public void retrieveAchievementMinusOne() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/achievements/-1", entity, Achievement.class));
+        Assertions.assertNull(this.restTemplate.postForObject("/achievements/-1", entity, Achievement.class));
     }
 
     @Test
     public void retrieveAchievementsWrong() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/achievements/ach1", entity, Achievement.class));
+        Assertions.assertNull(this.restTemplate.postForObject("/achievements/ach1", entity, Achievement.class));
     }
 
     @Test
     public void retrieveUserMinusOneAchievements() {
-        Assertions.assertNull(restTemplate.postForObject(domain + "/users/-1/achievements", entity, Achievement[].class));
+        Assertions.assertNull(restTemplate.postForObject("/users/-1/achievements", entity, Achievement[].class));
     }
     @Test
     public void unlockAchievementUserOneTest()
     {
         //CREATE
-        User user = new User(4, "Usnavi");
+        User user = new User("Usnavi","96000");
         entity = new HttpEntity<>(user, headers);
         URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity);
         //READ

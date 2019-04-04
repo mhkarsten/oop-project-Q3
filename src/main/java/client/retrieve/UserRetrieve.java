@@ -2,10 +2,7 @@ package client.retrive;
 
 import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
-import client.Service.UserSession;
 import client.model.User;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.json.HTTP;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import server.model.Feat;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
@@ -41,7 +37,6 @@ public class UserRetrieve extends BaseRetrieve {
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
-
 
         String url =  UrlEndPoints.User.ALL_USERS;
         ResponseEntity<User[]> response = restTemplate.exchange(url,

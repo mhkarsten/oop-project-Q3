@@ -37,6 +37,8 @@ public class FoodControllerTest {
 
     @Test
     public void getMeal() {
+        Meal meal=restTemplate.getForObject( "/meal/Arrabiata", Meal[].class)[0];
+        Assertions.assertEquals("Spicy Arrabiata Penne",meal.getStrMeal());
     }
 
     @Test

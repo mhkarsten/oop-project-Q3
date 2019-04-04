@@ -1,10 +1,9 @@
-package client.retrive;
+package client.retrieve;
 
 import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
 import client.model.Achievement;
 import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;

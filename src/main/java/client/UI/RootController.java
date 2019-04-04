@@ -27,7 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 
-import static client.retrive.UserRetrieve.*;
+import static client.retrieve.UserRetrieve.*;
 import static java.lang.Integer.parseInt;
 import static javafx.scene.paint.Color.WHITE;
 

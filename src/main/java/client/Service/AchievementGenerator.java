@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static client.retrive.AchievementRetrieve.*;
+import static client.retrieve.AchievementRetrieve.*;
 
 /**
  * The type Achievement generator.

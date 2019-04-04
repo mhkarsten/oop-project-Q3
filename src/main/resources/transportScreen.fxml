@@ -20,7 +20,6 @@
                   <Label fx:id="transport2" onMouseClicked="#selectVehicleEmission" prefHeight="40.0" prefWidth="200.0" text="Bike instead of using the Car" />
                   <Label fx:id="transport3" onMouseClicked="#selectTrainCarEmission" prefHeight="40.0" prefWidth="200.0" text="Train instead of the car" />
                   <Label fx:id="transport4" prefHeight="40.0" prefWidth="200.0" />
-                  <Button mnemonicParsing="false" onMouseClicked="#getEmission" text="Select Transport" />
                </children>
             </VBox>
          </content>
@@ -36,6 +35,7 @@
          </children>
       </VBox>
       <TextArea fx:id="description" layoutX="288.0" layoutY="55.0" prefHeight="290.0" prefWidth="175.0" />
+      <Button layoutX="79.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#getEmission" style="-fx-border-color: white;" text="Select Transport" />
    </children>
    <stylesheets>
       <URL value="@GeneralTemplate.css" />

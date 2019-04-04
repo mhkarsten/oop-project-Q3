@@ -4,7 +4,7 @@ import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
 import client.Service.UserSession;
 import client.model.User;
-import client.retrive.UserRetrieve;
+import client.retrieve.UserRetrieve;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

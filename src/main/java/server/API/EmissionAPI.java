@@ -68,8 +68,6 @@ public class EmissionAPI {
             }
         }
 
-        System.out.println(keyString);
-
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
@@ -341,12 +339,9 @@ public class EmissionAPI {
         for (int i = 0; i < 2; i++) {
 
             if (uriStrings.get(i).get(0) != null && uriStrings.get(i).get(1) != "0") {
-                System.out.println(uriStrings.get(i).get(1));
                 keyString.append(uriStrings.get(i).get(1));
             }
         }
-
-        System.out.println(keyString);
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);

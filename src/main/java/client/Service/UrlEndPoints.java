@@ -43,4 +43,12 @@ public class UrlEndPoints {
         public static final String URL_RANDOMMEAL = "/randomMeal";
         public static final String URL_MEATMEALs = "/meals/meat";
     }
+
+    public static class Emission {
+        public static final String URL_VEHICLE =  "/vehicleEmission";
+        public static final String URL_DIET =   "/dietEmission";
+        public static final String URL_FLIGHT =  "/flightEmission";
+        public static final String URL_ENERGY =  "/energyEmission";
+        public static final String URL_TRAIN =  "/trainEmission";
+    }
 }

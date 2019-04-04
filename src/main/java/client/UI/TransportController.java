@@ -48,9 +48,11 @@ public class TransportController implements Initializable {
     private static User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
 
+    private EmissionsRetrieve emissionsRetrieve;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        this.emissionsRetrieve = new EmissionsRetrieve();
     }
 
     public String getField1Text() {
@@ -84,7 +86,7 @@ public class TransportController implements Initializable {
 
     public void getFlightEmission() {
 
-        FlightEmission fm = EmissionsRetrieve.getFlightEmission(getField1Text(), getField2Text());
+        FlightEmission fm = this.emissionsRetrieve.getFlightEmission(getField1Text(), getField2Text());
         System.out.println(fm.getCarbon());
 
         addPointsUser(stringToPoints(fm.getCarbon()));
@@ -94,7 +96,7 @@ public class TransportController implements Initializable {
 
     public void getVehicleEmission() {
 
-        VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
+        VehicleEmission vm = this.emissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
         System.out.println(vm.getCarbon());
 
         addPointsUser(stringToPoints(vm.getCarbon()));
@@ -104,8 +106,8 @@ public class TransportController implements Initializable {
 
     public void getTrainCarEmission() {
 
-        VehicleEmission vm = EmissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
-        TrainEmission tm = EmissionsRetrieve.getTrainEmission(getIntField1(), getIntField2() * 60);
+        VehicleEmission vm = this.emissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
+        TrainEmission tm = this.emissionsRetrieve.getTrainEmission(getIntField1(), getIntField2() * 60);
         int CarEmission = stringToPoints(vm.getCarbon());
         int TrainEmission = stringToPoints(tm.getCarbon());
         int TrainCarEmission = CarEmission - TrainEmission;

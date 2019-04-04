@@ -48,9 +48,11 @@ public class EnergyController implements Initializable {
     private User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
 
+    private EmissionsRetrieve emissionsRetrieve;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        this.emissionsRetrieve = new EmissionsRetrieve();
     }
 
     public String getField1Text() {
@@ -99,7 +101,7 @@ public class EnergyController implements Initializable {
      * Method to call other methods to get EnergyEmission and to add points to the user.
      */
     public void getEnergyEmission() {
-        EnergyEmission em = EmissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
+        EnergyEmission em = this.emissionsRetrieve.getEnergyEmission(getIntField1(), getField2Text(), getField3Text(), getIntField4());
         System.out.println(em.getCarbon());
 
         addPointsUser(stringToPoints(em.getCarbon()));

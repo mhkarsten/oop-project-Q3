@@ -3,6 +3,7 @@ package client.UI;
 import client.Service.UserSession;
 import client.model.Achievement;
 import client.model.User;
+import client.retrive.AchievementRetrieve;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,8 +17,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static client.retrive.AchievementRetrieve.achGetAll;
-import static client.retrive.AchievementRetrieve.achGetUnlocked;
 
 public class AchievementUIController implements Initializable {
 
@@ -38,13 +37,14 @@ public class AchievementUIController implements Initializable {
     private User activeUser;
     private ArrayList<Achievement> userAchives;
     private ArrayList<Achievement> lockedAchives;
+    private AchievementRetrieve achievementRetrieve;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        this.achievementRetrieve = new AchievementRetrieve();
         activeUser = UserSession.getInstance().getCurrentUser();
-        userAchives = achGetUnlocked(activeUser.getID());
-        lockedAchives = achGetAll();
+        userAchives = this.achievementRetrieve.achGetUnlocked(activeUser.getID());
+        lockedAchives = this.achievementRetrieve.achGetAll();
 
         if (lockedAchives != null) {
 

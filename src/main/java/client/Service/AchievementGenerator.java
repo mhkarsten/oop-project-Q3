@@ -3,6 +3,7 @@ package client.Service;
 
 import client.model.Achievement;
 import client.model.User;
+import client.retrive.AchievementRetrieve;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -29,6 +30,8 @@ public class AchievementGenerator {
     public static String truckBadge = "file:images/truckbadge.jpg";
     public static String plugBadge = "file:images/plugbadge.jpg";
     public static String worldBadge = "file:images/worldbadge.jpg";
+
+    public static AchievementRetrieve achievementRetrieve = new AchievementRetrieve();
 
     /**
      * Create ach notification popup.
@@ -80,8 +83,8 @@ public class AchievementGenerator {
     public static Achievement giveUserAch(User usr) {
 
         Achievement newAch = progressivePointAchievement(usr);
-        ArrayList<Achievement> allAchieves = achGetAll();
-        ArrayList<Achievement> usersAch = achGetUnlocked(usr.getID());
+        ArrayList<Achievement> allAchieves = achievementRetrieve.achGetAll();
+        ArrayList<Achievement> usersAch = achievementRetrieve.achGetUnlocked(usr.getID());
 
         for (Achievement ach : usersAch) {
             if (ach.getTitle().equals(newAch.getTitle())) {
@@ -94,7 +97,7 @@ public class AchievementGenerator {
         for (int i = 0; i < allAchieves.size(); i++) {
             if (allAchieves.get(i).getTitle().equals(newAch.getTitle())) {
 
-                addUserAch(usr.getID(), newAch.getID());
+                achievementRetrieve.addUserAch(usr.getID(), newAch.getID());
                 return newAch;
             }
         }
@@ -130,7 +133,7 @@ public class AchievementGenerator {
                 description,
                 getRandomBadge());
 
-            ArrayList<Achievement> allAchives = achGetAll();
+            ArrayList<Achievement> allAchives = achievementRetrieve.achGetAll();
 
             for (int i = 0; i < allAchives.size(); i++) {
 
@@ -140,7 +143,7 @@ public class AchievementGenerator {
                 }
             }
 
-            addAch(newAch);
+            achievementRetrieve.addAch(newAch);
             return newAch;
         } else {
 

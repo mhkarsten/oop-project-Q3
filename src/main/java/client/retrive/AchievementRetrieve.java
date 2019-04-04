@@ -13,7 +13,7 @@ import java.util.Arrays;
 /**
  * The type Achievement controller.
  */
-public class AchievementRetrieve {
+public class AchievementRetrieve extends BaseRetrieve {
 
 
     /**
@@ -22,12 +22,12 @@ public class AchievementRetrieve {
      * @return the array list
      */
     @SuppressWarnings("Duplicates")
-    public static ArrayList<Achievement> achGetAll() {
+    public ArrayList<Achievement> achGetAll() {
         //GET ALL ACHIEVEMENTS
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
         ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGETALL,
             HttpMethod.POST, entity, Achievement[].class);
 
@@ -58,14 +58,14 @@ public class AchievementRetrieve {
      * @return the achievement
      */
     @SuppressWarnings("Duplicates")
-    public static Achievement achGet(long achID) {
+    public Achievement achGet(long achID) {
         //GET SPECIFIC ACHIEVEMENT
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement> entity = new HttpEntity<>(headers);
 
         Object[] uriValues = new Object[] {achID};
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
         ResponseEntity<Achievement> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGET,
             HttpMethod.POST, entity, Achievement.class, uriValues);
 
@@ -93,9 +93,9 @@ public class AchievementRetrieve {
      * @return the array list
      */
     @SuppressWarnings("Duplicates")
-    public static ArrayList<Achievement> achGetUnlocked(long usrID) {
+    public ArrayList<Achievement> achGetUnlocked(long usrID) {
         //GET ALL UNLOCKED ACHIEVEMENTS BY A USER
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
@@ -131,9 +131,9 @@ public class AchievementRetrieve {
      * @param usrID the usr id
      * @param achID the ach id
      */
-    public static void addUserAch(long usrID, long achID) {
+    public void addUserAch(long usrID, long achID) {
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         Object[] uriValues = new Object[] {usrID, achID};
         ResponseEntity<Achievement> response;
@@ -157,9 +157,8 @@ public class AchievementRetrieve {
      *
      * @param ach the ach
      */
-    public static void addAch(Achievement ach) {
+    public void addAch(Achievement ach) {
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         try {

@@ -13,13 +13,7 @@ import java.util.HashMap;
 /**
  * The type Emissions retrieve.
  */
-public class EmissionsRetrieve {
-    private static final String URL_BASE = "http://localhost:8080";
-    private static final String URL_VEHICLE = URL_BASE + "/vehicleEmission";
-    private static final String URL_DIET =  URL_BASE + "/dietEmission";
-    private static final String URL_FLIGHT = URL_BASE + "/flightEmission";
-    private static final String URL_ENERGY = URL_BASE + "/energyEmission";
-    private static final String URL_TRAIN = URL_BASE + "/trainEmission";
+public class EmissionsRetrieve extends BaseRetrieve {
 
     /**
      * Gets vehicle emission.
@@ -29,19 +23,19 @@ public class EmissionsRetrieve {
      * @param sizeClass the size class
      * @return the vehicle emission
      */
-    public static VehicleEmission getVehicleEmission(int distance, int duration, String sizeClass) {
+    public VehicleEmission getVehicleEmission(int distance, int duration, String sizeClass) {
 
         HashMap parameters = new HashMap();
         parameters.put("daily_distance", distance);
         parameters.put("daily_duration", duration);
         parameters.put("sizeClass", sizeClass);
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        VehicleEmission emission = restTemplate.postForObject(URL_VEHICLE, requestBody, VehicleEmission.class);
+        VehicleEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_VEHICLE, requestBody, VehicleEmission.class);
 
         if (emission != null) {
 
@@ -59,18 +53,18 @@ public class EmissionsRetrieve {
      * @param endingPort   the ending port
      * @return the flight emission
      */
-    public static FlightEmission getFlightEmission(String startingPort, String endingPort) {
+    public FlightEmission getFlightEmission(String startingPort, String endingPort) {
 
         HashMap parameters = new HashMap();
         parameters.put("startingPort", startingPort);
         parameters.put("endingPort", endingPort);
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        FlightEmission emission = restTemplate.postForObject(URL_FLIGHT, requestBody, FlightEmission.class);
+        FlightEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_FLIGHT, requestBody, FlightEmission.class);
 
         if (emission != null) {
 
@@ -90,19 +84,19 @@ public class EmissionsRetrieve {
      * @param naturalGasCost    the natural gas cost
      * @return the energy emission
      */
-    public static EnergyEmission getEnergyEmission(int greenEnergy, String airConditionerUse, String dishwasherUse, int naturalGasCost) {
+    public EnergyEmission getEnergyEmission(int greenEnergy, String airConditionerUse, String dishwasherUse, int naturalGasCost) {
         HashMap parameters = new HashMap();
         parameters.put("greenEnergy", greenEnergy);
         parameters.put("airConditionerUse", airConditionerUse);
         parameters.put("dishwasherUse", dishwasherUse);
         parameters.put("naturalGasCost", naturalGasCost);
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        EnergyEmission emission = restTemplate.postForObject(URL_ENERGY, requestBody, EnergyEmission.class);
+        EnergyEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_ENERGY, requestBody, EnergyEmission.class);
 
         if (emission != null) {
 
@@ -122,19 +116,19 @@ public class EmissionsRetrieve {
      * @param size         the size
      * @return the diet emission
      */
-    public static DietEmission getDietEmission(float fishShare, float redMeatShare, float poultryShare, int size) {
+    public DietEmission getDietEmission(float fishShare, float redMeatShare, float poultryShare, int size) {
         HashMap parameters = new HashMap();
         parameters.put("fishShare", fishShare);
         parameters.put("redMeatShare", redMeatShare);
         parameters.put("poultryShare", poultryShare);
         parameters.put("size", size);
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        DietEmission emission = restTemplate.postForObject(URL_DIET, requestBody, DietEmission.class);
+        DietEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_DIET, requestBody, DietEmission.class);
 
         if (emission != null) {
 
@@ -152,18 +146,18 @@ public class EmissionsRetrieve {
      * @param duration  the duration
      * @return the train emission
      */
-    public static TrainEmission getTrainEmission(int distance, int duration) {
+    public TrainEmission getTrainEmission(int distance, int duration) {
 
         HashMap parameters = new HashMap();
         parameters.put("distance", distance);
         parameters.put("duration", duration);
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        TrainEmission emission = restTemplate.postForObject(URL_TRAIN, requestBody, TrainEmission.class);
+        TrainEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_TRAIN, requestBody, TrainEmission.class);
 
         if (emission != null) {
             return emission;

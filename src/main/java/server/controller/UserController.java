@@ -70,7 +70,11 @@ public class UserController {
     @ResponseBody
     public User getUser(@PathVariable("userID") long userID) {
         Optional<User> optionalUser = userRepository.findById(userID);
-        return optionalUser.get();
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        } else {
+            return null;
+        }
     }
     /**
      * Adds a new user (CREATE).

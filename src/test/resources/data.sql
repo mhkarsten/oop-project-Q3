@@ -4,6 +4,9 @@ INSERT INTO users (id, name,password)
 VALUES (user_seq.NEXTVAL, 'Jim','$2y$11$wqDyg7JvtKJqBo2HNSrfP.pqc5q0SCCOhk.irp6kL1yZ56nfMg00S');
 INSERT INTO users (id, name,password)
 VALUES (user_seq.NEXTVAL, 'Jennifer','$2y$11$wqDyg7JvtKJqBo2HNSrfP.pqc5q0SCCOhk.irp6kL1yZ56nfMg00S');
+INSERT INTO users (id, name,password)
+VALUES (user_seq.NEXTVAL, 'micheal','$2y$11$wqDyg7JvtKJqBo2HNSrfP.pqc5q0SCCOhk.irp6kL1yZ56nfMg00S');
+
 INSERT INTO achievements (id, title, description, path)
 VALUES (achievement_seq.NEXTVAL, 'GoGreen', 'Start GoGreen', 'path');
 INSERT INTO achievements (id, title, description, path)

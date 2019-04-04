@@ -77,10 +77,7 @@ public class UserRetrieve extends BaseRetrieve {
 
         Object[] uriValues = new Object[] {userID};
 
-        String url =  UrlEndPoints.User.USER_BY_ID;
-
-
-        ResponseEntity<User> response = restTemplate.exchange(url,
+        ResponseEntity<User> response = restTemplate.exchange(UrlEndPoints.User.USER_BY_ID,
             HttpMethod.POST, entity, User.class, uriValues);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -116,32 +113,8 @@ public class UserRetrieve extends BaseRetrieve {
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Object> entity = new HttpEntity<Object>(headers);
 
-//        System.out.println("This is the url; "+ UrlEndPoints.User.ALL_USERS + "/" + userId + "/feats/new");
         restTemplate.exchange(UrlEndPoints.User.ALL_USERS + "/" + userId + "/feats/new/" + points,
             HttpMethod.POST, entity, Object.class);
-    }
-
-    /**Method to delete an existing user (DELETE).
-     *
-     * @param userID UserID of the user to delete
-     */
-    public void deleteUser(String userID) {
-
-
-        Object[] uriValue = new Object[] {userID};
-
-        String url =  UrlEndPoints.User.USER_BY_ID;
-        restTemplate.delete(url, uriValue);
-
-        User user = restTemplate.getForObject(UrlEndPoints.User.ALL_USERS, User.class);
-
-        if (user != null) {
-            System.out.println("(Client Side) User " + user.getName() + " has been deleted.");
-        } else {
-
-            System.out.println("(Client Side) The selected client cannot be found"
-                    + " or does not exist.");
-        }
     }
 
     /**

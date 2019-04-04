@@ -2,7 +2,6 @@ package server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.hamcrest.collection.IsArrayContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +16,10 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import server.controller.UserController;
-import server.model.Achievement;
 import server.model.Feat;
 import server.model.User;
 
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -80,7 +77,7 @@ public class UserControllerTest {
 
     @Test
     public void retrieveUserMinusOne() {
-        Assertions.assertEquals(restTemplate.getForEntity("/users/-1", User.class).getStatusCode(),HttpStatus.NOT_FOUND);
+        Assertions.assertEquals(restTemplate.getForEntity("/users/-1", User.class).getBody(), null);
     }
 
     @Test
@@ -155,6 +152,6 @@ public class UserControllerTest {
         //DELETE
         ResponseEntity<?> response = restTemplate.exchange( "/users/" + user.getID(), HttpMethod.DELETE, new HttpEntity<>(new HttpHeaders[]{}),  String.class);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(restTemplate.getForEntity( "/users/" + user.getID(),   User.class).getStatusCode(),HttpStatus.NOT_FOUND);
+        Assertions.assertEquals(restTemplate.getForEntity( "/users/" + user.getID(), User.class).getBody(), null);
     }
 }

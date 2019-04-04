@@ -4,7 +4,8 @@ import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
 import client.Service.UserSession;
 import client.model.User;
-import client.retrive.UserRetrieve;
+import client.retrieve.UserRetrieve;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import server.SpringBoot;
 import server.TestTemplateConfiguration;
+import server.model.Feat;
+import server.repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,6 +35,8 @@ class UserRetrieveTest {
     private int port;
 
     protected UserRetrieve userRetrieve;
+    @Autowired
+    protected UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
@@ -50,27 +58,51 @@ class UserRetrieveTest {
         ArrayList<User> users = this.userRetrieve.getUsers();
 
         assertNotNull(users);
+
     }
 
     @Test
     void getUser() {
-
+        User[] user = this.userRetrieve.getUser(1);
+        assertNotNull(user);
+        assertNotNull(user[0]);
+        assertEquals("Alex", user[0].getName());
+        assertEquals(1, user[0].getID());
     }
 
     @Test
     void addGenericFeat() {
+        Set<Feat> featsUserOne = this.userRepository.findById(1L).get().getFeats();
+        int totalAmountFeats = featsUserOne.size();
+        double totalAmountPoints = featsUserOne.stream().mapToDouble(Feat::getPoints).sum();
 
-    }
+        this.userRetrieve.addGenericFeat(1L, 100);
 
-    @Test
-    void deleteUser() {
+        featsUserOne = this.userRepository.findById(1L).get().getFeats();
+        assertEquals(totalAmountFeats + 1, featsUserOne.size());
+        assertEquals(totalAmountPoints + 100, featsUserOne.stream().mapToDouble(Feat::getPoints).sum());
     }
 
     @Test
     void getUserFollow() {
+        Set<User> followers = this.userRetrieve.getUserFollow(true, 1L);
+        assertNotNull(followers);
+        assertEquals(1, followers.size());
+
+        Set<User> following = this.userRetrieve.getUserFollow(false, 1L);
+        assertNotNull(following);
     }
 
     @Test
     void updateUserFollowing() {
+        Set<User> following = this.userRetrieve.getUserFollow(false, 1L);
+        assertNotNull(following);
+        assertEquals(2, following.size());
+
+        this.userRetrieve.updateUserFollowing(1L, 4L);
+
+        following = this.userRetrieve.getUserFollow(false, 1L);
+        assertNotNull(following);
+        assertEquals(3, following.size());
     }
 }

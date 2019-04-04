@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import server.model.Feat;
 
 import java.nio.charset.Charset;
@@ -27,18 +28,20 @@ import java.util.Set;
  *
  * @return Return all users from the server
  */
-public class UserRetrieve {
+public class UserRetrieve extends BaseRetrieve {
 
     /**Method to return an ArrayList of all users.
      *
      * @return Return all users from the server
      */
     @SuppressWarnings("Duplicates")
-    public static ArrayList<User> getUsers() {
-        MyRestTemplate restTemplate = new MyRestTemplate();
+    public ArrayList<User> getUsers() {
+
+
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
+
 
         String url =  UrlEndPoints.User.ALL_USERS;
         ResponseEntity<User[]> response = restTemplate.exchange(url,
@@ -71,7 +74,7 @@ public class UserRetrieve {
      * @return Return a user from the server
      */
     @SuppressWarnings("Duplicates")
-    public static User[] getUser(long userID) {
+    public User[] getUser(long userID) {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
@@ -81,7 +84,6 @@ public class UserRetrieve {
 
         String url =  UrlEndPoints.User.USER_BY_ID;
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
 
         ResponseEntity<User> response = restTemplate.exchange(url,
             HttpMethod.POST, entity, User.class, uriValues);
@@ -113,8 +115,8 @@ public class UserRetrieve {
      * There should be a method updateUserPoints that takes the ID/username and points to be added.
      *
      */
-    public static void addGenericFeat(Long userId, int points) {
-        MyRestTemplate restTemplate = new MyRestTemplate();
+    public void addGenericFeat(Long userId, int points) {
+
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Object> entity = new HttpEntity<Object>(headers);
@@ -128,8 +130,8 @@ public class UserRetrieve {
      *
      * @param userID UserID of the user to delete
      */
-    public static void deleteUser(String userID) {
-        MyRestTemplate restTemplate = new MyRestTemplate();
+    public void deleteUser(String userID) {
+
 
         Object[] uriValue = new Object[] {userID};
 
@@ -154,7 +156,7 @@ public class UserRetrieve {
      * @param userID       the user id
      * @return the user follow
      */
-    public static Set<User> getUserFollow(boolean selectFollow, long userID) {
+    public Set<User> getUserFollow(boolean selectFollow, long userID) {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
@@ -169,7 +171,7 @@ public class UserRetrieve {
         }
 
         HttpEntity<Set<User>> entity = new HttpEntity<Set<User>>(headers);
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
 
         Object[] uriValues = new Object[] {userID};
 
@@ -193,14 +195,14 @@ public class UserRetrieve {
         return null;
     }
 
-    public static void updateUserFollowing(long followerId, long followeeId) {
+    public void updateUserFollowing(long followerId, long followeeId) {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         String URL = UrlEndPoints.User.UPDATE_FOLLOW;
 
         HttpEntity<Object> entity = new HttpEntity<Object>(headers);
-        MyRestTemplate restTemplate = new MyRestTemplate();
+
 
         Object[] uriValues = new Object[] {followerId, followeeId};
 

@@ -5,6 +5,8 @@ import client.Service.UserSession;
 import client.model.Achievement;
 import client.model.Meal;
 import client.model.User;
+import client.retrive.FoodRetrieve;
+import client.retrive.UserRetrieve;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
@@ -18,8 +20,8 @@ import java.util.*;
 
 import static client.Service.AchievementGenerator.achNotification;
 import static client.Service.AchievementGenerator.giveUserAch;
-import static client.retrive.FoodRetrieve.*;
-import static client.retrive.UserRetrieve.*;
+
+
 
 /**
  * The type Food controller.
@@ -54,19 +56,24 @@ public class FoodController implements Initializable {
     private User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
 
+    private UserRetrieve userRetrieve;
+    private FoodRetrieve foodRetrieve;
     /**
      * Gets selected category.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.userRetrieve = new UserRetrieve();
+        this.foodRetrieve = new FoodRetrieve();
 
         gettingMeals.stateProperty().addListener((observable, oldState, newState) -> {
+
             if (newState == Worker.State.SUCCEEDED) {
 
                 ArrayList<Meal> randomMeals = new ArrayList<>();
 
                 for (int i = 0; i < 10; i++) {
-                    Meal randomMeal = getRandomMeal();
+                    Meal randomMeal = this.foodRetrieve.getRandomMeal();
                     randomMeals.add(randomMeal);
                     System.out.println(randomMeal.getStrMeal());
                 }
@@ -78,13 +85,22 @@ public class FoodController implements Initializable {
         new Thread(gettingMeals).start();
     }
 
-    Task<Void> gettingMeals = new Task<Void>() {
+    public abstract class FetchMealsTask<V> extends Task<V> {
+        protected FoodRetrieve foodRetrieve;
+
+        public FetchMealsTask(FoodRetrieve foodRetrieve) {
+            this.foodRetrieve = foodRetrieve;
+        }
+    }
+
+    Task<Void> gettingMeals = new FetchMealsTask<Void>(new FoodRetrieve()) {
+
         @Override
         protected Void call() throws Exception {
 
-            meatMeals = getAllMeatMeals();
-            veganMeals = getMealCategory("Vegan");
-            vegetarianMeals = getMealCategory("Vegetarian");
+            meatMeals = this.foodRetrieve.getAllMeatMeals();
+            veganMeals = this.foodRetrieve.getMealCategory("Vegan");
+            vegetarianMeals = this.foodRetrieve.getMealCategory("Vegetarian");
 
             return null;
         }
@@ -113,7 +129,7 @@ public class FoodController implements Initializable {
         mealBoxText.setText("You have earned 25 pts for finding a meal!");
 
 
-        addGenericFeat(currentUser.getID(), currentUser.getPoints());
+        this.userRetrieve.addGenericFeat(currentUser.getID(), currentUser.getPoints());
     }
 
     public void search() {
@@ -190,7 +206,7 @@ public class FoodController implements Initializable {
             currentUser.setPoints(currentUser.getPoints() + 15);
 
             mealBoxText.setText("You have earned 15 points for eating local produce");
-            addGenericFeat(currentUser.getID(), 15);
+            this.userRetrieve.addGenericFeat(currentUser.getID(), 15);
             Achievement newAch = giveUserAch(currentUser);
             achNotification(newAch, currentStage);
         }
@@ -201,7 +217,7 @@ public class FoodController implements Initializable {
 
             mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
 
-            addGenericFeat(currentUser.getID(), 100);
+            this.userRetrieve.addGenericFeat(currentUser.getID(), 100);
             Achievement newAch = giveUserAch(currentUser);
             achNotification(newAch, currentStage);
         } else if (meatOpt.isSelected()) {
@@ -215,7 +231,7 @@ public class FoodController implements Initializable {
 
             System.out.println(currentUser.toString());
 
-            addGenericFeat(currentUser.getID(), 50);
+            this.userRetrieve.addGenericFeat(currentUser.getID(), 50);
             Achievement newAch = giveUserAch(currentUser);
             achNotification(newAch, currentStage);
         } else {
@@ -224,7 +240,7 @@ public class FoodController implements Initializable {
 
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
-            addGenericFeat(currentUser.getID(), 25);
+            this.userRetrieve.addGenericFeat(currentUser.getID(), 25);
             Achievement newAch = giveUserAch(currentUser);
             achNotification(newAch, currentStage);
         }

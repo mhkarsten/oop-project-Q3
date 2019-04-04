@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.io.IOException;
 
@@ -40,6 +41,8 @@ public class LoginController {
     public void login(ActionEvent event) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(usernameField.getText(), passwordField.getText()));
+        DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory(UrlEndPoints.BASE_URL);
+        restTemplate.setUriTemplateHandler(uriBuilderFactory);
 
         try {
 
@@ -76,6 +79,9 @@ public class LoginController {
      */
     public void register(ActionEvent event) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
+        DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory(UrlEndPoints.BASE_URL);
+        restTemplate.setUriTemplateHandler(uriBuilderFactory);
+
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         try {

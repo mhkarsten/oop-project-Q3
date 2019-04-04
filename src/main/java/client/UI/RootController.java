@@ -8,6 +8,7 @@ import java.util.Set;
 
 import client.Service.UserSession;
 import client.model.User;
+import client.retrive.UserRetrieve;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,9 +49,11 @@ public class RootController implements Initializable {
     public BarChart<String, Number> barChart;
 
     private static User currentUser = UserSession.getInstance().getCurrentUser();
+    private UserRetrieve userRetrieve;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.userRetrieve = new UserRetrieve();
 
         action.setOnAction((ActionEvent evt) -> {
             try {
@@ -202,7 +205,7 @@ public class RootController implements Initializable {
 
     public void btn(ActionEvent event) {
 
-        Set<User> following = getUserFollow(true, currentUser.getID());
+        Set<User> following = this.userRetrieve.getUserFollow(true, currentUser.getID());
 
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -278,6 +281,7 @@ public class RootController implements Initializable {
         pointsToUpdate += points;
         UserSession.getInstance().getCurrentUser().setPoints(pointsToUpdate);
 
-        addGenericFeat(UserSession.getInstance().getCurrentUser().getID(), points);
+        UserRetrieve userRetrieve = new UserRetrieve();
+        userRetrieve.addGenericFeat(UserSession.getInstance().getCurrentUser().getID(), points);
     }
 }

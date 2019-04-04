@@ -1,7 +1,9 @@
 package client.UI;
 
+import client.Service.MyRestTemplate;
 import client.Service.UserSession;
 import client.model.User;
+import client.retrive.UserRetrieve;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,9 +13,6 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.*;
 
-import static client.retrive.UserRetrieve.getUserFollow;
-import static client.retrive.UserRetrieve.getUsers;
-import static client.retrive.UserRetrieve.updateUserFollowing;
 
 /**
  * The type Compare controller.
@@ -50,14 +49,17 @@ public class CompareController implements Initializable {
     private ArrayList<User> allUsers;
     private Set<User> userFollowingCurrent;
 
+    private UserRetrieve userRetrieve;
+
     @SuppressWarnings("Duplicates")
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        userRetrieve = new UserRetrieve();
 
         activeUser = UserSession.getInstance().getCurrentUser();
-        allUsers = getUsers();
-        userFollows = getUserFollow(false, activeUser.getID());
-        userFollowingCurrent = getUserFollow(true, activeUser.getID());
+        allUsers = userRetrieve.getUsers();
+        userFollows = userRetrieve.getUserFollow(false, activeUser.getID());
+        userFollowingCurrent = userRetrieve.getUserFollow(true, activeUser.getID());
 
         userName.setText(activeUser.getName());
         userPoints.setText(Integer.toString(activeUser.getPoints()));
@@ -104,7 +106,7 @@ public class CompareController implements Initializable {
 
             userFollows.add(foundUser);
 
-            updateUserFollowing(activeUser.getID(), foundUser.getID());
+            userRetrieve.updateUserFollowing(activeUser.getID(), foundUser.getID());
             userFollowing.getItems().add(foundUser.getName());
 
             findStatus.setText("You are now following " + foundUser.getName());

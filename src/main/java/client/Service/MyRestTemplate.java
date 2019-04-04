@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.util.Arrays;
 
@@ -19,6 +20,19 @@ public class MyRestTemplate extends RestTemplate {
         UserSession session = UserSession.getInstance();
         this.getInterceptors().add(new BasicAuthenticationInterceptor(
             session.getUserName(), session.getPassword()));
+
+        DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory(UrlEndPoints.BASE_URL);
+        this.setUriTemplateHandler(uriBuilderFactory);
+    }
+
+
+    public MyRestTemplate(String alternativeBaseUrl) {
+        UserSession session = UserSession.getInstance();
+        this.getInterceptors().add(new BasicAuthenticationInterceptor(
+            session.getUserName(), session.getPassword()));
+
+        DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory(alternativeBaseUrl);
+        this.setUriTemplateHandler(uriBuilderFactory);
     }
 
     /**

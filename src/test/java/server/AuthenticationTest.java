@@ -1,9 +1,12 @@
 package server;
 
+import client.Service.MyRestTemplate;
+import client.Service.UserSession;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import server.model.User;
 
 import java.nio.charset.Charset;
@@ -27,24 +31,21 @@ public class AuthenticationTest {
     String domain;
     @LocalServerPort
     private int port;
-    @Autowired
-    private TestRestTemplate restTemplate;
 
-    @Before
-    public void setup() {
-        headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        byte[] encAuth = Base64.encodeBase64("tom:123".getBytes(Charset.forName("US-ASCII")));
-        headers.set("Authorization", "Basic " + new String(encAuth));
-        entity = new HttpEntity<>(headers);
-        domain = "http://localhost:" + port;
+    private MyRestTemplate restTemplate;
+
+    @BeforeEach
+    void setUp() {
+        UserSession.getInstance().setUserName("Alex");
+        UserSession.getInstance().setPassword("test");
+        restTemplate = new MyRestTemplate();
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:" + port));
     }
 
     public boolean tryToConnect(HttpHeaders h) {
         boolean connectionSuccess = false;
         try {
-            this.restTemplate.postForObject(domain + "/feats", new HttpEntity<>(h), String.class);
+            this.restTemplate.postForObject( "/feats", new HttpEntity<>(h), String.class);
             connectionSuccess = true;
         } catch (ResourceAccessException excp) {
         }

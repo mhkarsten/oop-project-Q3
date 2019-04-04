@@ -74,7 +74,7 @@ public class UserController {
     }
 
     /**
-     * Updates user information (POST).
+     * Updates user information (PUT).
      *
      * @param usr Parameter for the user to be updated
      * @return returns the updated user
@@ -83,14 +83,10 @@ public class UserController {
         produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public ResponseEntity<?> updateUser(@RequestBody User usr) {
-        if (userRepository.findById(usr.getID()).isPresent()) {
-            System.out.println("Updating user " + usr.getID());
-            userRepository.save(usr);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public void updateUser(@RequestBody User usr) {
+        userRepository.findById(usr.getID());
+        System.out.println("Updating user " + usr.getID());
+        userRepository.save(usr);
     }
 
     /**

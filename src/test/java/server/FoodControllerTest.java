@@ -43,7 +43,7 @@ public class FoodControllerTest {
 
     @Test
     public void getRandomMeal() {
-        Meal[] meal=restTemplate.postForObject(domain + "/randomMeal", entity, Meal[].class);
+        Meal[] meal=restTemplate.postForObject( "/randomMeal", entity, Meal[].class);
         Assertions.assertNotNull(meal);
     }
 

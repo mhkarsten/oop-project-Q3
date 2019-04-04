@@ -1,10 +1,9 @@
 INSERT INTO users (id, name, password)
-VALUES (user_seq.NEXTVAL, 'Alex','$2y$11$wqDyg7JvtKJqBo2HNSrfP.pqc5q0SCCOhk.irp6kL1yZ56nfMg00S');
+VALUES (user_seq.NEXTVAL, 'Alex','$2a$11$yaIdzP5bY03Sa4Jbr06lu.jTUJnctVIyG.p/0d.4nNFnffRj8eIbq');
 INSERT INTO users (id, name,password)
-VALUES (user_seq.NEXTVAL, 'Jim','asdf');
+VALUES (user_seq.NEXTVAL, 'Jim','$2y$11$wqDyg7JvtKJqBo2HNSrfP.pqc5q0SCCOhk.irp6kL1yZ56nfMg00S');
 INSERT INTO users (id, name,password)
-VALUES (user_seq.NEXTVAL, 'Jennifer','asdf');
-
+VALUES (user_seq.NEXTVAL, 'Jennifer','$2y$11$wqDyg7JvtKJqBo2HNSrfP.pqc5q0SCCOhk.irp6kL1yZ56nfMg00S');
 INSERT INTO achievements (id, title, description, path)
 VALUES (achievement_seq.NEXTVAL, 'GoGreen', 'Start GoGreen', 'path');
 INSERT INTO achievements (id, title, description, path)

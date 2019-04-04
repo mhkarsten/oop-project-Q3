@@ -15,6 +15,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import server.controller.UserController;
 import server.model.Achievement;
 import server.model.Feat;
@@ -51,6 +52,7 @@ public class UserControllerTest {
 
     @Before
     public void setup() {
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:" + port));
         us1 = restTemplate.getForObject("/users/1", User.class);
         us2 = restTemplate.getForObject("/users/2", User.class);
         us3 = restTemplate.getForObject("/users/3", User.class);
@@ -93,29 +95,9 @@ public class UserControllerTest {
     }
 
     @Test
-    public void updateUserMinusOne() {
-        User doesNotExist = new User(-2, "Unicorn");
-        restTemplate.put("/users/update/", new HttpEntity<>(doesNotExist));
-        Assertions.assertEquals(restTemplate.getForEntity("/users/" + doesNotExist.getID(), User.class).getStatusCode(),HttpStatus.NOT_FOUND);
-    }
-
-    @Test
     public void deleteUserMinusOne() {
         ResponseEntity<?> response = restTemplate.exchange("/users/-1", HttpMethod.DELETE, new HttpEntity<>(new HttpHeaders[]{}), String.class);
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
-    }
-
-    @Test
-    public void updateUserAndUndo() {
-        us1.setName("Jack");
-        restTemplate.put("/users/update/", new HttpEntity<>(us1));
-        System.out.print(us1.getID());
-        User updatedUser = restTemplate.getForObject("/users/1", User.class);
-        Assertions.assertEquals(updatedUser, us1);
-        us1.setName("Alex");
-        restTemplate.put( "/users/update/", new HttpEntity<>(us1));
-        updatedUser = restTemplate.getForObject( "/users/" + us1.getID(),   User.class);
-        Assertions.assertEquals(updatedUser, us1);
     }
     @Test
     public void addFollowerDB() {
@@ -169,11 +151,6 @@ public class UserControllerTest {
         URI usnaviLocation = restTemplate.postForLocation( "/users/new", new HttpEntity<>(user));
         //READ
         user = restTemplate.getForObject(usnaviLocation,   User.class);
-        //UPDATE
-        user.setName("Lin-Manuel");
-        restTemplate.put( "/users/update/", new HttpEntity<>(user));
-        User updatedUser = restTemplate.getForObject( "/users/" + user.getID(),   User.class);
-        Assertions.assertEquals(updatedUser, user);
 
         //DELETE
         ResponseEntity<?> response = restTemplate.exchange( "/users/" + user.getID(), HttpMethod.DELETE, new HttpEntity<>(new HttpHeaders[]{}),  String.class);

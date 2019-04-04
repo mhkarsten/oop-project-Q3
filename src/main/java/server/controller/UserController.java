@@ -72,23 +72,6 @@ public class UserController {
         Optional<User> optionalUser = userRepository.findById(userID);
         return optionalUser.get();
     }
-
-    /**
-     * Updates user information (PUT).
-     *
-     * @param usr Parameter for the user to be updated
-     * @return returns the updated user
-     */
-    @PutMapping(value = "/users/update",
-        produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
-    @ResponseBody
-    public void updateUser(@RequestBody User usr) {
-        userRepository.findById(usr.getID());
-        System.out.println("Updating user " + usr.getID());
-        userRepository.save(usr);
-    }
-
     /**
      * Adds a new user (CREATE).
      *

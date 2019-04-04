@@ -3,6 +3,7 @@ package server;
 import client.Service.MyRestTemplate;
 import client.Service.UserSession;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -12,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.util.DefaultUriBuilderFactory;
@@ -26,30 +30,19 @@ import java.util.Arrays;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AuthenticationTest {
-    HttpHeaders headers;
-    HttpEntity<User> entity;
-    String domain;
     @LocalServerPort
     private int port;
 
-    private MyRestTemplate restTemplate;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @BeforeEach
     void setUp() {
-        UserSession.getInstance().setUserName("Alex");
-        UserSession.getInstance().setPassword("test");
-        restTemplate = new MyRestTemplate();
         restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:" + port));
     }
 
     public boolean tryToConnect(HttpHeaders h) {
-        boolean connectionSuccess = false;
-        try {
-            this.restTemplate.postForObject( "/feats", new HttpEntity<>(h), String.class);
-            connectionSuccess = true;
-        } catch (ResourceAccessException excp) {
-        }
-        return connectionSuccess;
+        return HttpStatus.OK.equals(restTemplate.postForEntity( "/feats", new HttpEntity<>(h), String.class).getStatusCode());
     }
 
     @Test

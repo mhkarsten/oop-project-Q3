@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UrlEndPointsTest {
-    private String TEST_BASE_URL = "http://localhost:8090/";
-    private String INCORRECT_BASE_URL = "http://localljkjnhost:8090/";
+    private String TEST_BASE_URL = "http://localhost:8080/";
+    private String INCORRECT_BASE_URL = "http://localljkjnhost:8080/";
 
     @BeforeEach
     void setUp() {

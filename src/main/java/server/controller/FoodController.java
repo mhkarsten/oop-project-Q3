@@ -69,14 +69,7 @@ public class FoodController {
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<Meal[]> getMealCategory(@PathVariable("categoryName") String categoryName) {
-
-        List<Meal[]> meals = FoodAPI.getMealCategory(categoryName).get();
-
-        if (!meals.isEmpty()) {
-            return meals;
-        } else {
-            throw new NoSuchElementException("(Server Side) The category doesnt exist or is empty.");
-        }
+        return FoodAPI.getMealCategory(categoryName).get();
     }
 
     /**

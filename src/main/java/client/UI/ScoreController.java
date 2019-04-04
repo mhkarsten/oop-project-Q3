@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static client.retrive.UserRetrieve.getUser;
+import static client.retrieve.UserRetrieve.getUser;
 
 public class ScoreController implements Initializable {
 

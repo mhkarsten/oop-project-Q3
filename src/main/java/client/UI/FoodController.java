@@ -18,8 +18,8 @@ import java.util.*;
 
 import static client.Service.AchievementGenerator.achNotification;
 import static client.Service.AchievementGenerator.giveUserAch;
-import static client.retrive.FoodRetrieve.*;
-import static client.retrive.UserRetrieve.*;
+import static client.retrieve.FoodRetrieve.*;
+import static client.retrieve.UserRetrieve.*;
 
 /**
  * The type Food controller.

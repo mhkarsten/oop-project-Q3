@@ -20,7 +20,6 @@
                    <Label fx:id="energy2" onMouseClicked="#selectSolarPanelsEmission" prefHeight="40.0" prefWidth="206.0" text="Installing solar panels" />
                    <Label fx:id="energy3" prefHeight="40.0" prefWidth="206.0" />
                    <Label fx:id="energy4" prefHeight="40.0" prefWidth="206.0" />
-                   <Button mnemonicParsing="false" onAction="#getEmission" text="Select Energy Saving" />
                </children>
             </VBox>
          </content>
@@ -38,6 +37,7 @@
          </children>
       </VBox>
       <TextArea fx:id="description" layoutX="288.0" layoutY="55.0" prefHeight="290.0" prefWidth="175.0" />
+       <Button layoutX="64.0" layoutY="337.0" mnemonicParsing="false" onAction="#getEmission" style="-fx-border-color: red;" text="Select Energy Saving" />
    </children>
     <stylesheets>
         <URL value="@GeneralTemplate.css" />

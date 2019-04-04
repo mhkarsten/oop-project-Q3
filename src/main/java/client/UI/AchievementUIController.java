@@ -16,8 +16,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static client.retrive.AchievementRetrieve.achGetAll;
-import static client.retrive.AchievementRetrieve.achGetUnlocked;
+import static client.retrieve.AchievementRetrieve.achGetAll;
+import static client.retrieve.AchievementRetrieve.achGetUnlocked;
 
 public class AchievementUIController implements Initializable {
 

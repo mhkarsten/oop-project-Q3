@@ -4,7 +4,7 @@ import client.Service.MyStage;
 import client.Service.UserSession;
 import client.model.Achievement;
 import client.model.User;
-import client.retrive.EmissionsRetrieve;
+import client.retrieve.EmissionsRetrieve;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

@@ -4,7 +4,7 @@ import client.model.Meal;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-import static client.retrive.FoodRetrieve.getRandomMeal;
+import static client.retrieve.FoodRetrieve.getRandomMeal;
 
 
 class FoodRetrieveTest {

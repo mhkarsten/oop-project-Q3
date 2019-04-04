@@ -1,9 +1,8 @@
-package client.retrive;
+package client.retrieve;
 
 import client.Service.MyRestTemplate;
 import client.model.Meal;
 import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;

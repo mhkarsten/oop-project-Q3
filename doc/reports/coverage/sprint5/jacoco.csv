@@ -19,7 +19,7 @@ Maven Build Go Green,client.achievement,AchievementMap,13,0,0,0,3,0,3,0,3,0
 Maven Build Go Green,client,ClientGui,29,0,0,0,9,0,3,0,3,0
 Maven Build Go Green,client,User,15,0,0,0,7,0,2,0,2,0
 Maven Build Go Green,client,LoginController,56,0,4,0,13,0,4,0,2,0
-Maven Build Go Green,client.retrive,ClientController,369,0,14,0,75,0,14,0,7,0
-Maven Build Go Green,client.retrive,User,110,0,12,0,27,0,18,0,12,0
+Maven Build Go Green,client.retrieve,ClientController,369,0,14,0,75,0,14,0,7,0
+Maven Build Go Green,client.retrieve,User,110,0,12,0,27,0,18,0,12,0
 Maven Build Go Green,server.controller,AchievementController,6,47,0,2,0,9,1,7,1,6
 Maven Build Go Green,server.controller,UserController,0,126,0,4,0,21,0,12,0,10

@@ -11,9 +11,9 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.*;
 
-import static client.retrive.UserRetrieve.getUserFollow;
-import static client.retrive.UserRetrieve.getUsers;
-import static client.retrive.UserRetrieve.updateUserFollowing;
+import static client.retrieve.UserRetrieve.getUserFollow;
+import static client.retrieve.UserRetrieve.getUsers;
+import static client.retrieve.UserRetrieve.updateUserFollowing;
 
 /**
  * The type Compare controller.

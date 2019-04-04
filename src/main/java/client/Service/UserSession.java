@@ -22,7 +22,7 @@ public final class UserSession {
      * If not creates the single instance and returns it.
      * @return
      */
-    public static UserSession getInstace() {
+    public static UserSession getInstance() {
 
         if(instance == null) {
 

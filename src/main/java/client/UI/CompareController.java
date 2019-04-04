@@ -2,14 +2,12 @@ package client.UI;
 
 import client.Service.UserSession;
 import client.model.User;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import javafx.fxml.Initializable;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.net.URL;
 import java.util.*;
 
@@ -56,7 +54,7 @@ public class CompareController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        activeUser = UserSession.getInstace().getCurrentUser();
+        activeUser = UserSession.getInstance().getCurrentUser();
         allUsers = getUsers();
         userFollows = getUserFollow(false, activeUser.getID());
         userFollowingCurrent = getUserFollow(true, activeUser.getID());

@@ -1,5 +1,5 @@
 INSERT INTO users (id, name, password)
-VALUES (user_seq.NEXTVAL, 'Alex','asdfas');
+VALUES (user_seq.NEXTVAL, 'Alex','$2y$11$wqDyg7JvtKJqBo2HNSrfP.pqc5q0SCCOhk.irp6kL1yZ56nfMg00S');
 INSERT INTO users (id, name,password)
 VALUES (user_seq.NEXTVAL, 'Jim','asdf');
 INSERT INTO users (id, name,password)

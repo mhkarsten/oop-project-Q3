@@ -51,7 +51,7 @@ public class FoodController implements Initializable {
     private ArrayList<Meal> meatMeals;
     private ArrayList<Meal> veganMeals;
     private ArrayList<Meal> vegetarianMeals;
-    private User currentUser = UserSession.getInstace().getCurrentUser();
+    private User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
 
     /**

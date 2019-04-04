@@ -19,7 +19,7 @@ public class ProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        User currentUser = UserSession.getInstace().getCurrentUser();
+        User currentUser = UserSession.getInstance().getCurrentUser();
 
         userName.setText("User Name: " + currentUser.getName());
         userID.setText("User ID: " + currentUser.getID());

@@ -42,7 +42,7 @@ public class AchievementUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        activeUser = UserSession.getInstace().getCurrentUser();
+        activeUser = UserSession.getInstance().getCurrentUser();
         userAchives = achGetUnlocked(activeUser.getID());
         lockedAchives = achGetAll();
 

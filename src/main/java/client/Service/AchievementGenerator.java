@@ -17,7 +17,7 @@ import static client.retrive.AchievementRetrieve.*;
  */
 public class AchievementGenerator {
 
-    private static User activeUser = UserSession.getInstace().getCurrentUser();
+    private static User activeUser = UserSession.getInstance().getCurrentUser();
 
     public static String bulBadgepath = "file:images/bulbbadge.jpg";
     public static String batteryBadgePath = "file:images/batterybadge.jpg";

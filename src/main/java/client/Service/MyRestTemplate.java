@@ -16,7 +16,7 @@ public class MyRestTemplate extends RestTemplate {
      * Subsequent HTTP requests now automatically add basic authentication headers.
      */
     public MyRestTemplate() {
-        UserSession session = UserSession.getInstace();
+        UserSession session = UserSession.getInstance();
         this.getInterceptors().add(new BasicAuthenticationInterceptor(
             session.getUserName(), session.getPassword()));
     }

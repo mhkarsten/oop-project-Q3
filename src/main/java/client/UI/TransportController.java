@@ -45,7 +45,7 @@ public class TransportController implements Initializable {
 
     public TextArea description;
 
-    private static User currentUser = UserSession.getInstace().getCurrentUser();
+    private static User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
 
     @Override

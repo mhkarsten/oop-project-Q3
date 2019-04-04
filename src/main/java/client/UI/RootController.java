@@ -47,7 +47,7 @@ public class RootController implements Initializable {
     public AnchorPane changePane;
     public BarChart<String, Number> barChart;
 
-    private static User currentUser = UserSession.getInstace().getCurrentUser();
+    private static User currentUser = UserSession.getInstance().getCurrentUser();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -226,7 +226,7 @@ public class RootController implements Initializable {
 
     public int getMax(Set<User> users) {
 
-        int points = UserSession.getInstace().getCurrentUser().getPoints();
+        int points = UserSession.getInstance().getCurrentUser().getPoints();
         Iterator<User> iterator = users.iterator();
 
         while (iterator.hasNext()) {
@@ -276,8 +276,8 @@ public class RootController implements Initializable {
 
         int pointsToUpdate = currentUser.getPoints();
         pointsToUpdate += points;
-        UserSession.getInstace().getCurrentUser().setPoints(pointsToUpdate);
+        UserSession.getInstance().getCurrentUser().setPoints(pointsToUpdate);
 
-        addGenericFeat(UserSession.getInstace().getCurrentUser().getID(), points);
+        addGenericFeat(UserSession.getInstance().getCurrentUser().getID(), points);
     }
 }

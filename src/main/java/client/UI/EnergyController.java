@@ -45,7 +45,7 @@ public class EnergyController implements Initializable {
     public TextField field3;
     public TextField field4;
 
-    private User currentUser = UserSession.getInstace().getCurrentUser();
+    private User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
 
     @Override

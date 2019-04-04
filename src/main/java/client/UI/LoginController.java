@@ -7,23 +7,14 @@ import client.Service.UserSession;
 import client.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-
-import javax.servlet.http.Cookie;
 
 public class LoginController {
 
@@ -60,11 +51,11 @@ public class LoginController {
 
             User user = response.getBody();
 
-            UserSession.getInstace().setUserName(usernameField.getText());
-            UserSession.getInstace().setPassword(passwordField.getText());
-            UserSession.getInstace().setCurrentUser(user);
+            UserSession.getInstance().setUserName(usernameField.getText());
+            UserSession.getInstance().setPassword(passwordField.getText());
+            UserSession.getInstance().setCurrentUser(user);
 
-            System.out.println(UserSession.getInstace().getCurrentUser().toString());
+            System.out.println(UserSession.getInstance().getCurrentUser().toString());
 
             if (user != null) {
                 loginStatus.setText("Status: You have logged in!");
@@ -93,13 +84,13 @@ public class LoginController {
             HttpEntity<User> requestBody = new HttpEntity<>(newUser, headers);
             User user = restTemplate.postForObject(UrlEndPoints.Auth.REGISTER, requestBody, User.class);
 
-            UserSession.getInstace().setCurrentUser(user);
+            UserSession.getInstance().setCurrentUser(user);
 
             if (user != null && user.getID() != 0) {
                 loginStatus.setText("(Client Side) New user created" + user.getName());
 
-                UserSession.getInstace().setUserName(usernameField.getText());
-                UserSession.getInstace().setPassword(passwordField.getText());
+                UserSession.getInstance().setUserName(usernameField.getText());
+                UserSession.getInstance().setPassword(passwordField.getText());
                 MyStage.switchScene(MyStage.Screens.ROOT);
             }
         } catch (Exception e) {

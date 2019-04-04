@@ -3,7 +3,7 @@ package client.UI;
 import client.Service.MyRestTemplate;
 import client.Service.UserSession;
 import client.model.User;
-import client.retrive.UserRetrieve;
+import client.retrieve.UserRetrieve;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

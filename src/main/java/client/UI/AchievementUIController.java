@@ -3,7 +3,7 @@ package client.UI;
 import client.Service.UserSession;
 import client.model.Achievement;
 import client.model.User;
-import client.retrive.AchievementRetrieve;
+import client.retrieve.AchievementRetrieve;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

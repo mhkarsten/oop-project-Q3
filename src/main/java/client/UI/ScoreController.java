@@ -1,7 +1,7 @@
 package client.UI;
 
 import client.model.User;
-import client.retrive.UserRetrieve;
+import client.retrieve.UserRetrieve;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

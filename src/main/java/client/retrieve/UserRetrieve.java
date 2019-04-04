@@ -1,4 +1,4 @@
-package client.retrive;
+package client.retrieve;
 
 import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;

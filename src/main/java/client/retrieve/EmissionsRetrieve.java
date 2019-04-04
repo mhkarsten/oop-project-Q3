@@ -1,6 +1,7 @@
 package client.retrieve;
 
 import client.Service.MyRestTemplate;
+import client.Service.UrlEndPoints;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

@@ -8,7 +8,7 @@ import java.util.Set;
 
 import client.Service.UserSession;
 import client.model.User;
-import client.retrive.UserRetrieve;
+import client.retrieve.UserRetrieve;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

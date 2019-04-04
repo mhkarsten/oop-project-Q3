@@ -3,7 +3,7 @@ package client.Service;
 
 import client.model.Achievement;
 import client.model.User;
-import client.retrive.AchievementRetrieve;
+import client.retrieve.AchievementRetrieve;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;

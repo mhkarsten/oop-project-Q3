@@ -29,8 +29,14 @@ public class FoodController {
             produces = {MediaType.APPLICATION_XML_VALUE,
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Meal[] getRandomMeal() {
-        return FoodAPI.getRandomMeal().get();
+    public Meal getRandomMeal() {
+
+        Optional<Meal[]> randomMeal = FoodAPI.getRandomMeal();
+        if (randomMeal.isPresent()) {
+
+            return randomMeal.get()[0];
+        }
+        return null;
     }
 
     /**
@@ -62,14 +68,7 @@ public class FoodController {
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<Meal[]> getMealCategory(@PathVariable("categoryName") String categoryName) {
-
-        List<Meal[]> meals = FoodAPI.getMealCategory(categoryName).get();
-
-        if (!meals.isEmpty()) {
-            return meals;
-        } else {
-            throw new NoSuchElementException("(Server Side) The category doesnt exist or is empty.");
-        }
+        return FoodAPI.getMealCategory(categoryName).get();
     }
 
     /**
@@ -88,6 +87,7 @@ public class FoodController {
         List<Meal[]> meatMeals = FoodAPI.getAllMeatMeals();
 
         if (!meatMeals.isEmpty()) {
+
             return meatMeals;
         } else  {
             throw new NoSuchElementException("(Server Side) The category doesnt exist or is empty.");

@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import server.controller.UserController;
 import server.model.Achievement;
 import server.model.Feat;
@@ -29,11 +31,9 @@ import java.util.Set;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
+@Import(TestTemplateConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AchievementControllerTest {
-    HttpHeaders headers;
-    HttpEntity<User> entity;
-    String domain;
     @LocalServerPort
     private int port;
     @Autowired
@@ -41,69 +41,57 @@ public class AchievementControllerTest {
 
     @Before
     public void setup() {
-        //Create a basic set of headers with a specification of the type of body sent to and expected from the server
-        headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        String username = "tom";
-        String password = "123";
-        User tom=new User("tom","123");
-        //The basic authentication as it works right now, [user]:[password]
-        byte[] encAuth = Base64.encodeBase64((username + ':' + password).getBytes(Charset.forName("US-ASCII")));
-        headers.set("Authorization", "Basic " + new String(encAuth));
-        entity = new HttpEntity<>(headers);
-        domain = "http://localhost:" + port;
-        restTemplate.postForObject(domain + "/auth/register", new HttpEntity<>(tom,headers), User.class);
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:" + port));
     }
 
     @Test
     public void getAchievementsTest() {
 
-        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
-        Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
-        Achievement a3 = restTemplate.postForObject(domain + "/achievements/3", entity, Achievement.class);
-        Assertions.assertArrayEquals(restTemplate.postForObject(domain + "/achievements/", entity, Achievement[].class), new Achievement[] {a1, a2, a3});
+        Achievement a1 = restTemplate.getForObject("/achievements/1", Achievement.class);
+        Achievement a2 = restTemplate.getForObject("/achievements/2", Achievement.class);
+        Achievement a3 = restTemplate.getForObject("/achievements/3", Achievement.class);
+        Achievement a4 = restTemplate.getForObject("/achievements/4", Achievement.class);
+        Assertions.assertArrayEquals(restTemplate.getForObject("/achievements/", Achievement[].class), new Achievement[] {a1, a2, a3, a4});
     }
 
     @Test
     public void retrieveUserOneAchievements() {
 
-        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
-        Achievement a2 = restTemplate.postForObject(domain + "/achievements/2", entity, Achievement.class);
-        assertThat(restTemplate.postForObject(domain + "/users/1/achievements", entity, Achievement[].class), IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1, a2));
+        Achievement a1 = restTemplate.getForObject("/achievements/1", Achievement.class);
+        Achievement a2 = restTemplate.getForObject("/achievements/2", Achievement.class);
+        assertThat(restTemplate.getForObject("/users/1/achievements", Achievement[].class), IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1, a2));
     }
 
     @Test
     public void retrieveAchievementMinusOne() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/achievements/-1", entity, Achievement.class));
+        Assertions.assertEquals(this.restTemplate.getForEntity("/achievements/-1", Achievement.class).getStatusCode(),HttpStatus.NOT_FOUND);
     }
 
     @Test
     public void retrieveAchievementsWrong() {
-        Assertions.assertNull(this.restTemplate.postForObject(domain + "/achievements/ach1", entity, Achievement.class));
+        Assertions.assertEquals(this.restTemplate.getForEntity("/achievements/ach1", Achievement.class).getStatusCode(),HttpStatus.BAD_REQUEST);
     }
 
     @Test
     public void retrieveUserMinusOneAchievements() {
-        Assertions.assertNull(restTemplate.postForObject(domain + "/users/-1/achievements", entity, Achievement[].class));
+        Assertions.assertEquals(restTemplate.getForEntity("/users/-1/achievements", Achievement[].class).getStatusCode(),HttpStatus.NOT_FOUND);
     }
     @Test
     public void unlockAchievementUserOneTest()
     {
         //CREATE
-        User user = new User(4, "Usnavi");
-        entity = new HttpEntity<>(user, headers);
-        URI usnaviLocation = restTemplate.postForLocation(domain + "/users/new", entity);
+        User user = new User("Usnavi","96000");
+        URI usnaviLocation = restTemplate.postForLocation("/users/new", new HttpEntity<>(user));
         //READ
-        user = restTemplate.postForObject(usnaviLocation, new HttpEntity<>(headers), User.class);
+        user = restTemplate.getForObject(usnaviLocation, User.class);
 
 
         //Unlocking of achievement test:
-        restTemplate.postForObject(domain + "/users/"+user.getID()+"/achievements/unlock/1", new HttpEntity<>(headers), User.class);
-        restTemplate.postForObject(domain + "/users/"+user.getID()+"/achievements/unlock/3", new HttpEntity<>(headers), User.class);
-        Achievement a1 = restTemplate.postForObject(domain + "/achievements/1", entity, Achievement.class);
-        Achievement a3 = restTemplate.postForObject(domain + "/achievements/3", entity, Achievement.class);
-        Achievement[] usnaviAch=restTemplate.postForObject(domain + "/users/"+user.getID()+"/achievements", entity, Achievement[].class);
+        restTemplate.getForEntity("/users/"+user.getID()+"/achievements/unlock/1", User.class);
+        restTemplate.getForEntity("/users/"+user.getID()+"/achievements/unlock/3", User.class);
+        Achievement a1 = restTemplate.getForObject("/achievements/1", Achievement.class);
+        Achievement a3 = restTemplate.getForObject("/achievements/3", Achievement.class);
+        Achievement[] usnaviAch=restTemplate.getForObject("/users/"+user.getID()+"/achievements", Achievement[].class);
         System.out.println("Number of achievements: "+usnaviAch.length);
         assertThat(usnaviAch, IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1,a3));
 

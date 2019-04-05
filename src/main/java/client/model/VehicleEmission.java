@@ -1,13 +1,9 @@
 package client.model;
 
-import org.json.simple.JSONObject;
-
-import java.util.LinkedHashMap;
-
 /**
  * The type Vehicle emission.
  */
-public class VehicleEmission {
+public class VehicleEmission extends Emission {
 //    INPUT VALUES
 //    int distance; in kilometers
 //    int duration; in seconds
@@ -19,6 +15,19 @@ public class VehicleEmission {
     private String fuelUse;
     private String distance;
 
+    @Override
+    public String toString() {
+
+        return "Fuel Use: " + this.getFuelUse()
+                + "\nEnergy Used: " + this.getEnergy()
+                + "\nDistance Traveled: " + this.getDistance()
+                + "\nCarbon Emitted: " + this.getCarbon();
+    }
+
+    public String getStringName() {
+
+        return "Vehicle Emission";
+    }
 
     /**
      * Instantiates a new Vehicle emission.

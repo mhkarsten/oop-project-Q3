@@ -28,10 +28,10 @@ public class TrainEmission {
         LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
         newEmission.setCarbon((String) carbon.get("description"));
 
-        LinkedHashMap energy = (LinkedHashMap) mainBody.get("energy");
+        LinkedHashMap energy = (LinkedHashMap) mainBody.get("electricity_consumption");
         newEmission.setEnergy((String) energy.get("description"));
 
-        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get("fuel_use");
+        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get("diesel_consumption");
         newEmission.setFuelUse((String) fuelUse.get("description"));
 
         LinkedHashMap distance = (LinkedHashMap) mainBody.get("distance");

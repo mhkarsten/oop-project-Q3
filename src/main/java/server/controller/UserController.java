@@ -11,8 +11,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.User;
 import server.repository.UserRepository;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -50,7 +52,7 @@ public class UserController {
     @RequestMapping(value = "/users",
         method = {RequestMethod.POST, RequestMethod.GET},
         produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE})
+                    MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
 
     public List<User> getUsers() {
@@ -63,36 +65,28 @@ public class UserController {
      * @param userID The userID to look for
      * @return The user if it exists
      */
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/users/{userID}",
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
+        value = "/users/{userID}",
         produces = {MediaType.APPLICATION_XML_VALUE,
-            MediaType.APPLICATION_JSON_VALUE})
+                    MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public User getUser(@PathVariable("userID") long userID) {
         Optional<User> optionalUser = userRepository.findById(userID);
-        return optionalUser.get();
-    }
-
-
-    /**
-     * Updates user information (POST).
-     *
-     * @param usr Parameter for the user to be updated
-     * @return returns the updated user
-     */
-    @PutMapping(value = "/users/update",
-        produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE})
-    @ResponseBody
-    public ResponseEntity<?> updateUser(@RequestBody User usr) {
-        if (userRepository.findById(usr.getID()).isPresent()) {
-            System.out.println("Updating user " + usr.getID());
-            userRepository.save(usr);
-            return ResponseEntity.ok().build();
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
         } else {
-            return ResponseEntity.notFound().build();
+            return null;
         }
     }
 
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
+        value = "/users/byName/{userName}",
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public User getUserByName(@PathVariable("userName") String userName) {
+        return userRepository.findByName(userName).get();
+    }
     /**
      * Adds a new user (CREATE).
      *
@@ -101,7 +95,7 @@ public class UserController {
      */
     @PostMapping(value = "/users/new",
         produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE})
+                    MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> addUser(@RequestBody User usr) {
         usr.setID(0);
@@ -137,7 +131,8 @@ public class UserController {
      * @return the followers if any and if the user exists
      */
     @RequestMapping(value = "/users/{userID}/following", method = {RequestMethod.POST, RequestMethod.GET},
-        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
     public Set<User> getUserFollowing(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
         return user.get().getFollowing();
@@ -150,7 +145,8 @@ public class UserController {
      * @return the followers if any and if the user exists
      */
     @RequestMapping(value = "/users/{userID}/followers", method = {RequestMethod.POST, RequestMethod.GET},
-        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
     public Set<User> getUserFollowers(@PathVariable("userID") long userID) {
         Optional<User> user = userRepository.findById(userID);
         return user.get().getFollowers();
@@ -162,8 +158,10 @@ public class UserController {
      * @param followerId the one who is going to follow the followee
      * @param followeeId the one which is going to be followed by the follower
      */
-    @RequestMapping(value = "/users/{followerId}/follow/{followeeId}", method = {RequestMethod.POST, RequestMethod.GET},
-        produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/users/{followerId}/follow/{followeeId}",
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
     public void followUser(@PathVariable("followerId") long followerId, @PathVariable("followeeId") long followeeId) {
         User follower = userRepository.findById(followerId).get();
         User followee = userRepository.findById(followeeId).get();

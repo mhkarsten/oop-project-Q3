@@ -11,7 +11,9 @@ import server.model.User;
 import server.repository.UserRepository;
 import server.security.MyUserDetailsService;
 
+import javax.swing.text.html.Option;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 public class AuthController {
@@ -30,15 +32,15 @@ public class AuthController {
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> login(@PathVariable("username") String username) {
-        System.out.println(username);
 
-        User user = userRepository.findByName(username);
+        Optional<User> user = userRepository.findByName(username);
 
-        if (user == null) {
+        if (!user.isPresent()) {
             return ResponseEntity.badRequest().build();
         }
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        System.out.println("(Server Side) " + username + " has logged in.");
+        return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 
 

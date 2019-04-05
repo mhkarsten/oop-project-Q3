@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import server.model.User;
 import server.repository.UserRepository;
 
+import java.util.Optional;
+
 /**
  * Manages the authentication and registration of users.
  */
@@ -30,11 +32,11 @@ public class MyUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByName(username);
+        Optional<User> user = userRepository.findByName(username);
 
-        if (user == null) throw new UsernameNotFoundException(username);
+        if (!user.isPresent()) throw new UsernameNotFoundException(username);
 
-        return new MyUserPrincipal(user);
+        return new MyUserPrincipal(user.get());
     }
 
     /**
@@ -43,8 +45,7 @@ public class MyUserDetailsService implements UserDetailsService {
      * @return
      */
     public boolean userExists(User user) {
-        if (null == userRepository.findByName(user.getName())) return false;
-        return true;
+        return userRepository.findByName(user.getName()).isPresent();
     }
 
     /**

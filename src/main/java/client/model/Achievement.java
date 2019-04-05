@@ -31,6 +31,13 @@ public class Achievement {
         this.path = path;
     }
 
+    public Achievement(String title, String description, String path) {
+
+        this.title = title;
+        this.description = description;
+        this.path = path;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

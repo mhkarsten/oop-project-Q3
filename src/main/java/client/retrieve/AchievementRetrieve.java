@@ -1,20 +1,18 @@
-package client.retrive;
+package client.retrieve;
 
 import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
 import client.model.Achievement;
 import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-
 /**
  * The type Achievement controller.
  */
-public class AchievementRetrieve {
+public class AchievementRetrieve extends BaseRetrieve {
 
 
     /**
@@ -23,12 +21,11 @@ public class AchievementRetrieve {
      * @return the array list
      */
     @SuppressWarnings("Duplicates")
-    public static ArrayList<Achievement> achGetAll() {
+    public ArrayList<Achievement> achGetAll() {
         //GET ALL ACHIEVEMENTS
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
         ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGETALL,
             HttpMethod.POST, entity, Achievement[].class);
 
@@ -55,17 +52,17 @@ public class AchievementRetrieve {
     /**
      * Ach get achievement.
      *
+     * @param achID the ach id
      * @return the achievement
      */
     @SuppressWarnings("Duplicates")
-    public static Achievement achGet(long achID) {
+    public Achievement achGet(long achID) {
         //GET SPECIFIC ACHIEVEMENT
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement> entity = new HttpEntity<>(headers);
 
         Object[] uriValues = new Object[] {achID};
 
-        MyRestTemplate restTemplate = new MyRestTemplate();
         ResponseEntity<Achievement> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGET,
             HttpMethod.POST, entity, Achievement.class, uriValues);
 
@@ -89,13 +86,12 @@ public class AchievementRetrieve {
     /**
      * Ach get unlocked array list.
      *
+     * @param usrID the usr id
      * @return the array list
      */
     @SuppressWarnings("Duplicates")
-    public static ArrayList<Achievement> achGetUnlocked(long usrID) {
+    public ArrayList<Achievement> achGetUnlocked(long usrID) {
         //GET ALL UNLOCKED ACHIEVEMENTS BY A USER
-        MyRestTemplate restTemplate = new MyRestTemplate();
-
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
 
@@ -124,7 +120,53 @@ public class AchievementRetrieve {
         return null;
     }
 
-    public static void addUserAch(long usrID, long achID) {
+    /**
+     * Add user ach.
+     *
+     * @param usrID the usr id
+     * @param achID the ach id
+     */
+    public void addUserAch(long usrID, long achID) {
+        //ADDS AN ACHIEVEMENT TO THE USERS ACCOUNT
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+        Object[] uriValues = new Object[] {usrID, achID};
+        ResponseEntity<Achievement> response;
 
+        try {
+
+            HttpEntity<Achievement> entity = new HttpEntity<>(headers);
+            response = restTemplate.exchange(UrlEndPoints.Achievements.URL_UNLOCKACHFORUSER,
+                HttpMethod.POST, entity, Achievement.class, uriValues);
+        } catch (Exception e) {
+
+            System.out.println("(Client Side) Either the achievement doesnt exist, or the user.");
+            System.out.println(e.toString());
+            return;
+        }
+    }
+
+    /**
+     * Add ach.
+     *
+     * @param ach the ach
+     */
+    public void addAch(Achievement ach) {
+        //CREATES A NEW ACHIEVEMENT
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+
+        try {
+
+            HttpEntity<Achievement> requestBody = new HttpEntity<>(ach, headers);
+            Achievement newAch = restTemplate.postForObject(UrlEndPoints.Achievements.URL_NEWACH, requestBody, Achievement.class);
+
+            if (newAch != null && newAch.getID() != 0) {
+
+                System.out.println("(Client Side) The achievement " + ach.getTitle() + " has been created.");
+            }
+        } catch (Exception e) {
+
+            System.out.println("(Client Side) Creating the achievement " + ach.getTitle() + " failed.");
+            System.out.println(e.toString());
+        }
     }
 }

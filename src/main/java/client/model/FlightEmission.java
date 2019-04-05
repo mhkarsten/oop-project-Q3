@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * The type Flight emission.
  */
-public class FlightEmission {
+public class FlightEmission extends Emission {
 //    INPUT VALUES
 //    String startPort;
 //    String endPort;
@@ -17,6 +17,20 @@ public class FlightEmission {
     private String energy;
     private String distance;
     private String fuelUse;
+
+    @Override
+    public String toString() {
+
+        return "Fuel Use: " + this.getFuelUse()
+            + "\nEnergy Used: " + this.getEnergy()
+            + "\nDistance Traveled: " + this.getDistance()
+            + "\nCarbon Emitted: " + this.getCarbon();
+    }
+
+    public String getStringName() {
+
+        return "Flight Emission";
+    }
 
     /**
      * Instantiates a new Flight emission.

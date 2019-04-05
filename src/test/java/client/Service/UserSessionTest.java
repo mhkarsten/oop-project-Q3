@@ -14,93 +14,100 @@ class UserSessionTest {
 
     @AfterEach
     void tearDown() {
-        UserSession.getInstace().cleanUserSession();
+        UserSession.getInstance().cleanUserSession();
+    }
+
+    @Test
+    void equals(){
+        UserSession userSession = UserSession.getInstance();
+        assertTrue(userSession.equals(UserSession.getInstance()));
+        assertFalse(UserSession.getInstance().equals(null));
     }
 
     @Test
     void getInstace() {
         // Because of singleton, session needs to be cleared after every call.
-        assertEquals(UserSession.getInstace(), UserSession.getInstace());
-        assertNotEquals(null, UserSession.getInstace());
+        assertEquals(UserSession.getInstance(), UserSession.getInstance());
+        assertNotEquals(null, UserSession.getInstance());
     }
 
     @Test
     void setUserName() {
         String name = null;
-        assertEquals(name, UserSession.getInstace().getUserName());
+        assertEquals(name, UserSession.getInstance().getUserName());
 
         name = "thom";
-        assertNotEquals(name, UserSession.getInstace().getUserName());
+        assertNotEquals(name, UserSession.getInstance().getUserName());
 
-        UserSession.getInstace().setUserName(name);
-        assertEquals(name, UserSession.getInstace().getUserName());
+        UserSession.getInstance().setUserName(name);
+        assertEquals(name, UserSession.getInstance().getUserName());
     }
 
     @Test
     void getUserName() {
         String name = null;
-        assertEquals(name, UserSession.getInstace().getUserName());
+        assertEquals(name, UserSession.getInstance().getUserName());
 
 
         name = "thom";
-        assertNotEquals(name, UserSession.getInstace().getUserName());
+        assertNotEquals(name, UserSession.getInstance().getUserName());
 
-        UserSession.getInstace().setUserName(name);
-        assertEquals(name, UserSession.getInstace().getUserName());
+        UserSession.getInstance().setUserName(name);
+        assertEquals(name, UserSession.getInstance().getUserName());
 
     }
 
     @Test
     void getPassword() {
-        assertEquals(null, UserSession.getInstace().getPassword());
+        assertEquals(null, UserSession.getInstance().getPassword());
 
         String password = "123";
-        assertNotEquals(password, UserSession.getInstace().getPassword());
+        assertNotEquals(password, UserSession.getInstance().getPassword());
 
-        UserSession.getInstace().setPassword(password);
-        assertEquals(password, UserSession.getInstace().getPassword());
+        UserSession.getInstance().setPassword(password);
+        assertEquals(password, UserSession.getInstance().getPassword());
     }
 
     @Test
     void setPassword() {
-        assertEquals(null, UserSession.getInstace().getPassword());
+        assertEquals(null, UserSession.getInstance().getPassword());
 
         String password = "123";
-        assertNotEquals(password, UserSession.getInstace().getPassword());
+        assertNotEquals(password, UserSession.getInstance().getPassword());
 
-        UserSession.getInstace().setPassword(password);
-        assertEquals(password, UserSession.getInstace().getPassword());
+        UserSession.getInstance().setPassword(password);
+        assertEquals(password, UserSession.getInstance().getPassword());
     }
 
     @Test
     void cleanUserSession() {
         // Check if the properties are empty
-        assertEquals(null, UserSession.getInstace().getUserName());
-        assertEquals(null, UserSession.getInstace().getPassword());
+        assertEquals(null, UserSession.getInstance().getUserName());
+        assertEquals(null, UserSession.getInstance().getPassword());
 
         // Fill the properties
         String name = "thom";
         String password = "123";
-        UserSession.getInstace().setUserName(name);
-        UserSession.getInstace().setPassword(password);
+        UserSession.getInstance().setUserName(name);
+        UserSession.getInstance().setPassword(password);
 
         // Now check if the properties are filled with the correct values
-        assertEquals(name, UserSession.getInstace().getUserName());
-        assertEquals(password, UserSession.getInstace().getPassword());
+        assertEquals(name, UserSession.getInstance().getUserName());
+        assertEquals(password, UserSession.getInstance().getPassword());
         // Check not null anymore
-        assertNotEquals(null, UserSession.getInstace().getUserName());
-        assertNotEquals(null, UserSession.getInstace().getPassword());
+        assertNotEquals(null, UserSession.getInstance().getUserName());
+        assertNotEquals(null, UserSession.getInstance().getPassword());
 
         // Clear the user session (Should set the properties to null again)
-        UserSession.getInstace().cleanUserSession();
+        UserSession.getInstance().cleanUserSession();
 
         // confirm that the properties are not equal to the set values anymore
-        assertNotEquals(name, UserSession.getInstace().getUserName());
-        assertNotEquals(password, UserSession.getInstace().getPassword());
+        assertNotEquals(name, UserSession.getInstance().getUserName());
+        assertNotEquals(password, UserSession.getInstance().getPassword());
 
         // confirm that the properties are set to null again
-        assertEquals(null, UserSession.getInstace().getUserName());
-        assertEquals(null, UserSession.getInstace().getPassword());
+        assertEquals(null, UserSession.getInstance().getUserName());
+        assertEquals(null, UserSession.getInstance().getPassword());
 
     }
 

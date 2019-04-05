@@ -1,25 +1,27 @@
 package client.UI;
 
+import client.Service.MyStage;
+import client.Service.UserSession;
+import client.model.Achievement;
 import client.model.Meal;
 import client.model.User;
+import client.retrieve.FoodRetrieve;
+import client.retrieve.UserRetrieve;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.*;
 
-import static client.retrive.FoodRetrieve.*;
-import static client.retrive.UserRetrieve.*;
+import static client.Service.AchievementGenerator.achNotification;
+import static client.Service.AchievementGenerator.giveUserAch;
+
+
 
 /**
  * The type Food controller.
@@ -32,101 +34,155 @@ public class FoodController implements Initializable {
      * The Meal 1.
      */
     @FXML
-    public Label meal1;
-    public Label meal2;
-    public Label meal3;
-    public Label meal4;
     public Label mealBoxText;
+    public Label searchStatus;
+    public Label searchMealName;
 
     public CheckBox veganOpt;
     public CheckBox vegOpt;
     public CheckBox meatOpt;
+    public CheckBox localProduceBtn;
 
-    public Button upBtn;
-    public Button downBtn;
+    public Button searchBtn;
+    public Button selectMeal;
 
-    private int mealOffset;
+    public ListView mealView;
+
+    public TextField searchInput;
+
     private ArrayList<Meal> meatMeals;
     private ArrayList<Meal> veganMeals;
     private ArrayList<Meal> vegetarianMeals;
+    private User currentUser = UserSession.getInstance().getCurrentUser();
+    private Stage currentStage = MyStage.getInstance();
 
+    private UserRetrieve userRetrieve;
+    private FoodRetrieve foodRetrieve;
     /**
      * Gets selected category.
-     *
-     * @return the selected category
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        final Tooltip tooltipvegan = new Tooltip();
+        tooltipvegan.setText("Being vegan is the single best way to reduce environmental impact! Read more on https://www.independent.co.uk/life-style/health-and-families/veganism-environmental-impact-planet-reduced-plant-based-diet-humans-study-a8378631.html");
+        veganOpt.setTooltip(tooltipvegan);
 
-        meal1.setText(getRandomMeal()[0].getStrMeal());
-        meal2.setText(getRandomMeal()[0].getStrMeal());
-        meal3.setText(getRandomMeal()[0].getStrMeal());
-        meal4.setText(getRandomMeal()[0].getStrMeal());
 
-        meatMeals = getAllMeatMeals();
-        veganMeals = getMealCategory("Vegan");
-        vegetarianMeals = getMealCategory("Vegetarian");
+        final Tooltip tooltipvegetarian = new Tooltip();
+        tooltipvegetarian.setText("Read more about how this has a positive effect on the environment here! https://vegnews.com/2017/7/the-environmental-impacts-of-going-vegetarian-for-just-one-day");
+        vegOpt.setTooltip(tooltipvegetarian);
 
-        upBtn.setOnAction(event -> changeMeals(upBtn));
-        downBtn.setOnAction((event -> changeMeals(downBtn)));
+        final Tooltip tooltipmeat = new Tooltip();
+        tooltipmeat.setText("Read about how meat may affect the environment in a negative way here: https://www.peta.org/about-peta/faq/how-does-eating-meat-harm-the-environment/");
+        meatOpt.setTooltip(tooltipvegetarian);
+
+        final Tooltip tooltipproduce = new Tooltip();
+        tooltipproduce.setText("There are lots of benefits of buying local produce. Read them here! https://arrowquip.com/blog/animal-science/top-benefits-buying-locally-grown-food");
+        localProduceBtn.setTooltip(tooltipvegetarian);
+
+
+
+
+
+
+        this.userRetrieve = new UserRetrieve();
+        this.foodRetrieve = new FoodRetrieve();
+
+        gettingMeals.stateProperty().addListener((observable, oldState, newState) -> {
+
+            if (newState == Worker.State.SUCCEEDED) {
+
+                ArrayList<Meal> randomMeals = new ArrayList<>();
+
+                for (int i = 0; i < 10; i++) {
+                    Meal randomMeal = this.foodRetrieve.getRandomMeal();
+                    randomMeals.add(randomMeal);
+                    System.out.println(randomMeal.getStrMeal());
+                }
+
+                setMealStrings(randomMeals);
+            }
+        });
+
+        new Thread(gettingMeals).start();
     }
 
-    /**
-     * Gets selected category.
-     *
-     * @return the selected category
-     */
-    public ArrayList<Meal> getSelectedCategory() {
+    public abstract class FetchMealsTask<V> extends Task<V> {
+        protected FoodRetrieve foodRetrieve;
 
-        if (vegOpt.isSelected()) {
-
-            return vegetarianMeals;
-        } else if (meatOpt.isSelected()) {
-
-            return meatMeals;
-        } else if (veganOpt.isSelected()) {
-
-            return veganMeals;
+        public FetchMealsTask(FoodRetrieve foodRetrieve) {
+            this.foodRetrieve = foodRetrieve;
         }
+    }
+
+    Task<Void> gettingMeals = new FetchMealsTask<Void>(new FoodRetrieve()) {
+
+        @Override
+        protected Void call() throws Exception {
+
+            meatMeals = this.foodRetrieve.getAllMeatMeals();
+            veganMeals = this.foodRetrieve.getMealCategory("Vegan");
+            vegetarianMeals = this.foodRetrieve.getMealCategory("Vegetarian");
+
+            return null;
+        }
+    };
+
+    public Meal findMeal(String mealName) {
+        ArrayList<Meal> allMeals = new ArrayList();
+        allMeals.addAll(veganMeals);
+        allMeals.addAll(vegetarianMeals);
+        allMeals.addAll(meatMeals);
+
+        for (int i = 0; i < allMeals.size(); i++) {
+
+            if (allMeals.get(i).getStrMeal().equals(mealName)) {
+
+                return allMeals.get(i);
+            }
+        }
+
         return null;
+    }
+
+    public void searchMealConfirm() {
+
+        currentUser.setPoints(currentUser.getPoints() + 25);
+        mealBoxText.setText("You have earned 25 pts for finding a meal!");
+
+
+        this.userRetrieve.addGenericFeat(currentUser.getID(), currentUser.getPoints());
+    }
+
+    public void search() {
+
+        String mealName = searchInput.getText();
+        Meal foundMeal = findMeal(mealName);
+
+        if (foundMeal != null) {
+
+            searchStatus.setText(foundMeal.getStrMeal() + "has been selected!");
+            searchMealName.setText(foundMeal.getStrMeal());
+        } else {
+
+            searchStatus.setText("This meal does not exist");
+        }
     }
 
     /**
      * Sets meal strings.
      *
      * @param mealCategory the meal category
-     * @param offset       the offset
      */
-    public void setMealStrings(ArrayList<Meal> mealCategory, int offset) {
+    public void setMealStrings(ArrayList<Meal> mealCategory) {
 
-        HashMap<String, Label> varNameMap = new HashMap<>();
-        varNameMap.put("meal1", meal1);
-        varNameMap.put("meal2", meal2);
-        varNameMap.put("meal3", meal3);
-        varNameMap.put("meal4", meal4);
+        ObservableList<String> mealViewContents = mealView.getItems();
+        mealViewContents.remove(0, mealViewContents.size());
 
-        if (mealCategory.size() < 4) {
+        mealCategory.forEach(meal -> {
 
-            int offsetAddition = 0;
-
-            for (int i = 1; i < mealCategory.size() + 1; i++) {
-
-                varNameMap.get("meal" + i).setText(mealCategory.get(offset + offsetAddition).getStrMeal());
-
-                offsetAddition++;
-            }
-
-            for (int i = mealCategory.size() + 1; i <= 4; i++) {
-
-                varNameMap.get("meal" + i).setText("");
-            }
-        } else {
-
-            meal1.setText(mealCategory.get(offset).getStrMeal());
-            meal2.setText(mealCategory.get(offset + 1).getStrMeal());
-            meal3.setText(mealCategory.get(offset + 2).getStrMeal());
-            meal4.setText(mealCategory.get(offset + 3).getStrMeal());
-        }
+            mealViewContents.add(meal.getStrMeal());
+        });
     }
 
     /**
@@ -137,7 +193,7 @@ public class FoodController implements Initializable {
         meatOpt.setSelected(false);
         veganOpt.setSelected(false);
 
-        setMealStrings(vegetarianMeals, 0);
+        setMealStrings(vegetarianMeals);
     }
 
     /**
@@ -148,7 +204,7 @@ public class FoodController implements Initializable {
         meatOpt.setSelected(false);
         vegOpt.setSelected(false);
 
-        setMealStrings(veganMeals, 0);
+        setMealStrings(veganMeals);
     }
 
     /**
@@ -159,16 +215,7 @@ public class FoodController implements Initializable {
         vegOpt.setSelected(false);
         veganOpt.setSelected(false);
 
-        setMealStrings(meatMeals, 0);
-    }
-
-    /**
-     * Select meal.
-     *
-     * @param event the event
-     */
-    public void selectMeal(MouseEvent event) {
-        mealChoice = RootController.selectOption(event, mealChoice);
+        setMealStrings(meatMeals);
     }
 
     /**
@@ -176,86 +223,48 @@ public class FoodController implements Initializable {
      */
     public void getMealPoints() {
 
-        User[] currentUser = getUser(1L);
+        if (localProduceBtn.isSelected()) {
+
+            currentUser.setPoints(currentUser.getPoints() + 15);
+
+            mealBoxText.setText("You have earned 15 points for eating local produce");
+            this.userRetrieve.addGenericFeat(currentUser.getID(), 15);
+            Achievement newAch = giveUserAch(currentUser);
+            achNotification(newAch, currentStage);
+        }
 
         if (veganOpt.isSelected()) {
 
-            currentUser[0].setPoints(currentUser[0].getPoints() + 100);
+            currentUser.setPoints(currentUser.getPoints() + 100);
 
             mealBoxText.setText("You have earned 100 pts for eating a vegan meal!");
 
-
-
-            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
-
-            System.out.println(currentUser.toString());
-
+            this.userRetrieve.addGenericFeat(currentUser.getID(), 100);
+            Achievement newAch = giveUserAch(currentUser);
+            achNotification(newAch, currentStage);
         } else if (meatOpt.isSelected()) {
 
             mealBoxText.setText("You have earned 0 pts for eating a meal with meat!");
-
         } else if (vegOpt.isSelected()) {
 
-            currentUser[0].setPoints(currentUser[0].getPoints() + 50);
+            currentUser.setPoints(currentUser.getPoints() + 50);
 
             mealBoxText.setText("You have earned 50 pts for eating a vegetarian meal!");
 
             System.out.println(currentUser.toString());
 
-            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+            this.userRetrieve.addGenericFeat(currentUser.getID(), 50);
+            Achievement newAch = giveUserAch(currentUser);
+            achNotification(newAch, currentStage);
         } else {
 
-            currentUser[0].setPoints(currentUser[0].getPoints() + 25);
+            currentUser.setPoints(currentUser.getPoints() + 25);
 
             mealBoxText.setText("You have selected a random meal, and have been awarded 25 points!");
 
-            updateUser(1L, currentUser[0].getName(), currentUser[0].getPoints());
+            this.userRetrieve.addGenericFeat(currentUser.getID(), 25);
+            Achievement newAch = giveUserAch(currentUser);
+            achNotification(newAch, currentStage);
         }
-    }
-
-    /**
-     * Change meals.
-     *
-     * @param button the button
-     */
-    public void changeMeals(Button button) {
-
-        if (button == downBtn) {
-
-            mealOffset = mealOffset + 4;
-            setMealStrings(getSelectedCategory(), mealOffset);
-        } else if (button == upBtn) {
-
-            if (mealOffset <= 4) {
-
-                mealOffset = mealOffset - 4;
-                setMealStrings(getSelectedCategory(), mealOffset);
-            }
-        }
-    }
-
-    public static void display() {
-
-        String msg = "There are so many ways to change your food habits to help the environment.";
-        Stage window = new Stage();
-
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Help");
-        window.setMinWidth(250);
-
-        Button closeButton = new Button("Got It!");
-        closeButton.setOnAction(e -> window.close());
-
-        VBox layout = new VBox();
-        layout.getChildren().add(new Text(msg));
-        layout.getChildren().add(closeButton);
-
-        layout.setAlignment(Pos.CENTER);
-
-        Scene scene = new Scene(layout);
-        window.setScene(scene);
-        window.showAndWait();
-
-
     }
 }

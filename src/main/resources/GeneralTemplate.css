@@ -1,6 +1,8 @@
 /*Self made styleClass*/
 .AnchorPane {
-    -fx-background-color: white;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #FF0000;
+    -fx-border-width: 2px;
 
 }
 
@@ -15,7 +17,7 @@
 /*Self made styleClass*/
 .Pane {
     -fx-background-color: #EF9A9A;
-    -fx-border-color: black;
+    -fx-border-color: #0000;
     -fx-smooth: clear;
 }
 
@@ -27,7 +29,7 @@
 }
 
 .titled-pane > .content {
-    -fx-background-color: white;
+    -fx-background-color: #ffffff;
 }
 
 .label {

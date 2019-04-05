@@ -4,23 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Objects;
-import javax.persistence.*;
+
 import java.util.Set;
 
 
 @Entity
 @Table(name = "users")
-@SequenceGenerator(name="user_seq", initialValue=1,allocationSize = 1)
+@SequenceGenerator(name="user_seq", allocationSize = 1)
 public class User {
-
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     private long id;
 
     private String name;
     private String password;
 
-//    @ManyToMany
+    //    @ManyToMany
     @Column(columnDefinition = "int default 0")
     private int points = 0;
 
@@ -44,9 +43,9 @@ public class User {
         joinColumns = @JoinColumn(name = "follower", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "followed", referencedColumnName = "id"))
     private Set<User> following;
-    @ManyToMany(mappedBy = "following",cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "following", cascade = CascadeType.ALL)
     private Set<User> follower;
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Feat> feats;
 
 
@@ -68,6 +67,7 @@ public class User {
 
     /**
      * Constructor for the User class.
+     *
      * @param name The name of the user
      */
     public User(String name, String password) {
@@ -128,6 +128,7 @@ public class User {
     public void addFeat(Feat feat) {
         this.feats.add(feat);
     }
+
     public Set<Feat> getFeats() {
         return this.feats;
     }
@@ -140,18 +141,18 @@ public class User {
         return this.unlockedAchievements;
     }
 
-    public void addAchievement(Achievement achievement)
-    {
+    public void addAchievement(Achievement achievement) {
         unlockedAchievements.add(achievement);
     }
-    public void followUser(User user)
-    {
+
+    public void followUser(User user) {
         following.add(user);
     }
-    public void addFollower(User user)
-    {
+
+    public void addFollower(User user) {
         follower.add(user);
     }
+
     public void setAchievements(Set<Achievement> achievement) {
         this.unlockedAchievements = achievement;
     }
@@ -166,6 +167,7 @@ public class User {
     public void setFollower(Set<User> follower) {
         this.follower = follower;
     }
+
     //To prevent recursive trouble when returning a user object (a user following users that follow users that follow users...), the JsonIgnore
     //annotation is used.
     @JsonIgnore

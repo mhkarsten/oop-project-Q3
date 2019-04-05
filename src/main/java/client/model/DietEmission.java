@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * The type Diet emission.
  */
-public class DietEmission {
+public class DietEmission extends Emission {
 //    INPUT VALUES
 //    float fishShare;
 //    float redMeatShare;
@@ -15,6 +15,18 @@ public class DietEmission {
 //    int size;
 //    String startDate;
 //    String endDate;
+
+    @Override
+    public String toString() {
+
+        return "Carbon emission: " + this.getCarbon()
+                + "\nCarbon intensity: " + this.getIntensity();
+    }
+
+    public String getStringName() {
+
+        return "Diet Emission";
+    }
 
     //RETURN VALUES
     private String carbon;

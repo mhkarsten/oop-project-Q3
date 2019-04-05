@@ -13,7 +13,8 @@ INSERT INTO achievements (id, title, description, path)
 VALUES (achievement_seq.NEXTVAL, 'Vegan!', 'Eat a vegan meal', 'path');
 INSERT INTO achievements (id, title, description, path)
 VALUES (achievement_seq.NEXTVAL, 'P10nts', 'Achieve 10 points', 'path');
-
+INSERT INTO achievements (id, title, description, path)
+VALUES (achievement_seq.NEXTVAL, 'Greenderdar', 'Achieve all the points', 'path');
 INSERT INTO user_achievement (user_id, achievement_id)
 VALUES (1, 1);
 INSERT INTO user_achievement (user_id, achievement_id)

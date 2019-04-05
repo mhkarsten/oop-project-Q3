@@ -63,6 +63,28 @@ public class FoodController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        final Tooltip tooltipvegan = new Tooltip();
+        tooltipvegan.setText("Being vegan is the single best way to reduce environmental impact! Read more on https://www.independent.co.uk/life-style/health-and-families/veganism-environmental-impact-planet-reduced-plant-based-diet-humans-study-a8378631.html");
+        veganOpt.setTooltip(tooltipvegan);
+
+
+        final Tooltip tooltipvegetarian = new Tooltip();
+        tooltipvegetarian.setText("Read more about how this has a positive effect on the environment here! https://vegnews.com/2017/7/the-environmental-impacts-of-going-vegetarian-for-just-one-day");
+        vegOpt.setTooltip(tooltipvegetarian);
+
+        final Tooltip tooltipmeat = new Tooltip();
+        tooltipmeat.setText("Read about how meat may affect the environment in a negative way here: https://www.peta.org/about-peta/faq/how-does-eating-meat-harm-the-environment/");
+        meatOpt.setTooltip(tooltipvegetarian);
+
+        final Tooltip tooltipproduce = new Tooltip();
+        tooltipproduce.setText("There are lots of benefits of buying local produce. Read them here! https://arrowquip.com/blog/animal-science/top-benefits-buying-locally-grown-food");
+        localProduceBtn.setTooltip(tooltipvegetarian);
+
+
+
+
+
+
         this.userRetrieve = new UserRetrieve();
         this.foodRetrieve = new FoodRetrieve();
 

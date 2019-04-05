@@ -32,7 +32,6 @@ public class AuthController {
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public ResponseEntity<?> login(@PathVariable("username") String username) {
-        System.out.println(username);
 
         Optional<User> user = userRepository.findByName(username);
 
@@ -40,6 +39,7 @@ public class AuthController {
             return ResponseEntity.badRequest().build();
         }
 
+        System.out.println("(Server Side) " + username + " has logged in.");
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 

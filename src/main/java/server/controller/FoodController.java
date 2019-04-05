@@ -34,7 +34,6 @@ public class FoodController {
         Optional<Meal[]> randomMeal = FoodAPI.getRandomMeal();
         if (randomMeal.isPresent()) {
 
-            System.out.println(randomMeal.get()[0].getStrMeal());
             return randomMeal.get()[0];
         }
         return null;
@@ -88,6 +87,7 @@ public class FoodController {
         List<Meal[]> meatMeals = FoodAPI.getAllMeatMeals();
 
         if (!meatMeals.isEmpty()) {
+
             return meatMeals;
         } else  {
             throw new NoSuchElementException("(Server Side) The category doesnt exist or is empty.");

@@ -5,6 +5,7 @@ import client.Service.UserSession;
 import client.model.Achievement;
 import client.model.Emission;
 import client.model.User;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import client.model.EnergyEmission;
 import client.retrieve.EmissionsRetrieve;
@@ -57,6 +58,10 @@ public class EnergyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        final Tooltip tooltipsolar = new Tooltip();
+        tooltipsolar.setText("Solar panels are known to have positive impacts, but read both sides of the story here! https://www.greenmatch.co.uk/blog/2015/01/impact-of-solar-energy-on-the-environment");
+        energy2.setTooltip(tooltipsolar);
+
         this.emissionsRetrieve = new EmissionsRetrieve();
     }
 

@@ -1,10 +1,6 @@
 package server;
 
-import client.Service.MyRestTemplate;
-import client.Service.UserSession;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.checkerframework.checker.units.qual.A;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,16 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.util.DefaultUriBuilderFactory;
-import server.model.User;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;

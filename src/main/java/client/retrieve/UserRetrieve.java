@@ -9,9 +9,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.DefaultUriBuilderFactory;
-import server.model.Feat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,6 +96,11 @@ public class UserRetrieve extends BaseRetrieve {
         return null;
     }
 
+    /**
+     * Method for getting a user by their name.
+     * @param userName name of the user to find
+     * @return
+     */
     public User getUserByName(String userName) {
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
@@ -123,7 +125,6 @@ public class UserRetrieve extends BaseRetrieve {
 
     /**Method to update a users information.
      * Update user information (UPDATE)
-     *
      * TODO: this method is not gonna work with the current security setup.
      * There should be a method updateUserPoints that takes the ID/username and points to be added.
      *
@@ -138,7 +139,7 @@ public class UserRetrieve extends BaseRetrieve {
     }
 
     /**
-     * Gets a users followers, or the users a given user is following
+     * Gets a users followers, or the users a given user is following.
      *
      * @param selectFollow true for followers, false for following
      * @param userID       the user id
@@ -183,6 +184,11 @@ public class UserRetrieve extends BaseRetrieve {
         return null;
     }
 
+    /**
+     * Method to update the followers of a user.
+     * @param followerId id of the user that is being followed
+     * @param followeeId id of the user that follows the other user
+     */
     public void updateUserFollowing(long followerId, long followeeId) {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);

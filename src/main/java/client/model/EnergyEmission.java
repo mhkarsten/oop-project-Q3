@@ -1,36 +1,19 @@
 package client.model;
 
-import org.json.simple.JSONObject;
-
-import java.util.LinkedHashMap;
-
 /**
  * The type Energy emission.
  */
 public class EnergyEmission extends Emission {
-//    INPUT VALUES
-//    int greenEnergy;
-//    String airConditionerUse;
-//    String dishwasheruse;
-//    int naturalGasCost;
+    //    INPUT VALUES
+    //    int greenEnergy;
+    //    String airConditionerUse;
+    //    String dishwasheruse;
+    //    int naturalGasCost;
 
     //RETURN VALUES
     private String carbon;
     private String dirtyEnergy;
     private String naturalGasConsumed;
-
-    @Override
-    public String toString() {
-
-        return "Carbon Emitted: " + this.getCarbon()
-                + "\nDirty Energy Emitted: " + this.getDirtyEnergy()
-                + "\nNatural Gas Consumed: " + this.getNaturalGasConsumed();
-    }
-
-    public String getStringName() {
-
-        return "Energy Emission";
-    }
 
     /**
      * Instantiates a new Energy emission.
@@ -50,6 +33,19 @@ public class EnergyEmission extends Emission {
         this.carbon = carbon;
         this.dirtyEnergy = dirtyEnergy;
         this.naturalGasConsumed = naturalGasConsumed;
+    }
+
+    @Override
+    public String toString() {
+
+        return "Carbon Emitted: " + this.getCarbon()
+                + "\nDirty Energy Emitted: " + this.getDirtyEnergy()
+                + "\nNatural Gas Consumed: " + this.getNaturalGasConsumed();
+    }
+
+    public String getStringName() {
+
+        return "Energy Emission";
     }
 
     public String getCarbon() {

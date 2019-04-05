@@ -1,11 +1,8 @@
 package client.retrieve;
 
 import client.Service.MyRestTemplate;
-import client.Service.UrlEndPoints;
 import client.Service.UserSession;
 import client.model.User;
-import client.retrieve.UserRetrieve;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,16 +10,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import server.SpringBoot;
-import server.TestTemplateConfiguration;
 import server.model.Feat;
 import server.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;

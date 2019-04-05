@@ -1,32 +1,16 @@
 package client.model;
 
-import org.json.simple.JSONObject;
-
-import java.util.LinkedHashMap;
-
 /**
  * The type Diet emission.
  */
 public class DietEmission extends Emission {
-//    INPUT VALUES
-//    float fishShare;
-//    float redMeatShare;
-//    float poultryShare;
-//    int size;
-//    String startDate;
-//    String endDate;
-
-    @Override
-    public String toString() {
-
-        return "Carbon emission: " + this.getCarbon()
-                + "\nCarbon intensity: " + this.getIntensity();
-    }
-
-    public String getStringName() {
-
-        return "Diet Emission";
-    }
+    //    INPUT VALUES
+    //    float fishShare;
+    //    float redMeatShare;
+    //    float poultryShare;
+    //    int size;
+    //    String startDate;
+    //    String endDate;
 
     //RETURN VALUES
     private String carbon;
@@ -39,6 +23,18 @@ public class DietEmission extends Emission {
     public DietEmission(String carbon, String intensity) {
         this.carbon = carbon;
         this.intensity = intensity;
+    }
+
+    @Override
+    public String toString() {
+
+        return "Carbon emission: " + this.getCarbon()
+                + "\nCarbon intensity: " + this.getIntensity();
+    }
+
+    public String getStringName() {
+
+        return "Diet Emission";
     }
 
     public String getCarbon() {

@@ -23,8 +23,7 @@ public final class UserSession {
      * @return
      */
     public static UserSession getInstance() {
-
-        if(instance == null) {
+        if (instance == null) {
 
             instance = new UserSession();
         }
@@ -65,14 +64,14 @@ public final class UserSession {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object other) {
+        if (this == other) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        UserSession session = (UserSession) o;
+        UserSession session = (UserSession) other;
         return Objects.equals(userName, session.userName)
             && Objects.equals(password, session.password);
     }

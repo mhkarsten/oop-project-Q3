@@ -25,7 +25,11 @@ public class MyRestTemplate extends RestTemplate {
         this.setUriTemplateHandler(uriBuilderFactory);
     }
 
-
+    /**
+     * For alernative urls fetches the username and password from the user session and sets an Basic authentication Interceptor based on the values.
+     * Subsequent HTTP requests now automatically add basic authentication headers.
+     * @param alternativeBaseUrl the alternative url
+     */
     public MyRestTemplate(String alternativeBaseUrl) {
         UserSession session = UserSession.getInstance();
         this.getInterceptors().add(new BasicAuthenticationInterceptor(
@@ -37,7 +41,7 @@ public class MyRestTemplate extends RestTemplate {
 
     /**
      * Helper function to provide the accepted mediaType headers.
-     * @param type
+     * @param type the type of MediaType
      * @return
      */
     public static HttpHeaders getBaseHeaders(MediaType type) {

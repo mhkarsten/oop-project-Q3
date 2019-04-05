@@ -1,14 +1,14 @@
 package client.Service;
 
 /**
- * Manages all API endpoints in a single class
+ * Manages all API endpoints in a single class.
  */
 public class UrlEndPoints {
 
     public static String BASE_URL = "http://localhost:8080/";
 
     /**
-     * All authentication related API endpoints
+     * All authentication related API endpoints.
      */
     public static class Auth {
         public  static final String REGISTER =  "auth/register";
@@ -16,7 +16,7 @@ public class UrlEndPoints {
     }
 
     /**
-     * All User related API endpoints
+     * All User related API endpoints.
      */
     public static class User {
         public static final String ALL_USERS =  "users";
@@ -29,7 +29,7 @@ public class UrlEndPoints {
     }
 
     /**
-     * All Achievement related API endpoints
+     * All Achievement related API endpoints.
      */
     public static class Achievements {
         public static final String URL_ACHGETALL =  "achievements";

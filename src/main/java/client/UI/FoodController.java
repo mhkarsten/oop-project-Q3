@@ -1,5 +1,8 @@
 package client.UI;
 
+import static client.Service.AchievementGenerator.achNotification;
+import static client.Service.AchievementGenerator.giveUserAch;
+
 import client.Service.MyStage;
 import client.Service.UserSession;
 import client.model.Achievement;
@@ -18,17 +21,10 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.*;
 
-import static client.Service.AchievementGenerator.achNotification;
-import static client.Service.AchievementGenerator.giveUserAch;
-
-
-
 /**
  * The type Food controller.
  */
 public class FoodController implements Initializable {
-
-    private Label mealChoice;
 
     /**
      * The Meal 1.
@@ -53,11 +49,15 @@ public class FoodController implements Initializable {
     private ArrayList<Meal> meatMeals;
     private ArrayList<Meal> veganMeals;
     private ArrayList<Meal> vegetarianMeals;
+
+    private Label mealChoice;
+
     private User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
 
     private UserRetrieve userRetrieve;
     private FoodRetrieve foodRetrieve;
+
     /**
      * Gets selected category.
      */
@@ -128,6 +128,11 @@ public class FoodController implements Initializable {
         }
     };
 
+    /**
+     * Method to find a meal based on the name of the meal.
+     * @param mealName name of the meal
+     * @return
+     */
     public Meal findMeal(String mealName) {
         ArrayList<Meal> allMeals = new ArrayList();
         allMeals.addAll(veganMeals);
@@ -145,6 +150,9 @@ public class FoodController implements Initializable {
         return null;
     }
 
+    /**
+     * Method to handle successfully finding a meal.
+     */
     public void searchMealConfirm() {
 
         currentUser.setPoints(currentUser.getPoints() + 25);
@@ -154,6 +162,9 @@ public class FoodController implements Initializable {
         this.userRetrieve.addGenericFeat(currentUser.getID(), currentUser.getPoints());
     }
 
+    /**
+     * Method to handle choosing to find a meal.
+     */
     public void search() {
 
         String mealName = searchInput.getText();

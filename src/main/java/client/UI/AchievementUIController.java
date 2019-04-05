@@ -74,6 +74,11 @@ public class AchievementUIController implements Initializable {
         });
     }
 
+    /**
+     * Method to fill in the listView.
+     * @param lv the listView to fill
+     * @param al an ArrayList with the achievement to fill the listView with
+     */
     public void fillListView(ListView lv, ArrayList<Achievement> al) {
 
         ObservableList<String> followeeList = lv.getItems();
@@ -84,6 +89,10 @@ public class AchievementUIController implements Initializable {
         });
     }
 
+    /**
+     * Method to display a single achievement based on the title.
+     * @param title the title of the achievement to display
+     */
     public void displayAchievement(String title) {
 
         Achievement seleceted = findAchievement(title);
@@ -101,6 +110,11 @@ public class AchievementUIController implements Initializable {
         achievementName.setText(seleceted.getTitle());
     }
 
+    /**
+     * Method to find an achievement based on the title.
+     * @param title the title of the achievement to be found
+     * @return
+     */
     public Achievement findAchievement(String title) {
 
         ArrayList<Achievement> allAchives = new ArrayList<>();
@@ -116,6 +130,6 @@ public class AchievementUIController implements Initializable {
         }
 
         System.out.println("(Client) This Achievement doesnt exist: " + title);
-         return null;
+        return null;
     }
 }

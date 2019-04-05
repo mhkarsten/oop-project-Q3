@@ -1,18 +1,16 @@
 package client.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import server.model.Feat;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
-import javax.persistence.*;
 import java.util.Set;
+import javax.persistence.*;
 
 
 @Entity
 @Table(name = "users")
-@SequenceGenerator(name="user_seq", initialValue=20,allocationSize = 1)
+@SequenceGenerator(name = "user_seq", initialValue = 20,allocationSize = 1)
 public class User {
 
     private long id;
@@ -99,6 +97,10 @@ public class User {
         this.points = points;
     }
 
+    /**
+     * method to add a feat to the user's feat set.
+     * @param feat feat to be added
+     */
     public void addFeat(Feat feat) {
         if (this.feats == null) {
             this.feats = new HashSet<>();
@@ -106,6 +108,7 @@ public class User {
 
         this.feats.add(feat);
     }
+
     public Set<Feat> getFeats() {
         return this.feats;
     }
@@ -115,13 +118,17 @@ public class User {
         return this.unlockedAchievements;
     }
 
-    public void addAchievement(Achievement achievement)
-    {
+    /**
+     * Method to add a achievement to the user's achievement set.
+     * @param achievement the achievement to be added
+     */
+    public void addAchievement(Achievement achievement) {
         if (this.unlockedAchievements == null) {
             this.unlockedAchievements = new HashSet<>();
         }
         unlockedAchievements.add(achievement);
     }
+
     public void setAchievements(Set<Achievement> achievement) {
         this.unlockedAchievements = achievement;
     }

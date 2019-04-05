@@ -21,10 +21,23 @@ public class Meal {
     public Meal() {
     }
 
+    /**
+     * Constructor for a meal with parameters.
+     * @param strMeal name of the meal
+     * @param idMeal id of the meal
+     * @param strCategory the category name
+     * @param strArea the area name
+     * @param strTags the tags associated with the meal
+     * @param strIngredients the ingredients of the meal
+     * @param strMeasures the measurements of the ingredients
+     * @param strSource the name of the source
+     * @param strMealThumb the meal thumb information
+     * @param strYoutube a youtube tutorial link to make the meal
+     * @param strInstructions instructions to make the meal
+     */
     public Meal(String strMeal, String idMeal, String strCategory, String strArea, ArrayList<String>
                 strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
-                String strMealThumb, String strYoutube, String strInstructions)
-    {
+                String strMealThumb, String strYoutube, String strInstructions) {
         this.strMeal = strMeal;
         this.idMeal = idMeal;
         this.strCategory = strCategory;

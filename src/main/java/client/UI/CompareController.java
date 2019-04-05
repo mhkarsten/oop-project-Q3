@@ -5,9 +5,8 @@ import client.model.User;
 import client.retrieve.UserRetrieve;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.*;
@@ -133,7 +132,7 @@ public class CompareController implements Initializable {
      * Sets compare followee.
      */
     @SuppressWarnings("Duplicates")
-    public void setCompareFollowee () {
+    public void setCompareFollowee() {
 
         ObservableList<String> userFollowee;
         userFollowee = followeeListView.getSelectionModel().getSelectedItems();

@@ -1,35 +1,33 @@
 package client.UI;
 
-import client.Service.MyStage;
-import client.Service.UserSession;
-import client.model.Achievement;
-import client.model.Emission;
-import client.model.User;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import client.model.EnergyEmission;
-import client.retrieve.EmissionsRetrieve;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import static client.Service.AchievementGenerator.achNotification;
 import static client.Service.AchievementGenerator.giveUserAch;
 import static client.UI.RootController.addPointsUser;
 import static client.UI.RootController.stringToPoints;
 import static java.lang.Integer.parseInt;
 
-public class EnergyController implements Initializable {
+import client.Service.MyStage;
+import client.Service.UserSession;
+import client.model.Achievement;
+import client.model.Emission;
+import client.model.EnergyEmission;
+import client.model.User;
+import client.retrieve.EmissionsRetrieve;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-    private Label energyChoice;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class EnergyController implements Initializable {
 
     @FXML
     public Label energy1;
@@ -42,16 +40,19 @@ public class EnergyController implements Initializable {
     public Label Labelfield3;
     public Label Labelfield4;
 
+    public Label actionDone;
+    public Label pointMessage;
+
     public TextArea description;
 
     public TextArea actionDescription;
-    public Label actionDone;
-    public Label pointMessage;
 
     public TextField field1;
     public TextField field2;
     public TextField field3;
     public TextField field4;
+
+    private Label energyChoice;
 
     private User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
@@ -71,12 +72,18 @@ public class EnergyController implements Initializable {
         return field1.getText();
     }
 
+    /**
+     * Method to display information about your action.
+     * @param em Emission associated with the action
+     * @param points points associated with the action
+     */
     public void displayInformation(Emission em, int points) {
 
         actionDone.setText("You have earned " + points + " points for reducing your " + em.getStringName());
         pointMessage.setText("You have caused " + em.getCarbon() + " KG of C02.");
         actionDescription.setText(em.toString());
     }
+
     /**
      * Method to extract an Integer from the textfield with label Textfield1.
      *
@@ -128,15 +135,18 @@ public class EnergyController implements Initializable {
         displayInformation(em, stringToPoints(em.getCarbon()));
     }
 
+    /**
+     * Method to handle the action of installing solar panels.
+     */
     public void getSolarPanelEmission() {
-        int SolarPanels = getIntField1() * 100;
+        int solarPoints = getIntField1() * 100;
 
-        addPointsUser(SolarPanels);
+        addPointsUser(solarPoints);
         Achievement newAch = giveUserAch(currentUser);
         achNotification(newAch, currentStage);
         actionDescription.setText("You are saving the environment by buying solar panels");
         actionDone.setText("You have installed solar panels");
-        pointMessage.setText("You have earned " + SolarPanels + " points!");
+        pointMessage.setText("You have earned " + solarPoints + " points!");
     }
 
     /**
@@ -164,6 +174,11 @@ public class EnergyController implements Initializable {
         Labelfield4.setText("Enter your monthly gas costs in USD");
     }
 
+    /**
+     * Changes the labels and fields to correspond with the selected option.
+     *
+     * @param event The event which activated this method (Mouseclick for this method)
+     */
     public void selectSolarPanelsEmission(MouseEvent event) {
         energyChoice = RootController.selectOption(event, energyChoice);
         clearFields();
@@ -181,7 +196,7 @@ public class EnergyController implements Initializable {
     }
 
     /**
-     * Method behind the select button to choose what option has to be executed.
+     * Method behind the select button to handle the option and calling the appropriate methods for handling it.
      */
     public void getEmission() {
         if (energyChoice == energy1) {
@@ -201,9 +216,13 @@ public class EnergyController implements Initializable {
         field3.setText("");
         field4.setText("");
     }
+
+    /**
+     * Method to display tooltips.
+     */
     public static void display() {
 
-        String msg = "There are many ways to reduce your energy consumption to help the environment.";
+        final String msg = "There are many ways to reduce your energy consumption to help the environment.";
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);

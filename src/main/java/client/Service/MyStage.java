@@ -18,9 +18,9 @@ public class MyStage {
     private static Stage instance;
 
     public static class Screens {
-        public final static String BASE_DIR = "src/main/resources/";
-        public final static String LOGIN =  BASE_DIR + "loginScreen.fxml";
-        public final static String ROOT =  BASE_DIR + "rootScreen.fxml";
+        public static final String BASE_DIR = "src/main/resources/";
+        public static final String LOGIN =  BASE_DIR + "loginScreen.fxml";
+        public static final String ROOT =  BASE_DIR + "rootScreen.fxml";
     }
 
 
@@ -31,7 +31,7 @@ public class MyStage {
      * @return the singleton instance of the stage
      */
     public static Stage getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Stage();
         }
 
@@ -40,13 +40,12 @@ public class MyStage {
 
     /**
      * Constructor for providing the initial stage.
-     *
      * Checks if the instance is already instantiated, and if so return the single instance.
      * If not creates the single instance and returns it.
      * @return the singleton instance of the stage
      */
     public static Stage getInstance(Stage stage) {
-        if(instance == null) {
+        if (instance == null) {
             instance = stage;
         }
 
@@ -55,8 +54,8 @@ public class MyStage {
 
     /**
      * Creates a new scene based on the provides screen name (managed in MyStage.Screens) and sets the singleton stage's screen.
-     * @param sceneName
-     * @throws IOException
+     * @param sceneName name of the new scene.
+     * @throws IOException throws IOException if it cannot load the new scene
      */
     public static void switchScene(String sceneName) throws IOException {
         URL url = new File(sceneName).toURL();

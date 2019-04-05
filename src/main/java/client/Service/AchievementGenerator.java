@@ -1,6 +1,5 @@
 package client.Service;
 
-
 import client.model.Achievement;
 import client.model.User;
 import client.retrieve.AchievementRetrieve;
@@ -11,14 +10,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static client.retrieve.AchievementRetrieve.*;
-
 /**
  * The type Achievement generator.
  */
 public class AchievementGenerator {
-
-    private static User activeUser = UserSession.getInstance().getCurrentUser();
 
     public static String bulBadgepath = "file:images/bulbbadge.jpg";
     public static String batteryBadgePath = "file:images/batterybadge.jpg";
@@ -32,6 +27,8 @@ public class AchievementGenerator {
     public static String worldBadge = "file:images/worldbadge.jpg";
 
     public static AchievementRetrieve achievementRetrieve = new AchievementRetrieve();
+
+    private static User activeUser = UserSession.getInstance().getCurrentUser();
 
     /**
      * Create ach notification popup.

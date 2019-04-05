@@ -1,14 +1,14 @@
 package client.UI;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.Set;
+import static java.lang.Integer.parseInt;
+import static javafx.scene.paint.Color.WHITE;
 
 import client.Service.UserSession;
 import client.model.User;
 import client.retrieve.UserRetrieve;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,20 +19,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-import static java.lang.Integer.parseInt;
-import static javafx.scene.paint.Color.WHITE;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * The type Root controller.
  */
 public class RootController implements Initializable {
+
+    private static User currentUser = UserSession.getInstance().getCurrentUser();
 
     /**
      * The Profile.
@@ -54,8 +56,6 @@ public class RootController implements Initializable {
     public AnchorPane changePane;
 
     public BarChart<String, Number> barChart;
-
-    private static User currentUser = UserSession.getInstance().getCurrentUser();
     private UserRetrieve userRetrieve;
 
     @Override
@@ -228,14 +228,14 @@ public class RootController implements Initializable {
      */
     public void btn(ActionEvent event) {
 
-        Set<User> following = this.userRetrieve.getUserFollow(true, currentUser.getID());
-
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         barChart = new BarChart<>(xAxis, yAxis);
 
         xAxis.setLabel("Username");
         yAxis.setLabel("Points");
+
+        Set<User> following = this.userRetrieve.getUserFollow(true, currentUser.getID());
 
         XYChart.Series series = new XYChart.Series();
         series.getData().add(new XYChart.Data(currentUser.getName(), currentUser.getPoints()));

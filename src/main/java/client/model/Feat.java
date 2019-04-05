@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Feat {
     private long id;
-    Date timeCompleted;
+    private Date timeCompleted;
 
     private int points;
     private int actionId;
@@ -15,6 +15,14 @@ public class Feat {
     public Feat() {
     }
 
+    /**
+     * Constructor for a feat with parameters.
+     * @param id id of the feat
+     * @param points points for the feat
+     * @param actionId id of the associated action with this feat
+     * @param timeCompleted the time this feat was completed
+     * @param user the user that completed this feat
+     */
     public Feat(long id, int points, int actionId, Date timeCompleted, User user) {
         this.id = id;
         this.points = points;
@@ -23,6 +31,12 @@ public class Feat {
         this.user = user;
     }
 
+    /**
+     * Shorter constructor for a feat with parameters.
+     * @param points points for the feat
+     * @param actionId id of the associated action with this feat
+     * @param user the user that completed this feat
+     */
     public Feat(int points, int actionId, User user) {
         this.points = points;
         this.actionId = actionId;

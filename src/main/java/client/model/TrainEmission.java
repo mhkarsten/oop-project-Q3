@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * The type train emission
  */
-public class TrainEmission {
+public class TrainEmission extends Emission {
 //  INPUT VALUES
 //  int distance; in kilometers
 //  int duration; in seconds
@@ -18,26 +18,18 @@ public class TrainEmission {
     private String fuelUse;
     private String distance;
 
-    @SuppressWarnings("Duplicates")
-    public static TrainEmission JSONtoTrain(JSONObject JSONTrainEmission) {
+    @Override
+    public String toString() {
 
-        TrainEmission newEmission = new TrainEmission();
+        return "Fuel Use: " + this.getFuelUse()
+            + "\nEnergy Used: " + this.getEnergy()
+            + "\nDistance Traveled: " + this.getDistance()
+            + "\nCarbon Emitted: " + this.getCarbon();
+    }
 
-        LinkedHashMap mainBody = (LinkedHashMap) JSONTrainEmission.get("decisions");
+    public String getStringName() {
 
-        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
-        newEmission.setCarbon((String) carbon.get("description"));
-
-        LinkedHashMap energy = (LinkedHashMap) mainBody.get("electricity_consumption");
-        newEmission.setEnergy((String) energy.get("description"));
-
-        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get("diesel_consumption");
-        newEmission.setFuelUse((String) fuelUse.get("description"));
-
-        LinkedHashMap distance = (LinkedHashMap) mainBody.get("distance");
-        newEmission.setDistance((String) distance.get("description"));
-
-        return newEmission;
+        return "Train Emission";
     }
 
     /**

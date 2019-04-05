@@ -5,7 +5,7 @@ import client.Service.UrlEndPoints;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import server.model.*;
+import client.model.*;
 
 import java.util.HashMap;
 

@@ -35,6 +35,7 @@ public class UrlEndPoints {
         public static final String URL_ACHGET =  "achievements/{achID}";
         public static final String URL_ACHUNLOCKED =  "users/{userID}/achievements";
         public static final String URL_NEWACH =  "achievements/new";
+        public static final String URL_UNLOCKACHFORUSER = "/users/{userId}/achievements/unlock/{achId}";
     }
 
     public static class Food {
@@ -50,5 +51,9 @@ public class UrlEndPoints {
         public static final String URL_FLIGHT =  "/flightEmission";
         public static final String URL_ENERGY =  "/energyEmission";
         public static final String URL_TRAIN =  "/trainEmission";
+    }
+
+    public static class Feat {
+        public static final String URL_USERFEATS = "/users/{userID}/feats";
     }
 }

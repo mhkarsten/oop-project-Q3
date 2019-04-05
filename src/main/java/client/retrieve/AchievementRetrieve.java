@@ -26,7 +26,6 @@ public class AchievementRetrieve extends BaseRetrieve {
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
 
-
         ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGETALL,
             HttpMethod.POST, entity, Achievement[].class);
 
@@ -64,7 +63,6 @@ public class AchievementRetrieve extends BaseRetrieve {
 
         Object[] uriValues = new Object[] {achID};
 
-
         ResponseEntity<Achievement> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGET,
             HttpMethod.POST, entity, Achievement.class, uriValues);
 
@@ -94,8 +92,6 @@ public class AchievementRetrieve extends BaseRetrieve {
     @SuppressWarnings("Duplicates")
     public ArrayList<Achievement> achGetUnlocked(long usrID) {
         //GET ALL UNLOCKED ACHIEVEMENTS BY A USER
-
-
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
 
@@ -131,8 +127,7 @@ public class AchievementRetrieve extends BaseRetrieve {
      * @param achID the ach id
      */
     public void addUserAch(long usrID, long achID) {
-
-
+        //ADDS AN ACHIEVEMENT TO THE USERS ACCOUNT
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         Object[] uriValues = new Object[] {usrID, achID};
         ResponseEntity<Achievement> response;
@@ -140,9 +135,8 @@ public class AchievementRetrieve extends BaseRetrieve {
         try {
 
             HttpEntity<Achievement> entity = new HttpEntity<>(headers);
-            response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHUNLOCKED,
+            response = restTemplate.exchange(UrlEndPoints.Achievements.URL_UNLOCKACHFORUSER,
                 HttpMethod.POST, entity, Achievement.class, uriValues);
-
         } catch (Exception e) {
 
             System.out.println("(Client Side) Either the achievement doesnt exist, or the user.");
@@ -157,7 +151,7 @@ public class AchievementRetrieve extends BaseRetrieve {
      * @param ach the ach
      */
     public void addAch(Achievement ach) {
-
+        //CREATES A NEW ACHIEVEMENT
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         try {

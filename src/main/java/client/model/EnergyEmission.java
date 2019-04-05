@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * The type Energy emission.
  */
-public class EnergyEmission {
+public class EnergyEmission extends Emission {
 //    INPUT VALUES
 //    int greenEnergy;
 //    String airConditionerUse;
@@ -18,6 +18,19 @@ public class EnergyEmission {
     private String carbon;
     private String dirtyEnergy;
     private String naturalGasConsumed;
+
+    @Override
+    public String toString() {
+
+        return "Carbon Emitted: " + this.getCarbon()
+                + "\nDirty Energy Emitted: " + this.getDirtyEnergy()
+                + "\nNatural Gas Consumed: " + this.getNaturalGasConsumed();
+    }
+
+    public String getStringName() {
+
+        return "Energy Emission";
+    }
 
     /**
      * Instantiates a new Energy emission.

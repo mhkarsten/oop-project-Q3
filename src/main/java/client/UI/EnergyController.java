@@ -3,9 +3,10 @@ package client.UI;
 import client.Service.MyStage;
 import client.Service.UserSession;
 import client.model.Achievement;
+import client.model.Emission;
 import client.model.User;
 import javafx.stage.Stage;
-import server.model.EnergyEmission;
+import client.model.EnergyEmission;
 import client.retrieve.EmissionsRetrieve;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,6 +41,10 @@ public class EnergyController implements Initializable {
 
     public TextArea description;
 
+    public TextArea actionDescription;
+    public Label actionDone;
+    public Label pointMessage;
+
     public TextField field1;
     public TextField field2;
     public TextField field3;
@@ -59,6 +64,12 @@ public class EnergyController implements Initializable {
         return field1.getText();
     }
 
+    public void displayInformation(Emission em, int points) {
+
+        actionDone.setText("You have earned " + points + " points for reducing your " + em.getStringName());
+        pointMessage.setText("You have caused " + em.getCarbon() + " KG of C02.");
+        actionDescription.setText(em.toString());
+    }
     /**
      * Method to extract an Integer from the textfield with label Textfield1.
      *
@@ -107,6 +118,7 @@ public class EnergyController implements Initializable {
         addPointsUser(stringToPoints(em.getCarbon()));
         Achievement newAch = giveUserAch(currentUser);
         achNotification(newAch, currentStage);
+        displayInformation(em, stringToPoints(em.getCarbon()));
     }
 
     public void getSolarPanelEmission() {
@@ -115,6 +127,9 @@ public class EnergyController implements Initializable {
         addPointsUser(SolarPanels);
         Achievement newAch = giveUserAch(currentUser);
         achNotification(newAch, currentStage);
+        actionDescription.setText("You are saving the environment by buying solar panels");
+        actionDone.setText("You have installed solar panels");
+        pointMessage.setText("You have earned " + SolarPanels + " points!");
     }
 
     /**

@@ -2,8 +2,7 @@ package client.UI;
 
 import client.Service.MyStage;
 import client.Service.UserSession;
-import client.model.Achievement;
-import client.model.User;
+import client.model.*;
 import client.retrieve.EmissionsRetrieve;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,9 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import server.model.FlightEmission;
-import server.model.TrainEmission;
-import server.model.VehicleEmission;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,7 +30,8 @@ public class TransportController implements Initializable {
     public Label transport2;
     public Label transport3;
     public Label transport4;
-
+    public Label actionDone;
+    public Label pointMessage;
     public Label Labelfield1;
     public Label Labelfield2;
     public Label Labelfield3;
@@ -42,6 +39,8 @@ public class TransportController implements Initializable {
     public TextField field1;
     public TextField field2;
     public TextField field3;
+
+    public TextArea actionDescription;
 
     public TextArea description;
 
@@ -55,14 +54,23 @@ public class TransportController implements Initializable {
         this.emissionsRetrieve = new EmissionsRetrieve();
     }
 
+    public void displayInformation(Emission em, int points) {
+
+        actionDone.setText("You have earned " + points + " points for reducing your " + em.getStringName());
+        pointMessage.setText("You have caused " + em.getCarbon() + " KG of C02.");
+        actionDescription.setText(em.toString());
+    }
+
     public String getField1Text() {
         return field1.getText();
     }
 
     public Integer getIntField1() {
         try {
+
             return parseInt(getField1Text());
         } catch (NumberFormatException e) {
+
             return 0;
         }
     }
@@ -73,9 +81,11 @@ public class TransportController implements Initializable {
 
     public Integer getIntField2() {
         try {
+
             System.out.print(true);
             return parseInt(getField2Text());
         } catch (NumberFormatException e) {
+
             return 0;
         }
     }
@@ -92,6 +102,7 @@ public class TransportController implements Initializable {
         addPointsUser(stringToPoints(fm.getCarbon()));
         Achievement newAch = giveUserAch(currentUser);
         achNotification(newAch, currentStage);
+        displayInformation(fm, stringToPoints(fm.getCarbon()));
     }
 
     public void getVehicleEmission() {
@@ -102,6 +113,7 @@ public class TransportController implements Initializable {
         addPointsUser(stringToPoints(vm.getCarbon()));
         Achievement newAch = giveUserAch(currentUser);
         achNotification(newAch, currentStage);
+        displayInformation(vm, stringToPoints(vm.getCarbon()));
     }
 
     public void getTrainCarEmission() {
@@ -115,6 +127,7 @@ public class TransportController implements Initializable {
         addPointsUser(TrainCarEmission);
         Achievement newAch = giveUserAch(currentUser);
         achNotification(newAch, currentStage);
+        displayInformation(tm, TrainCarEmission);
     }
 
     @SuppressWarnings("Duplicates")

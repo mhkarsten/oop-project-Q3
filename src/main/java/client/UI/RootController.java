@@ -26,13 +26,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-
-import static client.retrieve.UserRetrieve.*;
 import static java.lang.Integer.parseInt;
 import static javafx.scene.paint.Color.WHITE;
 
+/**
+ * The type Root controller.
+ */
 public class RootController implements Initializable {
 
+    /**
+     * The Profile.
+     */
     @FXML
     public Button profile;
     public Button action;
@@ -43,9 +47,12 @@ public class RootController implements Initializable {
     public Button transport;
     public Button energy;
     public Button achievement;
+
     public SplitPane mainPane;
+
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
+
     public BarChart<String, Number> barChart;
 
     private static User currentUser = UserSession.getInstance().getCurrentUser();
@@ -138,6 +145,11 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
+    /**
+     * Open achievement screen.
+     *
+     * @throws IOException the io exception
+     */
     public void openAchievementScreen() throws IOException {
 
         FXMLLoader newScreen = new FXMLLoader(getClass().getResource("/AchievementUI.fxml"));
@@ -147,6 +159,9 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
+    /**
+     * Move buttons.
+     */
     public void moveButtons() {
         Timeline rowMove = new Timeline();
 
@@ -175,6 +190,9 @@ public class RootController implements Initializable {
         rowMove.setOnFinished(e -> rowMove.stop());
     }
 
+    /**
+     * Move back button.
+     */
     public void moveBackButton() {
         Timeline rowMove = new Timeline();
 
@@ -203,6 +221,11 @@ public class RootController implements Initializable {
         rowMove.setOnFinished(e -> rowMove.stop());
     }
 
+    /**
+     * Btn.
+     *
+     * @param event the event
+     */
     public void btn(ActionEvent event) {
 
         Set<User> following = this.userRetrieve.getUserFollow(true, currentUser.getID());
@@ -227,6 +250,12 @@ public class RootController implements Initializable {
         barChart.getData().addAll(series);
     }
 
+    /**
+     * Gets max.
+     *
+     * @param users the users
+     * @return the max
+     */
     public int getMax(Set<User> users) {
 
         int points = UserSession.getInstance().getCurrentUser().getPoints();
@@ -249,7 +278,7 @@ public class RootController implements Initializable {
      *
      * @param event  The event from which you get which label has been pressed
      * @param choice The Label that was highlighted before the change
-     * @return
+     * @return label
      */
     public static Label selectOption(MouseEvent event, Label choice) {
 
@@ -266,6 +295,12 @@ public class RootController implements Initializable {
         return chosenOption;
     }
 
+    /**
+     * String to points int.
+     *
+     * @param points the points
+     * @return the int
+     */
     public static int stringToPoints(String points) {
         return parseInt(points.split("\\.")[0]);
     }

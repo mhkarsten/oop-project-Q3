@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -8,11 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.chart.BarChart?>
-<SplitPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" dividerPositions="0.29" maxHeight="-Infinity" maxWidth="-Infinity"
-           minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0"
-           stylesheets="root.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
-           fx:controller="client.UI.RootController">
+<SplitPane fx:id="mainPane" dividerPositions="0.29" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="672.0" stylesheets="root.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.UI.RootController">
 
     <items>
         <AnchorPane fx:id="sidebarPane" minHeight="0.0" minWidth="0.0" prefHeight="547.0" prefWidth="191.0">
@@ -37,8 +34,7 @@
                         <Image url="@../images/heartlogo.jpeg" />
                     </image>
                 </ImageView>
-                <BarChart fx:id="barChart" layoutX="56.0" layoutY="143.0" prefHeight="257.0" prefWidth="360.0"
-                          title="Statistics">
+                <BarChart fx:id="barChart" layoutX="56.0" layoutY="143.0" prefHeight="257.0" prefWidth="360.0" title="Statistics">
                     <xAxis>
                         <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -46,8 +42,7 @@
                         <NumberAxis side="LEFT" />
                     </yAxis>
                 </BarChart>
-                <Button layoutX="169.0" layoutY="400.0" mnemonicParsing="false" onAction="#btn" prefHeight="0.0"
-                        prefWidth="134.0" text="Load graph!"/>
+                <Button layoutX="169.0" layoutY="400.0" mnemonicParsing="false" onAction="#btn" prefHeight="0.0" prefWidth="134.0" text="Load graph!" />
             </children>
         </AnchorPane>
 

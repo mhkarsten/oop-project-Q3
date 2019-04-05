@@ -1,4 +1,4 @@
-package client;
+package client.retrieve;
 
 import client.Service.MyRestTemplate;
 import client.Service.UrlEndPoints;
@@ -28,7 +28,6 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
-@Import(TestTemplateConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SpringBoot.class)
 class UserRetrieveTest {
     @LocalServerPort

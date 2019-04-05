@@ -50,7 +50,8 @@ public class AchievementControllerTest {
         Achievement a1 = restTemplate.getForObject("/achievements/1", Achievement.class);
         Achievement a2 = restTemplate.getForObject("/achievements/2", Achievement.class);
         Achievement a3 = restTemplate.getForObject("/achievements/3", Achievement.class);
-        Assertions.assertArrayEquals(restTemplate.getForObject("/achievements/", Achievement[].class), new Achievement[] {a1, a2, a3});
+        Achievement a4 = restTemplate.getForObject("/achievements/4", Achievement.class);
+        Assertions.assertArrayEquals(restTemplate.getForObject("/achievements/", Achievement[].class), new Achievement[] {a1, a2, a3, a4});
     }
 
     @Test

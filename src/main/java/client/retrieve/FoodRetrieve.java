@@ -50,41 +50,41 @@ public class FoodRetrieve extends BaseRetrieve {
         return null;
     }
 
-    /**
-     * Get meal meal [ ].
-     *
-     * @param mealName the meal name
-     * @return the meal [ ]
-     */
-    @SuppressWarnings("Duplicates")
-    public  Meal getMeal(String mealName) {
-        //GETS A SPECIFIC MEAL FROM THE API ON THE SERVER
-
-        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
-
-        HttpEntity<Meal> entity = new HttpEntity<>(headers);
-
-        Object[] uriValues = new Object[] {mealName};
-
-        ResponseEntity<Meal> response = restTemplate.exchange(UrlEndPoints.Food.URL_MEAL,
-            HttpMethod.POST, entity, Meal.class, uriValues);
-
-        HttpStatus statusCode = response.getStatusCode();
-        System.out.println("(Client Side) The http status code is: " + statusCode);
-
-        if (statusCode == HttpStatus.OK) {
-
-            if (response.getBody() != null) {
-
-                return response.getBody();
-            } else {
-
-                System.out.println("(Client Side) The specified meal was null or doesnt exist.");
-            }
-        }
-
-        return null;
-    }
+//    /**
+//     * Get meal meal [ ].
+//     *
+//     * @param mealName the meal name
+//     * @return the meal [ ]
+//     */
+//    @SuppressWarnings("Duplicates")
+//    public  Meal getMeal(String mealName) {
+//        //GETS A SPECIFIC MEAL FROM THE API ON THE SERVER
+//
+//        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+//
+//        HttpEntity<Meal> entity = new HttpEntity<>(headers);
+//
+//        Object[] uriValues = new Object[] {mealName};
+//
+//        ResponseEntity<Meal> response = restTemplate.exchange(UrlEndPoints.Food.URL_MEAL,
+//            HttpMethod.POST, entity, Meal.class, uriValues);
+//
+//        HttpStatus statusCode = response.getStatusCode();
+//        System.out.println("(Client Side) The http status code is: " + statusCode);
+//
+//        if (statusCode == HttpStatus.OK) {
+//
+//            if (response.getBody() != null) {
+//
+//                return response.getBody();
+//            } else {
+//
+//                System.out.println("(Client Side) The specified meal was null or doesnt exist.");
+//            }
+//        }
+//
+//        return null;
+//    }
 
     /**
      * Gets meal category.

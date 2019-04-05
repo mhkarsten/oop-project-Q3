@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import server.model.Feat;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import javax.persistence.*;
 import java.util.Set;
@@ -99,15 +100,16 @@ public class User {
     }
 
     public void addFeat(Feat feat) {
+        if (this.feats == null) {
+            this.feats = new HashSet<>();
+        }
+
         this.feats.add(feat);
     }
     public Set<Feat> getFeats() {
         return this.feats;
     }
 
-    public void setFeats(Set<Feat> achievement) {
-        this.feats = feats;
-    }
 
     public Set<Achievement> getAchievements() {
         return this.unlockedAchievements;
@@ -115,6 +117,9 @@ public class User {
 
     public void addAchievement(Achievement achievement)
     {
+        if (this.unlockedAchievements == null) {
+            this.unlockedAchievements = new HashSet<>();
+        }
         unlockedAchievements.add(achievement);
     }
     public void setAchievements(Set<Achievement> achievement) {

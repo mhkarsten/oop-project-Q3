@@ -1,6 +1,5 @@
-package model;
+package client.model;
 
-import server.model.DietEmission;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

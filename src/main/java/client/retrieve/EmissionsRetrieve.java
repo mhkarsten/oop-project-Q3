@@ -36,13 +36,7 @@ public class EmissionsRetrieve extends BaseRetrieve {
 
         VehicleEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_VEHICLE, requestBody, VehicleEmission.class);
 
-        if (emission != null) {
-
-            return emission;
-        }
-
-        System.out.println("(Client Side) The request was bad, the returned object was null.");
-        return null;
+        return emission;
     }
 
     /**
@@ -65,13 +59,7 @@ public class EmissionsRetrieve extends BaseRetrieve {
 
         FlightEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_FLIGHT, requestBody, FlightEmission.class);
 
-        if (emission != null) {
-
-            return emission;
-        }
-
-        System.out.println("(Client Side) The request was bad, the returned object was null.");
-        return null;
+        return emission;
     }
 
     /**
@@ -97,46 +85,41 @@ public class EmissionsRetrieve extends BaseRetrieve {
 
         EnergyEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_ENERGY, requestBody, EnergyEmission.class);
 
-        if (emission != null) {
+        return emission;
 
-            return emission;
-        }
-
-        System.out.println("(Client Side) The request was bad, the returned object was null.");
-        return null;
     }
 
-    /**
-     * Gets diet emission.
-     *
-     * @param fishShare    the fish share
-     * @param redMeatShare the red meat share
-     * @param poultryShare the poultry share
-     * @param size         the size
-     * @return the diet emission
-     */
-    public DietEmission getDietEmission(float fishShare, float redMeatShare, float poultryShare, int size) {
-        HashMap parameters = new HashMap();
-        parameters.put("fishShare", fishShare);
-        parameters.put("redMeatShare", redMeatShare);
-        parameters.put("poultryShare", poultryShare);
-        parameters.put("size", size);
-
-
-        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
-
-        HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
-
-        DietEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_DIET, requestBody, DietEmission.class);
-
-        if (emission != null) {
-
-            return emission;
-        }
-
-        System.out.println("(Client Side) The request was bad, the returned object was null.");
-        return null;
-    }
+//    /**
+//     * Gets diet emission.
+//     *
+//     * @param fishShare    the fish share
+//     * @param redMeatShare the red meat share
+//     * @param poultryShare the poultry share
+//     * @param size         the size
+//     * @return the diet emission
+//     */
+//    public DietEmission getDietEmission(float fishShare, float redMeatShare, float poultryShare, int size) {
+//        HashMap parameters = new HashMap();
+//        parameters.put("fishShare", fishShare);
+//        parameters.put("redMeatShare", redMeatShare);
+//        parameters.put("poultryShare", poultryShare);
+//        parameters.put("size", size);
+//
+//
+//        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+//
+//        HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
+//
+//        DietEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_DIET, requestBody, DietEmission.class);
+//
+//        if (emission != null) {
+//
+//            return emission;
+//        }
+//
+//        System.out.println("(Client Side) The request was bad, the returned object was null.");
+//        return null;
+//    }
 
     /**
      * Gets train emission.
@@ -158,11 +141,6 @@ public class EmissionsRetrieve extends BaseRetrieve {
 
         TrainEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_TRAIN, requestBody, TrainEmission.class);
 
-        if (emission != null) {
-            return emission;
-        }
-
-        System.out.println("(Client Side) The request was bad, the returned object was null.");
-        return null;
+        return emission;
     }
 }

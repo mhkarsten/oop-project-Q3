@@ -18,6 +18,13 @@ class UserSessionTest {
     }
 
     @Test
+    void equals(){
+        UserSession userSession = UserSession.getInstance();
+        assertTrue(userSession.equals(UserSession.getInstance()));
+        assertFalse(UserSession.getInstance().equals(null));
+    }
+
+    @Test
     void getInstace() {
         // Because of singleton, session needs to be cleared after every call.
         assertEquals(UserSession.getInstance(), UserSession.getInstance());

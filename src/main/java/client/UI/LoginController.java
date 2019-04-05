@@ -58,11 +58,10 @@ public class LoginController {
             UserSession.getInstance().setPassword(passwordField.getText());
             UserSession.getInstance().setCurrentUser(user);
 
-            System.out.println(UserSession.getInstance().getCurrentUser().toString());
-
             if (user != null) {
                 loginStatus.setText("Status: You have logged in!");
                 MyStage.switchScene(MyStage.Screens.ROOT);
+                System.out.println(UserSession.getInstance().getCurrentUser().getName() + " has logged in.");
             }
 
             loginStatus.setText("Status: Username or password is not correct.");

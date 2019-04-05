@@ -36,8 +36,6 @@ public class FoodRetrieve extends BaseRetrieve {
 
             Meal randomMeal = response.getBody();
 
-            System.out.println(randomMeal.getStrMeal());
-
             if (randomMeal != null) {
 
                 return randomMeal;

@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -51,6 +52,17 @@ public class TransportController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        final Tooltip tooltipairplane = new Tooltip();
+        tooltipairplane.setText("Find out here the negative impacts of aviation on our environment: https://en.wikipedia.org/wiki/Environmental_impact_of_aviation");
+        transport1.setTooltip(tooltipairplane);
+
+        final Tooltip tooltipbike = new Tooltip();
+        tooltipbike.setText("Read more about the effect of bikes on our environment here: https://www.tmr.qld.gov.au/Travel-and-transport/Cycling/Benefits.aspx");
+        transport2.setTooltip(tooltipbike);
+
+        final Tooltip tooltiptrain = new Tooltip();
+        tooltiptrain.setText("Read why trains are better for the environment here: https://www.nationalrail.com/4-reasons-taking-train-better-environment/");
+        transport3.setTooltip(tooltiptrain);
         this.emissionsRetrieve = new EmissionsRetrieve();
     }
 

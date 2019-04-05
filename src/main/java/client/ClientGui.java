@@ -1,6 +1,6 @@
 package client;
 
-import client.Service.MyStage;
+import client.service.MyStage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -1,8 +1,8 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UrlEndPoints;
 import client.model.Achievement;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
 import org.springframework.http.*;
 
 import java.util.ArrayList;

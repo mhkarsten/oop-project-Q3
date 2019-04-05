@@ -1,8 +1,8 @@
-package client.UI;
+package client.ui;
 
-import client.Service.UserSession;
 import client.model.User;
 import client.retrieve.UserRetrieve;
+import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -1,10 +1,10 @@
-package client.UI;
+package client.ui;
 
-import client.Service.MyRestTemplate;
-import client.Service.MyStage;
-import client.Service.UrlEndPoints;
-import client.Service.UserSession;
 import client.model.User;
+import client.service.MyRestTemplate;
+import client.service.MyStage;
+import client.service.UrlEndPoints;
+import client.service.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

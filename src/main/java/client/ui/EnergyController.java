@@ -1,18 +1,18 @@
-package client.UI;
+package client.ui;
 
-import static client.Service.AchievementGenerator.achNotification;
-import static client.Service.AchievementGenerator.giveUserAch;
-import static client.UI.RootController.addPointsUser;
-import static client.UI.RootController.stringToPoints;
+import static client.service.AchievementGenerator.achNotification;
+import static client.service.AchievementGenerator.giveUserAch;
+import static client.ui.RootController.addPointsUser;
+import static client.ui.RootController.stringToPoints;
 import static java.lang.Integer.parseInt;
 
-import client.Service.MyStage;
-import client.Service.UserSession;
 import client.model.Achievement;
 import client.model.Emission;
 import client.model.EnergyEmission;
 import client.model.User;
 import client.retrieve.EmissionsRetrieve;
+import client.service.MyStage;
+import client.service.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;

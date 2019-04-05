@@ -1,4 +1,4 @@
-package client.UI;
+package client.ui;
 
 import client.model.User;
 import client.retrieve.UserRetrieve;

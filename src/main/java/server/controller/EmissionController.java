@@ -1,7 +1,7 @@
 package server.controller;
 
 import static java.lang.Integer.parseInt;
-import static server.API.EmissionAPI.*;
+import static server.api.EmissionApi.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -1,9 +1,9 @@
-package client.UI;
+package client.ui;
 
-import client.Service.UserSession;
 import client.model.Achievement;
 import client.model.User;
 import client.retrieve.AchievementRetrieve;
+import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class AchievementUIController implements Initializable {
+public class AchievementUiController implements Initializable {
 
     @FXML
     Label achievementName;

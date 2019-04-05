@@ -1,11 +1,11 @@
-package client.UI;
+package client.ui;
 
 import static java.lang.Integer.parseInt;
 import static javafx.scene.paint.Color.WHITE;
 
-import client.Service.UserSession;
 import client.model.User;
 import client.retrieve.UserRetrieve;
+import client.service.UserSession;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

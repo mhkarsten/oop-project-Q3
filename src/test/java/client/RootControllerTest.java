@@ -3,7 +3,7 @@ package client;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static client.UI.RootController.stringToPoints;
+import static client.ui.RootController.stringToPoints;
 
 public class RootControllerTest {
 

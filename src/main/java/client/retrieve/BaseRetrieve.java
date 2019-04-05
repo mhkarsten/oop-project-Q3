@@ -1,6 +1,6 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
+import client.service.MyRestTemplate;
 
 public abstract class BaseRetrieve {
 

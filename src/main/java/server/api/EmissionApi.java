@@ -1,4 +1,4 @@
-package server.API;
+package server.api;
 
 import static server.model.DietEmission.JSONtoDiet;
 import static server.model.EnergyEmission.JSONtoEnergy;
@@ -6,7 +6,7 @@ import static server.model.FlightEmission.JSONtoFlight;
 import static server.model.TrainEmission.JSONtoTrain;
 import static server.model.VehicleEmission.JSONtoVehicle;
 
-import client.Service.MyRestTemplate;
+import client.service.MyRestTemplate;
 import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * The type Emission api.
  */
-public class EmissionAPI {
+public class EmissionApi {
     private static final String KEY = "key=5a927d96eca397b6659a3c361ce32254&green_electricity=23&dishwasher_use=42&";
     private static final String URL_BASE = "http://impact.brighterplanet.com";
     private static final String URL_CAR = URL_BASE + "/automobile_trips.json?";

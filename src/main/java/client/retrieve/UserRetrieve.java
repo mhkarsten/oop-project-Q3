@@ -1,8 +1,8 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UrlEndPoints;
 import client.model.User;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -149,14 +149,14 @@ public class UserRetrieve extends BaseRetrieve {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        String URL;
+        String url;
 
         if (selectFollow) {
 
-            URL = UrlEndPoints.User.USER_FOLLOWERS;
+            url = UrlEndPoints.User.USER_FOLLOWERS;
         } else {
 
-            URL = UrlEndPoints.User.USER_FOLLOWING;
+            url = UrlEndPoints.User.USER_FOLLOWING;
         }
 
         HttpEntity<Set<User>> entity = new HttpEntity<Set<User>>(headers);
@@ -164,7 +164,7 @@ public class UserRetrieve extends BaseRetrieve {
 
         Object[] uriValues = new Object[] {userID};
 
-        ResponseEntity<Set> response = restTemplate.exchange(URL,
+        ResponseEntity<Set> response = restTemplate.exchange(url,
             HttpMethod.POST, entity, Set.class, uriValues);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -193,14 +193,14 @@ public class UserRetrieve extends BaseRetrieve {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        String URL = UrlEndPoints.User.UPDATE_FOLLOW;
+        String url = UrlEndPoints.User.UPDATE_FOLLOW;
 
         HttpEntity<Object> entity = new HttpEntity<Object>(headers);
 
 
         Object[] uriValues = new Object[] {followerId, followeeId};
 
-        ResponseEntity<Object> response = restTemplate.exchange(URL,
+        ResponseEntity<Object> response = restTemplate.exchange(url,
             HttpMethod.POST, entity, Object.class, uriValues);
 
         HttpStatus statusCode = response.getStatusCode();

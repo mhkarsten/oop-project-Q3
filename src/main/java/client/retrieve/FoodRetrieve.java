@@ -1,8 +1,8 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UrlEndPoints;
 import client.model.Meal;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
 import org.springframework.http.*;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class FoodRetrieve extends BaseRetrieve {
      */
     @SuppressWarnings("Duplicates")
     public  Meal getRandomMeal() {
-        //GETS A RANDOM MEAL OFF OF THE SERVER SIDE API
+        //GETS A RANDOM MEAL OFF OF THE SERVER SIDE api
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
@@ -56,7 +56,7 @@ public class FoodRetrieve extends BaseRetrieve {
     //     */
     //    @SuppressWarnings("Duplicates")
     //    public  Meal getMeal(String mealName) {
-    //        //GETS A SPECIFIC MEAL FROM THE API ON THE SERVER
+    //        //GETS A SPECIFIC MEAL FROM THE api ON THE SERVER
     //
     //        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
     //
@@ -92,7 +92,7 @@ public class FoodRetrieve extends BaseRetrieve {
      */
     @SuppressWarnings("Duplicates")
     public  ArrayList<Meal> getMealCategory(String category ) {
-        //GETS A SPECIFIC MEAL CATEGORY OFF OF THE SERVER SIDE API
+        //GETS A SPECIFIC MEAL CATEGORY OFF OF THE SERVER SIDE api
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
@@ -134,7 +134,7 @@ public class FoodRetrieve extends BaseRetrieve {
      */
     @SuppressWarnings("Duplicates")
     public  ArrayList<Meal> getAllMeatMeals() {
-        //GETS ALL OF THE MEALS WITH MEAT OFF OF THE SERVER API
+        //GETS ALL OF THE MEALS WITH MEAT OFF OF THE SERVER api
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 

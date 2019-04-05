@@ -1,4 +1,4 @@
-package client.Service;
+package client.service;
 
 import client.model.Achievement;
 import client.model.User;

@@ -2,7 +2,7 @@ package server.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import server.API.FoodAPI;
+import server.api.FoodApi;
 import server.model.Meal;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class FoodController {
     @ResponseBody
     public Meal getRandomMeal() {
 
-        Optional<Meal[]> randomMeal = FoodAPI.getRandomMeal();
+        Optional<Meal[]> randomMeal = FoodApi.getRandomMeal();
         if (randomMeal.isPresent()) {
 
             return randomMeal.get()[0];
@@ -48,7 +48,7 @@ public class FoodController {
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Meal[] getMeal(@PathVariable("mealName") String mealName) {
-        return FoodAPI.getMeal(mealName).get();
+        return FoodApi.getMeal(mealName).get();
     }
 
     /**
@@ -64,7 +64,7 @@ public class FoodController {
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<Meal[]> getMealCategory(@PathVariable("categoryName") String categoryName) {
-        return FoodAPI.getMealCategory(categoryName).get();
+        return FoodApi.getMealCategory(categoryName).get();
     }
 
     /**
@@ -80,7 +80,7 @@ public class FoodController {
     @ResponseBody
     public List<Meal[]> getMeatMeals() {
 
-        List<Meal[]> meatMeals = FoodAPI.getAllMeatMeals();
+        List<Meal[]> meatMeals = FoodApi.getAllMeatMeals();
 
         if (!meatMeals.isEmpty()) {
 

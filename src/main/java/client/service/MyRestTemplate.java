@@ -1,4 +1,4 @@
-package client.Service;
+package client.service;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

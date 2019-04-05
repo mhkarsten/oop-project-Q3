@@ -1,4 +1,4 @@
-package client.Service;
+package client.service;
 
 import org.apache.http.HttpHost;
 import org.apache.http.client.AuthCache;

@@ -1,4 +1,4 @@
-package server.API;
+package server.api;
 
 import static server.model.Meal.JSONToMeal;
 
@@ -15,7 +15,7 @@ import java.util.*;
  * to make them. These are given as JSON objects, and are then converted to a meal object which
  * can be displayed in various ways.
  */
-public class FoodAPI {
+public class FoodApi {
 
     static final String URL_RANDOMEAL = "https://www.themealdb.com/api/json/v1/1/random.php";
     static final String URL_SPESIFICMEAL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";

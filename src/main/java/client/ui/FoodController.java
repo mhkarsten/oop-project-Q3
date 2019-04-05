@@ -1,15 +1,15 @@
-package client.UI;
+package client.ui;
 
-import static client.Service.AchievementGenerator.achNotification;
-import static client.Service.AchievementGenerator.giveUserAch;
+import static client.service.AchievementGenerator.achNotification;
+import static client.service.AchievementGenerator.giveUserAch;
 
-import client.Service.MyStage;
-import client.Service.UserSession;
 import client.model.Achievement;
 import client.model.Meal;
 import client.model.User;
 import client.retrieve.FoodRetrieve;
 import client.retrieve.UserRetrieve;
+import client.service.MyStage;
+import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;

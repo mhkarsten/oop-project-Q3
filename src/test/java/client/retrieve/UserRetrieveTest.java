@@ -1,7 +1,7 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UserSession;
+import client.service.MyRestTemplate;
+import client.service.UserSession;
 import client.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

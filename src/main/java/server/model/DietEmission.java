@@ -8,17 +8,26 @@ import java.util.LinkedHashMap;
  * The type Diet emission.
  */
 public class DietEmission {
-//    INPUT VALUES
-//    float fishShare;
-//    float redMeatShare;
-//    float poultryShare;
-//    int size;
-//    String startDate;
-//    String endDate;
+    //    INPUT VALUES
+    //    float fishShare;
+    //    float redMeatShare;
+    //    float poultryShare;
+    //    int size;
+    //    String startDate;
+    //    String endDate;
 
     //RETURN VALUES
     private String carbon;
     private String intensity;
+
+    public DietEmission() {
+
+    }
+
+    public DietEmission(String carbon, String intensity) {
+        this.carbon = carbon;
+        this.intensity = intensity;
+    }
 
     /**
      * Jso nto diet diet emission.
@@ -39,15 +48,6 @@ public class DietEmission {
         newEmission.setIntensity((String) intensity.get("description"));
 
         return newEmission;
-    }
-
-    public DietEmission() {
-
-    }
-
-    public DietEmission(String carbon, String intensity) {
-        this.carbon = carbon;
-        this.intensity = intensity;
     }
 
     public String getCarbon() {

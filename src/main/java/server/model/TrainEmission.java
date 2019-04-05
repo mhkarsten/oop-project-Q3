@@ -5,12 +5,12 @@ import org.json.simple.JSONObject;
 import java.util.LinkedHashMap;
 
 /**
- * The type train emission
+ * The type train emission.
  */
 public class TrainEmission {
-//  INPUT VALUES
-//  int distance; in kilometers
-//  int duration; in seconds
+    //  INPUT VALUES
+    //  int distance; in kilometers
+    //  int duration; in seconds
 
     //RETURN VALUES
     private String carbon;
@@ -18,6 +18,34 @@ public class TrainEmission {
     private String fuelUse;
     private String distance;
 
+    /**
+     * Instantiates a new Train emission.
+     */
+    public TrainEmission() {
+
+    }
+
+    /**
+     * Instantiates a new Vehicle emission.
+     *
+     * @param carbon   the carbon
+     * @param energy   the energy
+     * @param fuelUse  the fuel use
+     * @param distance the distance
+     */
+    public TrainEmission(String carbon, String energy, String fuelUse, String distance) {
+        this.carbon = carbon;
+        this.energy = energy;
+        this.fuelUse = fuelUse;
+        this.distance = distance;
+    }
+
+    /**
+     * Jsontotrain train emission.
+     *
+     * @param JSONTrainEmission the json train emission
+     * @return the train emission
+     */
     @SuppressWarnings("Duplicates")
     public static TrainEmission JSONtoTrain(JSONObject JSONTrainEmission) {
 
@@ -38,29 +66,6 @@ public class TrainEmission {
         newEmission.setDistance((String) distance.get("description"));
 
         return newEmission;
-    }
-
-    /**
-     * Instantiates a new Train emission.
-     */
-    //Basic Constructor
-    public TrainEmission() {
-
-    }
-
-    /**
-     * Instantiates a new Vehicle emission.
-     *
-     * @param carbon   the carbon
-     * @param energy   the energy
-     * @param fuelUse  the fuel use
-     * @param distance the distance
-     */
-    public TrainEmission(String carbon, String energy, String fuelUse, String distance) {
-        this.carbon = carbon;
-        this.energy = energy;
-        this.fuelUse = fuelUse;
-        this.distance = distance;
     }
 
     public String getCarbon() {

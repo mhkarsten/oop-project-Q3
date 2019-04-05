@@ -1,13 +1,9 @@
 package server.controller;
 
-import server.model.Meal;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import server.API.FoodAPI;
+import server.model.Meal;
 
 import java.util.List;
 import java.util.NoSuchElementException;

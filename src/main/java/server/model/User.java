@@ -2,15 +2,13 @@ package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.util.Objects;
-
 import java.util.Set;
-
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-@SequenceGenerator(name="user_seq", allocationSize = 1)
+@SequenceGenerator(name = "user_seq", allocationSize = 1)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")

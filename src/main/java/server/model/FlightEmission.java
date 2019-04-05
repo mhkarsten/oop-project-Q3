@@ -8,6 +8,29 @@ import java.util.LinkedHashMap;
  * The type Flight emission.
  */
 public class FlightEmission extends VehicleEmission {
+
+    /**
+     * Instantiates a new Flight emission.
+     */
+    public FlightEmission() {
+
+    }
+
+    /**
+     * Instantiates a new Flight emission.
+     *
+     * @param carbon   the carbon
+     * @param energy   the energy
+     * @param distance the distance
+     * @param fuelUse  the fuel use
+     */
+    public FlightEmission(String carbon, String energy, String distance, String fuelUse) {
+        setCarbon(carbon);
+        setEnergy(energy);
+        setDistance(distance);
+        setFuelUse(fuelUse);
+    }
+
     /**
      * Jso nto flight flight emission.
      *
@@ -34,28 +57,6 @@ public class FlightEmission extends VehicleEmission {
         newEmission.setDistance((String) distance.get("description"));
 
         return newEmission;
-    }
-
-    /**
-     * Instantiates a new Flight emission.
-     */
-    public FlightEmission() {
-
-    }
-
-    /**
-     * Instantiates a new Flight emission.
-     *
-     * @param carbon   the carbon
-     * @param energy   the energy
-     * @param distance the distance
-     * @param fuelUse  the fuel use
-     */
-    public FlightEmission(String carbon, String energy, String distance, String fuelUse) {
-        setCarbon(carbon);
-        setEnergy(energy);
-        setDistance(distance);
-        setFuelUse(fuelUse);
     }
 
 }

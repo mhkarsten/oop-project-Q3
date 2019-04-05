@@ -72,20 +72,20 @@ public class Meal {
 
         Object mealList = JSONMeal.get("meals");
         ArrayList<LinkedHashMap> meal = (ArrayList<LinkedHashMap>) mealList;
-        LinkedHashMap LinkedMeal = meal.get(0);
+        LinkedHashMap linkedMeal = meal.get(0);
 
         Meal newMeal = new Meal();
 
-        newMeal.setStrMeal((String) LinkedMeal.get("strMeal"));
-        newMeal.setIdMeal((String) LinkedMeal.get("idMeal"));
-        newMeal.setStrArea((String) LinkedMeal.get("strArea"));
-        newMeal.setStrCategory((String) LinkedMeal.get("strCategory"));
-        newMeal.setStrMealThumb((String) LinkedMeal.get("strMealThumb"));
-        newMeal.setStrSource((String) LinkedMeal.get("strSource"));
-        newMeal.setStrYoutube((String) LinkedMeal.get("strYoutube"));
-        newMeal.setStrInstructions((String) LinkedMeal.get("strInstructions"));
+        newMeal.setStrMeal((String) linkedMeal.get("strMeal"));
+        newMeal.setIdMeal((String) linkedMeal.get("idMeal"));
+        newMeal.setStrArea((String) linkedMeal.get("strArea"));
+        newMeal.setStrCategory((String) linkedMeal.get("strCategory"));
+        newMeal.setStrMealThumb((String) linkedMeal.get("strMealThumb"));
+        newMeal.setStrSource((String) linkedMeal.get("strSource"));
+        newMeal.setStrYoutube((String) linkedMeal.get("strYoutube"));
+        newMeal.setStrInstructions((String) linkedMeal.get("strInstructions"));
 
-        String tempTags = (String) LinkedMeal.get("strTags");
+        String tempTags = (String) linkedMeal.get("strTags");
 
         if (tempTags != null) {
 
@@ -101,7 +101,7 @@ public class Meal {
 
             ArrayList<String> tempIngredients = new ArrayList<>();
 
-            tempIngredients.add((String) LinkedMeal.get("strIngredient" + i));
+            tempIngredients.add((String) linkedMeal.get("strIngredient" + i));
 
             newMeal.setStrIngredients(tempIngredients);
         }
@@ -110,7 +110,7 @@ public class Meal {
 
             ArrayList<String> tempMeasure = new ArrayList<>();
 
-            tempMeasure.add((String) LinkedMeal.get("strMeasure" + i));
+            tempMeasure.add((String) linkedMeal.get("strMeasure" + i));
 
             newMeal.setStrMeasures(tempMeasure);
         }

@@ -1,13 +1,13 @@
 package server.API;
 
-import server.model.Meal;
+import static server.model.Meal.JSONToMeal;
+
 import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+import server.model.Meal;
 
 import java.util.*;
-;
-import static server.model.Meal.JSONToMeal;
 
 /**
  * This class is the integration of TheFoodDB api. This is an online database of various meals which
@@ -21,7 +21,9 @@ public class FoodAPI {
     static final String URL_SPESIFICMEAL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
     static final String URL_CATEGORYMEAL = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
 
-    //Creates JSON header for a GET request
+    /**
+     * Creates JSON header for a GET request.
+     */
     public static HttpHeaders acceptHeaders() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -31,7 +33,7 @@ public class FoodAPI {
         return headers;
     }
 
-    /**
+    /** Method to get a random meal from the DB.
      * @return This method returns a random meal from TheMealDB
      */
     public static Optional<Meal[]> getRandomMeal() {
@@ -53,10 +55,9 @@ public class FoodAPI {
         return Optional.of(meal);
     }
 
-    /**
+    /** Method to return one specific meal from the DB.
      * @return This method will return one specific meal from the database.
-     * @Param mealName
-     * This parameter is the name of the meal that you would like to get from the database
+     * @Param mealName this parameter is the name of the meal that you would like to get from the database
      */
     @SuppressWarnings("Duplicates")
     public static Optional<Meal[]> getMeal(String mealName) {
@@ -79,7 +80,7 @@ public class FoodAPI {
         return Optional.of(meal);
     }
 
-    /**
+    /** Method to get meals from a certain category.
      * @param mealName This parameter is the name of the meal category that you would like returned.
      * @return This method returns an ArrayList of all meals in a specific category.
      */
@@ -106,16 +107,16 @@ public class FoodAPI {
 
             for (int i = 0; i < meal.size(); i++) {
 
-                LinkedHashMap LinkedMeal = meal.get(i);
+                LinkedHashMap linkedMeal = meal.get(i);
 
-                categoryMeals.add(getMeal((String) LinkedMeal.get("strMeal")).get());
+                categoryMeals.add(getMeal((String) linkedMeal.get("strMeal")).get());
             }
         }
 
         return Optional.of(categoryMeals);
     }
 
-    /**
+    /** Method to get all meals in the meat category.
      * @return This method returns a list of all of the meals that use meat.
      */
     public static ArrayList<Meal[]> getAllMeatMeals() {

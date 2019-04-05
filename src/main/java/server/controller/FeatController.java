@@ -10,12 +10,10 @@ import server.model.User;
 import server.repository.FeatRepository;
 import server.repository.UserRepository;
 
-import javax.validation.Valid;
 import java.net.URI;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import javax.validation.Valid;
 
 @RestController
 public class FeatController {
@@ -80,11 +78,11 @@ public class FeatController {
     @ResponseBody
     public ResponseEntity<?> addFeat(@PathVariable("userId")@Valid long userID, @RequestBody Feat feat) {
         //Feat savedFeat = featRepository.save(feat);
-        User user= userRepository.findById(userID).get();
+        User user = userRepository.findById(userID).get();
         feat.setUser(user);
-        feat=featRepository.save(feat);
+        feat = featRepository.save(feat);
 
-        System.out.println("Creating new feat with ID "+feat.getId());
+        System.out.println("Creating new feat with ID " + feat.getId());
 
         user.addFeat(feat);
         URI location = ServletUriComponentsBuilder
@@ -92,11 +90,9 @@ public class FeatController {
         return ResponseEntity.created(location).build();
     }
 
-
-    /**
-     * Adds a new feat (CREATE).
-     *
-     * @param feat Parameter for the feat to be added
+    /** Adds a new feat (CREATE).
+     * @param userID id of the user
+     * @param points points associated with the action for the feat
      * @return Returns the path at which the created feat is located
      */
     @PostMapping(value = "/users/{userId}/feats/new/{points}",
@@ -105,14 +101,14 @@ public class FeatController {
     @ResponseBody
     public ResponseEntity<?> addGenericFeat(@PathVariable("userId")@Valid long userID, @PathVariable("points")@Valid int points) {
         //Feat savedFeat = featRepository.save(feat);
-        User user= userRepository.findById(userID).get();
+        User user = userRepository.findById(userID).get();
 
         Feat feat = new Feat(points, 0, user);
 
         feat.setUser(user);
-        feat=featRepository.save(feat);
+        feat = featRepository.save(feat);
 
-        System.out.println("Creating new feat with ID "+feat.getId());
+        System.out.println("Creating new feat with ID " + feat.getId());
 
         user.addFeat(feat);
         URI location = ServletUriComponentsBuilder

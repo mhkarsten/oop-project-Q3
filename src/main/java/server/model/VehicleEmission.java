@@ -8,16 +8,38 @@ import java.util.LinkedHashMap;
  * The type Vehicle emission.
  */
 public class VehicleEmission {
-//    INPUT VALUES
-//    int distance; in kilometers
-//    int duration; in seconds
-//    String sizeClass; a description (i.e. midsized)
+    //    INPUT VALUES
+    //    int distance; in kilometers
+    //    int duration; in seconds
+    //    String sizeClass; a description (i.e. midsized)
 
     //RETURN VALUES
     private String carbon;
     private String energy;
     private String fuelUse;
     private String distance;
+
+    /**
+     * Instantiates a new Vehicle emission.
+     */
+    public VehicleEmission() {
+
+    }
+
+    /**
+     * Instantiates a new Vehicle emission.
+     *
+     * @param carbon   the carbon
+     * @param energy   the energy
+     * @param fuelUse  the fuel use
+     * @param distance the distance
+     */
+    public VehicleEmission(String carbon, String energy, String fuelUse, String distance) {
+        this.carbon = carbon;
+        this.energy = energy;
+        this.fuelUse = fuelUse;
+        this.distance = distance;
+    }
 
     /**
      * Json to vehicle vehicle emission.
@@ -45,29 +67,6 @@ public class VehicleEmission {
         newEmission.setDistance((String) distance.get("description"));
 
         return newEmission;
-    }
-
-    /**
-     * Instantiates a new Vehicle emission.
-     */
-    //Basic Constructor
-    public VehicleEmission() {
-
-    }
-
-    /**
-     * Instantiates a new Vehicle emission.
-     *
-     * @param carbon   the carbon
-     * @param energy   the energy
-     * @param fuelUse  the fuel use
-     * @param distance the distance
-     */
-    public VehicleEmission(String carbon, String energy, String fuelUse, String distance) {
-        this.carbon = carbon;
-        this.energy = energy;
-        this.fuelUse = fuelUse;
-        this.distance = distance;
     }
 
     public String getCarbon() {

@@ -11,13 +11,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.User;
 import server.repository.UserRepository;
 
-import javax.swing.text.html.Option;
-import javax.validation.Valid;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import javax.validation.Valid;
 
 @RestController
 public class UserController {
@@ -36,8 +34,6 @@ public class UserController {
 
     /**
      * Initial connect message.
-     *
-     * @return Message stating you are connected
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/")
@@ -87,6 +83,7 @@ public class UserController {
     public User getUserByName(@PathVariable("userName") String userName) {
         return userRepository.findByName(userName).get();
     }
+
     /**
      * Adds a new user (CREATE).
      *
@@ -153,7 +150,7 @@ public class UserController {
     }
 
     /**
-     * A mapping for following a user
+     * A mapping for following a user.
      *
      * @param followerId the one who is going to follow the followee
      * @param followeeId the one which is going to be followed by the follower
@@ -166,7 +163,7 @@ public class UserController {
         User follower = userRepository.findById(followerId).get();
         User followee = userRepository.findById(followeeId).get();
         followee.addFollower(follower);
-        followee=userRepository.save(followee);
+        followee = userRepository.save(followee);
         follower.followUser(followee);
         userRepository.save(follower);
     }

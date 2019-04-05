@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.User;
 import server.repository.UserRepository;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashMap;
@@ -64,7 +65,8 @@ public class UserController {
      * @param userID The userID to look for
      * @return The user if it exists
      */
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/users/{userID}",
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
+        value = "/users/{userID}",
         produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -75,6 +77,15 @@ public class UserController {
         } else {
             return null;
         }
+    }
+
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
+        value = "/users/byName/{userName}",
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public User getUserByName(@PathVariable("userName") String userName) {
+        return userRepository.findByName(userName).get();
     }
     /**
      * Adds a new user (CREATE).

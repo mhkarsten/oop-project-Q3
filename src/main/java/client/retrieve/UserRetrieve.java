@@ -33,7 +33,6 @@ public class UserRetrieve extends BaseRetrieve {
     @SuppressWarnings("Duplicates")
     public ArrayList<User> getUsers() {
 
-
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
         HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
@@ -100,6 +99,28 @@ public class UserRetrieve extends BaseRetrieve {
         return null;
     }
 
+    public User getUserByName(String userName) {
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+
+        HttpEntity<User> entity = new HttpEntity<>(headers);
+
+        Object[] uriValues = new Object[] {userName};
+
+        ResponseEntity<User> response = restTemplate.exchange(UrlEndPoints.User.USER_BY_NAME,
+            HttpMethod.POST, entity, User.class, uriValues);
+
+        HttpStatus statusCode = response.getStatusCode();
+        System.out.println("(Client Side) The http status code is: " + statusCode);
+
+        if (statusCode == HttpStatus.OK) {
+
+            return response.getBody();
+        }
+
+        return null;
+
+    }
+
     /**Method to update a users information.
      * Update user information (UPDATE)
      *
@@ -108,7 +129,6 @@ public class UserRetrieve extends BaseRetrieve {
      *
      */
     public void addGenericFeat(Long userId, int points) {
-
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Object> entity = new HttpEntity<Object>(headers);

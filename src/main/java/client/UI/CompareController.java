@@ -1,6 +1,5 @@
 package client.UI;
 
-import client.Service.MyRestTemplate;
 import client.Service.UserSession;
 import client.model.User;
 import client.retrieve.UserRetrieve;
@@ -46,7 +45,6 @@ public class CompareController implements Initializable {
 
     private User activeUser;
     private Set<User> userFollows;
-    private ArrayList<User> allUsers;
     private Set<User> userFollowingCurrent;
 
     private UserRetrieve userRetrieve;
@@ -57,7 +55,6 @@ public class CompareController implements Initializable {
         userRetrieve = new UserRetrieve();
 
         activeUser = UserSession.getInstance().getCurrentUser();
-        allUsers = userRetrieve.getUsers();
         userFollows = userRetrieve.getUserFollow(false, activeUser.getID());
         userFollowingCurrent = userRetrieve.getUserFollow(true, activeUser.getID());
 
@@ -101,8 +98,9 @@ public class CompareController implements Initializable {
     public void findUserFollow() {
 
         String nameToFind = userInput.getText();
-        User foundUser = findUserByName(nameToFind);
-        if ( foundUser != null) {
+        User foundUser = userRetrieve.getUserByName(nameToFind);
+
+        if (foundUser != null) {
 
             userFollows.add(foundUser);
 
@@ -125,7 +123,7 @@ public class CompareController implements Initializable {
         ObservableList<String> usersFollowing;
         usersFollowing = userFollowing.getSelectionModel().getSelectedItems();
 
-        User selectedUser = findUserByName(usersFollowing.get(0));
+        User selectedUser = userRetrieve.getUserByName(usersFollowing.get(0));
 
         compareName.setText(selectedUser.getName());
         comparePoints.setText(Integer.toString(selectedUser.getPoints()));
@@ -140,32 +138,9 @@ public class CompareController implements Initializable {
         ObservableList<String> userFollowee;
         userFollowee = followeeListView.getSelectionModel().getSelectedItems();
 
-        User selectedUser = findUserByName(userFollowee.get(0));
+        User selectedUser = userRetrieve.getUserByName(userFollowee.get(0));
 
         compareName.setText(selectedUser.getName());
         comparePoints.setText(Integer.toString(selectedUser.getPoints()));
-    }
-
-    /**
-     * Find user by name user.
-     *
-     * @param nameToFind the name to find
-     * @return the user
-     */
-    public User findUserByName(String nameToFind) {
-        Iterator findUser = allUsers.iterator();
-
-        while(findUser.hasNext()) {
-
-            User cUser = (User) findUser.next();
-
-            if (cUser.getName().equals(nameToFind)) {
-
-                return cUser;
-            }
-        }
-
-        System.out.println("(Client Side) The user was not found.");
-        return null;
     }
 }

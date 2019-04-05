@@ -25,6 +25,7 @@ public class UrlEndPoints {
         public static final String USER_FOLLOWERS =  "/users/{userID}/followers";
         public static final String USER_FOLLOWING =  "/users/{userID}/following";
         public static final String UPDATE_FOLLOW =  "/users/{followerId}/follow/{followeeId}";
+        public static final String USER_BY_NAME = "/users/byName/{userName}";
     }
 
     /**

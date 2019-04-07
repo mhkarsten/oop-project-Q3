@@ -94,6 +94,19 @@ public class FoodController implements Initializable {
         this.userRetrieve = new UserRetrieve();
         this.foodRetrieve = new FoodRetrieve();
 
+
+        Task<Void> gettingMeals = new FetchMealsTask<Void>(new FoodRetrieve()) {
+
+            @Override
+            protected Void call() throws Exception {
+
+                meatMeals = this.foodRetrieve.getAllMeatMeals();
+                veganMeals = this.foodRetrieve.getMealCategory("Vegan");
+                vegetarianMeals = this.foodRetrieve.getMealCategory("Vegetarian");
+
+                return null;
+            }
+        };
         gettingMeals.stateProperty().addListener((observable, oldState, newState) -> {
 
             if (newState == Worker.State.SUCCEEDED) {
@@ -120,19 +133,6 @@ public class FoodController implements Initializable {
             this.foodRetrieve = foodRetrieve;
         }
     }
-
-    Task<Void> gettingMeals = new FetchMealsTask<Void>(new FoodRetrieve()) {
-
-        @Override
-        protected Void call() throws Exception {
-
-            meatMeals = this.foodRetrieve.getAllMeatMeals();
-            veganMeals = this.foodRetrieve.getMealCategory("Vegan");
-            vegetarianMeals = this.foodRetrieve.getMealCategory("Vegetarian");
-
-            return null;
-        }
-    };
 
     /**
      * Method to find a meal based on the name of the meal.

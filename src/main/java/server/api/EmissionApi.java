@@ -1,16 +1,25 @@
 package server.api;
 
-import static server.model.DietEmission.JSONtoDiet;
-import static server.model.EnergyEmission.JSONtoEnergy;
-import static server.model.FlightEmission.JSONtoFlight;
-import static server.model.TrainEmission.JSONtoTrain;
-import static server.model.VehicleEmission.JSONtoVehicle;
+import static server.model.DietEmission.jsonToDiet;
+import static server.model.EnergyEmission.jsonToEnergy;
+import static server.model.FlightEmission.jsonToFlight;
+import static server.model.TrainEmission.jsonToTrain;
+import static server.model.VehicleEmission.jsonToVehicle;
 
 import client.service.MyRestTemplate;
 import org.json.simple.JSONObject;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import server.model.*;
+import server.model.DietEmission;
+import server.model.EnergyEmission;
+import server.model.FlightEmission;
+import server.model.TrainEmission;
+import server.model.VehicleEmission;
 
 import java.util.ArrayList;
 
@@ -90,7 +99,7 @@ public class EmissionApi {
 
             if (emissionResponse != null) {
 
-                return JSONtoVehicle(emissionResponse);
+                return jsonToVehicle(emissionResponse);
             }
         }
 
@@ -168,7 +177,7 @@ public class EmissionApi {
 
             if (emissionResponse != null) {
 
-                return JSONtoEnergy(emissionResponse);
+                return jsonToEnergy(emissionResponse);
             }
         }
 
@@ -252,7 +261,7 @@ public class EmissionApi {
 
             if (emissionResponse != null) {
 
-                return JSONtoDiet(emissionResponse);
+                return jsonToDiet(emissionResponse);
             }
         }
 
@@ -318,7 +327,7 @@ public class EmissionApi {
 
             if (emissionResponse != null) {
 
-                return JSONtoFlight(emissionResponse);
+                return jsonToFlight(emissionResponse);
             }
         }
 
@@ -381,7 +390,7 @@ public class EmissionApi {
 
             if (emissionResponse != null) {
 
-                return JSONtoTrain(emissionResponse);
+                return jsonToTrain(emissionResponse);
             }
         }
 

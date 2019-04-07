@@ -42,14 +42,14 @@ public class EnergyEmission {
     /**
      * Jsontoenergy energy emission.
      *
-     * @param JSONEnergyEmission the json energy emission
+     * @param jsonEnergyEmission the json energy emission
      * @return the energy emission
      */
-    public static EnergyEmission JSONtoEnergy(JSONObject JSONEnergyEmission) {
+    public static EnergyEmission jsonToEnergy(JSONObject jsonEnergyEmission) {
 
         EnergyEmission newEmission = new EnergyEmission();
 
-        LinkedHashMap mainBody = (LinkedHashMap) JSONEnergyEmission.get("decisions");
+        LinkedHashMap mainBody = (LinkedHashMap) jsonEnergyEmission.get("decisions");
 
         LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
         newEmission.setCarbon((String) carbon.get("description"));

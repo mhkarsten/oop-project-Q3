@@ -44,15 +44,15 @@ public class VehicleEmission {
     /**
      * Json to vehicle vehicle emission.
      *
-     * @param JSONVehicleEmission the json vehicle emission
+     * @param jsonVehicleEmission the json vehicle emission
      * @return the vehicle emission
      */
     @SuppressWarnings("Duplicates")
-    public static VehicleEmission JSONtoVehicle(JSONObject JSONVehicleEmission) {
+    public static VehicleEmission jsonToVehicle(JSONObject jsonVehicleEmission) {
 
         VehicleEmission newEmission = new VehicleEmission();
 
-        LinkedHashMap mainBody = (LinkedHashMap) JSONVehicleEmission.get("decisions");
+        LinkedHashMap mainBody = (LinkedHashMap) jsonVehicleEmission.get("decisions");
 
         LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
         newEmission.setCarbon((String) carbon.get("description"));

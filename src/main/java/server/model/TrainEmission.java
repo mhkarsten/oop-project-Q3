@@ -43,15 +43,15 @@ public class TrainEmission {
     /**
      * Jsontotrain train emission.
      *
-     * @param JSONTrainEmission the json train emission
+     * @param jsonTrainEmission the json train emission
      * @return the train emission
      */
     @SuppressWarnings("Duplicates")
-    public static TrainEmission JSONtoTrain(JSONObject JSONTrainEmission) {
+    public static TrainEmission jsonToTrain(JSONObject jsonTrainEmission) {
 
         TrainEmission newEmission = new TrainEmission();
 
-        LinkedHashMap mainBody = (LinkedHashMap) JSONTrainEmission.get("decisions");
+        LinkedHashMap mainBody = (LinkedHashMap) jsonTrainEmission.get("decisions");
 
         LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
         newEmission.setCarbon((String) carbon.get("description"));

@@ -34,15 +34,15 @@ public class FlightEmission extends VehicleEmission {
     /**
      * Jso nto flight flight emission.
      *
-     * @param JSONFlightEmission the json flight emission
+     * @param jsonFlightEmission the json flight emission
      * @return the flight emission
      */
     @SuppressWarnings("Duplicates")
-    public static FlightEmission JSONtoFlight(JSONObject JSONFlightEmission) {
+    public static FlightEmission jsonToFlight(JSONObject jsonFlightEmission) {
 
         FlightEmission newEmission = new FlightEmission();
 
-        LinkedHashMap mainBody = (LinkedHashMap) JSONFlightEmission.get("decisions");
+        LinkedHashMap mainBody = (LinkedHashMap) jsonFlightEmission.get("decisions");
 
         LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
         newEmission.setCarbon((String) carbon.get("description"));

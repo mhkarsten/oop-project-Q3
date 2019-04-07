@@ -65,12 +65,12 @@ public class Meal {
     /**
      * Json to meal meal [ ].
      *
-     * @param JSONMeal the json meal
+     * @param jsonMeal the json meal
      * @return the meal [ ]
      */
-    public static Meal[] JSONToMeal(JSONObject JSONMeal) {
+    public static Meal[] jsonToMeal(JSONObject jsonMeal) {
 
-        Object mealList = JSONMeal.get("meals");
+        Object mealList = jsonMeal.get("meals");
         ArrayList<LinkedHashMap> meal = (ArrayList<LinkedHashMap>) mealList;
         LinkedHashMap linkedMeal = meal.get(0);
 

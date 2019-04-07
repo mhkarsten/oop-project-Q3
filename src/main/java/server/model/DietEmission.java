@@ -32,14 +32,14 @@ public class DietEmission {
     /**
      * Jso nto diet diet emission.
      *
-     * @param JSONDietEmission the json diet emission
+     * @param jsonDietEmission the json diet emission
      * @return the diet emission
      */
-    public static DietEmission JSONtoDiet(JSONObject JSONDietEmission) {
+    public static DietEmission jsonToDiet(JSONObject jsonDietEmission) {
 
         DietEmission newEmission = new DietEmission();
 
-        LinkedHashMap mainBody = (LinkedHashMap) JSONDietEmission.get("decisions");
+        LinkedHashMap mainBody = (LinkedHashMap) jsonDietEmission.get("decisions");
 
         LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
         newEmission.setCarbon((String) carbon.get("description"));

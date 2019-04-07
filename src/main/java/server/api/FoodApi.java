@@ -1,13 +1,21 @@
 package server.api;
 
-import static server.model.Meal.JSONToMeal;
+import static server.model.Meal.jsonToMeal;
 
 import org.json.simple.JSONObject;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import server.model.Meal;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Optional;
+
 
 /**
  * This class is the integration of TheFoodDB api. This is an online database of various meals which
@@ -49,7 +57,7 @@ public class FoodApi {
         HttpStatus statusCode = response.getStatusCode();
         Meal[] meal = null;
         if (statusCode == HttpStatus.OK) {
-            meal = JSONToMeal(response.getBody());
+            meal = jsonToMeal(response.getBody());
         }
 
         return Optional.of(meal);
@@ -74,7 +82,7 @@ public class FoodApi {
         System.out.println("(Client Side) The http status code is: " + statusCode);
         Meal[] meal = null;
         if (statusCode == HttpStatus.OK) {
-            meal = JSONToMeal(response.getBody());
+            meal = jsonToMeal(response.getBody());
         }
 
         return Optional.of(meal);

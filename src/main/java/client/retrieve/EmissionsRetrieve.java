@@ -1,6 +1,9 @@
 package client.retrieve;
 
-import client.model.*;
+import client.model.EnergyEmission;
+import client.model.FlightEmission;
+import client.model.TrainEmission;
+import client.model.VehicleEmission;
 import client.service.MyRestTemplate;
 import client.service.UrlEndPoints;
 import org.springframework.http.HttpEntity;

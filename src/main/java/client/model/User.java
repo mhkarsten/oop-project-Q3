@@ -5,7 +5,10 @@ import server.model.Feat;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.PostLoad;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 @Entity

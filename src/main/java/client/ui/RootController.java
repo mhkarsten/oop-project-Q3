@@ -13,13 +13,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -228,12 +233,12 @@ public class RootController implements Initializable {
      */
     public void btn(ActionEvent event) {
 
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        barChart = new BarChart<>(xAxis, yAxis);
+        CategoryAxis xaxis = new CategoryAxis();
+        NumberAxis yaxis = new NumberAxis();
+        barChart = new BarChart<>(xaxis, yaxis);
 
-        xAxis.setLabel("Username");
-        yAxis.setLabel("Points");
+        xaxis.setLabel("Username");
+        yaxis.setLabel("Points");
 
         Set<User> following = this.userRetrieve.getUserFollow(true, currentUser.getID());
 

@@ -15,11 +15,17 @@ import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * The type Food controller.

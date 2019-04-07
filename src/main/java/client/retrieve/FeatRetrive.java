@@ -3,7 +3,12 @@ package client.retrieve;
 import client.model.Feat;
 import client.service.MyRestTemplate;
 import client.service.UrlEndPoints;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

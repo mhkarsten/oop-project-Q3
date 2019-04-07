@@ -6,7 +6,12 @@ import static client.ui.RootController.addPointsUser;
 import static client.ui.RootController.stringToPoints;
 import static java.lang.Integer.parseInt;
 
-import client.model.*;
+import client.model.Achievement;
+import client.model.Emission;
+import client.model.FlightEmission;
+import client.model.TrainEmission;
+import client.model.User;
+import client.model.VehicleEmission;
 import client.retrieve.EmissionsRetrieve;
 import client.service.MyStage;
 import client.service.UserSession;
@@ -14,7 +19,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -37,9 +46,9 @@ public class TransportController implements Initializable {
     public Label transport4;
     public Label actionDone;
     public Label pointMessage;
-    public Label Labelfield1;
-    public Label Labelfield2;
-    public Label Labelfield3;
+    public Label labelfield1;
+    public Label labelfield2;
+    public Label labelfield3;
 
     public TextField field1;
     public TextField field2;
@@ -177,15 +186,15 @@ public class TransportController implements Initializable {
         transportChoice = RootController.selectOption(event, transportChoice);
         clearFields();
 
-        Labelfield1.setVisible(true);
+        labelfield1.setVisible(true);
         field1.setVisible(true);
-        Labelfield2.setVisible(true);
+        labelfield2.setVisible(true);
         field2.setVisible(true);
 
-        Labelfield3.setVisible(false);
+        labelfield3.setVisible(false);
         field3.setVisible(false);
-        Labelfield1.setText("Enter your departure airport");
-        Labelfield2.setText("Enter your arrival airport");
+        labelfield1.setText("Enter your departure airport");
+        labelfield2.setText("Enter your arrival airport");
     }
 
     /**
@@ -198,16 +207,16 @@ public class TransportController implements Initializable {
         transportChoice = RootController.selectOption(event, transportChoice);
         clearFields();
 
-        Labelfield1.setVisible(true);
+        labelfield1.setVisible(true);
         field1.setVisible(true);
-        Labelfield2.setVisible(true);
+        labelfield2.setVisible(true);
         field2.setVisible(true);
-        Labelfield3.setVisible(true);
+        labelfield3.setVisible(true);
         field3.setVisible(true);
 
-        Labelfield1.setText("Enter the distance in km");
-        Labelfield2.setText("Enter the duration in minutes");
-        Labelfield3.setText("Enter the size of your car");
+        labelfield1.setText("Enter the distance in km");
+        labelfield2.setText("Enter the duration in minutes");
+        labelfield3.setText("Enter the size of your car");
     }
 
     /**
@@ -217,7 +226,7 @@ public class TransportController implements Initializable {
      */
     public void selectTrainCarEmission(MouseEvent event) {
         selectVehicleEmission(event);
-        Labelfield3.setVisible(false);
+        labelfield3.setVisible(false);
         field3.setVisible(false);
     }
 

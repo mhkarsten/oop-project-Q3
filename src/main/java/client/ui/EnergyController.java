@@ -17,7 +17,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -35,10 +39,10 @@ public class EnergyController implements Initializable {
     public Label energy3;
     public Label energy4;
 
-    public Label Labelfield1;
-    public Label Labelfield2;
-    public Label Labelfield3;
-    public Label Labelfield4;
+    public Label labelfield1;
+    public Label labelfield2;
+    public Label labelfield3;
+    public Label labelfield4;
 
     public Label actionDone;
     public Label pointMessage;
@@ -159,19 +163,19 @@ public class EnergyController implements Initializable {
         energyChoice = RootController.selectOption(event, energyChoice);
         clearFields();
 
-        Labelfield1.setVisible(true);
+        labelfield1.setVisible(true);
         field1.setVisible(true);
-        Labelfield2.setVisible(true);
+        labelfield2.setVisible(true);
         field2.setVisible(true);
-        Labelfield3.setVisible(true);
+        labelfield3.setVisible(true);
         field3.setVisible(true);
-        Labelfield4.setVisible(true);
+        labelfield4.setVisible(true);
         field4.setVisible(true);
 
-        Labelfield1.setText("Enter the amount of green energy you use");
-        Labelfield2.setText("Enter your dishwasher use in KW/H");
-        Labelfield3.setText("Enter your air conditioner use");
-        Labelfield4.setText("Enter your monthly gas costs in USD");
+        labelfield1.setText("Enter the amount of green energy you use");
+        labelfield2.setText("Enter your dishwasher use in KW/H");
+        labelfield3.setText("Enter your air conditioner use");
+        labelfield4.setText("Enter your monthly gas costs in USD");
     }
 
     /**
@@ -183,16 +187,16 @@ public class EnergyController implements Initializable {
         energyChoice = RootController.selectOption(event, energyChoice);
         clearFields();
 
-        Labelfield1.setVisible(true);
+        labelfield1.setVisible(true);
         field1.setVisible(true);
-        Labelfield2.setVisible(false);
+        labelfield2.setVisible(false);
         field2.setVisible(false);
-        Labelfield3.setVisible(false);
+        labelfield3.setVisible(false);
         field3.setVisible(false);
-        Labelfield4.setVisible(false);
+        labelfield4.setVisible(false);
         field4.setVisible(false);
 
-        Labelfield1.setText("Enter the amount of solar panels you installed");
+        labelfield1.setText("Enter the amount of solar panels you installed");
     }
 
     /**

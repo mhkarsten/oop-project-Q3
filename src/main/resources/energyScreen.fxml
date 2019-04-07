@@ -32,13 +32,13 @@
       </ScrollPane>
       <VBox layoutX="500.0" layoutY="55.0" prefHeight="290.0" prefWidth="205.0" styleClass="VBox">
          <children>
-            <Label fx:id="Labelfield1" prefWidth="180.0" text="Enter stuff" visible="false" />
+            <Label fx:id="labelfield1" prefWidth="180.0" text="Enter stuff" visible="false" />
             <TextField fx:id="field1" visible="false" />
-            <Label fx:id="Labelfield2" text="Enter stuff" visible="false" />
+            <Label fx:id="labelfield2" text="Enter stuff" visible="false" />
             <TextField fx:id="field2" visible="false" />
-            <Label fx:id="Labelfield3" text="Enter stuff" visible="false" />
+            <Label fx:id="labelfield3" text="Enter stuff" visible="false" />
             <TextField fx:id="field3" visible="false" />
-            <Label fx:id="Labelfield4" text="Enter stuff" visible="false" />
+            <Label fx:id="labelfield4" text="Enter stuff" visible="false" />
             <TextField fx:id="field4" visible="false" />
          </children>
       </VBox>

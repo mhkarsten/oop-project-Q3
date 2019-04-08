@@ -1,65 +1,77 @@
 package server.security;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AuthenticationEntryPoint authEntryPoint;
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-        http.csrf().disable();
-
-        http.authorizeRequests().anyRequest().authenticated();
-
-        http.httpBasic().authenticationEntryPoint(authEntryPoint);
-    }
+    private MyUserDetailsService userDetailsService;
 
     /**
-     * Bean for creating an password encoder.
-     *
-     * @return Returns an encrypted password encoder
+     * Configures the authentication routes
+     * All routes Besides the routes listed require full basic authentication.
+     * @param http the https header
+     * @throws Exception throws exception
      */
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Override
+    protected void configure(HttpSecurity http)
+        throws Exception {
+        http.headers().frameOptions().disable();
+
+        http.authorizeRequests()
+            //Example whitelist route
+            .antMatchers(GET, "/").permitAll()
+            .antMatchers(POST, "/").permitAll()
+            .antMatchers(POST, "/auth/register").permitAll()
+            .anyRequest().fullyAuthenticated()
+            .and().httpBasic()
+            .and().csrf().disable();
+
     }
 
+
     /**
-     * Configures a few (temporary) user accounts for authorization.
-     *
-     * @param auth Parameter for an authenticator
-     * @throws Exception Throws exception  if the authenticator is invalid
+     * Specifies to use a custom authentication provider in order to authenticate for users in the database.
+     * @param auth the authenticationbuilder to use
+     * @throws Exception throws exception
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
-        String pass = "123";
+    /**
+     * Specifies the authentication provider and the userDetailsService to handle the authentication.
+     * @return
+     */
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(encoder());
+        return authenticationProvider;
+    }
 
-        String encPass = this.passwordEncoder().encode(pass);
-
-        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> memoryConfig;
-        memoryConfig = auth.inMemoryAuthentication();
-
-        UserDetails u1 = User.withUsername("tom").password(encPass).roles("USER").build();
-        UserDetails u2 = User.withUsername("jerry").password(encPass).roles("USER").build();
-
-        memoryConfig.withUser(u1);
-        memoryConfig.withUser(u2);
+    /**
+     * Specifies the encryption to be used in the authentication provider.
+     * @return
+     */
+    @Bean
+    PasswordEncoder encoder() {
+        return  new BCryptPasswordEncoder(11);
     }
 }

@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @Component
 public class AuthenticationPoint extends BasicAuthenticationEntryPoint {
 

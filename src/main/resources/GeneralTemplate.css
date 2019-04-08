@@ -1,10 +1,13 @@
 /*Self made styleClass*/
 .AnchorPane {
-    -fx-background-color: linear-gradient(#80B152, #9ace6b, #80B152);
+    -fx-background-color: #ffffff;
+    -fx-border-color: #FF0000;
+    -fx-border-width: 2px;
+
 }
 
 .button {
-    -fx-background-color: linear-gradient(#bdf7b9, white);
+    -fx-background-color: #E57373;
 }
 
 .button:pressed {
@@ -13,37 +16,39 @@
 
 /*Self made styleClass*/
 .Pane {
-    -fx-background-color: linear-gradient(#9ace6b, #cef8d0);
-    -fx-border-color: black;
+    -fx-background-color: #EF9A9A;
+    -fx-border-color: #0000;
     -fx-smooth: clear;
 }
 
 .titled-pane > * {
-    -fx-border-color: black;
 }
 
 .titled-pane > .title {
-    -fx-background-color: linear-gradient(#9ace6b, #cef8d0);
+    -fx-background-color: #EF9A9A;
 }
 
 .titled-pane > .content {
-    -fx-background-color: #cef8d0;
+    -fx-background-color: #ffffff;
 }
 
 .label {
+    -fx-pref-height: 40px;
     -fx-text-fill: black;
 }
 
 /*Self made styleClass*/
 .VBox {
-    -fx-border-color: black;
+    -fx-pref-width: 175px;
 }
 
 /*Self made styleClass*/
-.EVBOX {
-
+.EVBox {
+    -fx-background-color: #EF9A9A;
+    -fx-pref-width: 200;
 }
 
 .scroll-pane {
-    -fx-border-color: black;
+    -fx-background: none;
+    -fx-pref-width: 205;
 }

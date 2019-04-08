@@ -1,10 +1,6 @@
 package client.model;
 
-import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 
 public class Meal {
 
@@ -25,10 +21,23 @@ public class Meal {
     public Meal() {
     }
 
+    /**
+     * Constructor for a meal with parameters.
+     * @param strMeal name of the meal
+     * @param idMeal id of the meal
+     * @param strCategory the category name
+     * @param strArea the area name
+     * @param strTags the tags associated with the meal
+     * @param strIngredients the ingredients of the meal
+     * @param strMeasures the measurements of the ingredients
+     * @param strSource the name of the source
+     * @param strMealThumb the meal thumb information
+     * @param strYoutube a youtube tutorial link to make the meal
+     * @param strInstructions instructions to make the meal
+     */
     public Meal(String strMeal, String idMeal, String strCategory, String strArea, ArrayList<String>
                 strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
-                String strMealThumb, String strYoutube, String strInstructions)
-    {
+                String strMealThumb, String strYoutube, String strInstructions) {
         this.strMeal = strMeal;
         this.idMeal = idMeal;
         this.strCategory = strCategory;
@@ -40,60 +49,6 @@ public class Meal {
         this.strMealThumb = strMealThumb;
         this.strYoutube = strYoutube;
         this.strInstructions = strInstructions;
-    }
-
-    public static Meal[] JSONToMeal(JSONObject JSONMeal) {
-
-        Object mealList = JSONMeal.get("meals");
-        ArrayList<LinkedHashMap> meal = (ArrayList<LinkedHashMap>) mealList;
-        LinkedHashMap LinkedMeal = meal.get(0);
-
-        Meal newMeal = new Meal();
-
-        newMeal.setStrMeal((String) LinkedMeal.get("strMeal"));
-        newMeal.setIdMeal((String) LinkedMeal.get("idMeal"));
-        newMeal.setStrArea((String) LinkedMeal.get("strArea"));
-        newMeal.setStrCategory((String) LinkedMeal.get("strCategory"));
-        newMeal.setStrMealThumb ((String) LinkedMeal.get("strMealThumb"));
-        newMeal.setStrSource((String) LinkedMeal.get("strSource"));
-        newMeal.setStrYoutube((String) LinkedMeal.get("strYoutube"));
-        newMeal.setStrInstructions((String) LinkedMeal.get("strInstructions"));
-
-        String tempTags = (String) LinkedMeal.get("strTags");
-
-        if (tempTags != null) {
-
-            String[] tempArray = tempTags.split(",");
-
-            ArrayList<String> tempList = new ArrayList<>();
-            tempList.addAll(Arrays.asList(tempArray));
-
-            newMeal.setStrTags(tempList);
-        }
-
-
-        for (int i = 1; i < 15; i++) {
-
-            ArrayList<String> tempIngredients = new ArrayList<>();
-
-            tempIngredients.add((String) LinkedMeal.get("strIngredient" + i));
-
-            newMeal.setStrIngredients(tempIngredients);
-        }
-
-        for (int i = 1; i < 15; i++) {
-
-            ArrayList<String> tempMeasure = new ArrayList<>();
-
-            tempMeasure.add((String) LinkedMeal.get("strMeasure" + i));
-
-            newMeal.setStrMeasures(tempMeasure);
-        }
-
-        Meal[] encasedMeal = new Meal[1];
-        encasedMeal[0] = newMeal;
-
-        return encasedMeal;
     }
 
     public String getStrMeal() {

@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.FXMLControllers.CompareController">
-   <children>
-      <VBox layoutX="100.0" layoutY="146.0" prefHeight="200.0" prefWidth="144.0" styleClass="VBox" />
-      <VBox layoutX="350.0" layoutY="146.0" prefHeight="200.0" prefWidth="144.0" styleClass="VBox" />
-      <TitledPane layoutX="100.0" layoutY="31.0" prefHeight="84.0" prefWidth="173.0" />
-      <TitledPane layoutX="350.0" layoutY="31.0" prefHeight="84.0" prefWidth="173.0" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="886.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ui.CompareController">
    <stylesheets>
       <URL value="@GeneralTemplate.css" />
    </stylesheets>
+   <children>
+      <Label layoutX="127.0" layoutY="51.0" text="Find a User" />
+      <Label layoutX="418.0" layoutY="51.0" text="Following" />
+      <TextField fx:id="userInput" layoutX="83.0" layoutY="91.0" />
+      <Button fx:id="followBtn" layoutX="83.0" layoutY="123.0" mnemonicParsing="false" onAction="#findUserFollow" text="Follow" />
+      <ListView fx:id="userFollowing" layoutX="344.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label fx:id="findStatus" layoutX="152.0" layoutY="116.0" prefHeight="25.0" prefWidth="180.0" text="Label" />
+      <Label fx:id="userName" layoutX="55.0" layoutY="200.0" text="Label" />
+      <Label fx:id="compareName" layoutX="218.0" layoutY="200.0" text="Label" />
+      <Label fx:id="userPoints" layoutX="55.0" layoutY="240.0" text="Label" />
+      <Label fx:id="comparePoints" layoutX="218.0" layoutY="240.0" text="Label" />
+      <Button fx:id="compareBtn" layoutX="411.0" layoutY="291.0" mnemonicParsing="false" onAction="#setCompare" text="Compare" />
+      <ListView fx:id="followeeListView" layoutX="622.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="685.0" layoutY="51.0" text="Following you" />
+      <Button fx:id="followeeCompare" layoutX="697.0" layoutY="291.0" mnemonicParsing="false" onAction="#setCompareFollowee" text="Compare" />
+   </children>
 </AnchorPane>

@@ -3,7 +3,6 @@ package client.model;
 import java.util.Objects;
 import java.util.Set;
 
-
 public class Achievement {
 
     private long id;
@@ -16,15 +15,29 @@ public class Achievement {
 
     }
 
-    /** Constructor for the Achievement class.
+    /**
+     * Constructor for the Achievement class.
      *
-     * @param achID Achievement ID
-     * @param title Title of the model
+     * @param achID       Achievement ID
+     * @param title       Title of the model
      * @param description description of the model
-     * @param path path to the badge image for this model
+     * @param path        path to the badge image for this model
      */
     public Achievement(long achID, String title, String description, String path) {
         this.id = achID;
+        this.title = title;
+        this.description = description;
+        this.path = path;
+    }
+
+    /**
+     * Constructor with parameters for achievement.
+     * @param title Title of the achievement
+     * @param description Description of the achievement
+     * @param path path to the badge image of the achievement
+     */
+    public Achievement(String title, String description, String path) {
+
         this.title = title;
         this.description = description;
         this.path = path;

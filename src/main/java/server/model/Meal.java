@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
+/**
+ * The type Meal.
+ */
 public class Meal {
 
     private String strMeal;
@@ -22,13 +25,30 @@ public class Meal {
     private String strMealThumb;
     private String strYoutube;
 
+    /**
+     * Instantiates a new Meal.
+     */
     public Meal() {
     }
 
+    /**
+     * Instantiates a new Meal.
+     *
+     * @param strMeal         the str meal
+     * @param idMeal          the id meal
+     * @param strCategory     the str category
+     * @param strArea         the str area
+     * @param strTags         the str tags
+     * @param strIngredients  the str ingredients
+     * @param strMeasures     the str measures
+     * @param strSource       the str source
+     * @param strMealThumb    the str meal thumb
+     * @param strYoutube      the str youtube
+     * @param strInstructions the str instructions
+     */
     public Meal(String strMeal, String idMeal, String strCategory, String strArea, ArrayList<String>
-                strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
-                String strMealThumb, String strYoutube, String strInstructions)
-    {
+        strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
+                String strMealThumb, String strYoutube, String strInstructions) {
         this.strMeal = strMeal;
         this.idMeal = idMeal;
         this.strCategory = strCategory;
@@ -42,24 +62,30 @@ public class Meal {
         this.strInstructions = strInstructions;
     }
 
-    public static Meal[] JSONToMeal(JSONObject JSONMeal) {
+    /**
+     * Json to meal meal [ ].
+     *
+     * @param jsonMeal the json meal
+     * @return the meal [ ]
+     */
+    public static Meal[] jsonToMeal(JSONObject jsonMeal) {
 
-        Object mealList = JSONMeal.get("meals");
+        Object mealList = jsonMeal.get("meals");
         ArrayList<LinkedHashMap> meal = (ArrayList<LinkedHashMap>) mealList;
-        LinkedHashMap LinkedMeal = meal.get(0);
+        LinkedHashMap linkedMeal = meal.get(0);
 
         Meal newMeal = new Meal();
 
-        newMeal.setStrMeal((String) LinkedMeal.get("strMeal"));
-        newMeal.setIdMeal((String) LinkedMeal.get("idMeal"));
-        newMeal.setStrArea((String) LinkedMeal.get("strArea"));
-        newMeal.setStrCategory((String) LinkedMeal.get("strCategory"));
-        newMeal.setStrMealThumb ((String) LinkedMeal.get("strMealThumb"));
-        newMeal.setStrSource((String) LinkedMeal.get("strSource"));
-        newMeal.setStrYoutube((String) LinkedMeal.get("strYoutube"));
-        newMeal.setStrInstructions((String) LinkedMeal.get("strInstructions"));
+        newMeal.setStrMeal((String) linkedMeal.get("strMeal"));
+        newMeal.setIdMeal((String) linkedMeal.get("idMeal"));
+        newMeal.setStrArea((String) linkedMeal.get("strArea"));
+        newMeal.setStrCategory((String) linkedMeal.get("strCategory"));
+        newMeal.setStrMealThumb((String) linkedMeal.get("strMealThumb"));
+        newMeal.setStrSource((String) linkedMeal.get("strSource"));
+        newMeal.setStrYoutube((String) linkedMeal.get("strYoutube"));
+        newMeal.setStrInstructions((String) linkedMeal.get("strInstructions"));
 
-        String tempTags = (String) LinkedMeal.get("strTags");
+        String tempTags = (String) linkedMeal.get("strTags");
 
         if (tempTags != null) {
 
@@ -75,7 +101,7 @@ public class Meal {
 
             ArrayList<String> tempIngredients = new ArrayList<>();
 
-            tempIngredients.add((String) LinkedMeal.get("strIngredient" + i));
+            tempIngredients.add((String) linkedMeal.get("strIngredient" + i));
 
             newMeal.setStrIngredients(tempIngredients);
         }
@@ -84,7 +110,7 @@ public class Meal {
 
             ArrayList<String> tempMeasure = new ArrayList<>();
 
-            tempMeasure.add((String) LinkedMeal.get("strMeasure" + i));
+            tempMeasure.add((String) linkedMeal.get("strMeasure" + i));
 
             newMeal.setStrMeasures(tempMeasure);
         }

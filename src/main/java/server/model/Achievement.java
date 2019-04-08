@@ -1,22 +1,31 @@
 package server.model;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "achievements")
+@SequenceGenerator(name = "achievement_seq", allocationSize = 1)
 public class Achievement {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "achievement_seq")
     private long id;
     private String title;
     private String description;
     private String path;
-    @ManyToMany(mappedBy = "achievement")
-    private List<User> user;
+    @ManyToMany(mappedBy = "unlockedAchievements", cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    private Set<User> unlocker;
 
     public Achievement() {
 
@@ -47,9 +56,13 @@ public class Achievement {
         }
         Achievement that = (Achievement) obj;
         return Objects.equals(id, that.id)
-                && Objects.equals(title, that.title)
-                && Objects.equals(description, that.description)
-                && Objects.equals(path, that.path);
+            && Objects.equals(title, that.title)
+            && Objects.equals(description, that.description)
+            && Objects.equals(path, that.path);
+    }
+
+    public void addUser(User user) {
+        unlocker.add(user);
     }
 
     public long getID() {

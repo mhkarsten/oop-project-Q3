@@ -1,4 +1,4 @@
-package server.API;
+package server.api;
 
 import static server.model.Meal.jsonToMeal;
 

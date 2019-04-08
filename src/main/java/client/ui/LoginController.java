@@ -34,15 +34,16 @@ public class LoginController {
     private TextField usernameField;
 
     @FXML
-    public void onEnter(ActionEvent ae) {
+    public void onEnter(ActionEvent ae) throws IOException {
         login(ae);
     }
 
     /**
      * Login method.
      * @param event The event to process.
+     * @throws IOException if the screen that the stage switches to doesn't exist this throws an IOException
      */
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(usernameField.getText(), passwordField.getText()));
         DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory(UrlEndPoints.BASE_URL);

@@ -1,36 +1,18 @@
 package client.model;
 
-import org.json.simple.JSONObject;
-
-import java.util.LinkedHashMap;
-
 /**
  * The type Flight emission.
  */
 public class FlightEmission extends Emission {
-//    INPUT VALUES
-//    String startPort;
-//    String endPort;
+    //    INPUT VALUES
+    //    String startPort;
+    //    String endPort;
 
     //RETURN VALUES
     private String carbon;
     private String energy;
     private String distance;
     private String fuelUse;
-
-    @Override
-    public String toString() {
-
-        return "Fuel Use: " + this.getFuelUse()
-            + "\nEnergy Used: " + this.getEnergy()
-            + "\nDistance Traveled: " + this.getDistance()
-            + "\nCarbon Emitted: " + this.getCarbon();
-    }
-
-    public String getStringName() {
-
-        return "Flight Emission";
-    }
 
     /**
      * Instantiates a new Flight emission.
@@ -52,6 +34,20 @@ public class FlightEmission extends Emission {
         this.energy = energy;
         this.distance = distance;
         this.fuelUse = fuelUse;
+    }
+
+    @Override
+    public String toString() {
+
+        return "Fuel Use: " + this.getFuelUse()
+            + "\nEnergy Used: " + this.getEnergy()
+            + "\nDistance Traveled: " + this.getDistance()
+            + "\nCarbon Emitted: " + this.getCarbon();
+    }
+
+    public String getStringName() {
+
+        return "Flight Emission";
     }
 
     public String getCarbon() {

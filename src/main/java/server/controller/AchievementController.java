@@ -3,7 +3,13 @@ package server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.Achievement;
 import server.model.User;
@@ -21,6 +27,11 @@ public class AchievementController {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Method to add an Achievement to the DB.
+     * @param ach the achievement to add
+     * @return response message
+     */
     @PostMapping(value = "/achievements/new",
         produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
@@ -80,7 +91,7 @@ public class AchievementController {
     }
 
     /**
-     * A mapping for unlocking an achievement
+     * A mapping for unlocking an achievement.
      *
      * @param userID the user id of the user
      */
@@ -89,10 +100,10 @@ public class AchievementController {
         produces = {MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
     public void unlockAchievement(@PathVariable("userId") long userID, @PathVariable("achId") long achId) {
-        User user= userRepository.findById(userID).get();
+        User user =  userRepository.findById(userID).get();
         Achievement achievement = achievementRepository.findById(achId).get();
         achievement.addUser(user);
-        achievement=achievementRepository.save(achievement);
+        achievement = achievementRepository.save(achievement);
         user.addAchievement(achievement);
         userRepository.save(user);
     }

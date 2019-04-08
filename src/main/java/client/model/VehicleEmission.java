@@ -4,10 +4,10 @@ package client.model;
  * The type Vehicle emission.
  */
 public class VehicleEmission extends Emission {
-//    INPUT VALUES
-//    int distance; in kilometers
-//    int duration; in seconds
-//    String sizeClass; a description (i.e. midsized)
+    //    INPUT VALUES
+    //    int distance; in kilometers
+    //    int duration; in seconds
+    //    String sizeClass; a description (i.e. midsized)
 
     //RETURN VALUES
     private String carbon;
@@ -15,24 +15,9 @@ public class VehicleEmission extends Emission {
     private String fuelUse;
     private String distance;
 
-    @Override
-    public String toString() {
-
-        return "Fuel Use: " + this.getFuelUse()
-                + "\nEnergy Used: " + this.getEnergy()
-                + "\nDistance Traveled: " + this.getDistance()
-                + "\nCarbon Emitted: " + this.getCarbon();
-    }
-
-    public String getStringName() {
-
-        return "Vehicle Emission";
-    }
-
     /**
      * Instantiates a new Vehicle emission.
      */
-    //Basic Constructor
     public VehicleEmission() {
 
     }
@@ -50,6 +35,20 @@ public class VehicleEmission extends Emission {
         this.energy = energy;
         this.fuelUse = fuelUse;
         this.distance = distance;
+    }
+
+    @Override
+    public String toString() {
+
+        return "Fuel Use: " + this.getFuelUse()
+                + "\nEnergy Used: " + this.getEnergy()
+                + "\nDistance Traveled: " + this.getDistance()
+                + "\nCarbon Emitted: " + this.getCarbon();
+    }
+
+    public String getStringName() {
+
+        return "Vehicle Emission";
     }
 
     public String getCarbon() {

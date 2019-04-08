@@ -1,5 +1,4 @@
-package client.Service;
-
+package client.service;
 
 import org.apache.http.HttpHost;
 import org.apache.http.client.AuthCache;
@@ -14,7 +13,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import java.net.URI;
 
 /**
- * Provides the configuration for the basic authentication inception
+ * Provides the configuration for the basic authentication inception.
  */
 public class HttpComponentsClientHttpRequestFactoryBasicAuth
     extends HttpComponentsClientHttpRequestFactory {

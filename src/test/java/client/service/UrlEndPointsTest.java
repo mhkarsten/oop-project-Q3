@@ -1,4 +1,4 @@
-package client.Service;
+package client.service;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

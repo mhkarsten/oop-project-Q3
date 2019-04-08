@@ -7,7 +7,7 @@ import server.model.User;
 import java.util.Collection;
 
 /**
- * Exposes the user details after authentication
+ * Exposes the user details after authentication.
  */
 public class MyUserPrincipal implements UserDetails {
     private  User user;

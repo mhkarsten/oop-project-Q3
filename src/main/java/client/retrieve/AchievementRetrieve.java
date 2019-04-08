@@ -1,9 +1,15 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UrlEndPoints;
 import client.model.Achievement;
-import org.springframework.http.*;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -137,7 +143,7 @@ public class AchievementRetrieve extends BaseRetrieve {
             HttpEntity<Achievement> entity = new HttpEntity<>(headers);
             response = restTemplate.exchange(UrlEndPoints.Achievements.URL_UNLOCKACHFORUSER,
                 HttpMethod.POST, entity, Achievement.class, uriValues);
-        } catch (Exception e) {
+        } catch (RestClientException e) {
 
             System.out.println("(Client Side) Either the achievement doesnt exist, or the user.");
             System.out.println(e.toString());
@@ -163,7 +169,7 @@ public class AchievementRetrieve extends BaseRetrieve {
 
                 System.out.println("(Client Side) The achievement " + ach.getTitle() + " has been created.");
             }
-        } catch (Exception e) {
+        } catch (RestClientException e) {
 
             System.out.println("(Client Side) Creating the achievement " + ach.getTitle() + " failed.");
             System.out.println(e.toString());

@@ -1,16 +1,22 @@
-package client.UI;
+package client.ui;
 
-import client.Service.UserSession;
 import client.model.User;
 import client.retrieve.UserRetrieve;
+import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 
 /**
@@ -133,7 +139,7 @@ public class CompareController implements Initializable {
      * Sets compare followee.
      */
     @SuppressWarnings("Duplicates")
-    public void setCompareFollowee () {
+    public void setCompareFollowee() {
 
         ObservableList<String> userFollowee;
         userFollowee = followeeListView.getSelectionModel().getSelectedItems();

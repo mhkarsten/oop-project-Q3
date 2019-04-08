@@ -1,5 +1,12 @@
 package server.controller;
 
+import static java.lang.Integer.parseInt;
+import static server.api.EmissionApi.getDietEmission;
+import static server.api.EmissionApi.getEnergyEmission;
+import static server.api.EmissionApi.getFlightEmission;
+import static server.api.EmissionApi.getTrainEmission;
+import static server.api.EmissionApi.getVehicleEmission;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.bind.annotation.RestController;
-import server.model.*;
+import server.model.DietEmission;
+import server.model.EnergyEmission;
+import server.model.FlightEmission;
+import server.model.TrainEmission;
+import server.model.VehicleEmission;
 
 import java.util.HashMap;
-
-import static java.lang.Integer.parseInt;
-import static server.API.EmissionAPI.*;
 
 /**
  * The type Emission controller.

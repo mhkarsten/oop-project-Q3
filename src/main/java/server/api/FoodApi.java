@@ -1,13 +1,21 @@
 package server.API;
 
-import server.model.Meal;
-import org.json.simple.JSONObject;
-import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
+import static server.model.Meal.jsonToMeal;
 
-import java.util.*;
-;
-import static server.model.Meal.JSONToMeal;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import server.model.Meal;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Optional;
+
 
 /**
  * This class is the integration of TheFoodDB api. This is an online database of various meals which
@@ -15,13 +23,15 @@ import static server.model.Meal.JSONToMeal;
  * to make them. These are given as JSON objects, and are then converted to a meal object which
  * can be displayed in various ways.
  */
-public class FoodAPI {
+public class FoodApi {
 
     static final String URL_RANDOMEAL = "https://www.themealdb.com/api/json/v1/1/random.php";
     static final String URL_SPESIFICMEAL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
     static final String URL_CATEGORYMEAL = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
 
-    //Creates JSON header for a GET request
+    /**
+     * Creates JSON header for a GET request.
+     */
     public static HttpHeaders acceptHeaders() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -31,7 +41,7 @@ public class FoodAPI {
         return headers;
     }
 
-    /**
+    /** Method to get a random meal from the DB.
      * @return This method returns a random meal from TheMealDB
      */
     public static Optional<Meal[]> getRandomMeal() {
@@ -47,16 +57,15 @@ public class FoodAPI {
         HttpStatus statusCode = response.getStatusCode();
         Meal[] meal = null;
         if (statusCode == HttpStatus.OK) {
-            meal = JSONToMeal(response.getBody());
+            meal = jsonToMeal(response.getBody());
         }
 
         return Optional.of(meal);
     }
 
-    /**
+    /** Method to return one specific meal from the DB.
+     * @param mealName this parameter is the name of the meal that you would like to get from the database
      * @return This method will return one specific meal from the database.
-     * @param mealName
-     * This parameter is the name of the meal that you would like to get from the database
      */
     @SuppressWarnings("Duplicates")
     public static Optional<Meal[]> getMeal(String mealName) {
@@ -73,13 +82,13 @@ public class FoodAPI {
         System.out.println("(Client Side) The http status code is: " + statusCode);
         Meal[] meal = null;
         if (statusCode == HttpStatus.OK) {
-            meal = JSONToMeal(response.getBody());
+            meal = jsonToMeal(response.getBody());
         }
 
         return Optional.of(meal);
     }
 
-    /**
+    /** Method to get meals from a certain category.
      * @param mealName This parameter is the name of the meal category that you would like returned.
      * @return This method returns an ArrayList of all meals in a specific category.
      */
@@ -106,16 +115,16 @@ public class FoodAPI {
 
             for (int i = 0; i < meal.size(); i++) {
 
-                LinkedHashMap LinkedMeal = meal.get(i);
+                LinkedHashMap linkedMeal = meal.get(i);
 
-                categoryMeals.add(getMeal((String) LinkedMeal.get("strMeal")).get());
+                categoryMeals.add(getMeal((String) linkedMeal.get("strMeal")).get());
             }
         }
 
         return Optional.of(categoryMeals);
     }
 
-    /**
+    /** Method to get all meals in the meat category.
      * @return This method returns a list of all of the meals that use meat.
      */
     public static ArrayList<Meal[]> getAllMeatMeals() {

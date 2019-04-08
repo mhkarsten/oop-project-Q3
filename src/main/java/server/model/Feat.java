@@ -1,7 +1,17 @@
 package server.model;
 
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "feats")
@@ -11,10 +21,6 @@ public class Feat {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feat_seq")
     private long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "time_completed")
-    Date timeCompleted;
-
     private int points;
     @Column(name = "action_id")
     private int actionId;
@@ -22,9 +28,21 @@ public class Feat {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "time_completed")
+    private Date timeCompleted;
+
     public Feat() {
     }
 
+    /**
+     * Constructor for a feat with parameters.
+     * @param id id of the feat
+     * @param points points for the feat
+     * @param actionId id of the associated action with this feat
+     * @param timeCompleted the time this feat was completed
+     * @param user the user that completed this feat
+     */
     public Feat(long id, int points, int actionId, Date timeCompleted, User user) {
         this.id = id;
         this.points = points;
@@ -33,6 +51,12 @@ public class Feat {
         this.user = user;
     }
 
+    /**
+     * Shorter constructor for a feat with parameters.
+     * @param points points for the feat
+     * @param actionId id of the associated action with this feat
+     * @param user the user that completed this feat
+     */
     public Feat(int points, int actionId, User user) {
         this.points = points;
         this.actionId = actionId;

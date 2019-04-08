@@ -4,21 +4,25 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EmissionAPITest {
+class FoodApiTest {
 
     @Test
-    void getVehicleEmission() {
+    void acceptHeaders() {
     }
 
     @Test
-    void getEnergyEmission() {
+    void getRandomMeal() {
     }
 
     @Test
-    void getDietEmission() {
+    void getMeal() {
     }
 
     @Test
-    void getFlightEmission() {
+    void getMealCategory() {
+    }
+
+    @Test
+    void getAllMeatMeals() {
     }
 }

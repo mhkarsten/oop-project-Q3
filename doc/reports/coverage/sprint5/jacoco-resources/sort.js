@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Marc R. Hoffmann - initial API and implementation
+ *    Marc R. Hoffmann - initial api and implementation
  *    
  *******************************************************************************/
 

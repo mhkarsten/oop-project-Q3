@@ -1,5 +1,8 @@
 package server.security;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -23,9 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Configures the authentication routes
-     * All routes Besides the routes listed require full basic authentication
-     * @param http
-     * @throws Exception
+     * All routes Besides the routes listed require full basic authentication.
+     * @param http the https header
+     * @throws Exception throws exception
      */
     @Override
     protected void configure(HttpSecurity http)
@@ -45,9 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * Specifies to use a custom authentication provider in order to authenticate for users in the database
-     * @param auth
-     * @throws Exception
+     * Specifies to use a custom authentication provider in order to authenticate for users in the database.
+     * @param auth the authenticationbuilder to use
+     * @throws Exception throws exception
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Specifies the authentication provider and the userDetailsService to handle the authentication
+     * Specifies the authentication provider and the userDetailsService to handle the authentication.
      * @return
      */
     @Bean

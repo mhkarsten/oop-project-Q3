@@ -8,10 +8,10 @@ import java.util.LinkedHashMap;
  * The type Vehicle emission.
  */
 public class VehicleEmission {
-//    INPUT VALUES
-//    int distance; in kilometers
-//    int duration; in seconds
-//    String sizeClass; a description (i.e. midsized)
+    //    INPUT VALUES
+    //    int distance; in kilometers
+    //    int duration; in seconds
+    //    String sizeClass; a description (i.e. midsized)
 
     //RETURN VALUES
     private String carbon;
@@ -20,37 +20,8 @@ public class VehicleEmission {
     private String distance;
 
     /**
-     * Json to vehicle vehicle emission.
-     *
-     * @param JSONVehicleEmission the json vehicle emission
-     * @return the vehicle emission
-     */
-    @SuppressWarnings("Duplicates")
-    public static VehicleEmission JSONtoVehicle(JSONObject JSONVehicleEmission) {
-
-        VehicleEmission newEmission = new VehicleEmission();
-
-        LinkedHashMap mainBody = (LinkedHashMap) JSONVehicleEmission.get("decisions");
-
-        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
-        newEmission.setCarbon((String) carbon.get("description"));
-
-        LinkedHashMap energy = (LinkedHashMap) mainBody.get("energy");
-        newEmission.setEnergy((String) energy.get("description"));
-
-        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get("fuel_use");
-        newEmission.setFuelUse((String) fuelUse.get("description"));
-
-        LinkedHashMap distance = (LinkedHashMap) mainBody.get("distance");
-        newEmission.setDistance((String) distance.get("description"));
-
-        return newEmission;
-    }
-
-    /**
      * Instantiates a new Vehicle emission.
      */
-    //Basic Constructor
     public VehicleEmission() {
 
     }
@@ -68,6 +39,34 @@ public class VehicleEmission {
         this.energy = energy;
         this.fuelUse = fuelUse;
         this.distance = distance;
+    }
+
+    /**
+     * Json to vehicle vehicle emission.
+     *
+     * @param jsonVehicleEmission the json vehicle emission
+     * @return the vehicle emission
+     */
+    @SuppressWarnings("Duplicates")
+    public static VehicleEmission jsonToVehicle(JSONObject jsonVehicleEmission) {
+
+        VehicleEmission newEmission = new VehicleEmission();
+
+        LinkedHashMap mainBody = (LinkedHashMap) jsonVehicleEmission.get("decisions");
+
+        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
+        newEmission.setCarbon((String) carbon.get("description"));
+
+        LinkedHashMap energy = (LinkedHashMap) mainBody.get("energy");
+        newEmission.setEnergy((String) energy.get("description"));
+
+        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get("fuel_use");
+        newEmission.setFuelUse((String) fuelUse.get("description"));
+
+        LinkedHashMap distance = (LinkedHashMap) mainBody.get("distance");
+        newEmission.setDistance((String) distance.get("description"));
+
+        return newEmission;
     }
 
     public String getCarbon() {

@@ -99,20 +99,20 @@
             <artifactId>checkstyle</artifactId>
             <version>8.17</version>
         </dependency>
-        <!--JUnit Jupiter Engine to depend on the JUnit5 engine and JUnit 5 API -->
+        <!--JUnit Jupiter Engine to depend on the JUnit5 engine and JUnit 5 api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--JUnit Jupiter Engine to depend on the JUnit4 engine and JUnit 4 API  -->
+        <!--JUnit Jupiter Engine to depend on the JUnit4 engine and JUnit 4 api  -->
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
             <version>${junit-jupiter.version}</version>
         </dependency>
-        <!-- Optional : override the JUnit 4 API version provided by junit-vintage-engine -->
+        <!-- Optional : override the JUnit 4 api version provided by junit-vintage-engine -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

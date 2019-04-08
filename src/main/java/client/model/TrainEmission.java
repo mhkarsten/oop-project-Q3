@@ -1,16 +1,12 @@
 package client.model;
 
-import org.json.simple.JSONObject;
-
-import java.util.LinkedHashMap;
-
-/**
+/**.
  * The type train emission
  */
 public class TrainEmission extends Emission {
-//  INPUT VALUES
-//  int distance; in kilometers
-//  int duration; in seconds
+    //  INPUT VALUES
+    //  int distance; in kilometers
+    //  int duration; in seconds
 
     //RETURN VALUES
     private String carbon;
@@ -18,24 +14,9 @@ public class TrainEmission extends Emission {
     private String fuelUse;
     private String distance;
 
-    @Override
-    public String toString() {
-
-        return "Fuel Use: " + this.getFuelUse()
-            + "\nEnergy Used: " + this.getEnergy()
-            + "\nDistance Traveled: " + this.getDistance()
-            + "\nCarbon Emitted: " + this.getCarbon();
-    }
-
-    public String getStringName() {
-
-        return "Train Emission";
-    }
-
     /**
      * Instantiates a new Train emission.
      */
-    //Basic Constructor
     public TrainEmission() {
 
     }
@@ -53,6 +34,20 @@ public class TrainEmission extends Emission {
         this.energy = energy;
         this.fuelUse = fuelUse;
         this.distance = distance;
+    }
+
+    @Override
+    public String toString() {
+
+        return "Fuel Use: " + this.getFuelUse()
+            + "\nEnergy Used: " + this.getEnergy()
+            + "\nDistance Traveled: " + this.getDistance()
+            + "\nCarbon Emitted: " + this.getCarbon();
+    }
+
+    public String getStringName() {
+
+        return "Train Emission";
     }
 
     public String getCarbon() {

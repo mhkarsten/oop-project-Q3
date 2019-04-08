@@ -8,40 +8,16 @@ import java.util.LinkedHashMap;
  * The type Energy emission.
  */
 public class EnergyEmission {
-//    INPUT VALUES
-//    int greenEnergy;
-//    String airConditionerUse;
-//    String dishwasheruse;
-//    int naturalGasCost;
+    //    INPUT VALUES
+    //    int greenEnergy;
+    //    String airConditionerUse;
+    //    String dishwasheruse;
+    //    int naturalGasCost;
 
     //RETURN VALUES
     private String carbon;
     private String dirtyEnergy;
     private String naturalGasConsumed;
-
-    /**
-     * Jso nto energy energy emission.
-     *
-     * @param JSONEnergyEmission the json energy emission
-     * @return the energy emission
-     */
-    public static EnergyEmission JSONtoEnergy(JSONObject JSONEnergyEmission) {
-
-        EnergyEmission newEmission = new EnergyEmission();
-
-        LinkedHashMap mainBody = (LinkedHashMap) JSONEnergyEmission.get("decisions");
-
-        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
-        newEmission.setCarbon((String) carbon.get("description"));
-
-        LinkedHashMap dirtyEnergy = (LinkedHashMap) mainBody.get("dirty_electricity_generated");
-        newEmission.setDirtyEnergy((String) dirtyEnergy.get("description"));
-
-        LinkedHashMap naturalGas = (LinkedHashMap) mainBody.get("natural_gas_consumed");
-        newEmission.setNaturalGasConsumed((String) naturalGas.get("description"));
-
-        return newEmission;
-    }
 
     /**
      * Instantiates a new Energy emission.
@@ -61,6 +37,30 @@ public class EnergyEmission {
         this.carbon = carbon;
         this.dirtyEnergy = dirtyEnergy;
         this.naturalGasConsumed = naturalGasConsumed;
+    }
+
+    /**
+     * Jsontoenergy energy emission.
+     *
+     * @param jsonEnergyEmission the json energy emission
+     * @return the energy emission
+     */
+    public static EnergyEmission jsonToEnergy(JSONObject jsonEnergyEmission) {
+
+        EnergyEmission newEmission = new EnergyEmission();
+
+        LinkedHashMap mainBody = (LinkedHashMap) jsonEnergyEmission.get("decisions");
+
+        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
+        newEmission.setCarbon((String) carbon.get("description"));
+
+        LinkedHashMap dirtyEnergy = (LinkedHashMap) mainBody.get("dirty_electricity_generated");
+        newEmission.setDirtyEnergy((String) dirtyEnergy.get("description"));
+
+        LinkedHashMap naturalGas = (LinkedHashMap) mainBody.get("natural_gas_consumed");
+        newEmission.setNaturalGasConsumed((String) naturalGas.get("description"));
+
+        return newEmission;
     }
 
     public String getCarbon() {

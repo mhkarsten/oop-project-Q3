@@ -1,17 +1,14 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UrlEndPoints;
 import client.model.User;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.DefaultUriBuilderFactory;
-import server.model.Feat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +18,6 @@ import java.util.Set;
  *Currently this client side code is build to work with XML code whereas the server
  *side code can use both XML and JSON. Later this might be changed so everything uses
  *JSON for the sake of simplicity;
- *
  */
 public class UserRetrieve extends BaseRetrieve {
 
@@ -98,6 +94,11 @@ public class UserRetrieve extends BaseRetrieve {
         return null;
     }
 
+    /**
+     * Method for getting a user by their name.
+     * @param userName name of the user to find
+     * @return
+     */
     public User getUserByName(String userName) {
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
@@ -120,10 +121,11 @@ public class UserRetrieve extends BaseRetrieve {
 
     }
 
-    /**
-     * Update user information (UPDATE).
-     * @param userId The id of the user for which a feat is to be created
-     * @param points The number of points that the feat is worth
+    /**Method to update a users information.
+     * Update user information (UPDATE)
+     * TODO: this method is not gonna work with the current security setup.
+     * There should be a method updateUserPoints that takes the ID/username and points to be added.
+     *
      */
     public void addGenericFeat(Long userId, int points) {
 
@@ -135,7 +137,7 @@ public class UserRetrieve extends BaseRetrieve {
     }
 
     /**
-     * Gets a users followers, or the users a given user is following
+     * Gets a users followers, or the users a given user is following.
      *
      * @param selectFollow true for followers, false for following
      * @param userID       the user id
@@ -145,14 +147,14 @@ public class UserRetrieve extends BaseRetrieve {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        String URL;
+        String url;
 
         if (selectFollow) {
 
-            URL = UrlEndPoints.User.USER_FOLLOWERS;
+            url = UrlEndPoints.User.USER_FOLLOWERS;
         } else {
 
-            URL = UrlEndPoints.User.USER_FOLLOWING;
+            url = UrlEndPoints.User.USER_FOLLOWING;
         }
 
         HttpEntity<Set<User>> entity = new HttpEntity<Set<User>>(headers);
@@ -160,7 +162,7 @@ public class UserRetrieve extends BaseRetrieve {
 
         Object[] uriValues = new Object[] {userID};
 
-        ResponseEntity<Set> response = restTemplate.exchange(URL,
+        ResponseEntity<Set> response = restTemplate.exchange(url,
             HttpMethod.POST, entity, Set.class, uriValues);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -180,18 +182,23 @@ public class UserRetrieve extends BaseRetrieve {
         return null;
     }
 
+    /**
+     * Method to update the followers of a user.
+     * @param followerId id of the user that is being followed
+     * @param followeeId id of the user that follows the other user
+     */
     public void updateUserFollowing(long followerId, long followeeId) {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
-        String URL = UrlEndPoints.User.UPDATE_FOLLOW;
+        String url = UrlEndPoints.User.UPDATE_FOLLOW;
 
         HttpEntity<Object> entity = new HttpEntity<Object>(headers);
 
 
         Object[] uriValues = new Object[] {followerId, followeeId};
 
-        ResponseEntity<Object> response = restTemplate.exchange(URL,
+        ResponseEntity<Object> response = restTemplate.exchange(url,
             HttpMethod.POST, entity, Object.class, uriValues);
 
         HttpStatus statusCode = response.getStatusCode();

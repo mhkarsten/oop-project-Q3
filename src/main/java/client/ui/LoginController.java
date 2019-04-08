@@ -1,17 +1,22 @@
-package client.UI;
+package client.ui;
 
-import client.Service.MyRestTemplate;
-import client.Service.MyStage;
-import client.Service.UrlEndPoints;
-import client.Service.UserSession;
 import client.model.User;
+import client.service.MyRestTemplate;
+import client.service.MyStage;
+import client.service.UrlEndPoints;
+import client.service.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
@@ -65,7 +70,7 @@ public class LoginController {
 
             loginStatus.setText("Status: Username or password is not correct.");
 
-        } catch (Exception e) {
+        } catch (RestClientException e) {
             loginStatus.setText("Status: Username or password is not correct.");
             System.out.println(e);
         }
@@ -97,7 +102,7 @@ public class LoginController {
                 UserSession.getInstance().setPassword(passwordField.getText());
                 MyStage.switchScene(MyStage.Screens.ROOT);
             }
-        } catch (Exception e) {
+        } catch (RestClientException e) {
             loginStatus.setText("User already exists.");
             System.out.println(e);
         }

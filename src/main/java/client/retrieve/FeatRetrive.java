@@ -1,16 +1,25 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UrlEndPoints;
-import client.model.Achievement;
 import client.model.Feat;
-import org.springframework.http.*;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FeatRetrive extends BaseRetrieve {
 
+    /**
+     * Method to get all the feats of a user.
+     * @param userID id of the target user
+     * @return
+     */
     public ArrayList<Feat> getUserFeats(long userID) {
         //GETS ALL THE FEATS THAT THE USER HAS
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);

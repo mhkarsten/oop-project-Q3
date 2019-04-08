@@ -1,9 +1,10 @@
 client
 client.model
 client.retrieve
-client.Service
-client.UI
+client.service
+client.ui
 server
+server.api
 server.API
 server.controller
 server.model

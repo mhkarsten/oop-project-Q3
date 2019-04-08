@@ -1,15 +1,12 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UserSession;
+import client.service.MyRestTemplate;
+import client.service.UserSession;
 
 import client.model.EnergyEmission;
 import client.model.FlightEmission;
 import client.model.TrainEmission;
 import client.model.VehicleEmission;
-import org.checkerframework.checker.nullness.qual.AssertNonNullIfNonNull;
-import server.model.*;
-import client.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

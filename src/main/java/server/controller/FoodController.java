@@ -1,13 +1,13 @@
 package server.controller;
 
-import server.model.Meal;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import server.API.FoodAPI;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import server.API.FoodApi;
+import server.model.Meal;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -31,7 +31,7 @@ public class FoodController {
     @ResponseBody
     public Meal getRandomMeal() {
 
-        Optional<Meal[]> randomMeal = FoodAPI.getRandomMeal();
+        Optional<Meal[]> randomMeal = FoodApi.getRandomMeal();
         if (randomMeal.isPresent()) {
 
             return randomMeal.get()[0];
@@ -52,7 +52,7 @@ public class FoodController {
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Meal[] getMeal(@PathVariable("mealName") String mealName) {
-        return FoodAPI.getMeal(mealName).get();
+        return FoodApi.getMeal(mealName).get();
     }
 
     /**
@@ -68,7 +68,7 @@ public class FoodController {
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<Meal[]> getMealCategory(@PathVariable("categoryName") String categoryName) {
-        return FoodAPI.getMealCategory(categoryName).get();
+        return FoodApi.getMealCategory(categoryName).get();
     }
 
     /**
@@ -84,7 +84,7 @@ public class FoodController {
     @ResponseBody
     public List<Meal[]> getMeatMeals() {
 
-        List<Meal[]> meatMeals = FoodAPI.getAllMeatMeals();
+        List<Meal[]> meatMeals = FoodApi.getAllMeatMeals();
 
         if (!meatMeals.isEmpty()) {
 

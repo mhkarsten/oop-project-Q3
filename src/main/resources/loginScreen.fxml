@@ -11,7 +11,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchor" prefHeight="400.0" prefWidth="600.0"
             style="-fx-background-color: white;" stylesheets="loginScreen.css"
-            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="client.UI.LoginController">
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="client.ui.LoginController">
     <children>
         <Group layoutX="218.0" layoutY="142.0">
             <children>

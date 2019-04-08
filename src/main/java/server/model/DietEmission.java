@@ -8,38 +8,17 @@ import java.util.LinkedHashMap;
  * The type Diet emission.
  */
 public class DietEmission {
-//    INPUT VALUES
-//    float fishShare;
-//    float redMeatShare;
-//    float poultryShare;
-//    int size;
-//    String startDate;
-//    String endDate;
+    //    INPUT VALUES
+    //    float fishShare;
+    //    float redMeatShare;
+    //    float poultryShare;
+    //    int size;
+    //    String startDate;
+    //    String endDate;
 
     //RETURN VALUES
     private String carbon;
     private String intensity;
-
-    /**
-     * Jso nto diet diet emission.
-     *
-     * @param JSONDietEmission the json diet emission
-     * @return the diet emission
-     */
-    public static DietEmission JSONtoDiet(JSONObject JSONDietEmission) {
-
-        DietEmission newEmission = new DietEmission();
-
-        LinkedHashMap mainBody = (LinkedHashMap) JSONDietEmission.get("decisions");
-
-        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
-        newEmission.setCarbon((String) carbon.get("description"));
-
-        LinkedHashMap intensity = (LinkedHashMap) mainBody.get("intensity");
-        newEmission.setIntensity((String) intensity.get("description"));
-
-        return newEmission;
-    }
 
     public DietEmission() {
 
@@ -48,6 +27,27 @@ public class DietEmission {
     public DietEmission(String carbon, String intensity) {
         this.carbon = carbon;
         this.intensity = intensity;
+    }
+
+    /**
+     * Jso nto diet diet emission.
+     *
+     * @param jsonDietEmission the json diet emission
+     * @return the diet emission
+     */
+    public static DietEmission jsonToDiet(JSONObject jsonDietEmission) {
+
+        DietEmission newEmission = new DietEmission();
+
+        LinkedHashMap mainBody = (LinkedHashMap) jsonDietEmission.get("decisions");
+
+        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
+        newEmission.setCarbon((String) carbon.get("description"));
+
+        LinkedHashMap intensity = (LinkedHashMap) mainBody.get("intensity");
+        newEmission.setIntensity((String) intensity.get("description"));
+
+        return newEmission;
     }
 
     public String getCarbon() {

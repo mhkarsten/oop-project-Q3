@@ -36,7 +36,7 @@
  *    printer needs to do more substantial DOM manipulations to support that, so
  *    some css styles may not be preserved.
  * </ol>
- * That's it.  I wanted to keep the API as simple as possible, so there's no
+ * That's it.  I wanted to keep the api as simple as possible, so there's no
  * need to specify which language the code is in, but if you wish, you can add
  * another class to the {@code <pre>} or {@code <code>} element to specify the
  * language, as in {@code <pre class="prettyprint lang-java">}.  Any class that
@@ -57,7 +57,7 @@
 
 /**
  * Split {@code prettyPrint} into multiple timeouts so as not to interfere with
- * UI events.
+ * ui events.
  * If set to {@code false}, {@code prettyPrint()} is synchronous.
  */
 window['PR_SHOULD_USE_CONTINUATION'] = true;

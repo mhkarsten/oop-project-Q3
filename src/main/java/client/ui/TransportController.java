@@ -1,14 +1,29 @@
-package client.UI;
+package client.ui;
 
-import client.Service.MyStage;
-import client.Service.UserSession;
-import client.model.*;
+import static client.service.AchievementGenerator.achNotification;
+import static client.service.AchievementGenerator.giveUserAch;
+import static client.ui.RootController.addPointsUser;
+import static client.ui.RootController.stringToPoints;
+import static java.lang.Integer.parseInt;
+
+import client.model.Achievement;
+import client.model.Emission;
+import client.model.FlightEmission;
+import client.model.TrainEmission;
+import client.model.User;
+import client.model.VehicleEmission;
 import client.retrieve.EmissionsRetrieve;
+import client.service.MyStage;
+import client.service.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -18,13 +33,9 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static client.Service.AchievementGenerator.achNotification;
-import static client.Service.AchievementGenerator.giveUserAch;
-import static client.UI.RootController.addPointsUser;
-import static client.UI.RootController.stringToPoints;
-import static java.lang.Integer.parseInt;
-
 public class TransportController implements Initializable {
+
+    private static User currentUser = UserSession.getInstance().getCurrentUser();
 
     public Label transportChoice;
 
@@ -35,9 +46,9 @@ public class TransportController implements Initializable {
     public Label transport4;
     public Label actionDone;
     public Label pointMessage;
-    public Label Labelfield1;
-    public Label Labelfield2;
-    public Label Labelfield3;
+    public Label labelfield1;
+    public Label labelfield2;
+    public Label labelfield3;
 
     public TextField field1;
     public TextField field2;
@@ -47,7 +58,6 @@ public class TransportController implements Initializable {
 
     public TextArea description;
 
-    private static User currentUser = UserSession.getInstance().getCurrentUser();
     private Stage currentStage = MyStage.getInstance();
 
     private EmissionsRetrieve emissionsRetrieve;
@@ -68,6 +78,11 @@ public class TransportController implements Initializable {
         this.emissionsRetrieve = new EmissionsRetrieve();
     }
 
+    /**
+     * Method to display information about your action.
+     * @param em Emission associated with the action
+     * @param points points associated with the action
+     */
     public void displayInformation(Emission em, int points) {
 
         actionDone.setText("You have earned " + points + " points for reducing your " + em.getStringName());
@@ -79,6 +94,10 @@ public class TransportController implements Initializable {
         return field1.getText();
     }
 
+    /**
+     * Method to get the filled in info and parse it into an int.
+     * @return int points
+     */
     public Integer getIntField1() {
         try {
 
@@ -93,6 +112,10 @@ public class TransportController implements Initializable {
         return field2.getText();
     }
 
+    /**
+     * Method to get the filled in info and parse it into an int.
+     * @return int points
+     */
     public Integer getIntField2() {
         try {
 
@@ -108,6 +131,9 @@ public class TransportController implements Initializable {
         return field3.getText();
     }
 
+    /**
+     * Method to call other methods to get FlightEmission and to add points to the user.
+     */
     public void getFlightEmission() {
 
         FlightEmission fm = this.emissionsRetrieve.getFlightEmission(getField1Text(), getField2Text());
@@ -119,6 +145,9 @@ public class TransportController implements Initializable {
         displayInformation(fm, stringToPoints(fm.getCarbon()));
     }
 
+    /**
+     * Method to call other methods to get VehicleEmission and to add points to the user.
+     */
     public void getVehicleEmission() {
 
         VehicleEmission vm = this.emissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
@@ -130,65 +159,89 @@ public class TransportController implements Initializable {
         displayInformation(vm, stringToPoints(vm.getCarbon()));
     }
 
+    /**
+     * Method to call other methods to get EnergyEmission and to add points to the user.
+     */
     public void getTrainCarEmission() {
 
         VehicleEmission vm = this.emissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());
         TrainEmission tm = this.emissionsRetrieve.getTrainEmission(getIntField1(), getIntField2() * 60);
-        int CarEmission = stringToPoints(vm.getCarbon());
-        int TrainEmission = stringToPoints(tm.getCarbon());
-        int TrainCarEmission = CarEmission - TrainEmission;
+        int carPoints = stringToPoints(vm.getCarbon());
+        int trainPoints = stringToPoints(tm.getCarbon());
+        int totalPoints = carPoints - trainPoints;
 
-        addPointsUser(TrainCarEmission);
+        addPointsUser(totalPoints);
         Achievement newAch = giveUserAch(currentUser);
         achNotification(newAch, currentStage);
-        displayInformation(tm, TrainCarEmission);
+        displayInformation(tm, totalPoints);
     }
 
+    /**
+     * Changes the labels and fields to correspond with the selected option.
+     *
+     * @param event The event which activated this method (Mouseclick for this method)
+     */
     @SuppressWarnings("Duplicates")
     public void selectFlightEmission(MouseEvent event) {
         transportChoice = RootController.selectOption(event, transportChoice);
         clearFields();
 
-        Labelfield1.setVisible(true);
+        labelfield1.setVisible(true);
         field1.setVisible(true);
-        Labelfield2.setVisible(true);
+        labelfield2.setVisible(true);
         field2.setVisible(true);
 
-        Labelfield3.setVisible(false);
+        labelfield3.setVisible(false);
         field3.setVisible(false);
-        Labelfield1.setText("Enter your departure airport");
-        Labelfield2.setText("Enter your arrival airport");
+        labelfield1.setText("Enter your departure airport");
+        labelfield2.setText("Enter your arrival airport");
     }
 
+    /**
+     * Changes the labels and fields to correspond with the selected option.
+     *
+     * @param event The event which activated this method (Mouseclick for this method)
+     */
     @SuppressWarnings("Duplicates")
     public void selectVehicleEmission(MouseEvent event) {
         transportChoice = RootController.selectOption(event, transportChoice);
         clearFields();
 
-        Labelfield1.setVisible(true);
+        labelfield1.setVisible(true);
         field1.setVisible(true);
-        Labelfield2.setVisible(true);
+        labelfield2.setVisible(true);
         field2.setVisible(true);
-        Labelfield3.setVisible(true);
+        labelfield3.setVisible(true);
         field3.setVisible(true);
 
-        Labelfield1.setText("Enter the distance in km");
-        Labelfield2.setText("Enter the duration in minutes");
-        Labelfield3.setText("Enter the size of your car");
+        labelfield1.setText("Enter the distance in km");
+        labelfield2.setText("Enter the duration in minutes");
+        labelfield3.setText("Enter the size of your car");
     }
 
+    /**
+     * Changes the labels and fields to correspond with the selected option.
+     *
+     * @param event The event which activated this method (Mouseclick for this method)
+     */
     public void selectTrainCarEmission(MouseEvent event) {
         selectVehicleEmission(event);
-        Labelfield3.setVisible(false);
+        labelfield3.setVisible(false);
         field3.setVisible(false);
     }
 
+    /**
+     * Method to clear all the textfields.
+     */
     public void clearFields() {
         field1.setText("");
         field2.setText("");
         field3.setText("");
     }
 
+    /**
+     * Method behind the select button to handle the option and calling the appropriate methods for handling it.
+     */
     public void getEmission() {
         if (transportChoice == transport1) {
             getFlightEmission();
@@ -200,9 +253,12 @@ public class TransportController implements Initializable {
         }
     }
 
+    /**
+     * Method to display tooltips.
+     */
     public static void display() {
 
-        String msg = "There are so many efficent and environmentally friendly ways to get from one place to another.";
+        final String msg = "There are so many efficent and environmentally friendly ways to get from one place to another.";
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);

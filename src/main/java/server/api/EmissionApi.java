@@ -1,24 +1,32 @@
-package server.API;
+package server.api;
 
-import client.Service.MyRestTemplate;
+import static server.model.DietEmission.jsonToDiet;
+import static server.model.EnergyEmission.jsonToEnergy;
+import static server.model.FlightEmission.jsonToFlight;
+import static server.model.TrainEmission.jsonToTrain;
+import static server.model.VehicleEmission.jsonToVehicle;
+
+import client.service.MyRestTemplate;
 import org.json.simple.JSONObject;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import server.model.*;
+import server.model.DietEmission;
+import server.model.EnergyEmission;
+import server.model.FlightEmission;
+import server.model.TrainEmission;
+import server.model.VehicleEmission;
 
 import java.util.ArrayList;
-
-
-import static server.model.DietEmission.JSONtoDiet;
-import static server.model.EnergyEmission.JSONtoEnergy;
-import static server.model.FlightEmission.JSONtoFlight;
-import static server.model.TrainEmission.JSONtoTrain;
-import static server.model.VehicleEmission.JSONtoVehicle;
 
 /**
  * The type Emission api.
  */
-public class EmissionAPI {
+public class EmissionApi {
     private static final String KEY = "key=5a927d96eca397b6659a3c361ce32254&green_electricity=23&dishwasher_use=42&";
     private static final String URL_BASE = "http://impact.brighterplanet.com";
     private static final String URL_CAR = URL_BASE + "/automobile_trips.json?";
@@ -43,18 +51,24 @@ public class EmissionAPI {
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>() {{
-                    add(distance);
-                    add(distanceString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(duration);
-                    add(durationString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(sizeClass);
-                    add(sizeClassString);
-                }});
+                add(new ArrayList<Object>() {
+                    {
+                        add(distance);
+                        add(distanceString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(duration);
+                        add(durationString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(sizeClass);
+                        add(sizeClassString);
+                    }
+                });
             }
         };
 
@@ -62,7 +76,7 @@ public class EmissionAPI {
 
         for (int i = 0; i < 3; i++) {
 
-            if (uriStrings.get(i).get(0) != null && uriStrings.get(i).get(1) != "0") {
+            if (uriStrings.get(i).get(0) != null && !uriStrings.get(i).get(0).equals(0)) {
 
                 keyString.append(uriStrings.get(i).get(1));
             }
@@ -85,7 +99,7 @@ public class EmissionAPI {
 
             if (emissionResponse != null) {
 
-                return JSONtoVehicle(emissionResponse);
+                return jsonToVehicle(emissionResponse);
             }
         }
 
@@ -111,33 +125,38 @@ public class EmissionAPI {
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>() {{
-                    add(dishwasherUse);
-                    add(dishwasherUseString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(airConditionerUse);
-                    add(airConditionerUseString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(greenEnergy);
-                    add(greenEnergyString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(naturalGasCost);
-                    add(naturalGasCostString);
-                }});
+                add(new ArrayList<Object>() {
+                    {
+                        add(dishwasherUse);
+                        add(dishwasherUseString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(airConditionerUse);
+                        add(airConditionerUseString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(greenEnergy);
+                        add(greenEnergyString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(naturalGasCost);
+                        add(naturalGasCostString);
+                    }
+                });
             }
         };
 
         StringBuilder keyString = new StringBuilder(KEY);
 
         for (int i = 0; i < 4; i++) {
-
-            if (uriStrings.get(i).get(0) != null) {
-                if (uriStrings.get(i).get(0) != "0") {
-                    keyString.append(uriStrings.get(i).get(1));
-                }
+            if (uriStrings.get(i).get(0) != null && !uriStrings.get(i).get(0).equals(0)) {
+                keyString.append(uriStrings.get(i).get(1));
             }
         }
 
@@ -158,7 +177,7 @@ public class EmissionAPI {
 
             if (emissionResponse != null) {
 
-                return JSONtoEnergy(emissionResponse);
+                return jsonToEnergy(emissionResponse);
             }
         }
 
@@ -187,22 +206,30 @@ public class EmissionAPI {
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>() {{
-                    add(fishShare);
-                    add(fishShareString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(redMeatShare);
-                    add(redMeatShareString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(poultryShare);
-                    add(poultryShareString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(size);
-                    add(sizeString);
-                }});
+                add(new ArrayList<Object>() {
+                    {
+                        add(fishShare);
+                        add(fishShareString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(redMeatShare);
+                        add(redMeatShareString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(poultryShare);
+                        add(poultryShareString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(size);
+                        add(sizeString);
+                    }
+                });
             }
         };
 
@@ -212,10 +239,8 @@ public class EmissionAPI {
 
         for (int i = 0; i < 4; i++) {
 
-            if (uriStrings.get(i).get(0) != null) {
-                if (uriStrings.get(i).get(0) != "0") {
-                    keyString.append(uriStrings.get(i).get(1));
-                }
+            if (uriStrings.get(i).get(0) != null && !uriStrings.get(i).get(0).equals(0)) {
+                keyString.append(uriStrings.get(i).get(1));
             }
         }
 
@@ -236,7 +261,7 @@ public class EmissionAPI {
 
             if (emissionResponse != null) {
 
-                return JSONtoDiet(emissionResponse);
+                return jsonToDiet(emissionResponse);
             }
         }
 
@@ -258,14 +283,18 @@ public class EmissionAPI {
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>() {{
-                    add(startPort);
-                    add(startPortString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(endPort);
-                    add(endPortString);
-                }});
+                add(new ArrayList<Object>() {
+                    {
+                        add(startPort);
+                        add(startPortString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(endPort);
+                        add(endPortString);
+                    }
+                });
             }
         };
 
@@ -274,11 +303,8 @@ public class EmissionAPI {
         for (int i = 0; i < 2; i++) {
 
             if (uriStrings.get(i).get(0) != null) {
-                if (uriStrings.get(i).get(0) != "0") {
-                    keyString.append(uriStrings.get(i).get(1));
-                }
+                keyString.append(uriStrings.get(i).get(1));
             } else {
-
                 System.out.println("(Server Side) both a start and end destination are needed for an accurate.");
                 return null;
             }
@@ -301,7 +327,7 @@ public class EmissionAPI {
 
             if (emissionResponse != null) {
 
-                return JSONtoFlight(emissionResponse);
+                return jsonToFlight(emissionResponse);
             }
         }
 
@@ -323,14 +349,18 @@ public class EmissionAPI {
 
         ArrayList<ArrayList<Object>> uriStrings = new ArrayList<ArrayList<Object>>() {
             {
-                add(new ArrayList<Object>() {{
-                    add(distance);
-                    add(distanceString);
-                }});
-                add(new ArrayList<Object>() {{
-                    add(duration);
-                    add(durationString);
-                }});
+                add(new ArrayList<Object>() {
+                    {
+                        add(distance);
+                        add(distanceString);
+                    }
+                });
+                add(new ArrayList<Object>() {
+                    {
+                        add(duration);
+                        add(durationString);
+                    }
+                });
             }
         };
 
@@ -338,7 +368,7 @@ public class EmissionAPI {
 
         for (int i = 0; i < 2; i++) {
 
-            if (uriStrings.get(i).get(0) != null && uriStrings.get(i).get(1) != "0") {
+            if (uriStrings.get(i).get(0) != null && !uriStrings.get(i).get(0).equals(0)) {
                 keyString.append(uriStrings.get(i).get(1));
             }
         }
@@ -360,7 +390,7 @@ public class EmissionAPI {
 
             if (emissionResponse != null) {
 
-                return JSONtoTrain(emissionResponse);
+                return jsonToTrain(emissionResponse);
             }
         }
 

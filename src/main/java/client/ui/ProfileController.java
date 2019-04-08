@@ -1,9 +1,9 @@
-package client.UI;
+package client.ui;
 
-import client.Service.UserSession;
 import client.model.Feat;
 import client.model.User;
 import client.retrieve.FeatRetrive;
+import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +13,6 @@ import javafx.scene.control.SelectionMode;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 
 public class ProfileController implements Initializable {
@@ -28,8 +27,6 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        FeatRetrive featRetrive = new FeatRetrive();
-
         currentUser = UserSession.getInstance().getCurrentUser();
 
         userName.setText("User Name: " + currentUser.getName());
@@ -37,6 +34,8 @@ public class ProfileController implements Initializable {
         userPoints.setText("User Points: " + currentUser.getPoints());
 
         //Setting up the list of users the active user is following
+        FeatRetrive featRetrive = new FeatRetrive();
+
         featListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         ObservableList<String> listViewContents = featListView.getItems();
         ArrayList<Feat> tempArray = featRetrive.getUserFeats(currentUser.getID());

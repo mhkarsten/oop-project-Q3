@@ -5,12 +5,12 @@ import org.json.simple.JSONObject;
 import java.util.LinkedHashMap;
 
 /**
- * The type train emission
+ * The type train emission.
  */
 public class TrainEmission {
-//  INPUT VALUES
-//  int distance; in kilometers
-//  int duration; in seconds
+    //  INPUT VALUES
+    //  int distance; in kilometers
+    //  int duration; in seconds
 
     //RETURN VALUES
     private String carbon;
@@ -18,32 +18,9 @@ public class TrainEmission {
     private String fuelUse;
     private String distance;
 
-    @SuppressWarnings("Duplicates")
-    public static TrainEmission JSONtoTrain(JSONObject JSONTrainEmission) {
-
-        TrainEmission newEmission = new TrainEmission();
-
-        LinkedHashMap mainBody = (LinkedHashMap) JSONTrainEmission.get("decisions");
-
-        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
-        newEmission.setCarbon((String) carbon.get("description"));
-
-        LinkedHashMap energy = (LinkedHashMap) mainBody.get("electricity_consumption");
-        newEmission.setEnergy((String) energy.get("description"));
-
-        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get("diesel_consumption");
-        newEmission.setFuelUse((String) fuelUse.get("description"));
-
-        LinkedHashMap distance = (LinkedHashMap) mainBody.get("distance");
-        newEmission.setDistance((String) distance.get("description"));
-
-        return newEmission;
-    }
-
     /**
      * Instantiates a new Train emission.
      */
-    //Basic Constructor
     public TrainEmission() {
 
     }
@@ -61,6 +38,34 @@ public class TrainEmission {
         this.energy = energy;
         this.fuelUse = fuelUse;
         this.distance = distance;
+    }
+
+    /**
+     * Jsontotrain train emission.
+     *
+     * @param jsonTrainEmission the json train emission
+     * @return the train emission
+     */
+    @SuppressWarnings("Duplicates")
+    public static TrainEmission jsonToTrain(JSONObject jsonTrainEmission) {
+
+        TrainEmission newEmission = new TrainEmission();
+
+        LinkedHashMap mainBody = (LinkedHashMap) jsonTrainEmission.get("decisions");
+
+        LinkedHashMap carbon = (LinkedHashMap) mainBody.get("carbon");
+        newEmission.setCarbon((String) carbon.get("description"));
+
+        LinkedHashMap energy = (LinkedHashMap) mainBody.get("electricity_consumption");
+        newEmission.setEnergy((String) energy.get("description"));
+
+        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get("diesel_consumption");
+        newEmission.setFuelUse((String) fuelUse.get("description"));
+
+        LinkedHashMap distance = (LinkedHashMap) mainBody.get("distance");
+        newEmission.setDistance((String) distance.get("description"));
+
+        return newEmission;
     }
 
     public String getCarbon() {

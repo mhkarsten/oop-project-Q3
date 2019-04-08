@@ -1,9 +1,14 @@
 package client.retrieve;
 
-import client.Service.MyRestTemplate;
-import client.Service.UrlEndPoints;
 import client.model.Meal;
-import org.springframework.http.*;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +25,7 @@ public class FoodRetrieve extends BaseRetrieve {
      */
     @SuppressWarnings("Duplicates")
     public  Meal getRandomMeal() {
-        //GETS A RANDOM MEAL OFF OF THE SERVER SIDE API
+        //GETS A RANDOM MEAL OFF OF THE SERVER SIDE api
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
@@ -48,41 +53,41 @@ public class FoodRetrieve extends BaseRetrieve {
         return null;
     }
 
-//    /**
-//     * Get meal meal [ ].
-//     *
-//     * @param mealName the meal name
-//     * @return the meal [ ]
-//     */
-//    @SuppressWarnings("Duplicates")
-//    public  Meal getMeal(String mealName) {
-//        //GETS A SPECIFIC MEAL FROM THE API ON THE SERVER
-//
-//        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
-//
-//        HttpEntity<Meal> entity = new HttpEntity<>(headers);
-//
-//        Object[] uriValues = new Object[] {mealName};
-//
-//        ResponseEntity<Meal> response = restTemplate.exchange(UrlEndPoints.Food.URL_MEAL,
-//            HttpMethod.POST, entity, Meal.class, uriValues);
-//
-//        HttpStatus statusCode = response.getStatusCode();
-//        System.out.println("(Client Side) The http status code is: " + statusCode);
-//
-//        if (statusCode == HttpStatus.OK) {
-//
-//            if (response.getBody() != null) {
-//
-//                return response.getBody();
-//            } else {
-//
-//                System.out.println("(Client Side) The specified meal was null or doesnt exist.");
-//            }
-//        }
-//
-//        return null;
-//    }
+    //    /**
+    //     * Get meal meal [ ].
+    //     *
+    //     * @param mealName the meal name
+    //     * @return the meal [ ]
+    //     */
+    //    @SuppressWarnings("Duplicates")
+    //    public  Meal getMeal(String mealName) {
+    //        //GETS A SPECIFIC MEAL FROM THE api ON THE SERVER
+    //
+    //        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+    //
+    //        HttpEntity<Meal> entity = new HttpEntity<>(headers);
+    //
+    //        Object[] uriValues = new Object[] {mealName};
+    //
+    //        ResponseEntity<Meal> response = restTemplate.exchange(UrlEndPoints.Food.URL_MEAL,
+    //            HttpMethod.POST, entity, Meal.class, uriValues);
+    //
+    //        HttpStatus statusCode = response.getStatusCode();
+    //        System.out.println("(Client Side) The http status code is: " + statusCode);
+    //
+    //        if (statusCode == HttpStatus.OK) {
+    //
+    //            if (response.getBody() != null) {
+    //
+    //                return response.getBody();
+    //            } else {
+    //
+    //                System.out.println("(Client Side) The specified meal was null or doesnt exist.");
+    //            }
+    //        }
+    //
+    //        return null;
+    //    }
 
     /**
      * Gets meal category.
@@ -92,7 +97,7 @@ public class FoodRetrieve extends BaseRetrieve {
      */
     @SuppressWarnings("Duplicates")
     public  ArrayList<Meal> getMealCategory(String category ) {
-        //GETS A SPECIFIC MEAL CATEGORY OFF OF THE SERVER SIDE API
+        //GETS A SPECIFIC MEAL CATEGORY OFF OF THE SERVER SIDE api
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 
@@ -134,7 +139,7 @@ public class FoodRetrieve extends BaseRetrieve {
      */
     @SuppressWarnings("Duplicates")
     public  ArrayList<Meal> getAllMeatMeals() {
-        //GETS ALL OF THE MEALS WITH MEAT OFF OF THE SERVER API
+        //GETS ALL OF THE MEALS WITH MEAT OFF OF THE SERVER api
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
 

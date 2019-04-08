@@ -3,19 +3,23 @@ package server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.Feat;
 import server.model.User;
 import server.repository.FeatRepository;
 import server.repository.UserRepository;
 
-import javax.validation.Valid;
 import java.net.URI;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import javax.validation.Valid;
 
 @RestController
 public class FeatController {
@@ -80,11 +84,11 @@ public class FeatController {
     @ResponseBody
     public ResponseEntity<?> addFeat(@PathVariable("userId")@Valid long userID, @RequestBody Feat feat) {
         //Feat savedFeat = featRepository.save(feat);
-        User user= userRepository.findById(userID).get();
+        User user = userRepository.findById(userID).get();
         feat.setUser(user);
-        feat=featRepository.save(feat);
+        feat = featRepository.save(feat);
 
-        System.out.println("Creating new feat with ID "+feat.getId());
+        System.out.println("Creating new feat with ID " + feat.getId());
 
         user.addFeat(feat);
         URI location = ServletUriComponentsBuilder
@@ -92,11 +96,9 @@ public class FeatController {
         return ResponseEntity.created(location).build();
     }
 
-
-    /**
-     * Adds a new feat (CREATE).
-     *
-     * @param points The amount of points to give the user for this feat
+    /** Adds a new feat (CREATE).
+     * @param userID id of the user
+     * @param points points associated with the action for the feat
      * @return Returns the path at which the created feat is located
      */
     @PostMapping(value = "/users/{userId}/feats/new/{points}",
@@ -105,14 +107,14 @@ public class FeatController {
     @ResponseBody
     public ResponseEntity<?> addGenericFeat(@PathVariable("userId")@Valid long userID, @PathVariable("points")@Valid int points) {
         //Feat savedFeat = featRepository.save(feat);
-        User user= userRepository.findById(userID).get();
+        User user = userRepository.findById(userID).get();
 
         Feat feat = new Feat(points, 0, user);
 
         feat.setUser(user);
-        feat=featRepository.save(feat);
+        feat = featRepository.save(feat);
 
-        System.out.println("Creating new feat with ID "+feat.getId());
+        System.out.println("Creating new feat with ID " + feat.getId());
 
         user.addFeat(feat);
         URI location = ServletUriComponentsBuilder

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DietEmission.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.model</a> &gt; <span class="el_source">DietEmission.java</span></div><h1>DietEmission.java</h1><pre class="source lang-java linenums">package server.model;
+
+import org.json.simple.JSONObject;
+
+import java.util.LinkedHashMap;
+
+/**
+ * The type Diet emission.
+ */
+public class DietEmission {
+    //    INPUT VALUES
+    //    float fishShare;
+    //    float redMeatShare;
+    //    float poultryShare;
+    //    int size;
+    //    String startDate;
+    //    String endDate;
+
+    //RETURN VALUES
+    private String carbon;
+    private String intensity;
+
+<span class="fc" id="L23">    public DietEmission() {</span>
+
+<span class="fc" id="L25">    }</span>
+
+<span class="fc" id="L27">    public DietEmission(String carbon, String intensity) {</span>
+<span class="fc" id="L28">        this.carbon = carbon;</span>
+<span class="fc" id="L29">        this.intensity = intensity;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Jso nto diet diet emission.
+     *
+     * @param jsonDietEmission the json diet emission
+     * @return the diet emission
+     */
+    public static DietEmission jsonToDiet(JSONObject jsonDietEmission) {
+
+<span class="nc" id="L40">        DietEmission newEmission = new DietEmission();</span>
+
+<span class="nc" id="L42">        LinkedHashMap mainBody = (LinkedHashMap) jsonDietEmission.get(&quot;decisions&quot;);</span>
+
+<span class="nc" id="L44">        LinkedHashMap carbon = (LinkedHashMap) mainBody.get(&quot;carbon&quot;);</span>
+<span class="nc" id="L45">        newEmission.setCarbon((String) carbon.get(&quot;description&quot;));</span>
+
+<span class="nc" id="L47">        LinkedHashMap intensity = (LinkedHashMap) mainBody.get(&quot;intensity&quot;);</span>
+<span class="nc" id="L48">        newEmission.setIntensity((String) intensity.get(&quot;description&quot;));</span>
+
+<span class="nc" id="L50">        return newEmission;</span>
+    }
+
+    public String getCarbon() {
+<span class="fc" id="L54">        return carbon;</span>
+    }
+
+    public void setCarbon(String carbon) {
+<span class="fc" id="L58">        this.carbon = carbon;</span>
+<span class="fc" id="L59">    }</span>
+
+    public String getIntensity() {
+<span class="fc" id="L62">        return intensity;</span>
+    }
+
+    public void setIntensity(String intensity) {
+<span class="fc" id="L66">        this.intensity = intensity;</span>
+<span class="fc" id="L67">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

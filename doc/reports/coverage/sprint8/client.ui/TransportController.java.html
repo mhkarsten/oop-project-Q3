@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransportController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.ui</a> &gt; <span class="el_source">TransportController.java</span></div><h1>TransportController.java</h1><pre class="source lang-java linenums">package client.ui;
+
+import static client.service.AchievementGenerator.achNotification;
+import static client.service.AchievementGenerator.giveUserAch;
+import static client.ui.RootController.addPointsUser;
+import static client.ui.RootController.stringToPoints;
+import static java.lang.Integer.parseInt;
+
+import client.model.Achievement;
+import client.model.Emission;
+import client.model.FlightEmission;
+import client.model.TrainEmission;
+import client.model.User;
+import client.model.VehicleEmission;
+import client.retrieve.EmissionsRetrieve;
+import client.service.MyStage;
+import client.service.UserSession;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+<span class="nc" id="L36">public class TransportController implements Initializable {</span>
+
+<span class="nc" id="L38">    private static User currentUser = UserSession.getInstance().getCurrentUser();</span>
+
+    public Label transportChoice;
+
+    @FXML
+    public Label transport1;
+    public Label transport2;
+    public Label transport3;
+    public Label transport4;
+    public Label actionDone;
+    public Label pointMessage;
+    public Label labelfield1;
+    public Label labelfield2;
+    public Label labelfield3;
+
+    public TextField field1;
+    public TextField field2;
+    public TextField field3;
+
+    public TextArea actionDescription;
+
+    public TextArea description;
+
+<span class="nc" id="L61">    private Stage currentStage = MyStage.getInstance();</span>
+
+    private EmissionsRetrieve emissionsRetrieve;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+<span class="nc" id="L67">        final Tooltip tooltipairplane = new Tooltip();</span>
+<span class="nc" id="L68">        tooltipairplane.setText(&quot;Find out here the negative impacts of aviation on our environment: https://en.wikipedia.org/wiki/Environmental_impact_of_aviation&quot;);</span>
+<span class="nc" id="L69">        transport1.setTooltip(tooltipairplane);</span>
+
+<span class="nc" id="L71">        final Tooltip tooltipbike = new Tooltip();</span>
+<span class="nc" id="L72">        tooltipbike.setText(&quot;Read more about the effect of bikes on our environment here: https://www.tmr.qld.gov.au/Travel-and-transport/Cycling/Benefits.aspx&quot;);</span>
+<span class="nc" id="L73">        transport2.setTooltip(tooltipbike);</span>
+
+<span class="nc" id="L75">        final Tooltip tooltiptrain = new Tooltip();</span>
+<span class="nc" id="L76">        tooltiptrain.setText(&quot;Read why trains are better for the environment here: https://www.nationalrail.com/4-reasons-taking-train-better-environment/&quot;);</span>
+<span class="nc" id="L77">        transport3.setTooltip(tooltiptrain);</span>
+<span class="nc" id="L78">        this.emissionsRetrieve = new EmissionsRetrieve();</span>
+<span class="nc" id="L79">    }</span>
+
+    /**
+     * Method to display information about your action.
+     * @param em Emission associated with the action
+     * @param points points associated with the action
+     */
+    public void displayInformation(Emission em, int points) {
+
+<span class="nc" id="L88">        actionDone.setText(&quot;You have earned &quot; + points + &quot; points for reducing your &quot; + em.getStringName());</span>
+<span class="nc" id="L89">        pointMessage.setText(&quot;You have caused &quot; + em.getCarbon() + &quot; KG of C02.&quot;);</span>
+<span class="nc" id="L90">        actionDescription.setText(em.toString());</span>
+<span class="nc" id="L91">    }</span>
+
+    public String getField1Text() {
+<span class="nc" id="L94">        return field1.getText();</span>
+    }
+
+    /**
+     * Method to get the filled in info and parse it into an int.
+     * @return int points
+     */
+    public Integer getIntField1() {
+        try {
+
+<span class="nc" id="L104">            return parseInt(getField1Text());</span>
+<span class="nc" id="L105">        } catch (NumberFormatException e) {</span>
+
+<span class="nc" id="L107">            return 0;</span>
+        }
+    }
+
+    public String getField2Text() {
+<span class="nc" id="L112">        return field2.getText();</span>
+    }
+
+    /**
+     * Method to get the filled in info and parse it into an int.
+     * @return int points
+     */
+    public Integer getIntField2() {
+        try {
+
+<span class="nc" id="L122">            System.out.print(true);</span>
+<span class="nc" id="L123">            return parseInt(getField2Text());</span>
+<span class="nc" id="L124">        } catch (NumberFormatException e) {</span>
+
+<span class="nc" id="L126">            return 0;</span>
+        }
+    }
+
+    public String getField3Text() {
+<span class="nc" id="L131">        return field3.getText();</span>
+    }
+
+    /**
+     * Method to call other methods to get FlightEmission and to add points to the user.
+     */
+    public void getFlightEmission() {
+
+<span class="nc" id="L139">        FlightEmission fm = this.emissionsRetrieve.getFlightEmission(getField1Text(), getField2Text());</span>
+<span class="nc" id="L140">        System.out.println(fm.getCarbon());</span>
+
+<span class="nc" id="L142">        addPointsUser(stringToPoints(fm.getCarbon()));</span>
+<span class="nc" id="L143">        Achievement newAch = giveUserAch(currentUser);</span>
+<span class="nc" id="L144">        achNotification(newAch, currentStage);</span>
+<span class="nc" id="L145">        displayInformation(fm, stringToPoints(fm.getCarbon()));</span>
+<span class="nc" id="L146">    }</span>
+
+    /**
+     * Method to call other methods to get VehicleEmission and to add points to the user.
+     */
+    public void getVehicleEmission() {
+
+<span class="nc" id="L153">        VehicleEmission vm = this.emissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());</span>
+<span class="nc" id="L154">        System.out.println(vm.getCarbon());</span>
+
+<span class="nc" id="L156">        addPointsUser(stringToPoints(vm.getCarbon()));</span>
+<span class="nc" id="L157">        Achievement newAch = giveUserAch(currentUser);</span>
+<span class="nc" id="L158">        achNotification(newAch, currentStage);</span>
+<span class="nc" id="L159">        displayInformation(vm, stringToPoints(vm.getCarbon()));</span>
+<span class="nc" id="L160">    }</span>
+
+    /**
+     * Method to call other methods to get EnergyEmission and to add points to the user.
+     */
+    public void getTrainCarEmission() {
+
+<span class="nc" id="L167">        VehicleEmission vm = this.emissionsRetrieve.getVehicleEmission(getIntField1(), getIntField2() * 60, getField3Text());</span>
+<span class="nc" id="L168">        TrainEmission tm = this.emissionsRetrieve.getTrainEmission(getIntField1(), getIntField2() * 60);</span>
+<span class="nc" id="L169">        int carPoints = stringToPoints(vm.getCarbon());</span>
+<span class="nc" id="L170">        int trainPoints = stringToPoints(tm.getCarbon());</span>
+<span class="nc" id="L171">        int totalPoints = carPoints - trainPoints;</span>
+
+<span class="nc" id="L173">        addPointsUser(totalPoints);</span>
+<span class="nc" id="L174">        Achievement newAch = giveUserAch(currentUser);</span>
+<span class="nc" id="L175">        achNotification(newAch, currentStage);</span>
+<span class="nc" id="L176">        displayInformation(tm, totalPoints);</span>
+<span class="nc" id="L177">    }</span>
+
+    /**
+     * Changes the labels and fields to correspond with the selected option.
+     *
+     * @param event The event which activated this method (Mouseclick for this method)
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public void selectFlightEmission(MouseEvent event) {
+<span class="nc" id="L186">        transportChoice = RootController.selectOption(event, transportChoice);</span>
+<span class="nc" id="L187">        clearFields();</span>
+
+<span class="nc" id="L189">        labelfield1.setVisible(true);</span>
+<span class="nc" id="L190">        field1.setVisible(true);</span>
+<span class="nc" id="L191">        labelfield2.setVisible(true);</span>
+<span class="nc" id="L192">        field2.setVisible(true);</span>
+
+<span class="nc" id="L194">        labelfield3.setVisible(false);</span>
+<span class="nc" id="L195">        field3.setVisible(false);</span>
+<span class="nc" id="L196">        labelfield1.setText(&quot;Enter your departure airport&quot;);</span>
+<span class="nc" id="L197">        labelfield2.setText(&quot;Enter your arrival airport&quot;);</span>
+<span class="nc" id="L198">    }</span>
+
+    /**
+     * Changes the labels and fields to correspond with the selected option.
+     *
+     * @param event The event which activated this method (Mouseclick for this method)
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public void selectVehicleEmission(MouseEvent event) {
+<span class="nc" id="L207">        transportChoice = RootController.selectOption(event, transportChoice);</span>
+<span class="nc" id="L208">        clearFields();</span>
+
+<span class="nc" id="L210">        labelfield1.setVisible(true);</span>
+<span class="nc" id="L211">        field1.setVisible(true);</span>
+<span class="nc" id="L212">        labelfield2.setVisible(true);</span>
+<span class="nc" id="L213">        field2.setVisible(true);</span>
+<span class="nc" id="L214">        labelfield3.setVisible(true);</span>
+<span class="nc" id="L215">        field3.setVisible(true);</span>
+
+<span class="nc" id="L217">        labelfield1.setText(&quot;Enter the distance in km&quot;);</span>
+<span class="nc" id="L218">        labelfield2.setText(&quot;Enter the duration in minutes&quot;);</span>
+<span class="nc" id="L219">        labelfield3.setText(&quot;Enter the size of your car&quot;);</span>
+<span class="nc" id="L220">    }</span>
+
+    /**
+     * Changes the labels and fields to correspond with the selected option.
+     *
+     * @param event The event which activated this method (Mouseclick for this method)
+     */
+    public void selectTrainCarEmission(MouseEvent event) {
+<span class="nc" id="L228">        selectVehicleEmission(event);</span>
+<span class="nc" id="L229">        labelfield3.setVisible(false);</span>
+<span class="nc" id="L230">        field3.setVisible(false);</span>
+<span class="nc" id="L231">    }</span>
+
+    /**
+     * Method to clear all the textfields.
+     */
+    public void clearFields() {
+<span class="nc" id="L237">        field1.setText(&quot;&quot;);</span>
+<span class="nc" id="L238">        field2.setText(&quot;&quot;);</span>
+<span class="nc" id="L239">        field3.setText(&quot;&quot;);</span>
+<span class="nc" id="L240">    }</span>
+
+    /**
+     * Method behind the select button to handle the option and calling the appropriate methods for handling it.
+     */
+    public void getEmission() {
+<span class="nc bnc" id="L246" title="All 2 branches missed.">        if (transportChoice == transport1) {</span>
+<span class="nc" id="L247">            getFlightEmission();</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">        } else if (transportChoice == transport2) {</span>
+<span class="nc" id="L249">            getVehicleEmission();</span>
+        }
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        if (transportChoice == transport3) {</span>
+<span class="nc" id="L252">            getTrainCarEmission();</span>
+        }
+<span class="nc" id="L254">    }</span>
+
+    /**
+     * Method to display tooltips.
+     */
+    public static void display() {
+
+<span class="nc" id="L261">        final String msg = &quot;There are so many efficent and environmentally friendly ways to get from one place to another.&quot;;</span>
+<span class="nc" id="L262">        Stage window = new Stage();</span>
+
+<span class="nc" id="L264">        window.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="nc" id="L265">        window.setTitle(&quot;Help&quot;);</span>
+<span class="nc" id="L266">        window.setMinWidth(250);</span>
+
+<span class="nc" id="L268">        Button closeButton = new Button(&quot;Got It!&quot;);</span>
+<span class="nc" id="L269">        closeButton.setOnAction(e -&gt; window.close());</span>
+
+<span class="nc" id="L271">        VBox layout = new VBox();</span>
+<span class="nc" id="L272">        layout.getChildren().add(new Text(msg));</span>
+<span class="nc" id="L273">        layout.getChildren().add(closeButton);</span>
+
+<span class="nc" id="L275">        layout.setAlignment(Pos.CENTER);</span>
+
+<span class="nc" id="L277">        Scene scene = new Scene(layout);</span>
+<span class="nc" id="L278">        window.setScene(scene);</span>
+<span class="nc" id="L279">        window.showAndWait();</span>
+
+
+<span class="nc" id="L282">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

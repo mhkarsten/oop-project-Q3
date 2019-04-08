@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FoodRetrieve.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.retrieve</a> &gt; <span class="el_source">FoodRetrieve.java</span></div><h1>FoodRetrieve.java</h1><pre class="source lang-java linenums">package client.retrieve;
+
+import client.model.Meal;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * The type Food retrieve.
+ */
+<span class="fc" id="L19">public class FoodRetrieve extends BaseRetrieve {</span>
+
+    /**
+     * Get random meal meal [ ].
+     *
+     * @return the meal [ ]
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public  Meal getRandomMeal() {
+        //GETS A RANDOM MEAL OFF OF THE SERVER SIDE api
+
+<span class="fc" id="L30">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L32">        HttpEntity&lt;Meal&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+
+<span class="fc" id="L34">        ResponseEntity&lt;Meal&gt; response = restTemplate.exchange(UrlEndPoints.Food.URL_RANDOMMEAL,</span>
+            HttpMethod.POST, entity, Meal.class);
+
+<span class="fc" id="L37">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L38">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L42">            Meal randomMeal = response.getBody();</span>
+
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            if (randomMeal != null) {</span>
+
+<span class="fc" id="L46">                return randomMeal;</span>
+            } else {
+
+<span class="nc" id="L49">                System.out.println(&quot;(Client Side) The specified meal was null or doesnt exist.&quot;);</span>
+            }
+        }
+
+<span class="nc" id="L53">        return null;</span>
+    }
+
+    //    /**
+    //     * Get meal meal [ ].
+    //     *
+    //     * @param mealName the meal name
+    //     * @return the meal [ ]
+    //     */
+    //    @SuppressWarnings(&quot;Duplicates&quot;)
+    //    public  Meal getMeal(String mealName) {
+    //        //GETS A SPECIFIC MEAL FROM THE api ON THE SERVER
+    //
+    //        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+    //
+    //        HttpEntity&lt;Meal&gt; entity = new HttpEntity&lt;&gt;(headers);
+    //
+    //        Object[] uriValues = new Object[] {mealName};
+    //
+    //        ResponseEntity&lt;Meal&gt; response = restTemplate.exchange(UrlEndPoints.Food.URL_MEAL,
+    //            HttpMethod.POST, entity, Meal.class, uriValues);
+    //
+    //        HttpStatus statusCode = response.getStatusCode();
+    //        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);
+    //
+    //        if (statusCode == HttpStatus.OK) {
+    //
+    //            if (response.getBody() != null) {
+    //
+    //                return response.getBody();
+    //            } else {
+    //
+    //                System.out.println(&quot;(Client Side) The specified meal was null or doesnt exist.&quot;);
+    //            }
+    //        }
+    //
+    //        return null;
+    //    }
+
+    /**
+     * Gets meal category.
+     *
+     * @param category the category
+     * @return the meal category
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public  ArrayList&lt;Meal&gt; getMealCategory(String category ) {
+        //GETS A SPECIFIC MEAL CATEGORY OFF OF THE SERVER SIDE api
+
+<span class="fc" id="L102">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L104">        HttpEntity&lt;Meal[]&gt; entity = new HttpEntity&lt;Meal[]&gt;(headers);</span>
+
+<span class="fc" id="L106">        Object[] uriValues = new Object[] {category};</span>
+
+<span class="fc" id="L108">        ResponseEntity&lt;Meal[]&gt; response = restTemplate.exchange(UrlEndPoints.Food.URL_MEALCATEGORY,</span>
+            HttpMethod.POST, entity, Meal[].class, uriValues);
+
+<span class="fc" id="L111">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L112">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+        //If status == 200
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L117">            Meal[] list = response.getBody();</span>
+
+<span class="fc" id="L119">            ArrayList&lt;Meal&gt; mealList = new ArrayList&lt;Meal&gt;();</span>
+
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">            if (list != null) {</span>
+
+<span class="fc" id="L123">                mealList.addAll(Arrays.asList(list));</span>
+
+<span class="fc" id="L125">                return mealList;</span>
+            } else {
+
+<span class="nc" id="L128">                System.out.println(&quot;(Client Side) Getting the desired meals failed, the response was null.&quot;);</span>
+            }
+        }
+
+<span class="nc" id="L132">        return null;</span>
+    }
+
+    /**
+     * Gets all meat meals.
+     *
+     * @return the all meat meals
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public  ArrayList&lt;Meal&gt; getAllMeatMeals() {
+        //GETS ALL OF THE MEALS WITH MEAT OFF OF THE SERVER api
+
+<span class="fc" id="L144">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L146">        HttpEntity&lt;Meal[]&gt; entity = new HttpEntity&lt;Meal[]&gt;(headers);</span>
+
+<span class="fc" id="L148">        ResponseEntity&lt;Meal[]&gt; response = restTemplate.exchange(UrlEndPoints.Food.URL_MEATMEALs,</span>
+            HttpMethod.POST, entity, Meal[].class);
+
+<span class="fc" id="L151">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L152">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+        //If status == 200
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L157">            Meal[] list = response.getBody();</span>
+
+<span class="fc" id="L159">            ArrayList&lt;Meal&gt; mealList = new ArrayList&lt;Meal&gt;();</span>
+
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">            if (list != null) {</span>
+
+<span class="fc" id="L163">                mealList.addAll(Arrays.asList(list));</span>
+
+<span class="fc" id="L165">                return mealList;</span>
+            } else {
+
+<span class="nc" id="L168">                System.out.println(&quot;(Client Side) Getting the desired meals failed, the response was null.&quot;);</span>
+            }
+        }
+
+<span class="nc" id="L172">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

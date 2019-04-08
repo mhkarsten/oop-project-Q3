@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.model</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package client.model;
+
+import server.model.Feat;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.PostLoad;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = &quot;users&quot;)
+@SequenceGenerator(name = &quot;user_seq&quot;, initialValue = 20,allocationSize = 1)
+public class User {
+
+    private long id;
+    private String name;
+    private String password;
+<span class="fc" id="L22">    private int points = 0;</span>
+    private Set&lt;Achievement&gt; unlockedAchievements;
+
+    private Set&lt;Feat&gt; feats;
+
+
+<span class="fc" id="L28">    public User() {</span>
+
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Constructor for the User class.
+     *
+     * @param id   The numeric id of the user
+     * @param name The name of the user
+     */
+<span class="fc" id="L38">    public User(long id, String name) {</span>
+
+<span class="fc" id="L40">        this.id = id;</span>
+<span class="fc" id="L41">        this.name = name;</span>
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * Constructor for the User class.
+     * @param name The name of the user
+     */
+<span class="fc" id="L48">    public User(String name, String password) {</span>
+<span class="fc" id="L49">        this.name = name;</span>
+<span class="fc" id="L50">        this.password = password;</span>
+<span class="fc" id="L51">    }</span>
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L56">            return true;</span>
+        }
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="fc" id="L59">            return false;</span>
+        }
+<span class="fc" id="L61">        User user = (User) obj;</span>
+<span class="pc bpc" id="L62" title="2 of 4 branches missed.">        return id == user.id</span>
+            &amp;&amp; points == user.points
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">            &amp;&amp; Objects.equals(name, user.name);</span>
+    }
+
+    public long getID() {
+<span class="fc" id="L68">        return id;</span>
+    }
+
+    public void setID(long userID) {
+<span class="fc" id="L72">        this.id = userID;</span>
+<span class="fc" id="L73">    }</span>
+
+    public String getName() {
+<span class="fc" id="L76">        return name;</span>
+    }
+
+    public void setName(String userName) {
+<span class="fc" id="L80">        this.name = userName;</span>
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * The @PostLoad annotation ensures that whenever the database changes, feats are added etc, the user's points are updated.
+     */
+    @PostLoad
+    public void calculatePoints() {
+<span class="fc" id="L88">        points = 0;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (Feat x : feats) {</span>
+<span class="fc" id="L90">            points += x.getPoints();</span>
+<span class="fc" id="L91">        }</span>
+<span class="fc" id="L92">    }</span>
+
+    public int getPoints() {
+<span class="fc" id="L95">        return points;</span>
+    }
+
+    //Mainly here for debugging, does not mean much
+    public void setPoints(int points) {
+<span class="fc" id="L100">        this.points = points;</span>
+<span class="fc" id="L101">    }</span>
+
+    /**
+     * method to add a feat to the user's feat set.
+     * @param feat feat to be added
+     */
+    public void addFeat(Feat feat) {
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (this.feats == null) {</span>
+<span class="fc" id="L109">            this.feats = new HashSet&lt;&gt;();</span>
+        }
+
+<span class="fc" id="L112">        this.feats.add(feat);</span>
+<span class="fc" id="L113">    }</span>
+
+    public Set&lt;Feat&gt; getFeats() {
+<span class="fc" id="L116">        return this.feats;</span>
+    }
+
+
+    public Set&lt;Achievement&gt; getAchievements() {
+<span class="fc" id="L121">        return this.unlockedAchievements;</span>
+    }
+
+    /**
+     * Method to add a achievement to the user's achievement set.
+     * @param achievement the achievement to be added
+     */
+    public void addAchievement(Achievement achievement) {
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        if (this.unlockedAchievements == null) {</span>
+<span class="fc" id="L130">            this.unlockedAchievements = new HashSet&lt;&gt;();</span>
+        }
+<span class="fc" id="L132">        unlockedAchievements.add(achievement);</span>
+<span class="fc" id="L133">    }</span>
+
+    public void setAchievements(Set&lt;Achievement&gt; achievement) {
+<span class="fc" id="L136">        this.unlockedAchievements = achievement;</span>
+<span class="fc" id="L137">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L140">        return password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="fc" id="L144">        this.password = password;</span>
+<span class="fc" id="L145">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

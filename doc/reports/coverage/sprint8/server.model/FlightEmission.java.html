@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FlightEmission.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.model</a> &gt; <span class="el_source">FlightEmission.java</span></div><h1>FlightEmission.java</h1><pre class="source lang-java linenums">package server.model;
+
+import org.json.simple.JSONObject;
+
+import java.util.LinkedHashMap;
+
+/**
+ * The type Flight emission.
+ */
+public class FlightEmission extends VehicleEmission {
+
+    /**
+     * Instantiates a new Flight emission.
+     */
+<span class="fc" id="L15">    public FlightEmission() {</span>
+
+<span class="fc" id="L17">    }</span>
+
+    /**
+     * Instantiates a new Flight emission.
+     *
+     * @param carbon   the carbon
+     * @param energy   the energy
+     * @param distance the distance
+     * @param fuelUse  the fuel use
+     */
+<span class="fc" id="L27">    public FlightEmission(String carbon, String energy, String distance, String fuelUse) {</span>
+<span class="fc" id="L28">        setCarbon(carbon);</span>
+<span class="fc" id="L29">        setEnergy(energy);</span>
+<span class="fc" id="L30">        setDistance(distance);</span>
+<span class="fc" id="L31">        setFuelUse(fuelUse);</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Jso nto flight flight emission.
+     *
+     * @param jsonFlightEmission the json flight emission
+     * @return the flight emission
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static FlightEmission jsonToFlight(JSONObject jsonFlightEmission) {
+
+<span class="fc" id="L43">        FlightEmission newEmission = new FlightEmission();</span>
+
+<span class="fc" id="L45">        LinkedHashMap mainBody = (LinkedHashMap) jsonFlightEmission.get(&quot;decisions&quot;);</span>
+
+<span class="fc" id="L47">        LinkedHashMap carbon = (LinkedHashMap) mainBody.get(&quot;carbon&quot;);</span>
+<span class="fc" id="L48">        newEmission.setCarbon((String) carbon.get(&quot;description&quot;));</span>
+
+<span class="fc" id="L50">        LinkedHashMap energy = (LinkedHashMap) mainBody.get(&quot;energy&quot;);</span>
+<span class="fc" id="L51">        newEmission.setEnergy((String) energy.get(&quot;description&quot;));</span>
+
+<span class="fc" id="L53">        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get(&quot;fuel_use&quot;);</span>
+<span class="fc" id="L54">        newEmission.setFuelUse((String) fuelUse.get(&quot;description&quot;));</span>
+
+<span class="fc" id="L56">        LinkedHashMap distance = (LinkedHashMap) mainBody.get(&quot;distance&quot;);</span>
+<span class="fc" id="L57">        newEmission.setDistance((String) distance.get(&quot;description&quot;));</span>
+
+<span class="fc" id="L59">        return newEmission;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

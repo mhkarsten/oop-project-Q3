@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FoodApi.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.api</a> &gt; <span class="el_source">FoodApi.java</span></div><h1>FoodApi.java</h1><pre class="source lang-java linenums">package server.api;
+
+import static server.model.Meal.jsonToMeal;
+
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import server.model.Meal;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Optional;
+
+
+/**
+ * This class is the integration of TheFoodDB api. This is an online database of various meals which
+ * contains various information on each item of food, such as ingredients, and instructions on how
+ * to make them. These are given as JSON objects, and are then converted to a meal object which
+ * can be displayed in various ways.
+ */
+<span class="nc" id="L26">public class FoodApi {</span>
+
+    static final String URL_RANDOMEAL = &quot;https://www.themealdb.com/api/json/v1/1/random.php&quot;;
+    static final String URL_SPESIFICMEAL = &quot;https://www.themealdb.com/api/json/v1/1/search.php?s=&quot;;
+    static final String URL_CATEGORYMEAL = &quot;https://www.themealdb.com/api/json/v1/1/filter.php?c=&quot;;
+
+    /**
+     * Creates JSON header for a GET request.
+     */
+    public static HttpHeaders acceptHeaders() {
+
+<span class="fc" id="L37">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L38">        headers.set(&quot;Accept&quot;, MediaType.APPLICATION_JSON_VALUE);</span>
+<span class="fc" id="L39">        headers.setContentType(MediaType.APPLICATION_JSON);</span>
+
+<span class="fc" id="L41">        return headers;</span>
+    }
+
+    /** Method to get a random meal from the DB.
+     * @return This method returns a random meal from TheMealDB
+     */
+    public static Optional&lt;Meal[]&gt; getRandomMeal() {
+
+<span class="fc" id="L49">        HttpHeaders headers = acceptHeaders();</span>
+
+<span class="fc" id="L51">        HttpEntity&lt;JSONObject&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+<span class="fc" id="L52">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="fc" id="L54">        ResponseEntity&lt;JSONObject&gt; response = restTemplate.exchange(URL_RANDOMEAL,</span>
+            HttpMethod.GET, entity, JSONObject.class);
+
+<span class="fc" id="L57">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L58">        Meal[] meal = null;</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+<span class="fc" id="L60">            meal = jsonToMeal(response.getBody());</span>
+        }
+
+<span class="fc" id="L63">        return Optional.of(meal);</span>
+    }
+
+    /** Method to return one specific meal from the DB.
+     * @return This method will return one specific meal from the database.
+     * @Param mealName this parameter is the name of the meal that you would like to get from the database
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static Optional&lt;Meal[]&gt; getMeal(String mealName) {
+
+<span class="fc" id="L73">        HttpHeaders headers = acceptHeaders();</span>
+
+<span class="fc" id="L75">        HttpEntity&lt;JSONObject&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+<span class="fc" id="L76">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="fc" id="L78">        ResponseEntity&lt;JSONObject&gt; response = restTemplate.exchange(URL_SPESIFICMEAL + mealName,</span>
+            HttpMethod.GET, entity, JSONObject.class);
+
+<span class="fc" id="L81">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L82">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+<span class="fc" id="L83">        Meal[] meal = null;</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+<span class="fc" id="L85">            meal = jsonToMeal(response.getBody());</span>
+        }
+
+<span class="fc" id="L88">        return Optional.of(meal);</span>
+    }
+
+    /** Method to get meals from a certain category.
+     * @param mealName This parameter is the name of the meal category that you would like returned.
+     * @return This method returns an ArrayList of all meals in a specific category.
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static Optional&lt;ArrayList&lt;Meal[]&gt;&gt; getMealCategory(String mealName) {
+
+<span class="fc" id="L98">        HttpHeaders headers = acceptHeaders();</span>
+
+<span class="fc" id="L100">        HttpEntity&lt;JSONObject&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+<span class="fc" id="L101">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="fc" id="L103">        ResponseEntity&lt;JSONObject&gt; response = restTemplate.exchange(URL_CATEGORYMEAL + mealName,</span>
+            HttpMethod.GET, entity, JSONObject.class);
+
+<span class="fc" id="L106">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L107">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+<span class="fc" id="L108">        ArrayList&lt;Meal[]&gt; categoryMeals = null;</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L111">            categoryMeals = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L113">            Object mealList = response.getBody().get(&quot;meals&quot;);</span>
+<span class="fc" id="L114">            ArrayList&lt;LinkedHashMap&gt; meal = (ArrayList&lt;LinkedHashMap&gt;) mealList;</span>
+
+<span class="fc bfc" id="L116" title="All 2 branches covered.">            for (int i = 0; i &lt; meal.size(); i++) {</span>
+
+<span class="fc" id="L118">                LinkedHashMap linkedMeal = meal.get(i);</span>
+
+<span class="fc" id="L120">                categoryMeals.add(getMeal((String) linkedMeal.get(&quot;strMeal&quot;)).get());</span>
+            }
+        }
+
+<span class="fc" id="L124">        return Optional.of(categoryMeals);</span>
+    }
+
+    /** Method to get all meals in the meat category.
+     * @return This method returns a list of all of the meals that use meat.
+     */
+    public static ArrayList&lt;Meal[]&gt; getAllMeatMeals() {
+
+<span class="fc" id="L132">        ArrayList&lt;Meal[]&gt; meatMeals = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L134">        String[] meatCategories = {&quot;Beef&quot;, &quot;Chicken&quot;, &quot;Lamb&quot;, &quot;Pork&quot;, &quot;Seafood&quot;};</span>
+
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        for (int i = 0; i &lt; 5; i++) {</span>
+
+<span class="fc" id="L138">            meatMeals.addAll(getMealCategory(meatCategories[i]).get());</span>
+        }
+
+<span class="fc" id="L141">        return meatMeals;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

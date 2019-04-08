@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MyUserDetailsService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.security</a> &gt; <span class="el_source">MyUserDetailsService.java</span></div><h1>MyUserDetailsService.java</h1><pre class="source lang-java linenums">package server.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import server.model.User;
+import server.repository.UserRepository;
+
+import java.util.Optional;
+
+/**
+ * Manages the authentication and registration of users.
+ */
+@Service
+<span class="fc" id="L18">public class MyUserDetailsService implements UserDetailsService {</span>
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * Used for the authentication of users (Checks for the password implicitly).
+     *
+     * @param username the username of the user that has to be authenticated
+     * @return return returns the userDetails if successful
+     * @throws UsernameNotFoundException throws UsernameNotFoundException if the user name is not found
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+<span class="fc" id="L35">        Optional&lt;User&gt; user = userRepository.findByName(username);</span>
+
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (!user.isPresent()) {</span>
+<span class="fc" id="L38">            throw new UsernameNotFoundException(username);</span>
+        }
+
+<span class="fc" id="L41">        return new MyUserPrincipal(user.get());</span>
+    }
+
+    /**
+     * Checks if the username is already in use.
+     * @param user the User object to check with
+     * @return a boolean whether or not the Username has been found
+     */
+    public boolean userExists(User user) {
+<span class="nc" id="L50">        return userRepository.findByName(user.getName()).isPresent();</span>
+    }
+
+    /**
+     * Checks if the username is still available, encodes the password and persists the entity.
+     * @param user the User object to check with
+     * @return User return the
+     */
+    public User registerNewUserAccount(User user) {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (userExists(user)) {</span>
+<span class="nc" id="L60">            return null;</span>
+        }
+
+<span class="nc" id="L63">        user.setPassword(passwordEncoder.encode(user.getPassword()));</span>
+<span class="nc" id="L64">        return userRepository.save(user);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

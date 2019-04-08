@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AchievementRetrieve.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.retrieve</a> &gt; <span class="el_source">AchievementRetrieve.java</span></div><h1>AchievementRetrieve.java</h1><pre class="source lang-java linenums">package client.retrieve;
+
+import client.model.Achievement;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+/**
+ * The type Achievement controller.
+ */
+<span class="fc" id="L20">public class AchievementRetrieve extends BaseRetrieve {</span>
+
+
+    /**
+     * Ach get all array list.
+     *
+     * @return the array list
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public ArrayList&lt;Achievement&gt; achGetAll() {
+        //GET ALL ACHIEVEMENTS
+<span class="fc" id="L31">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+<span class="fc" id="L32">        HttpEntity&lt;Achievement[]&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+
+<span class="fc" id="L34">        ResponseEntity&lt;Achievement[]&gt; response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGETALL,</span>
+            HttpMethod.POST, entity, Achievement[].class);
+
+<span class="fc" id="L37">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L38">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+<span class="fc" id="L41">            Achievement[] list = response.getBody();</span>
+
+<span class="fc" id="L43">            ArrayList&lt;Achievement&gt; achList = new ArrayList&lt;&gt;();</span>
+
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">            if (list != null) {</span>
+
+<span class="fc" id="L47">                achList.addAll(Arrays.asList(list));</span>
+
+<span class="fc" id="L49">                return achList;</span>
+            }
+        }
+
+<span class="nc" id="L53">        System.out.println(&quot;(Client Side) Getting all Achievements failed.&quot;);</span>
+<span class="nc" id="L54">        return null;</span>
+    }
+
+    /**
+     * Ach get achievement.
+     *
+     * @param achID the ach id
+     * @return the achievement
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public Achievement achGet(long achID) {
+        //GET SPECIFIC ACHIEVEMENT
+<span class="fc" id="L66">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+<span class="fc" id="L67">        HttpEntity&lt;Achievement&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+
+<span class="fc" id="L69">        Object[] uriValues = new Object[] {achID};</span>
+
+<span class="fc" id="L71">        ResponseEntity&lt;Achievement&gt; response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGET,</span>
+            HttpMethod.POST, entity, Achievement.class, uriValues);
+
+<span class="fc" id="L74">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L75">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L79">            Achievement[] ach = new Achievement[1];</span>
+<span class="fc" id="L80">            ach[0] = response.getBody();</span>
+
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">            if (response.getBody() != null) {</span>
+
+<span class="fc" id="L84">                return ach[0];</span>
+            }
+        }
+<span class="nc" id="L87">        System.out.println(&quot;(Client Side) Getting the desired achievement failed.&quot;);</span>
+<span class="nc" id="L88">        return null;</span>
+    }
+
+    /**
+     * Ach get unlocked array list.
+     *
+     * @param usrID the usr id
+     * @return the array list
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public ArrayList&lt;Achievement&gt; achGetUnlocked(long usrID) {
+        //GET ALL UNLOCKED ACHIEVEMENTS BY A USER
+<span class="fc" id="L100">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+<span class="fc" id="L101">        HttpEntity&lt;Achievement[]&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+
+<span class="fc" id="L103">        Object[] uriValues = new Object[] {usrID};</span>
+
+<span class="fc" id="L105">        ResponseEntity&lt;Achievement[]&gt; response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHUNLOCKED,</span>
+            HttpMethod.POST, entity, Achievement[].class, uriValues);
+
+<span class="fc" id="L108">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L109">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+<span class="fc" id="L112">            Achievement[] list = response.getBody();</span>
+
+<span class="fc" id="L114">            ArrayList&lt;Achievement&gt; achList = new ArrayList&lt;&gt;();</span>
+
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">            if (list != null) {</span>
+
+<span class="fc" id="L118">                achList.addAll(Arrays.asList(list));</span>
+
+<span class="fc" id="L120">                return achList;</span>
+            }
+        }
+
+<span class="nc" id="L124">        System.out.println(&quot;(Client Side) Getting all Achievements failed.&quot;);</span>
+<span class="nc" id="L125">        return null;</span>
+    }
+
+    /**
+     * Add user ach.
+     *
+     * @param usrID the usr id
+     * @param achID the ach id
+     */
+    public void addUserAch(long usrID, long achID) {
+        //ADDS AN ACHIEVEMENT TO THE USERS ACCOUNT
+<span class="nc" id="L136">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+<span class="nc" id="L137">        Object[] uriValues = new Object[] {usrID, achID};</span>
+        ResponseEntity&lt;Achievement&gt; response;
+
+        try {
+
+<span class="nc" id="L142">            HttpEntity&lt;Achievement&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+<span class="nc" id="L143">            response = restTemplate.exchange(UrlEndPoints.Achievements.URL_UNLOCKACHFORUSER,</span>
+                HttpMethod.POST, entity, Achievement.class, uriValues);
+<span class="nc" id="L145">        } catch (Exception e) {</span>
+
+<span class="nc" id="L147">            System.out.println(&quot;(Client Side) Either the achievement doesnt exist, or the user.&quot;);</span>
+<span class="nc" id="L148">            System.out.println(e.toString());</span>
+<span class="nc" id="L149">            return;</span>
+<span class="nc" id="L150">        }</span>
+<span class="nc" id="L151">    }</span>
+
+    /**
+     * Add ach.
+     *
+     * @param ach the ach
+     */
+    public void addAch(Achievement ach) {
+        //CREATES A NEW ACHIEVEMENT
+<span class="fc" id="L160">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+        try {
+
+<span class="fc" id="L164">            HttpEntity&lt;Achievement&gt; requestBody = new HttpEntity&lt;&gt;(ach, headers);</span>
+<span class="fc" id="L165">            Achievement newAch = restTemplate.postForObject(UrlEndPoints.Achievements.URL_NEWACH, requestBody, Achievement.class);</span>
+
+<span class="pc bpc" id="L167" title="3 of 4 branches missed.">            if (newAch != null &amp;&amp; newAch.getID() != 0) {</span>
+
+<span class="nc" id="L169">                System.out.println(&quot;(Client Side) The achievement &quot; + ach.getTitle() + &quot; has been created.&quot;);</span>
+            }
+<span class="nc" id="L171">        } catch (Exception e) {</span>
+
+<span class="nc" id="L173">            System.out.println(&quot;(Client Side) Creating the achievement &quot; + ach.getTitle() + &quot; failed.&quot;);</span>
+<span class="nc" id="L174">            System.out.println(e.toString());</span>
+<span class="fc" id="L175">        }</span>
+<span class="fc" id="L176">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

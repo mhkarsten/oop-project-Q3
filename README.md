@@ -1,7 +1,7 @@
-# Project Go Green 2019
-
+### Project Go Green 2019 @TUDelft
+# Greendr
 ## Our goal
-Our aim is to develop an app that inspires people to reduce their carbon footprint in an engaging, competitive way by applying tried and true techniques.
+We set out to develop an app that inspires people to reduce their carbon footprint in an engaging, competitive way by applying tried and true techniques. We believe we succeeded in this aim.
 
 ## The team
 ### Dan Dan Berendsen (@dberendsen) StudentID: 4904982
@@ -23,3 +23,22 @@ Our aim is to develop an app that inspires people to reduce their carbon footpri
 ### Thom van der Woude (@tbvanderwoude) StudentID: 4945727
 
 <img src = "photos/IMG_20190215_183148.jpg" width = "150" height = "200">
+
+## The Greendr API
+To support the logging of environment-saving actions, we built a Postgres-backed RESTful API that apps can interface with for user-related CRUD operations. Here are a few basic examples in Java using Spring. More information about the used paths and functions and others can be found in the javadoc. (INSERT INTRADIRECTORY LINK)
+
+### Authentication
+~~~Java
+
+~~~
+### Getting a user
+~~~Java
+
+~~~
+### Adding a generic feat
+~~~Java
+
+~~~
+
+## The Greendr app
+To have a direct environmental impact, we also made an application that relies on the Greendr API for persistence of the user data. It uses JavaFX for the GUI and allows

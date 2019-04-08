@@ -38,7 +38,12 @@ public class ProfileController implements Initializable {
 
         featListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         ObservableList<String> listViewContents = featListView.getItems();
-        ArrayList<Feat> tempArray = featRetrive.getUserFeats(currentUser.getID());
+        ArrayList<Feat> tempArray = null;
+        try {
+            tempArray = featRetrive.getUserFeats(currentUser.getID());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         tempArray.forEach(feat -> {
 

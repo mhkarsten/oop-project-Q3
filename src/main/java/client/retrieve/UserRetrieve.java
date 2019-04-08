@@ -41,22 +41,12 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        //If status == 200
-        if (statusCode == HttpStatus.OK) {
+        User[] list = response.getBody();
+        ArrayList<User> userList = new ArrayList<User>();
+        userList.addAll(Arrays.asList(list));
 
-            User[] list = response.getBody();
+        return userList;
 
-            ArrayList<User> userList = new ArrayList<User>();
-
-            if (list != null) {
-
-                userList.addAll(Arrays.asList(list));
-
-                return userList;
-            }
-        }
-
-        return null;
     }
 
     /**Method to return a specified user.
@@ -79,21 +69,10 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        if (statusCode == HttpStatus.OK) {
+        User[] userArray = new User[1];
+        userArray[0] = response.getBody();
 
-            User[] userArray = new User[1];
-            userArray[0] = response.getBody();
-
-            if (response.getBody() != null) {
-
-                return userArray;
-            } else {
-
-                System.out.println("(Client Side) The specified user was null or doesnt exist.");
-            }
-        }
-
-        return null;
+        return userArray;
     }
 
     /**
@@ -114,12 +93,7 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        if (statusCode == HttpStatus.OK) {
-
-            return response.getBody();
-        }
-
-        return null;
+        return response.getBody();
 
     }
 
@@ -170,18 +144,9 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        //If status == 200
-        if (statusCode == HttpStatus.OK) {
+        Set<User> followers = response.getBody();
+        return followers;
 
-            Set<User> followers = response.getBody();
-
-            if (followers != null) {
-
-                return followers;
-            }
-        }
-
-        return null;
     }
 
     /**

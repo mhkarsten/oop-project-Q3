@@ -26,9 +26,9 @@ public class MyUserDetailsService implements UserDetailsService {
     /**
      * Used for the authentication of users. (Checks for the password implicitly)
      *
-     * @param username
-     * @return
-     * @throws UsernameNotFoundException
+     * @param username The name of the user to look for
+     * @return Returns the corresponding UserDetails object if the user is found.
+     * @throws UsernameNotFoundException When a the username is not found, a UsernameNotFoundException is thrown.
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -41,8 +41,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
     /**
      * Checks if the username is already in use.
-     * @param user
-     * @return
+     * @param user The user object of which the name should be checked
+     * @return Whether a user with the given user name already exists in the database
      */
     public boolean userExists(User user) {
         return userRepository.findByName(user.getName()).isPresent();

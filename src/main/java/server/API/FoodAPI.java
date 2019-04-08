@@ -55,7 +55,7 @@ public class FoodAPI {
 
     /**
      * @return This method will return one specific meal from the database.
-     * @Param mealName
+     * @param mealName
      * This parameter is the name of the meal that you would like to get from the database
      */
     @SuppressWarnings("Duplicates")

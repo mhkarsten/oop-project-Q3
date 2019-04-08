@@ -36,8 +36,6 @@ public class UserController {
 
     /**
      * Initial connect message.
-     *
-     * @return Message stating you are connected
      */
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/")

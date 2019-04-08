@@ -29,16 +29,15 @@ public class LoginController {
     private TextField usernameField;
 
     @FXML
-    public void onEnter(ActionEvent ae) throws IOException {
+    public void onEnter(ActionEvent ae) {
         login(ae);
     }
 
     /**
      * Login method.
-     *
-     * @throws Exception Throws exception if the event is invalid
+     * @param event The event to process.
      */
-    public void login(ActionEvent event) throws IOException {
+    public void login(ActionEvent event) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(usernameField.getText(), passwordField.getText()));
         DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory(UrlEndPoints.BASE_URL);

@@ -83,7 +83,6 @@ public class AchievementController {
      * A mapping for unlocking an achievement
      *
      * @param userID the user id of the user
-     * @return the unlocked achievements if any and if the user exists
      */
     @RequestMapping(value = "/users/{userId}/achievements/unlock/{achId}",
         method = {RequestMethod.POST, RequestMethod.GET},

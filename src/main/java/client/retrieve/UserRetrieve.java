@@ -22,7 +22,6 @@ import java.util.Set;
  *side code can use both XML and JSON. Later this might be changed so everything uses
  *JSON for the sake of simplicity;
  *
- * @return Return all users from the server
  */
 public class UserRetrieve extends BaseRetrieve {
 
@@ -121,12 +120,10 @@ public class UserRetrieve extends BaseRetrieve {
 
     }
 
-    /**Method to update a users information.
-     * Update user information (UPDATE)
-     *
-     * TODO: this method is not gonna work with the current security setup.
-     * There should be a method updateUserPoints that takes the ID/username and points to be added.
-     *
+    /**
+     * Update user information (UPDATE).
+     * @param userId The id of the user for which a feat is to be created
+     * @param points The number of points that the feat is worth
      */
     public void addGenericFeat(Long userId, int points) {
 

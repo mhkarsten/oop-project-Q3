@@ -1,28 +1,5 @@
 ### Project Go Green 2019 @TUDelft
 # Greendr
-## Our goal
-We set out to develop an app that inspires people to reduce their carbon footprint in an engaging, competitive way by applying tried and true techniques. We believe we succeeded in this aim.
-
-## The team
-### Dan Dan Berendsen (@dberendsen) StudentID: 4904982
-
-<img src = "photos/IMG_6796.JPG" width = "150" height = "250">
-
-### Pandey, Harshitaa (@hpandey) StudentID: 4780205
-
-<img src = "photos/photo.jpg" width = "150" height = "200">
-
-### Max Karsten (@mhkarsten) StudentID: 4943090
-
-<img src = "photos/PasPhoto_Max_Karsten.jpg" width = "150" height = "200">
-
-### Jason Bloom (@jsjgbloom) StudentID: 4719794
-
-<img src = "photos/photo_4719791_Jason_Bloom.jpg" width = "150" height = "200">
-
-### Thom van der Woude (@tbvanderwoude) StudentID: 4945727
-
-<img src = "photos/IMG_20190215_183148.jpg" width = "150" height = "200">
 
 ## The Greendr API
 To support the logging of environment-saving actions, we built a Postgres-backed RESTful API that carbon-tracking apps can interface with for user data CRUD operations. Here are a few basic examples in Java using Spring. More information about the used paths and functions can be found in the [documentation of Greendr](https://thomw2o0o.github.io/)
@@ -34,7 +11,7 @@ As we use maven for our dependency management, it is assumed that mvn is on your
 `mvn exec:java@server`
 
 ## Demo application
-
+The below code comes from the demo application, which can be run by executing `mvn exec:java@demo`
 ### [Registration and Authentication](https://thomw2o0o.github.io/server/controller/AuthController.html)
 As only the root and register paths can be accessed without proper authentication, any interaction with the API must be properly authenticated by either logging in using existing credentials or registring a new user.
 ~~~Java
@@ -61,13 +38,39 @@ User userById=template.postForObject( "http://localhost:8080/users/"+user.getID(
 ### [Adding a generic feat](https://thomw2o0o.github.io/server/controller/FeatController.html)
 In our API, feat objects represent the environment-saving actions of our users.
 ~~~Java
-Feat feat = new Feat(1,150,4, new Date(),null);
-template.postForLocation( "http://localhost:8080/users/5/feats/new", new HttpEntity<>(feat));
+Feat feat = new Feat(1,150,4, new Date(),user);
+template.postForLocation( "http://localhost:8080/users/"+user.getID()+"/feats/new", new HttpEntity<>(feat));
 User betterUser = template.getForObject( "http://localhost:8080/users/"+user.getID(),  User.class);
 
-System.out.println("Points of Mark before feat:"+user.getPoints()+"\n"+"Points of Mark after feat:"+betterUser.getPoints());
-
+System.out.println("Points of Mark before feat:"+user.getPoints()+
+    "\n"+"Points of Mark after feat:"+betterUser.getPoints());
 ~~~
 
 ## The Greendr app
-To have a direct environmental impact, we also made an application that relies on the Greendr API for the persistence of the user data. It uses JavaFX for the GUI and allows
+To have a direct environmental impact, we also made an application that relies on the Greendr API for the persistence of the user data. It can be started using `mvn exec:java@demo`
+
+## Running the tests
+Running the tests for Greendr using Maven is also very straightforward. Simply open a terminal at the repository's root and run `mvn test`
+## Our goal
+We set out to develop an app that inspires people to reduce their carbon footprint in an engaging, competitive way by applying tried and true techniques. We believe we succeeded in this aim.
+
+## The team
+### Dan Dan Berendsen (@dberendsen) StudentID: 4904982
+
+<img src = "photos/IMG_6796.JPG" width = "150" height = "250">
+
+### Pandey, Harshitaa (@hpandey) StudentID: 4780205
+
+<img src = "photos/photo.jpg" width = "150" height = "200">
+
+### Max Karsten (@mhkarsten) StudentID: 4943090
+
+<img src = "photos/PasPhoto_Max_Karsten.jpg" width = "150" height = "200">
+
+### Jason Bloom (@jsjgbloom) StudentID: 4719794
+
+<img src = "photos/photo_4719791_Jason_Bloom.jpg" width = "150" height = "200">
+
+### Thom van der Woude (@tbvanderwoude) StudentID: 4945727
+
+<img src = "photos/IMG_20190215_183148.jpg" width = "150" height = "200">

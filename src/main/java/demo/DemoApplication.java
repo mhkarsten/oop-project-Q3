@@ -29,8 +29,8 @@ public class DemoApplication {
         user=template.postForObject( "http://localhost:8080/users/byName/"+user.getName(), new HttpEntity<>(user),User.class);
         User userById=template.postForObject( "http://localhost:8080/users/"+user.getID(), new HttpEntity<>(user),User.class);
 
-        Feat feat = new Feat(1,150,4, new Date(),null);
-        template.postForLocation( "http://localhost:8080/users/5/feats/new", new HttpEntity<>(feat));
+        Feat feat = new Feat(1,150,4, new Date(),user);
+        template.postForLocation( "http://localhost:8080/users/"+user.getID()+"/feats/new", new HttpEntity<>(feat));
         User betterUser = template.getForObject( "http://localhost:8080/users/"+user.getID(),  User.class);
 
         System.out.println("Points of Mark before feat:"+user.getPoints()+

@@ -21,36 +21,34 @@ The code below comes from the demo application, which can be run by executing `m
 ### [Registration and Authentication](https://thomw2o0o.github.io/server/controller/AuthController.html)
 As only the root and register paths can be accessed without proper authentication, any interaction with the API must be properly authenticated by either logging in using existing credentials or registring a new user.
 ~~~Java
-RestTemplate template=new RestTemplate();
-User user=new User("Mark","s3cretp4ssword");
+RestTemplate template = new RestTemplate();
+User user = new User("Mark","s3cretp4ssword");
 try {
-    //Assuming that your server is hosted at localhost port 8080
-    user=template.postForObject( "http://localhost:8080/auth/register", new HttpEntity<>(user),User.class);
+    user = template.postForObject( "http://localhost:8080/auth/register", new HttpEntity<>(user),User.class);
 } catch (HttpClientErrorException exception) {
     System.out.println("The user already exists!");
 }
 //Set the proper basic authentication header for every request
 template.getInterceptors().add(new BasicAuthenticationInterceptor(user.getName(), user.getPassword()));
-template.postForEntity("http://localhost:8080/auth/login/"+user.getName(),new HttpEntity<>(user),User.class);
+template.postForEntity("http://localhost:8080/auth/login/" + user.getName(),new HttpEntity<>(user),User.class);
 System.out.println(user.toString());
 ~~~
 ### [Getting a user](https://thomw2o0o.github.io/server/controller/UserController.html)
 ~~~Java
 //... insert authentication ...
 //Two ways to get a user
-User userByName=template.postForObject( "http://localhost:8080/users/byName/"+user.getName(), new HttpEntity<>(user),User.class);
-User userById=template.postForObject( "http://localhost:8080/users/"+user.getID(), new HttpEntity<>(user),User.class);
+user = template.postForObject( "http://localhost:8080/users/byName/" + user.getName(), new HttpEntity<>(user),User.class);
+User userById = template.postForObject( "http://localhost:8080/users/" + user.getID(), new HttpEntity<>(user),User.class);
 ~~~
 ### [Adding a generic feat](https://thomw2o0o.github.io/server/controller/FeatController.html)
 In our API, feat objects represent the environment-saving actions of our users.
 ~~~Java
-user=template.postForObject( "http://localhost:8080/users/byName/"+user.getName(), new HttpEntity<>(user),User.class);
+//... insert authentication ...
+user = template.postForObject( "http://localhost:8080/users/byName/" + user.getName(), new HttpEntity<>(user),User.class);
 Feat feat = new Feat(1,150,4, new Date(),user);
-template.postForLocation( "http://localhost:8080/users/"+user.getID()+"/feats/new", new HttpEntity<>(feat));
-User betterUser = template.getForObject( "http://localhost:8080/users/"+user.getID(),  User.class);
-
-System.out.println("Points of Mark before feat:"+user.getPoints()+
-    "\n"+"Points of Mark after feat:"+betterUser.getPoints());
+template.postForLocation( "http://localhost:8080/users/" + user.getID() + "/feats/new", new HttpEntity<>(feat));
+User betterUser = template.getForObject( "http://localhost:8080/users/" + user.getID(),  User.class);
+System.out.println("Points of Mark before feat:" + user.getPoints() + "\nPoints of Mark after feat:" + betterUser.getPoints());
 ~~~
 
 ## The Greendr app

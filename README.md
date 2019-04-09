@@ -20,7 +20,7 @@ This can of course be changed to access a remote database or a different type of
 The code below comes from the demo application, which can be run by executing `mvn exec:java@demo`. The full code for this demo can be found [here](src/main/java/demo/DemoApplication.java)
 ### [Registration and Authentication](https://thomw2o0o.github.io/server/controller/AuthController.html)
 As only the root and register paths can be accessed without proper authentication, any interaction with the API must be properly authenticated by either logging in using existing credentials or registring a new user.
-~~~Java
+~~~ java
 RestTemplate template = new RestTemplate();
 User user = new User("Mark","s3cretp4ssword");
 try {
@@ -34,7 +34,7 @@ template.postForEntity("http://localhost:8080/auth/login/" + user.getName(),new 
 System.out.println(user.toString());
 ~~~
 ### [Getting a user](https://thomw2o0o.github.io/server/controller/UserController.html)
-~~~Java
+~~~ java
 //... insert authentication ...
 //Two ways to get a user
 user = template.postForObject( "http://localhost:8080/users/byName/" + user.getName(), new HttpEntity<>(user),User.class);
@@ -42,7 +42,7 @@ User userById = template.postForObject( "http://localhost:8080/users/" + user.ge
 ~~~
 ### [Adding a generic feat](https://thomw2o0o.github.io/server/controller/FeatController.html)
 In our API, feat objects represent the environment-saving actions of our users.
-~~~Java
+~~~ java
 //... insert authentication ...
 user = template.postForObject( "http://localhost:8080/users/byName/" + user.getName(), new HttpEntity<>(user),User.class);
 Feat feat = new Feat(1,150,4, new Date(),user);

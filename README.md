@@ -57,7 +57,7 @@ To have a direct environmental impact, we also made an application that relies o
 ## Running the tests
 Running the tests for Greendr using Maven is also very straightforward. Simply open a terminal at the repository's root and run `mvn test`
 ## Our goal
-We set out to develop an app that inspires people to reduce their carbon footprint in an engaging, competitive way by applying tried and true techniques. We believe we succeeded in this aim.
+We set out to develop an app that inspires people to reduce their carbon footprint in an engaging, competitive way by applying tried and true techniques. We as a team believe we succeeded in this aim.
 
 ## The team
 ### Dan Dan Berendsen (@dberendsen) StudentID: 4904982

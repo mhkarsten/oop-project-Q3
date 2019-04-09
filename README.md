@@ -2,16 +2,22 @@
 # Greendr
 
 ## The Greendr API
-To support the logging of environment-saving actions, we built a Postgres-backed RESTful API that carbon-tracking apps can interface with for user data CRUD operations. Here are a few basic examples in Java using Spring. More information about the used paths and functions can be found in the [documentation of Greendr](https://thomw2o0o.github.io/)
+To support the logging of environment-saving actions, we built a Postgres-backed RESTful API that carbon-tracking apps can interface with for user data CRUD operations. Below are a few basic examples in Java using Spring. More information about the used paths and functions can be found in the [documentation of Greendr](https://thomw2o0o.github.io/)
 
 
 ## Starting the server
-As we use maven for our dependency management, it is assumed that mvn is on your path. (if this command is not recognized, see [here](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)). It is also assumed that you have postgres installed with a configuration corresponding to that in the application.properties file.
- To start the server, simply run the following command in the root of the repository:
+Before running the demo or the example code, the server must be started. As we use [Maven](https://maven.apache.org/download.cgi) for our dependency management, it is assumed that mvn is on your path. (if this command is not recognized, see [here](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)). It is also assumed that you have [PostgreSQL](https://www.postgresql.org/download/) installed configured in accordance with the [application.properties](src/main/resources/application.properties) file. The default configuration of this application is as follows:
+~~~
+spring.datasource.url = jdbc:postgresql://localhost:5432/gogreen
+spring.datasource.username = postgres
+spring.datasource.password = 24601
+spring.jpa.hibernate.ddl-auto = update
+~~~
+This can of course be changed to access a remote database or a different type of database. To start the server, simply run the following command in the root of the repository:
 `mvn exec:java@server`
 
 ## Demo application
-The below code comes from the demo application, which can be run by executing `mvn exec:java@demo`
+The code below comes from the demo application, which can be run by executing `mvn exec:java@demo`. The full code for this demo can be found [here](src/main/java/demo/DemoApplication.java)
 ### [Registration and Authentication](https://thomw2o0o.github.io/server/controller/AuthController.html)
 As only the root and register paths can be accessed without proper authentication, any interaction with the API must be properly authenticated by either logging in using existing credentials or registring a new user.
 ~~~Java
@@ -74,3 +80,6 @@ We set out to develop an app that inspires people to reduce their carbon footpri
 ### Thom van der Woude (@tbvanderwoude) StudentID: 4945727
 
 <img src = "photos/IMG_20190215_183148.jpg" width = "150" height = "200">
+
+## TL;DR
+We made a client and server to make the world a greener place.

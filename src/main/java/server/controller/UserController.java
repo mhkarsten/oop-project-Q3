@@ -8,19 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import server.model.User;
 import server.repository.UserRepository;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -94,40 +90,15 @@ public class UserController {
     }
 
     /**
-     * Adds a new user (CREATE).
-     *
-     * @param usr Parameter for the user to be added
-     * @return Returns the path at which the new user is located
-     */
-    @PostMapping(value = "/users/new",
-        produces = {MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE})
-    @ResponseBody
-    public ResponseEntity<?> addUser(@RequestBody User usr) {
-        usr.setID(0);
-        User savedUser = userRepository.save(usr);
-        System.out.println("Creating new user with ID" + savedUser.getID());
-
-        URI location = ServletUriComponentsBuilder
-            .fromCurrentContextPath().path("/users/{userID}")
-            .buildAndExpand(savedUser.getID()).toUri();
-        return ResponseEntity.created(location).build();
-    }
-
-    /**
      * Deletes an existing user (DELETE).
      *
      * @param userID Parameter for the userID of the user that has to be deleted
      */
     @DeleteMapping(value = "/users/{userID}")
     @ResponseBody
-    public ResponseEntity<?> deleteUser(@PathVariable("userID") @Valid long userID) {
-        Optional<User> optionalUser = userRepository.findById(userID);
-        if (optionalUser.isPresent()) {
-            userRepository.delete(optionalUser.get());
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    public void deleteUser(@PathVariable("userID") @Valid long userID) {
+        User user = userRepository.findById(userID).get();
+        userRepository.delete(user);
     }
 
     /**

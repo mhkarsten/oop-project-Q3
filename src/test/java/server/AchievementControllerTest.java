@@ -81,11 +81,7 @@ public class AchievementControllerTest {
     {
         //CREATE
         User user = new User("Usnavi","96000");
-        URI usnaviLocation = restTemplate.postForLocation("/users/new", new HttpEntity<>(user));
-        //READ
-        user = restTemplate.getForObject(usnaviLocation, User.class);
-
-
+        user = restTemplate.postForObject("/auth/register", new HttpEntity<>(user),User.class);
         //Unlocking of achievement test:
         restTemplate.getForEntity("/users/"+user.getID()+"/achievements/unlock/1", User.class);
         restTemplate.getForEntity("/users/"+user.getID()+"/achievements/unlock/3", User.class);

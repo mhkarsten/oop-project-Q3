@@ -20,7 +20,7 @@ public final class UserSession {
     /**
      * Checks if the instance is already instantiated, and if so return the single instance.
      * If not creates the single instance and returns it.
-     * @return
+     * @return returns the instance of usersession
      */
     public static UserSession getInstance() {
         if (instance == null) {

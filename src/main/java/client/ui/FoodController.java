@@ -137,7 +137,7 @@ public class FoodController implements Initializable {
     /**
      * Method to find a meal based on the name of the meal.
      * @param mealName name of the meal
-     * @return
+     * @return Returns the meal if it was found
      */
     public Meal findMeal(String mealName) {
         ArrayList<Meal> allMeals = new ArrayList();

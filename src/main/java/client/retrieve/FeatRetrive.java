@@ -18,7 +18,7 @@ public class FeatRetrive extends BaseRetrieve {
     /**
      * Method to get all the feats of a user.
      * @param userID id of the target user
-     * @return
+     * @return returns the feats of a given user if successful
      */
     public ArrayList<Feat> getUserFeats(long userID) {
         //GETS ALL THE FEATS THAT THE USER HAS
@@ -46,7 +46,7 @@ public class FeatRetrive extends BaseRetrieve {
             }
         }
 
-        System.out.println("(Client Side) Getting all Achievements failed.");
+        System.out.println("(Client Side) Getting all feats of user failed.");
         return null;
     }
 }

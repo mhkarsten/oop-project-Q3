@@ -79,7 +79,8 @@ public class LoginController {
     }
 
     /**Method to post a new user (CREATE).
-     *
+     * @param event The event to process.
+     * @throws IOException if the screen that the stage switches to doesn't exist this throws an IOException
      */
     public void register(ActionEvent event) throws IOException {
         RestTemplate restTemplate = new RestTemplate();

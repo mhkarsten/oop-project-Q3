@@ -25,20 +25,49 @@ We set out to develop an app that inspires people to reduce their carbon footpri
 <img src = "photos/IMG_20190215_183148.jpg" width = "150" height = "200">
 
 ## The Greendr API
-To support the logging of environment-saving actions, we built a Postgres-backed RESTful API that apps can interface with for user-related CRUD operations. Here are a few basic examples in Java using Spring. More information about the used paths and functions and others can be found in the javadoc. (INSERT INTRADIRECTORY LINK)
+To support the logging of environment-saving actions, we built a Postgres-backed RESTful API that carbon-tracking apps can interface with for user data CRUD operations. Here are a few basic examples in Java using Spring. More information about the used paths and functions can be found in the [documentation of Greendr](https://thomw2o0o.github.io/)
 
-### Authentication
+
+## Starting the server
+As we use maven for our dependency management, it is assumed that mvn is on your path. (if this command is not recognized, see [here](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)). It is also assumed that you have postgres installed with a configuration corresponding to that in the application.properties file.
+ To start the server, simply run the following command in the root of the repository:
+`mvn exec:java@server`
+
+## Demo application
+
+### [Registration and Authentication](https://thomw2o0o.github.io/server/controller/AuthController.html)
+As only the root and register paths can be accessed without proper authentication, any interaction with the API must be properly authenticated by either logging in using existing credentials or registring a new user.
 ~~~Java
-
+RestTemplate template=new RestTemplate();
+User user=new User("Mark","s3cretp4ssword");
+try {
+    //Assuming that your server is hosted at localhost port 8080
+    user=template.postForObject( "http://localhost:8080/auth/register", new HttpEntity<>(user),User.class);
+} catch (HttpClientErrorException exception) {
+    System.out.println("The user already exists!");
+}
+//Set the proper basic authentication header for every request
+template.getInterceptors().add(new BasicAuthenticationInterceptor(user.getName(), user.getPassword()));
+template.postForEntity("http://localhost:8080/auth/login/"+user.getName(),new HttpEntity<>(user),User.class);
+System.out.println(user.toString());
 ~~~
-### Getting a user
+### [Getting a user](https://thomw2o0o.github.io/server/controller/UserController.html)
 ~~~Java
-
+//... insert authentication ...
+//Two ways to get a user
+User userByName=template.postForObject( "http://localhost:8080/users/byName/"+user.getName(), new HttpEntity<>(user),User.class);
+User userById=template.postForObject( "http://localhost:8080/users/"+user.getID(), new HttpEntity<>(user),User.class);
 ~~~
-### Adding a generic feat
+### [Adding a generic feat](https://thomw2o0o.github.io/server/controller/FeatController.html)
+In our API, feat objects represent the environment-saving actions of our users.
 ~~~Java
+Feat feat = new Feat(1,150,4, new Date(),null);
+template.postForLocation( "http://localhost:8080/users/5/feats/new", new HttpEntity<>(feat));
+User betterUser = template.getForObject( "http://localhost:8080/users/"+user.getID(),  User.class);
+
+System.out.println("Points of Mark before feat:"+user.getPoints()+"\n"+"Points of Mark after feat:"+betterUser.getPoints());
 
 ~~~
 
 ## The Greendr app
-To have a direct environmental impact, we also made an application that relies on the Greendr API for persistence of the user data. It uses JavaFX for the GUI and allows
+To have a direct environmental impact, we also made an application that relies on the Greendr API for the persistence of the user data. It uses JavaFX for the GUI and allows

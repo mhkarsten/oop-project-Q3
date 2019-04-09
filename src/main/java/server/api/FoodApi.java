@@ -31,6 +31,7 @@ public class FoodApi {
 
     /**
      * Creates JSON header for a GET request.
+     * @return Returns headers saying what this server accepts from and sends to the meal API
      */
     public static HttpHeaders acceptHeaders() {
 

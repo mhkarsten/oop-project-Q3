@@ -76,6 +76,7 @@ public class FeatController {
      * Adds a new feat (CREATE).
      *
      * @param feat Parameter for the feat to be added
+     * @param userID Id of the user to add the feat to
      * @return Returns the path at which the created feat is located
      */
     @PostMapping(value = "/users/{userId}/feats/new",

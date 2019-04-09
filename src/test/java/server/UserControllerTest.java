@@ -98,9 +98,8 @@ public class UserControllerTest {
     }
     @Test
     public void addFollowerDB() {
-        User user = new User(22828, "Kamasi");
-        URI usnaviLocation = restTemplate.postForLocation( "/users/new", new HttpEntity<>(user));
-        user = restTemplate.getForObject(usnaviLocation,   User.class);
+        User user = new User("Kamasi","m4sfistsoffury");
+        user = restTemplate.postForObject( "/auth/register", new HttpEntity<>(user),User.class);
 
         restTemplate.getForEntity( "/users/"+user.getID()+"/follow/1",   User.class);
         restTemplate.getForEntity( "/users/"+user.getID()+"/follow/2",   User.class);
@@ -144,11 +143,10 @@ public class UserControllerTest {
     @Test
     public void fullCrudTest() {
         //CREATE
-        User user = new User(4, "Usnavi");
-        URI usnaviLocation = restTemplate.postForLocation( "/users/new", new HttpEntity<>(user));
-        //READ
-        user = restTemplate.getForObject(usnaviLocation,   User.class);
-
+        User user = new User("Usnavi","96000");
+        user = restTemplate.postForObject( "/auth/register", new HttpEntity<>(user),User.class);
+        User userFromLocation=restTemplate.postForObject( "/users/" + user.getID(), new HttpEntity<>(user),User.class);
+        Assertions.assertEquals(userFromLocation,user);
         //DELETE
         ResponseEntity<?> response = restTemplate.exchange( "/users/" + user.getID(), HttpMethod.DELETE, new HttpEntity<>(new HttpHeaders[]{}),  String.class);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());

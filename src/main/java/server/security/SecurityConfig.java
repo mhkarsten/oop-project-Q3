@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Specifies the authentication provider and the userDetailsService to handle the authentication.
-     * @return
+     * @return The set up authentication provider to use
      */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

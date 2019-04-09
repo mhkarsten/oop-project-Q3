@@ -116,7 +116,7 @@ public class AchievementUiController implements Initializable {
     /**
      * Method to find an achievement based on the title.
      * @param title the title of the achievement to be found
-     * @return
+     * @return returns the achievement if it was found
      */
     public Achievement findAchievement(String title) {
 

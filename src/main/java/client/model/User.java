@@ -44,6 +44,7 @@ public class User {
     /**
      * Constructor for the User class.
      * @param name The name of the user
+     * @param password The password of the user (unhashed at this point)
      */
     public User(String name, String password) {
         this.name = name;

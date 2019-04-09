@@ -42,6 +42,7 @@ public class MyStage {
      * Constructor for providing the initial stage.
      * Checks if the instance is already instantiated, and if so return the single instance.
      * If not creates the single instance and returns it.
+     * @param stage the provided stage to set of none is already set
      * @return the singleton instance of the stage
      */
     public static Stage getInstance(Stage stage) {

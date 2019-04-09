@@ -97,7 +97,7 @@ public class UserRetrieve extends BaseRetrieve {
     /**
      * Method for getting a user by their name.
      * @param userName name of the user to find
-     * @return
+     * @return returns the user if it was found or null
      */
     public User getUserByName(String userName) {
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
@@ -125,7 +125,8 @@ public class UserRetrieve extends BaseRetrieve {
      * Update user information (UPDATE)
      * TODO: this method is not gonna work with the current security setup.
      * There should be a method updateUserPoints that takes the ID/username and points to be added.
-     *
+     * @param userId The user who acquired the feat
+     * @param points The points to give for the generic feat
      */
     public void addGenericFeat(Long userId, int points) {
 

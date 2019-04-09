@@ -6,7 +6,7 @@ To support the logging of environment-saving actions, we built a Postgres-backed
 
 
 ## Starting the server
-Before running the demo or the example code, the server must be started. As we use [Maven](https://maven.apache.org/download.cgi) for our dependency management, it is assumed that mvn is on your path. (if this command is not recognized, see [here](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)). It is also assumed that you have [PostgreSQL](https://www.postgresql.org/download/) installed configured in accordance with the [application.properties](src/main/resources/application.properties) file. The default configuration of this application is as follows:
+Before running the demo or the example code, the server must be started. As we use [Maven](https://maven.apache.org/download.cgi) for our project management, it is assumed that mvn is on your path. (if this command is not recognized, see [here](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)). It is also assumed that you have [PostgreSQL](https://www.postgresql.org/download/) installed configured in accordance with the [application.properties](src/main/resources/application.properties) file. The default configuration of this application is as follows:
 ~~~
 spring.datasource.url = jdbc:postgresql://localhost:5432/gogreen
 spring.datasource.username = postgres

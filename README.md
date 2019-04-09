@@ -52,7 +52,7 @@ System.out.println("Points of Mark before feat:" + user.getPoints() + "\nPoints 
 ~~~
 
 ## The Greendr app
-To have a direct environmental impact, we also made an application that relies on the Greendr API for the persistence of the user data. It can be started using `mvn exec:java@demo`
+To have a direct environmental impact, we also made an application that relies on the Greendr API for the persistence of the user data. It can be started using `mvn exec:java@client`
 
 ## Running the tests
 Running the tests for Greendr using Maven is also very straightforward. Simply open a terminal at the repository's root and run `mvn test`

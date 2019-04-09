@@ -145,6 +145,7 @@ public class UserControllerTest {
         //CREATE
         User user = new User("Usnavi","96000");
         user = restTemplate.postForObject( "/auth/register", new HttpEntity<>(user),User.class);
+        Assertions.assertNotNull(user);
         User userFromLocation=restTemplate.postForObject( "/users/" + user.getID(), new HttpEntity<>(user),User.class);
         Assertions.assertEquals(userFromLocation,user);
         //DELETE

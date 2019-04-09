@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +24,8 @@ import java.util.Set;
  */
 public class UserRetrieve extends BaseRetrieve {
 
-    /**Method to return an ArrayList of all users.
+    /**
+     * Method to return an ArrayList of all users.
      *
      * @return Return all users from the server
      */
@@ -34,9 +36,9 @@ public class UserRetrieve extends BaseRetrieve {
 
         HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
 
-        String url =  UrlEndPoints.User.ALL_USERS;
+        String url = UrlEndPoints.User.ALL_USERS;
         ResponseEntity<User[]> response = restTemplate.exchange(url,
-                HttpMethod.POST, entity, User[].class);
+            HttpMethod.POST, entity, User[].class);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
@@ -59,7 +61,8 @@ public class UserRetrieve extends BaseRetrieve {
         return null;
     }
 
-    /**Method to return a specified user.
+    /**
+     * Method to return a specified user.
      *
      * @param userID The userID of the user you try to get
      * @return Return a user from the server
@@ -98,6 +101,7 @@ public class UserRetrieve extends BaseRetrieve {
 
     /**
      * Method for getting a user by their name.
+     *
      * @param userName name of the user to find
      * @return
      */
@@ -107,9 +111,18 @@ public class UserRetrieve extends BaseRetrieve {
         HttpEntity<User> entity = new HttpEntity<>(headers);
 
         Object[] uriValues = new Object[] {userName};
+        ResponseEntity<User> response;
 
-        ResponseEntity<User> response = restTemplate.exchange(UrlEndPoints.User.USER_BY_NAME,
-            HttpMethod.POST, entity, User.class, uriValues);
+        try {
+
+            response = restTemplate.exchange(UrlEndPoints.User.USER_BY_NAME,
+                HttpMethod.POST, entity, User.class, uriValues);
+        } catch (HttpClientErrorException e) {
+
+            System.out.println(("(Client Side) The user does not exist."));
+            return null;
+        }
+
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
@@ -120,8 +133,9 @@ public class UserRetrieve extends BaseRetrieve {
         }
 
         return null;
-
     }
+
+
 
     /**Method to update a users information.
      * Update user information (UPDATE)

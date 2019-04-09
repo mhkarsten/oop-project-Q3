@@ -44,6 +44,7 @@ User userById=template.postForObject( "http://localhost:8080/users/"+user.getID(
 ### [Adding a generic feat](https://thomw2o0o.github.io/server/controller/FeatController.html)
 In our API, feat objects represent the environment-saving actions of our users.
 ~~~Java
+user=template.postForObject( "http://localhost:8080/users/byName/"+user.getName(), new HttpEntity<>(user),User.class);
 Feat feat = new Feat(1,150,4, new Date(),user);
 template.postForLocation( "http://localhost:8080/users/"+user.getID()+"/feats/new", new HttpEntity<>(feat));
 User betterUser = template.getForObject( "http://localhost:8080/users/"+user.getID(),  User.class);

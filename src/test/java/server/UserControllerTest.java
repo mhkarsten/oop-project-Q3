@@ -144,12 +144,12 @@ public class UserControllerTest {
     @Test
     public void fullCrudTest() {
         //CREATE
-        User user = new User("Usnavi","96000");
+        User user = new User("NotUsnavi","96000");
         ResponseEntity<User> entity= restTemplate.postForEntity( "/auth/register", new HttpEntity<>(user),User.class);
         System.out.println(entity.toString());
         Assertions.assertNotNull(entity.getBody());
         user=entity.getBody();
-        User userFromLocation=restTemplate.postForObject( "/users/" + user.getID(), new HttpEntity<>(user),User.class);
+        User userFromLocation=restTemplate.getForObject( "/users/" + user.getID(), User.class);
         Assertions.assertEquals(userFromLocation,user);
         //DELETE
         ResponseEntity<?> response = restTemplate.exchange( "/users/" + user.getID(), HttpMethod.DELETE, new HttpEntity<>(new HttpHeaders[]{}),  String.class);

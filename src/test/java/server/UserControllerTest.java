@@ -2,6 +2,7 @@ package server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.coyote.Response;
 import org.hamcrest.collection.IsArrayContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
@@ -144,8 +145,10 @@ public class UserControllerTest {
     public void fullCrudTest() {
         //CREATE
         User user = new User("Usnavi","96000");
-        user = restTemplate.postForObject( "/auth/register", new HttpEntity<>(user),User.class);
-        Assertions.assertNotNull(user);
+        ResponseEntity<User> entity= restTemplate.postForEntity( "/auth/register", new HttpEntity<>(user),User.class);
+        System.out.println(entity.toString());
+        Assertions.assertNotNull(entity.getBody());
+        user=entity.getBody();
         User userFromLocation=restTemplate.postForObject( "/users/" + user.getID(), new HttpEntity<>(user),User.class);
         Assertions.assertEquals(userFromLocation,user);
         //DELETE

@@ -4,9 +4,6 @@ package server.api;
  * Manages all api endpoints in a single class.
  */
 public class ApiEndPoints {
-    /**
-     * All api endpoints.
-     */
     public static class Food {
         static final String BASE = "https://www.themealdb.com";
         static final String RANDOMEAL = BASE+"/api/json/v1/1/random.php";

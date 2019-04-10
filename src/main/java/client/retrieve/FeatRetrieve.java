@@ -45,7 +45,7 @@ public class FeatRetrieve extends BaseRetrieve {
                 return achList;
             }
         } catch (HttpClientErrorException excp) {
-
+            excp.printStackTrace();
         }
         System.out.println("(Client Side) Getting all feats of user failed.");
         return null;

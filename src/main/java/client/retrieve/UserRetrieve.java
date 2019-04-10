@@ -48,8 +48,8 @@ public class UserRetrieve extends BaseRetrieve {
                 return userList;
             }
 
-        } catch(HttpClientErrorException excp) {
-
+        } catch (HttpClientErrorException excp) {
+            excp.printStackTrace();
         }
         return null;
     }

@@ -75,8 +75,7 @@ public class FoodApi {
         System.out.println("(Client Side) The http status code is: " + statusCode);
         Meal[] meal = null;
         System.out.println(response.getBody().toString());
-        if (response.getBody().get("meals") != null)
-        {
+        if (response.getBody().get("meals") != null) {
             meal = jsonToMeal(response.getBody());
         }
 
@@ -101,7 +100,7 @@ public class FoodApi {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
         ArrayList<Meal[]> categoryMeals = null;
-        if (response.getBody().get("meals")!=null) {
+        if (response.getBody().get("meals") != null) {
 
             categoryMeals = new ArrayList<>();
 

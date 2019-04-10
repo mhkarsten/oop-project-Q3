@@ -1,0 +1,60 @@
+## [1.0.0] - 2019-04-08
+### Added
+- Added achievement screen to the client
+- Added follower screen
+- Added granular point tracking using feats and a log corresponding to this to the profile screen
+- Added industry-standard registration/login and authentication system
+- Added various ways to log the carbon emissions
+    - Transport
+    - Energy use
+- Added hooks for a food and emissions api (in use, can be extended in the future)
+### Changed
+- Improved full-project code quality for future maintainability 
+    - Many latent checkstyle issues have been fixed
+    - Minimally tested code now has much better coverage
+## [0.3.0] - 2019-03-24
+### Added
+- Added Food API
+     - Gets food and recipes offline
+- Added app screens
+     - Food Screen
+     - Profile Screen
+     - Score Screen
+- Added achievements to the database, and a set of unlocked achievements for each user.
+### Changed
+- Tweaked user-server communication
+  - Adjusted get and update requests accordingly (see !13, !14)
+  - User points are updated for food functionality
+- Changed the user API to conform to HTTP CRUD standards
+  - 404 when a user or achievement is not found
+  - 400 on malformed request, etc.
+- Server now uses remote ElephantSQL database
+- Improvements to the testing/integration workflow
+  - Database tests now use a temporary H2 in-memory database
+  - Continuous integration works!
+- Changed and added user API access paths
+  - /users/1/achievements for the set of achievements unlocked by user 1
+  - /users/1 to get the user with id 1
+  - /users/update to update
+  - /users/new to add a new user
+- Changed GUI Structure
+     -Switched to split plane
+     - Removed sliding menu functionality
+## [0.2.1] - 2019-03-14
+### Changed
+- Minor changes to the communication between client and server
+- Code quality
+    - Added User API tests which led to the discovery of a few CRUD issues.
+### Fixed
+- Fixed CRUD operations
+    - Update, create and delete were not working as they should but now do
+## [0.2.0] - 2019-03-02
+### Added
+- Postgres-powered server-side persistence
+- User entries storing points
+- Rudimentary RESTful user API
+## [0.1.0] - 2019-02-23
+### Added
+- A simple client
+- A simple server
+- RESTful client-server communication

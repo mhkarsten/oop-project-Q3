@@ -31,20 +31,38 @@ class EmissionControllerTest {
     public void setup() {
         restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:" + port));
     }
-    @Test
-    void vehicleEmission() {
-    }
 
     @Test
     void energyEmission() {
     }
 
     @Test
-    void flightEmission() {
+    void flightEmissionNullTest1() {
+        HashMap parameters = new HashMap();
+        parameters.put("startingPort", null);
+        parameters.put("endingPort", null);
+        DietEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_FLIGHT, new HttpEntity<>(parameters), DietEmission.class);
+        assertNull(emission);
+    }
+    @Test
+    void flightEmissionNullTest2() {
+        HashMap parameters = new HashMap();
+        parameters.put("startingPort", null);
+        parameters.put("endingPort", "DET");
+        DietEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_FLIGHT, new HttpEntity<>(parameters), DietEmission.class);
+        assertNull(emission);
+    }
+    @Test
+    void flightEmissionNullTest3() {
+        HashMap parameters = new HashMap();
+        parameters.put("startingPort", "DET");
+        parameters.put("endingPort", null);
+        DietEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_FLIGHT, new HttpEntity<>(parameters), DietEmission.class);
+        assertNull(emission);
     }
     //This one was especially lacking in the coverage
     @Test
-    void dietEmission() {
+    void dietEmissionTest() {
         HashMap parameters = new HashMap();
         parameters.put("fishShare", 1.0f);
         parameters.put("redMeatShare", 1.0f);

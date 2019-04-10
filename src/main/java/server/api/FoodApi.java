@@ -48,15 +48,11 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.RANDOMEAL,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.getRandomMeal(),
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
-        Meal[] meal = null;
-        if (statusCode == HttpStatus.OK) {
-            meal = jsonToMeal(response.getBody());
-        }
-
+        Meal[] meal = jsonToMeal(response.getBody());
         return Optional.of(meal);
     }
 
@@ -72,14 +68,15 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.SPECIFICMEAL + mealName,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.getSpecificMeal() + mealName,
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
         Meal[] meal = null;
         System.out.println(response.getBody().toString());
-        if (statusCode == HttpStatus.OK&&response.getBody().get("meals")!=null) {
+        if (response.getBody().get("meals") != null)
+        {
             meal = jsonToMeal(response.getBody());
         }
 
@@ -98,13 +95,13 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.CATEGORYMEAL + mealName,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.getCategoryMeal() + mealName,
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
         ArrayList<Meal[]> categoryMeals = null;
-        if (statusCode == HttpStatus.OK) {
+        if (response.getBody().get("meals")!=null) {
 
             categoryMeals = new ArrayList<>();
 
@@ -119,7 +116,7 @@ public class FoodApi {
             }
         }
 
-        return Optional.of(categoryMeals);
+        return Optional.ofNullable(categoryMeals);
     }
 
     /** Method to get all meals in the meat category.

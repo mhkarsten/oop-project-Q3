@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,21 +28,15 @@ public class UserRetrieve extends BaseRetrieve {
      */
     @SuppressWarnings("Duplicates")
     public ArrayList<User> getUsers() {
-
-        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
-
-        HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
-
-        String url =  UrlEndPoints.User.ALL_USERS;
-        ResponseEntity<User[]> response = restTemplate.exchange(url,
+        try {
+            HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+            HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
+            String url =  UrlEndPoints.User.ALL_USERS;
+            ResponseEntity<User[]> response = restTemplate.exchange(url,
                 HttpMethod.POST, entity, User[].class);
 
-        HttpStatus statusCode = response.getStatusCode();
-        System.out.println("(Client Side) The http status code is: " + statusCode);
-
-        //If status == 200
-        if (statusCode == HttpStatus.OK) {
-
+            HttpStatus statusCode = response.getStatusCode();
+            System.out.println("(Client Side) The http status code is: " + statusCode);
             User[] list = response.getBody();
 
             ArrayList<User> userList = new ArrayList<User>();
@@ -52,8 +47,10 @@ public class UserRetrieve extends BaseRetrieve {
 
                 return userList;
             }
-        }
 
+        } catch(HttpClientErrorException excp) {
+
+        }
         return null;
     }
 

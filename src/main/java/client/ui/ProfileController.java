@@ -2,7 +2,7 @@ package client.ui;
 
 import client.model.Feat;
 import client.model.User;
-import client.retrieve.FeatRetrive;
+import client.retrieve.FeatRetrieve;
 import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,7 +34,7 @@ public class ProfileController implements Initializable {
         userPoints.setText("User Points: " + currentUser.getPoints());
 
         //Setting up the list of users the active user is following
-        FeatRetrive featRetrive = new FeatRetrive();
+        FeatRetrieve featRetrive = new FeatRetrieve();
 
         featListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         ObservableList<String> listViewContents = featListView.getItems();

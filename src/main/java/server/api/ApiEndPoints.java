@@ -5,10 +5,20 @@ package server.api;
  */
 public class ApiEndPoints {
     public static class Food {
-        static final String BASE = "https://www.themealdb.com";
-        static final String RANDOMEAL = BASE+"/api/json/v1/1/random.php";
-        static final String SPECIFICMEAL = BASE+"/api/json/v1/1/search.php?s=";
-        static final String CATEGORYMEAL = BASE+"/api/json/v1/1/filter.php?c=";
+        public static String BASE = "https://www.themealdb.com";
+
+        private static final String RANDOMEAL = "/api/json/v1/1/random.php";
+        private static final String SPECIFICMEAL = "/api/json/v1/1/search.php?s=";
+        private static final String CATEGORYMEAL = "/api/json/v1/1/filter.php?c=";
+        public static final String getRandomMeal() {
+            return BASE+RANDOMEAL;
+        }
+        public static final String getSpecificMeal() {
+            return BASE+SPECIFICMEAL;
+        }
+        public static final String getCategoryMeal() {
+            return BASE+CATEGORYMEAL;
+        }
     }
     public static class Emission {
         static final String BASE = "http://impact.brighterplanet.com";

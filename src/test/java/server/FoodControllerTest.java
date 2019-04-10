@@ -39,7 +39,10 @@ public class FoodControllerTest {
     public void getMealWrong() {
         Assertions.assertNull(restTemplate.getForObject( "/meal/thisisnotameal", Meal[].class));
     }
-
+    @Test
+    public void getCategoryWrong() {
+        Assertions.assertNull(restTemplate.getForObject( "/meals/thisisnotacategory", Meal[].class));
+    }
 
     @Test
     public void getMealCategory() {

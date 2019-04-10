@@ -9,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import server.model.User;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -36,7 +34,12 @@ public class AuthenticationTest {
     public boolean tryToConnect(HttpHeaders h) {
         return HttpStatus.OK.equals(restTemplate.postForEntity( "/feats", new HttpEntity<>(h), String.class).getStatusCode());
     }
-
+    @Test
+    public void tryToRegisterExisting() {
+        //Alex is already in the database
+        User user = new User("Alex","MyNameIsAlexToo");
+        Assertions.assertEquals(restTemplate.postForEntity( "/auth/register", new HttpEntity<>(user),User.class).getStatusCode(),HttpStatus.BAD_REQUEST);
+    }
     @Test
     public void connectNoAuthHeaders() {
         HttpHeaders noPwdHeaders = new HttpHeaders();

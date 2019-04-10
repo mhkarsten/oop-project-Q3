@@ -26,7 +26,6 @@ public class UserRetrieve extends BaseRetrieve {
      *
      * @return Return all users from the server
      */
-    @SuppressWarnings("Duplicates")
     public ArrayList<User> getUsers() {
         try {
             HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
@@ -59,7 +58,6 @@ public class UserRetrieve extends BaseRetrieve {
      * @param userID The userID of the user you try to get
      * @return Return a user from the server
      */
-    @SuppressWarnings("Duplicates")
     public User[] getUser(long userID) {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);

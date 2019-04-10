@@ -60,7 +60,6 @@ public class FoodApi {
      * @param mealName this parameter is the name of the meal that you would like to get from the database
      * @return This method will return one specific meal from the database.
      */
-    @SuppressWarnings("Duplicates")
     public static Optional<Meal[]> getMeal(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
@@ -86,7 +85,6 @@ public class FoodApi {
      * @param mealName This parameter is the name of the meal category that you would like returned.
      * @return This method returns an ArrayList of all meals in a specific category.
      */
-    @SuppressWarnings("Duplicates")
     public static Optional<ArrayList<Meal[]>> getMealCategory(String mealName) {
 
         HttpHeaders headers = acceptHeaders();

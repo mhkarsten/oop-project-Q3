@@ -61,7 +61,6 @@ public class AchievementRetrieve extends BaseRetrieve {
      * @param achID the ach id
      * @return the achievement
      */
-    @SuppressWarnings("Duplicates")
     public Achievement achGet(long achID) {
         //GET SPECIFIC ACHIEVEMENT
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);

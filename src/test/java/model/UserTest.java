@@ -1,4 +1,4 @@
-package server;
+package model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,10 +7,6 @@ import server.model.User;
 
 
 public class UserTest {
-    String password = "password";
-
-    int points = 200;
-    int points300 = 300;
 
     long id1 = 1;
     long id2 = 2;

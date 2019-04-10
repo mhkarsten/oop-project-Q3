@@ -82,11 +82,12 @@ public class FoodApi {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
         Meal[] meal = null;
-        if (statusCode == HttpStatus.OK) {
+        System.out.println(response.getBody().toString());
+        if (statusCode == HttpStatus.OK&&response.getBody().get("meals")!=null) {
             meal = jsonToMeal(response.getBody());
         }
 
-        return Optional.of(meal);
+        return Optional.ofNullable(meal);
     }
 
     /** Method to get meals from a certain category.

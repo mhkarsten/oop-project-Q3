@@ -10,8 +10,6 @@ import server.api.FoodApi;
 import server.model.Meal;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * The type Food controller.

@@ -25,10 +25,6 @@ import java.util.Optional;
  */
 public class FoodApi {
 
-    static final String URL_RANDOMEAL = "https://www.themealdb.com/api/json/v1/1/random.php";
-    static final String URL_SPESIFICMEAL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
-    static final String URL_CATEGORYMEAL = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
-
     /**
      * Creates JSON header for a GET request.
      * @return Returns headers saying what this server accepts from and sends to the meal API
@@ -52,7 +48,7 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_RANDOMEAL,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.RANDOMEAL,
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -76,7 +72,7 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_SPESIFICMEAL + mealName,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.SPECIFICMEAL + mealName,
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -102,7 +98,7 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_CATEGORYMEAL + mealName,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.CATEGORYMEAL + mealName,
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();

@@ -27,13 +27,6 @@ import java.util.ArrayList;
  * The type Emission api.
  */
 public class EmissionApi {
-    private static final String KEY = "key=5a927d96eca397b6659a3c361ce32254";
-    private static final String URL_BASE = "http://impact.brighterplanet.com";
-    private static final String URL_CAR = URL_BASE + "/automobile_trips.json?";
-    private static final String URL_ENERGY = URL_BASE + "/residences.json?";
-    private static final String URL_DIET = URL_BASE + "/diets.json?";
-    private static final String URL_FLIGHT = URL_BASE + "/flights.json?";
-    private static final String URL_TRAIN = URL_BASE + "/rail_trips.json?";
 
     /**
      * Method to build the key string for the headers.
@@ -41,7 +34,7 @@ public class EmissionApi {
      * @return returns the StringBuilder keyString for use in the headers
      */
     public static StringBuilder keyStringBuilder(ArrayList<ArrayList<Object>> uriStrings) {
-        StringBuilder keyString = new StringBuilder(KEY);
+        StringBuilder keyString = new StringBuilder(ApiEndPoints.Emission.KEY);
         for (int i = 0; i < uriStrings.size(); i++) {
             if (uriStrings.get(i).get(0) != null && !uriStrings.get(i).get(0).equals(0)) {
                 keyString.append(uriStrings.get(i).get(1));
@@ -95,7 +88,7 @@ public class EmissionApi {
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_CAR,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Emission.CAR,
             HttpMethod.POST, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -167,7 +160,7 @@ public class EmissionApi {
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_ENERGY,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Emission.ENERGY,
             HttpMethod.POST, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -251,7 +244,7 @@ public class EmissionApi {
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_DIET,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Emission.DIET,
             HttpMethod.POST, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -314,7 +307,7 @@ public class EmissionApi {
         HttpEntity<String> entity = new HttpEntity<>(keyString.toString(), headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_FLIGHT,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Emission.FLIGHT,
             HttpMethod.POST, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
@@ -370,7 +363,7 @@ public class EmissionApi {
         MyRestTemplate restTemplate = new MyRestTemplate();
 
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_TRAIN,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Emission.TRAIN,
             HttpMethod.POST, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();

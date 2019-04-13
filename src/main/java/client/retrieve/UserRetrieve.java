@@ -9,7 +9,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +18,8 @@ import java.util.Set;
  *Currently this client side code is build to work with XML code whereas the server
  *side code can use both XML and JSON. Later this might be changed so everything uses
  *JSON for the sake of simplicity;
+ *
+ * @return Return all users from the server
  */
 public class UserRetrieve extends BaseRetrieve {
 
@@ -26,31 +27,26 @@ public class UserRetrieve extends BaseRetrieve {
      *
      * @return Return all users from the server
      */
+    @SuppressWarnings("Duplicates")
     public ArrayList<User> getUsers() {
-        try {
-            HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
-            HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
-            String url =  UrlEndPoints.User.ALL_USERS;
-            ResponseEntity<User[]> response = restTemplate.exchange(url,
+
+        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+
+        HttpEntity<User[]> entity = new HttpEntity<User[]>(headers);
+
+        String url =  UrlEndPoints.User.ALL_USERS;
+        ResponseEntity<User[]> response = restTemplate.exchange(url,
                 HttpMethod.POST, entity, User[].class);
 
-            HttpStatus statusCode = response.getStatusCode();
-            System.out.println("(Client Side) The http status code is: " + statusCode);
-            User[] list = response.getBody();
+        HttpStatus statusCode = response.getStatusCode();
+        System.out.println("(Client Side) The http status code is: " + statusCode);
 
-            ArrayList<User> userList = new ArrayList<User>();
+        User[] list = response.getBody();
+        ArrayList<User> userList = new ArrayList<User>();
+        userList.addAll(Arrays.asList(list));
 
-            if (list != null) {
+        return userList;
 
-                userList.addAll(Arrays.asList(list));
-
-                return userList;
-            }
-
-        } catch (HttpClientErrorException excp) {
-            excp.printStackTrace();
-        }
-        return null;
     }
 
     /**Method to return a specified user.
@@ -58,6 +54,7 @@ public class UserRetrieve extends BaseRetrieve {
      * @param userID The userID of the user you try to get
      * @return Return a user from the server
      */
+    @SuppressWarnings("Duplicates")
     public User[] getUser(long userID) {
 
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
@@ -72,27 +69,16 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        if (statusCode == HttpStatus.OK) {
+        User[] userArray = new User[1];
+        userArray[0] = response.getBody();
 
-            User[] userArray = new User[1];
-            userArray[0] = response.getBody();
-
-            if (response.getBody() != null) {
-
-                return userArray;
-            } else {
-
-                System.out.println("(Client Side) The specified user was null or doesnt exist.");
-            }
-        }
-
-        return null;
+        return userArray;
     }
 
     /**
      * Method for getting a user by their name.
      * @param userName name of the user to find
-     * @return returns the user if it was found or null
+     * @return
      */
     public User getUserByName(String userName) {
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
@@ -107,12 +93,7 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        if (statusCode == HttpStatus.OK) {
-
-            return response.getBody();
-        }
-
-        return null;
+        return response.getBody();
 
     }
 
@@ -120,8 +101,7 @@ public class UserRetrieve extends BaseRetrieve {
      * Update user information (UPDATE)
      * TODO: this method is not gonna work with the current security setup.
      * There should be a method updateUserPoints that takes the ID/username and points to be added.
-     * @param userId The user who acquired the feat
-     * @param points The points to give for the generic feat
+     *
      */
     public void addGenericFeat(Long userId, int points) {
 
@@ -164,18 +144,9 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        //If status == 200
-        if (statusCode == HttpStatus.OK) {
+        Set<User> followers = response.getBody();
+        return followers;
 
-            Set<User> followers = response.getBody();
-
-            if (followers != null) {
-
-                return followers;
-            }
-        }
-
-        return null;
     }
 
     /**

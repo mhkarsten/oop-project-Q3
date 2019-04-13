@@ -4,6 +4,7 @@ client.retrieve
 client.service
 client.ui
 demo
+model
 server
 server.api
 server.controller

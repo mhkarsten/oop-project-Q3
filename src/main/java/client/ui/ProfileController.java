@@ -12,6 +12,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class ProfileController implements Initializable {
         ArrayList<Feat> tempArray = null;
         try {
             tempArray = featRetrive.getUserFeats(currentUser.getID());
-        } catch (Exception e) {
+        } catch (HttpClientErrorException e) {
             e.printStackTrace();
         }
 
@@ -57,6 +58,9 @@ public class ProfileController implements Initializable {
         loadLineGraph();
     }
 
+    /**
+     * Loads the graph data by getting the user feats of the current user.
+     */
     public void loadLineGraph() {
 
         FeatRetrieve retrive = new FeatRetrieve();

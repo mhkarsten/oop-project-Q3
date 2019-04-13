@@ -19,7 +19,6 @@ import java.util.Set;
  *side code can use both XML and JSON. Later this might be changed so everything uses
  *JSON for the sake of simplicity;
  *
- * @return Return all users from the server
  */
 public class UserRetrieve extends BaseRetrieve {
 

@@ -1,5 +1,7 @@
 package client.ui;
 
+import static client.ui.RootController.stringToDouble;
+
 import client.model.User;
 import client.retrieve.UserRetrieve;
 import client.service.UserSession;
@@ -15,16 +17,18 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.*;
-
-import static client.ui.RootController.stringToDouble;
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * The type Compare controller.
  */
 public class CompareController implements Initializable {
 
+    public BarChart<String, Number> barChart;
     /**
      * The Follow btn.
      */
@@ -50,7 +54,6 @@ public class CompareController implements Initializable {
     @FXML
     ListView followeeListView;
 
-    public BarChart<String, Number> barChart;
 
     private User activeUser;
     private Set<User> userFollows;
@@ -170,10 +173,11 @@ public class CompareController implements Initializable {
         comparePoints.setText(Integer.toString(selectedUser.getPoints()));
     }
 
+    /**
+     * Loads the graph using the feats of the user.
+     */
     public void loadGraph() {
 
-        Set<User> following = this.userRetrieve.getUserFollow(true, activeUser.getID());
-        ArrayList<Object> tempList = new ArrayList<>(following);
 
         XYChart.Series currentUserSeries = new XYChart.Series();
         currentUserSeries.getData().add(new XYChart.Data(activeUser.getName(), activeUser.getPoints()));
@@ -183,6 +187,8 @@ public class CompareController implements Initializable {
         XYChart.Series series = new XYChart.Series();
         series.setName("Your Friends");
 
+        Set<User> following = this.userRetrieve.getUserFollow(true, activeUser.getID());
+        ArrayList<Object> tempList = new ArrayList<>(following);
         Iterator<Object> iterator = tempList.iterator();
         while (iterator.hasNext()) {
 

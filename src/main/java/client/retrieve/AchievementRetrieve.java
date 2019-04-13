@@ -6,7 +6,6 @@ import client.service.UrlEndPoints;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
@@ -86,7 +85,7 @@ public class AchievementRetrieve extends BaseRetrieve {
         Object[] uriValues = new Object[] {usrID};
         try {
             ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHUNLOCKED,
-            HttpMethod.POST, entity, Achievement[].class, uriValues);
+                HttpMethod.POST, entity, Achievement[].class, uriValues);
             Achievement[] list = response.getBody();
             ArrayList<Achievement> achList = new ArrayList<>();
             achList.addAll(Arrays.asList(list));

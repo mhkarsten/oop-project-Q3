@@ -7,6 +7,8 @@ import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -22,6 +24,8 @@ public class ProfileController implements Initializable {
     public Label userID;
     public Label userPoints;
     public ListView featListView;
+
+    public LineChart<Integer, Integer> lineChart;
 
     private User currentUser;
 
@@ -49,7 +53,28 @@ public class ProfileController implements Initializable {
 
             listViewContents.add("You have earned " + feat.getPoints() + " points for an activity.");
         });
+
+        loadLineGraph();
     }
 
+    public void loadLineGraph() {
 
+        FeatRetrieve retrive = new FeatRetrieve();
+        ArrayList<Feat> tempArray = retrive.getUserFeats(currentUser.getID());
+
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Your Saved C02");
+
+        int nextGraphX = 0;
+
+        for (int i = 0; i < tempArray.size(); i++) {
+
+            nextGraphX = nextGraphX + tempArray.get(i).getPoints();
+
+            XYChart.Data entry = new XYChart.Data(i, nextGraphX);
+            series.getData().add(entry);
+        }
+
+        lineChart.getData().addAll(series);
+    }
 }

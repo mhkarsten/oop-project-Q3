@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmissionApi.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.api</a> &gt; <span class="el_source">EmissionApi.java</span></div><h1>EmissionApi.java</h1><pre class="source lang-java linenums">package server.api;
+
+import static server.model.DietEmission.jsonToDiet;
+import static server.model.EnergyEmission.jsonToEnergy;
+import static server.model.FlightEmission.jsonToFlight;
+import static server.model.TrainEmission.jsonToTrain;
+import static server.model.VehicleEmission.jsonToVehicle;
+
+import client.service.MyRestTemplate;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import server.model.DietEmission;
+import server.model.EnergyEmission;
+import server.model.FlightEmission;
+import server.model.TrainEmission;
+import server.model.VehicleEmission;
+
+import java.util.ArrayList;
+
+/**
+ * The type Emission api.
+ */
+<span class="nc" id="L29">public class EmissionApi {</span>
+    private static final String KEY = &quot;key=5a927d96eca397b6659a3c361ce32254&amp;green_electricity=23&amp;dishwasher_use=42&amp;&quot;;
+    private static final String URL_BASE = &quot;http://impact.brighterplanet.com&quot;;
+    private static final String URL_CAR = URL_BASE + &quot;/automobile_trips.json?&quot;;
+    private static final String URL_ENERGY = URL_BASE + &quot;/residences.json?&quot;;
+    private static final String URL_DIET = URL_BASE + &quot;/diets.json?&quot;;
+    private static final String URL_FLIGHT = URL_BASE + &quot;/flights.json?&quot;;
+    private static final String URL_TRAIN = URL_BASE + &quot;/rail_trips.json?&quot;;
+
+    /**
+     * Gets vehicle emission.
+     *
+     * @param distance  the distance
+     * @param duration  the duration
+     * @param sizeClass the size class
+     * @return the vehicle emission
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static VehicleEmission getVehicleEmission(int distance, int duration, String sizeClass) {
+<span class="fc" id="L48">        String distanceString = &quot;&amp;daily_distance=&quot; + distance; //in kilometers</span>
+<span class="fc" id="L49">        String durationString = &quot;&amp;daily_duration=&quot; + duration; //in seconds</span>
+<span class="fc" id="L50">        String sizeClassString = &quot;&amp;size_class=&quot; + sizeClass; //a description (i.e. midsized)</span>
+
+<span class="fc" id="L52">        ArrayList&lt;ArrayList&lt;Object&gt;&gt; uriStrings = new ArrayList&lt;ArrayList&lt;Object&gt;&gt;() {</span>
+            {
+<span class="fc" id="L54">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L56">                        add(distance);</span>
+<span class="fc" id="L57">                        add(distanceString);</span>
+<span class="fc" id="L58">                    }</span>
+                });
+<span class="fc" id="L60">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L62">                        add(duration);</span>
+<span class="fc" id="L63">                        add(durationString);</span>
+<span class="fc" id="L64">                    }</span>
+                });
+<span class="fc" id="L66">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L68">                        add(sizeClass);</span>
+<span class="fc" id="L69">                        add(sizeClassString);</span>
+<span class="fc" id="L70">                    }</span>
+                });
+<span class="fc" id="L72">            }</span>
+        };
+
+<span class="fc" id="L75">        StringBuilder keyString = new StringBuilder(KEY);</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
+
+<span class="pc bpc" id="L79" title="2 of 4 branches missed.">            if (uriStrings.get(i).get(0) != null &amp;&amp; !uriStrings.get(i).get(0).equals(0)) {</span>
+
+<span class="fc" id="L81">                keyString.append(uriStrings.get(i).get(1));</span>
+            }
+        }
+
+<span class="fc" id="L85">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L87">        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(keyString.toString(), headers);</span>
+<span class="fc" id="L88">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="fc" id="L90">        ResponseEntity&lt;JSONObject&gt; response = restTemplate.exchange(URL_CAR,</span>
+            HttpMethod.POST, entity, JSONObject.class);
+
+<span class="fc" id="L93">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L94">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L98">            JSONObject emissionResponse = response.getBody();</span>
+
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            if (emissionResponse != null) {</span>
+
+<span class="fc" id="L102">                return jsonToVehicle(emissionResponse);</span>
+            }
+        }
+
+<span class="nc" id="L106">        System.out.println(&quot;(Client Side) Getting the desired emission failed or the object was null.&quot;);</span>
+<span class="nc" id="L107">        return null;</span>
+    }
+
+    /**
+     * Gets energy emission.
+     *
+     * @param greenEnergy       the green energy
+     * @param airConditionerUse the air conditioner use
+     * @param dishwasherUse     the dishwasher use
+     * @param naturalGasCost    the natural gas cost
+     * @return the energy emission
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static EnergyEmission getEnergyEmission(int greenEnergy, String airConditionerUse, String dishwasherUse, int naturalGasCost) {
+<span class="fc" id="L121">        String dishwasherUseString = &quot;&amp;dishwasher_use=&quot; + dishwasherUse; //in kwh (i think)</span>
+<span class="fc" id="L122">        String airConditionerUseString = &quot;&amp;air_conditioner_use=&quot; + airConditionerUse; //a description</span>
+<span class="fc" id="L123">        String greenEnergyString = &quot;&amp;green_electricity=&quot; + greenEnergy; //a description</span>
+<span class="fc" id="L124">        String naturalGasCostString = &quot;&amp;monthly_natural_gas_cost=&quot; + naturalGasCost; //in USD per month</span>
+
+<span class="fc" id="L126">        ArrayList&lt;ArrayList&lt;Object&gt;&gt; uriStrings = new ArrayList&lt;ArrayList&lt;Object&gt;&gt;() {</span>
+            {
+<span class="fc" id="L128">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L130">                        add(dishwasherUse);</span>
+<span class="fc" id="L131">                        add(dishwasherUseString);</span>
+<span class="fc" id="L132">                    }</span>
+                });
+<span class="fc" id="L134">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L136">                        add(airConditionerUse);</span>
+<span class="fc" id="L137">                        add(airConditionerUseString);</span>
+<span class="fc" id="L138">                    }</span>
+                });
+<span class="fc" id="L140">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L142">                        add(greenEnergy);</span>
+<span class="fc" id="L143">                        add(greenEnergyString);</span>
+<span class="fc" id="L144">                    }</span>
+                });
+<span class="fc" id="L146">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L148">                        add(naturalGasCost);</span>
+<span class="fc" id="L149">                        add(naturalGasCostString);</span>
+<span class="fc" id="L150">                    }</span>
+                });
+<span class="fc" id="L152">            }</span>
+        };
+
+<span class="fc" id="L155">        StringBuilder keyString = new StringBuilder(KEY);</span>
+
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
+<span class="pc bpc" id="L158" title="2 of 4 branches missed.">            if (uriStrings.get(i).get(0) != null &amp;&amp; !uriStrings.get(i).get(0).equals(0)) {</span>
+<span class="fc" id="L159">                keyString.append(uriStrings.get(i).get(1));</span>
+            }
+        }
+
+<span class="fc" id="L163">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L165">        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(keyString.toString(), headers);</span>
+<span class="fc" id="L166">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="fc" id="L168">        ResponseEntity&lt;JSONObject&gt; response = restTemplate.exchange(URL_ENERGY,</span>
+            HttpMethod.POST, entity, JSONObject.class);
+
+<span class="fc" id="L171">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L172">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L176">            JSONObject emissionResponse = response.getBody();</span>
+
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">            if (emissionResponse != null) {</span>
+
+<span class="fc" id="L180">                return jsonToEnergy(emissionResponse);</span>
+            }
+        }
+
+<span class="nc" id="L184">        System.out.println(&quot;(Client Side) Getting the desired emission failed or the object was null.&quot;);</span>
+<span class="nc" id="L185">        return null;</span>
+    }
+
+    /**
+     * Gets diet emission.
+     *
+     * @param fishShare    the fish share
+     * @param redMeatShare the red meat share
+     * @param poultryShare the poultry share
+     * @param size         the size
+     * @return the diet emission
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static DietEmission getDietEmission(float fishShare, float redMeatShare, float poultryShare, int size) {
+<span class="nc" id="L199">        String startDate = &quot;&amp;start_date=2019-01-01&quot;; //a date</span>
+<span class="nc" id="L200">        String endDate = &quot;&amp;end_date=2019-02-01&quot;; //a date</span>
+
+<span class="nc" id="L202">        String fishShareString = &quot;&amp;fish_share=&quot; + fishShare; //a decimal percentage</span>
+<span class="nc" id="L203">        String redMeatShareString = &quot;&amp;red_meat_share=&quot; + redMeatShare; //a decimal percentage</span>
+<span class="nc" id="L204">        String poultryShareString = &quot;&amp;poultry_share=&quot; + poultryShare; //a decimal percentage</span>
+<span class="nc" id="L205">        String sizeString = &quot;&amp;size=&quot; + size; //a calorie value (i think)</span>
+
+<span class="nc" id="L207">        ArrayList&lt;ArrayList&lt;Object&gt;&gt; uriStrings = new ArrayList&lt;ArrayList&lt;Object&gt;&gt;() {</span>
+            {
+<span class="nc" id="L209">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="nc" id="L211">                        add(fishShare);</span>
+<span class="nc" id="L212">                        add(fishShareString);</span>
+<span class="nc" id="L213">                    }</span>
+                });
+<span class="nc" id="L215">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="nc" id="L217">                        add(redMeatShare);</span>
+<span class="nc" id="L218">                        add(redMeatShareString);</span>
+<span class="nc" id="L219">                    }</span>
+                });
+<span class="nc" id="L221">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="nc" id="L223">                        add(poultryShare);</span>
+<span class="nc" id="L224">                        add(poultryShareString);</span>
+<span class="nc" id="L225">                    }</span>
+                });
+<span class="nc" id="L227">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="nc" id="L229">                        add(size);</span>
+<span class="nc" id="L230">                        add(sizeString);</span>
+<span class="nc" id="L231">                    }</span>
+                });
+<span class="nc" id="L233">            }</span>
+        };
+
+<span class="nc" id="L236">        StringBuilder keyString = new StringBuilder(KEY);</span>
+<span class="nc" id="L237">        keyString.append(startDate);</span>
+<span class="nc" id="L238">        keyString.append(endDate);</span>
+
+<span class="nc bnc" id="L240" title="All 2 branches missed.">        for (int i = 0; i &lt; 4; i++) {</span>
+
+<span class="nc bnc" id="L242" title="All 4 branches missed.">            if (uriStrings.get(i).get(0) != null &amp;&amp; !uriStrings.get(i).get(0).equals(0)) {</span>
+<span class="nc" id="L243">                keyString.append(uriStrings.get(i).get(1));</span>
+            }
+        }
+
+<span class="nc" id="L247">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="nc" id="L249">        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(keyString.toString(), headers);</span>
+<span class="nc" id="L250">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="nc" id="L252">        ResponseEntity&lt;JSONObject&gt; response = restTemplate.exchange(URL_DIET,</span>
+            HttpMethod.POST, entity, JSONObject.class);
+
+<span class="nc" id="L255">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="nc" id="L256">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="nc bnc" id="L258" title="All 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="nc" id="L260">            JSONObject emissionResponse = response.getBody();</span>
+
+<span class="nc bnc" id="L262" title="All 2 branches missed.">            if (emissionResponse != null) {</span>
+
+<span class="nc" id="L264">                return jsonToDiet(emissionResponse);</span>
+            }
+        }
+
+<span class="nc" id="L268">        System.out.println(&quot;(Client Side) Getting the desired emission failed or the object was null.&quot;);</span>
+<span class="nc" id="L269">        return null;</span>
+    }
+
+    /**
+     * Gets flight emission.
+     *
+     * @param startPort the start port
+     * @param endPort   the end port
+     * @return the flight emission
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static FlightEmission getFlightEmission(String startPort, String endPort) {
+<span class="fc" id="L281">        String startPortString = &quot;&amp;origin_airport=&quot; + startPort; //a, airport</span>
+<span class="fc" id="L282">        String endPortString = &quot;&amp;destination_airport=&quot; + endPort; //an airport</span>
+
+<span class="fc" id="L284">        ArrayList&lt;ArrayList&lt;Object&gt;&gt; uriStrings = new ArrayList&lt;ArrayList&lt;Object&gt;&gt;() {</span>
+            {
+<span class="fc" id="L286">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L288">                        add(startPort);</span>
+<span class="fc" id="L289">                        add(startPortString);</span>
+<span class="fc" id="L290">                    }</span>
+                });
+<span class="fc" id="L292">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L294">                        add(endPort);</span>
+<span class="fc" id="L295">                        add(endPortString);</span>
+<span class="fc" id="L296">                    }</span>
+                });
+<span class="fc" id="L298">            }</span>
+        };
+
+<span class="fc" id="L301">        StringBuilder keyString = new StringBuilder(KEY);</span>
+
+<span class="fc bfc" id="L303" title="All 2 branches covered.">        for (int i = 0; i &lt; 2; i++) {</span>
+
+<span class="pc bpc" id="L305" title="1 of 2 branches missed.">            if (uriStrings.get(i).get(0) != null) {</span>
+<span class="fc" id="L306">                keyString.append(uriStrings.get(i).get(1));</span>
+            } else {
+<span class="nc" id="L308">                System.out.println(&quot;(Server Side) both a start and end destination are needed for an accurate.&quot;);</span>
+<span class="nc" id="L309">                return null;</span>
+            }
+        }
+
+<span class="fc" id="L313">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L315">        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(keyString.toString(), headers);</span>
+<span class="fc" id="L316">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="fc" id="L318">        ResponseEntity&lt;JSONObject&gt; response = restTemplate.exchange(URL_FLIGHT,</span>
+            HttpMethod.POST, entity, JSONObject.class);
+
+<span class="fc" id="L321">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L322">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L324" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L326">            JSONObject emissionResponse = response.getBody();</span>
+
+<span class="pc bpc" id="L328" title="1 of 2 branches missed.">            if (emissionResponse != null) {</span>
+
+<span class="fc" id="L330">                return jsonToFlight(emissionResponse);</span>
+            }
+        }
+
+<span class="nc" id="L334">        System.out.println(&quot;(Client Side) Getting the desired emission failed or the object was null.&quot;);</span>
+<span class="nc" id="L335">        return null;</span>
+    }
+
+    /**
+     * Gets train emission.
+     *
+     * @param distance the distance
+     * @param duration the duration
+     * @return the train emission
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static TrainEmission getTrainEmission(int distance, int duration) {
+<span class="fc" id="L347">        String distanceString = &quot;&amp;distance=&quot; + distance; //in kilometers</span>
+<span class="fc" id="L348">        String durationString = &quot;&amp;duration=&quot; + duration; //in seconds</span>
+
+<span class="fc" id="L350">        ArrayList&lt;ArrayList&lt;Object&gt;&gt; uriStrings = new ArrayList&lt;ArrayList&lt;Object&gt;&gt;() {</span>
+            {
+<span class="fc" id="L352">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L354">                        add(distance);</span>
+<span class="fc" id="L355">                        add(distanceString);</span>
+<span class="fc" id="L356">                    }</span>
+                });
+<span class="fc" id="L358">                add(new ArrayList&lt;Object&gt;() {</span>
+                    {
+<span class="fc" id="L360">                        add(duration);</span>
+<span class="fc" id="L361">                        add(durationString);</span>
+<span class="fc" id="L362">                    }</span>
+                });
+<span class="fc" id="L364">            }</span>
+        };
+
+<span class="fc" id="L367">        StringBuilder keyString = new StringBuilder(KEY);</span>
+
+<span class="fc bfc" id="L369" title="All 2 branches covered.">        for (int i = 0; i &lt; 2; i++) {</span>
+
+<span class="pc bpc" id="L371" title="2 of 4 branches missed.">            if (uriStrings.get(i).get(0) != null &amp;&amp; !uriStrings.get(i).get(0).equals(0)) {</span>
+<span class="fc" id="L372">                keyString.append(uriStrings.get(i).get(1));</span>
+            }
+        }
+
+<span class="fc" id="L376">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+<span class="fc" id="L377">        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(keyString.toString(), headers);</span>
+<span class="fc" id="L378">        MyRestTemplate restTemplate = new MyRestTemplate();</span>
+
+
+<span class="fc" id="L381">        ResponseEntity&lt;JSONObject&gt; response = restTemplate.exchange(URL_TRAIN,</span>
+            HttpMethod.POST, entity, JSONObject.class);
+
+<span class="fc" id="L384">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L385">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L387" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L389">            JSONObject emissionResponse = response.getBody();</span>
+
+<span class="pc bpc" id="L391" title="1 of 2 branches missed.">            if (emissionResponse != null) {</span>
+
+<span class="fc" id="L393">                return jsonToTrain(emissionResponse);</span>
+            }
+        }
+
+<span class="nc" id="L397">        System.out.println(&quot;(Client Side) Getting the desired emission failed or the object was null.&quot;);</span>
+<span class="nc" id="L398">        return null;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

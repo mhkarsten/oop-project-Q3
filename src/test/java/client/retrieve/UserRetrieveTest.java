@@ -62,7 +62,7 @@ class UserRetrieveTest {
         assertEquals(1, user[0].getID());
 
         User[] userShouldNotExist = this.userRetrieve.getUser(112);
-        assertNull(userShouldNotExist[0]);
+        assertNull(userShouldNotExist);
     }
 
     @Test

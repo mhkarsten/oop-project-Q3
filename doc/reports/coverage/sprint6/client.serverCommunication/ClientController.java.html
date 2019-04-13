@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClientController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.serverCommunication</a> &gt; <span class="el_source">ClientController.java</span></div><h1>ClientController.java</h1><pre class="source lang-java linenums">package client.serverCommunication;
+
+import client.model.User;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+//Currently this client side code is build to work with XML code whereas the server
+//side code can use both XML and JSON. Later this might be changed so everything uses
+//JSON for the sake of simplicity;
+
+<span class="nc" id="L21">public class ClientController {</span>
+
+    //static final String URL = &quot;localhost:8090&quot;;
+
+<span class="nc" id="L25">    private static String URL_USERS = &quot;localhost:8090/users&quot;;</span>
+<span class="nc" id="L26">    private static String URL_NEWUSER = &quot;localhost:8090/users/new&quot;;</span>
+<span class="nc" id="L27">    private static String URL_CHOOSEUSER = &quot;localhost:8090/users/{userID}&quot;;</span>
+<span class="nc" id="L28">    private static String URL_ARBUSER = &quot;localhost:8090/users&quot;;</span>
+    private static final String USER_NAME = &quot;tom&quot;;
+    private static final String PASSWORD = &quot;123&quot;;
+
+    public static HttpHeaders setAuthHeaders(HttpHeaders headers) {
+
+<span class="nc" id="L34">        String auth = USER_NAME + &quot;:&quot; + PASSWORD;</span>
+<span class="nc" id="L35">        byte[] encAuth = Base64.encodeBase64(auth.getBytes(Charset.forName(&quot;US-ASCII&quot;)));</span>
+<span class="nc" id="L36">        String authHeader = &quot;Basic &quot; + new String(encAuth);</span>
+
+<span class="nc" id="L38">        headers.set(&quot;Authorization&quot;, authHeader);</span>
+
+<span class="nc" id="L40">        return headers;</span>
+    }
+
+    /**Method to return an ArrayList of all users.
+     *
+     * @return Return all users from the server
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public ArrayList&lt;User&gt; getUsers() {
+
+<span class="nc" id="L50">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L51">        setAuthHeaders(headers);</span>
+<span class="nc" id="L52">        headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_XML}));</span>
+<span class="nc" id="L53">        headers.setContentType(MediaType.APPLICATION_XML);</span>
+
+<span class="nc" id="L55">        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;User[]&gt;(headers);</span>
+<span class="nc" id="L56">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="nc" id="L58">        ResponseEntity&lt;User[]&gt; response = restTemplate.exchange(URL_USERS,</span>
+                HttpMethod.POST, entity, User[].class);
+
+<span class="nc" id="L61">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="nc" id="L62">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+        //If status == 200
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="nc" id="L67">            User[] list = response.getBody();</span>
+
+<span class="nc" id="L69">            ArrayList&lt;User&gt; userList = new ArrayList&lt;User&gt;();</span>
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (list != null) {</span>
+
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                for (User u : list) {</span>
+
+<span class="nc" id="L75">                    userList.add(u);</span>
+                }
+
+<span class="nc" id="L78">                return userList;</span>
+            }
+        }
+
+<span class="nc" id="L82">        return null;</span>
+    }
+
+    /**Method to return a specified user.
+     *
+     * @param userID The userid of the user you try to get
+     * @return Return a user from the server
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static User[] getUser(long userID) {
+
+<span class="nc" id="L93">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L94">        setAuthHeaders(headers);</span>
+<span class="nc" id="L95">        headers.set(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</span>
+<span class="nc" id="L96">        headers.setContentType(MediaType.APPLICATION_XML);</span>
+
+<span class="nc" id="L98">        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+<span class="nc" id="L99">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="nc" id="L101">        Object[] uriValue = new Object[] {userID};</span>
+
+<span class="nc" id="L103">        ResponseEntity&lt;User&gt; response = restTemplate.exchange(URL_CHOOSEUSER,</span>
+            HttpMethod.POST, entity, User.class, uriValue);
+
+<span class="nc" id="L106">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="nc" id="L107">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="nc" id="L111">            User[] userArray = new User[1];</span>
+
+<span class="nc" id="L113">            userArray[0] = response.getBody();</span>
+
+<span class="nc bnc" id="L115" title="All 2 branches missed.">            if (userArray != null) {</span>
+
+<span class="nc" id="L117">                System.out.println(userArray[0].toString());</span>
+<span class="nc" id="L118">                return userArray;</span>
+            } else {
+
+<span class="nc" id="L121">                System.out.println(&quot;(Client Side) The spesified user was null or doesnt exist.&quot;);</span>
+            }
+        }
+
+<span class="nc" id="L125">        return null;</span>
+    }
+
+    /**Method to post a new user (CREATE).
+     *
+     * @param userName New Username
+     * @param userID New UserID
+     */
+    public static void postUser(String userName, long userID) {
+
+<span class="nc" id="L135">        User newUser = new User(userID, userName, 0);</span>
+
+<span class="nc" id="L137">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L138">        setAuthHeaders(headers);</span>
+<span class="nc" id="L139">        headers.add(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</span>
+<span class="nc" id="L140">        headers.setContentType(MediaType.APPLICATION_XML);</span>
+
+<span class="nc" id="L142">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L143">        HttpEntity&lt;User&gt; requestBody = new HttpEntity&lt;&gt;(newUser, headers);</span>
+
+<span class="nc" id="L145">        User user = restTemplate.postForObject(URL_NEWUSER, requestBody, User.class);</span>
+
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (user != null) {</span>
+
+<span class="nc" id="L149">            System.out.println(&quot;(Client Side) New user created&quot; + user.getID());</span>
+        } else {
+
+<span class="nc" id="L152">            System.out.println(&quot;(Client Side) Something went wrong.&quot;);</span>
+        }
+<span class="nc" id="L154">    }</span>
+
+    /**Method to update a users information.
+     * Update user information (UPDATE)
+     */
+    public static void updateUser(long userID, String userName, int points) {
+
+<span class="nc" id="L161">        User updatedUser = new User(userID, userName, points);</span>
+
+<span class="nc" id="L163">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L164">        setAuthHeaders(headers);</span>
+<span class="nc" id="L165">        headers.add(&quot;Accept&quot;, MediaType.APPLICATION_XML_VALUE);</span>
+
+<span class="nc" id="L167">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L168">        HttpEntity&lt;User&gt; requestBody = new HttpEntity&lt;&gt;(updatedUser, headers);</span>
+
+<span class="nc" id="L170">        String updatedUserUrl = URL_ARBUSER + &quot;/update&quot;;</span>
+<span class="nc" id="L171">        System.out.println(&quot;This is the url; &quot;+updatedUserUrl);</span>
+<span class="nc" id="L172">        restTemplate.put(updatedUserUrl, requestBody);</span>
+
+<span class="nc" id="L174">    }</span>
+
+    /**Method to delete an existing user (DELETE).
+     *
+     * @param userID UserID of the user to delete
+     */
+    public void deleteUser(String userID) {
+
+<span class="nc" id="L182">        RestTemplate restTemplate = new RestTemplate();</span>
+
+<span class="nc" id="L184">        Object[] uriValue = new Object[] {userID};</span>
+
+<span class="nc" id="L186">        restTemplate.delete(URL_CHOOSEUSER, uriValue);</span>
+
+<span class="nc" id="L188">        User user = restTemplate.getForObject(URL_ARBUSER, User.class);</span>
+
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (user != null) {</span>
+
+<span class="nc" id="L192">            System.out.println(&quot;(Client Side) User &quot; + user.getName() + &quot; has been deleted.&quot;);</span>
+        } else {
+
+<span class="nc" id="L195">            System.out.println(&quot;(Client Side) The selected client cannot be found&quot;</span>
+                    + &quot; or does not exist.&quot;);
+        }
+<span class="nc" id="L198">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

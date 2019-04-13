@@ -62,10 +62,19 @@ public class MyStage {
         URL url = new File(sceneName).toURL();
         Parent root = FXMLLoader.load(url);
 
-        Scene scene = new Scene(root, 600,400);
+        Scene scene;
+
+        if (sceneName.equals(Screens.ROOT)) {
+
+            scene = new Scene(root, 1200, 500);
+        } else {
+
+            scene = new Scene(root, 600,400);
+        }
 
         MyStage.getInstance().setScene(scene);
         MyStage.getInstance().show();
+        MyStage.getInstance().setResizable(false);
     }
 
     public static void clearInstance() {

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VehicleEmission.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.model</a> &gt; <span class="el_source">VehicleEmission.java</span></div><h1>VehicleEmission.java</h1><pre class="source lang-java linenums">package server.model;
+
+import org.json.simple.JSONObject;
+
+import java.util.LinkedHashMap;
+
+/**
+ * The type Vehicle emission.
+ */
+public class VehicleEmission {
+    //    INPUT VALUES
+    //    int distance; in kilometers
+    //    int duration; in seconds
+    //    String sizeClass; a description (i.e. midsized)
+
+    //RETURN VALUES
+    private String carbon;
+    private String energy;
+    private String fuelUse;
+    private String distance;
+
+    /**
+     * Instantiates a new Vehicle emission.
+     */
+<span class="fc" id="L25">    public VehicleEmission() {</span>
+
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Instantiates a new Vehicle emission.
+     *
+     * @param carbon   the carbon
+     * @param energy   the energy
+     * @param fuelUse  the fuel use
+     * @param distance the distance
+     */
+<span class="fc" id="L37">    public VehicleEmission(String carbon, String energy, String fuelUse, String distance) {</span>
+<span class="fc" id="L38">        this.carbon = carbon;</span>
+<span class="fc" id="L39">        this.energy = energy;</span>
+<span class="fc" id="L40">        this.fuelUse = fuelUse;</span>
+<span class="fc" id="L41">        this.distance = distance;</span>
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * Json to vehicle vehicle emission.
+     *
+     * @param jsonVehicleEmission the json vehicle emission
+     * @return the vehicle emission
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public static VehicleEmission jsonToVehicle(JSONObject jsonVehicleEmission) {
+
+<span class="fc" id="L53">        VehicleEmission newEmission = new VehicleEmission();</span>
+
+<span class="fc" id="L55">        LinkedHashMap mainBody = (LinkedHashMap) jsonVehicleEmission.get(&quot;decisions&quot;);</span>
+
+<span class="fc" id="L57">        LinkedHashMap carbon = (LinkedHashMap) mainBody.get(&quot;carbon&quot;);</span>
+<span class="fc" id="L58">        newEmission.setCarbon((String) carbon.get(&quot;description&quot;));</span>
+
+<span class="fc" id="L60">        LinkedHashMap energy = (LinkedHashMap) mainBody.get(&quot;energy&quot;);</span>
+<span class="fc" id="L61">        newEmission.setEnergy((String) energy.get(&quot;description&quot;));</span>
+
+<span class="fc" id="L63">        LinkedHashMap fuelUse = (LinkedHashMap) mainBody.get(&quot;fuel_use&quot;);</span>
+<span class="fc" id="L64">        newEmission.setFuelUse((String) fuelUse.get(&quot;description&quot;));</span>
+
+<span class="fc" id="L66">        LinkedHashMap distance = (LinkedHashMap) mainBody.get(&quot;distance&quot;);</span>
+<span class="fc" id="L67">        newEmission.setDistance((String) distance.get(&quot;description&quot;));</span>
+
+<span class="fc" id="L69">        return newEmission;</span>
+    }
+
+    public String getCarbon() {
+<span class="fc" id="L73">        return carbon;</span>
+    }
+
+    public void setCarbon(String carbon) {
+<span class="fc" id="L77">        this.carbon = carbon;</span>
+<span class="fc" id="L78">    }</span>
+
+    public String getEnergy() {
+<span class="fc" id="L81">        return energy;</span>
+    }
+
+    public void setEnergy(String energy) {
+<span class="fc" id="L85">        this.energy = energy;</span>
+<span class="fc" id="L86">    }</span>
+
+    public String getFuelUse() {
+<span class="fc" id="L89">        return fuelUse;</span>
+    }
+
+    public void setFuelUse(String fuelUse) {
+<span class="fc" id="L93">        this.fuelUse = fuelUse;</span>
+<span class="fc" id="L94">    }</span>
+
+    public String getDistance() {
+<span class="fc" id="L97">        return distance;</span>
+    }
+
+    public void setDistance(String distance) {
+<span class="fc" id="L101">        this.distance = distance;</span>
+<span class="fc" id="L102">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

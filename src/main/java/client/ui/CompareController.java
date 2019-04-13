@@ -6,6 +6,8 @@ import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -13,10 +15,9 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+
+import static client.ui.RootController.stringToDouble;
 
 
 /**
@@ -48,6 +49,8 @@ public class CompareController implements Initializable {
     ListView userFollowing;
     @FXML
     ListView followeeListView;
+
+    public BarChart<String, Number> barChart;
 
     private User activeUser;
     private Set<User> userFollows;
@@ -96,6 +99,8 @@ public class CompareController implements Initializable {
 
             followeeList.add(userName);
         }
+
+        loadGraph();
     }
 
     /**
@@ -107,6 +112,21 @@ public class CompareController implements Initializable {
         User foundUser = userRetrieve.getUserByName(nameToFind);
 
         if (foundUser != null) {
+
+            ArrayList<Object> tempArray = new ArrayList<>(userFollows);
+
+            for (int i = 0; i < tempArray.size(); i++) {
+
+                LinkedHashMap tempMap = (LinkedHashMap) tempArray.get(i);
+
+                String userName = (String) tempMap.get("name");
+
+                if (userName.equals(foundUser.getName())) {
+
+                    findStatus.setText("You are already following " + foundUser.getName());
+                    return;
+                }
+            }
 
             userFollows.add(foundUser);
 
@@ -148,5 +168,29 @@ public class CompareController implements Initializable {
 
         compareName.setText(selectedUser.getName());
         comparePoints.setText(Integer.toString(selectedUser.getPoints()));
+    }
+
+    public void loadGraph() {
+
+        Set<User> following = this.userRetrieve.getUserFollow(true, activeUser.getID());
+        ArrayList<Object> tempList = new ArrayList<>(following);
+
+        XYChart.Series currentUserSeries = new XYChart.Series();
+        currentUserSeries.getData().add(new XYChart.Data(activeUser.getName(), activeUser.getPoints()));
+        currentUserSeries.setName("You");
+        barChart.getData().add(currentUserSeries);
+
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Your Friends");
+
+        Iterator<Object> iterator = tempList.iterator();
+        while (iterator.hasNext()) {
+
+            LinkedHashMap user = (LinkedHashMap) iterator.next();
+            XYChart.Data xyChart = new XYChart.Data(user.get("name"), stringToDouble((String) user.get("points")));
+            series.getData().add(xyChart);
+        }
+
+        barChart.getData().addAll(series);
     }
 }

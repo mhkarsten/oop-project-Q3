@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.ui</a> &gt; <span class="el_source">ProfileController.java</span></div><h1>ProfileController.java</h1><pre class="source lang-java linenums">package client.ui;
+
+import client.model.Feat;
+import client.model.User;
+import client.retrieve.FeatRetrive;
+import client.service.UserSession;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+<span class="nc" id="L18">public class ProfileController implements Initializable {</span>
+
+    @FXML
+    public Label userName;
+    public Label userID;
+    public Label userPoints;
+    public ListView featListView;
+
+    private User currentUser;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L30">        currentUser = UserSession.getInstance().getCurrentUser();</span>
+
+<span class="nc" id="L32">        userName.setText(&quot;User Name: &quot; + currentUser.getName());</span>
+<span class="nc" id="L33">        userID.setText(&quot;User ID: &quot; + currentUser.getID());</span>
+<span class="nc" id="L34">        userPoints.setText(&quot;User Points: &quot; + currentUser.getPoints());</span>
+
+        //Setting up the list of users the active user is following
+<span class="nc" id="L37">        FeatRetrive featRetrive = new FeatRetrive();</span>
+
+<span class="nc" id="L39">        featListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);</span>
+<span class="nc" id="L40">        ObservableList&lt;String&gt; listViewContents = featListView.getItems();</span>
+<span class="nc" id="L41">        ArrayList&lt;Feat&gt; tempArray = featRetrive.getUserFeats(currentUser.getID());</span>
+
+<span class="nc" id="L43">        tempArray.forEach(feat -&gt; {</span>
+
+<span class="nc" id="L45">            listViewContents.add(&quot;You have earned &quot; + feat.getPoints() + &quot; points for an activity.&quot;);</span>
+<span class="nc" id="L46">        });</span>
+<span class="nc" id="L47">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

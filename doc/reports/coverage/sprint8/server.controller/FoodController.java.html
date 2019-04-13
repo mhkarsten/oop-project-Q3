@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FoodController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.controller</a> &gt; <span class="el_source">FoodController.java</span></div><h1>FoodController.java</h1><pre class="source lang-java linenums">package server.controller;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import server.api.FoodApi;
+import server.model.Meal;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+/**
+ * The type Food controller.
+ */
+@RestController
+<span class="fc" id="L20">public class FoodController {</span>
+    /**
+     * Gets random meal.
+     *
+     * @return the random meal
+     */
+    @RequestMapping
+        (value = &quot;/randomMeal&quot;,
+            method = {RequestMethod.POST, RequestMethod.GET},
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                        MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Meal getRandomMeal() {
+
+<span class="fc" id="L34">        Optional&lt;Meal[]&gt; randomMeal = FoodApi.getRandomMeal();</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (randomMeal.isPresent()) {</span>
+
+<span class="fc" id="L37">            return randomMeal.get()[0];</span>
+        }
+<span class="nc" id="L39">        return null;</span>
+    }
+
+    /**
+     * Gets meal.
+     *
+     * @param mealName the meal name
+     * @return the meal
+     */
+    @RequestMapping
+        (value = &quot;/meal/{mealName}&quot;,
+            method = {RequestMethod.POST, RequestMethod.GET},
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                        MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Meal[] getMeal(@PathVariable(&quot;mealName&quot;) String mealName) {
+<span class="fc" id="L55">        return FoodApi.getMeal(mealName).get();</span>
+    }
+
+    /**
+     * Gets meal category.
+     *
+     * @param categoryName the category name
+     * @return the meal category
+     */
+    @RequestMapping
+        (value = &quot;/meals/{categoryName}&quot;,
+            method = {RequestMethod.POST, RequestMethod.GET},
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                        MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List&lt;Meal[]&gt; getMealCategory(@PathVariable(&quot;categoryName&quot;) String categoryName) {
+<span class="fc" id="L71">        return FoodApi.getMealCategory(categoryName).get();</span>
+    }
+
+    /**
+     * Gets meat meals.
+     *
+     * @return the meat meals
+     */
+    @RequestMapping
+        (value = {&quot;/meals/meat&quot;},
+            method = {RequestMethod.POST, RequestMethod.GET},
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                        MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List&lt;Meal[]&gt; getMeatMeals() {
+
+<span class="fc" id="L87">        List&lt;Meal[]&gt; meatMeals = FoodApi.getAllMeatMeals();</span>
+
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (!meatMeals.isEmpty()) {</span>
+
+<span class="fc" id="L91">            return meatMeals;</span>
+        } else  {
+<span class="nc" id="L93">            throw new NoSuchElementException(&quot;(Server Side) The category doesnt exist or is empty.&quot;);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

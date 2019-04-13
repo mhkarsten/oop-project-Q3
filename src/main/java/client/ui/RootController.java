@@ -9,14 +9,9 @@ import client.service.UserSession;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -30,9 +25,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The type Root controller.
@@ -45,8 +38,6 @@ public class RootController implements Initializable {
      * The Profile.
      */
     @FXML
-    public Button profile;
-    public Button action;
     public Button stretchbutton;
     public Button score;
     public Button compare;
@@ -60,29 +51,30 @@ public class RootController implements Initializable {
     public AnchorPane sidebarPane;
     public AnchorPane changePane;
 
-    public BarChart<String, Number> barChart;
     private UserRetrieve userRetrieve;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.userRetrieve = new UserRetrieve();
 
-        action.setOnAction((ActionEvent evt) -> {
-            try {
-                openFoodScreen();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        try {
 
-        score.setOnAction((ActionEvent evt) -> {
-            try {
+            openProfileScreen();
+        } catch (IOException e) {
 
-                openProfileScreen();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+            System.out.println("There was an issue opening the profile screen.");
+        }
+
+        ArrayList<Button> buttons = new ArrayList<>();
+        buttons.add(score);
+        buttons.add(compare);
+        buttons.add(food);
+        buttons.add(transport);
+        buttons.add(energy);
+        buttons.add(achievement);
+
+        buttons.forEach(btn -> btn.setOnMouseClicked(mouseEvent -> progressBar()));
     }
 
     /**
@@ -164,119 +156,15 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
-    /**
-     * Move buttons.
-     */
-    public void moveButtons() {
-        Timeline rowMove = new Timeline();
+    public void progressBar() {
 
-        Timeline fade = new Timeline();
-        fade.getKeyFrames().addAll(
-            new KeyFrame(Duration.seconds(1),
-                new KeyValue(action.opacityProperty(), 0),
-                new KeyValue(profile.opacityProperty(), 0),
-                new KeyValue(score.opacityProperty(), 0),
-                new KeyValue(compare.opacityProperty(), 0),
-                new KeyValue(food.opacityProperty(), 0),
-                new KeyValue(transport.opacityProperty(), 0),
-                new KeyValue(energy.opacityProperty(), 0),
-                new KeyValue(achievement.opacityProperty(), 0)
-            )
-        );
+        Timeline rowMove = new Timeline();
         rowMove.getKeyFrames().addAll(
             new KeyFrame(Duration.seconds(2),
                 new KeyValue(stretchbutton.scaleXProperty(), 200)
             )
         );
-
-        fade.play();
-        fade.setOnFinished(e -> rowMove.play());
-        rowMove.setOnFinished(e -> fade.stop());
-        rowMove.setOnFinished(e -> rowMove.stop());
     }
-
-    /**
-     * Move back button.
-     */
-    public void moveBackButton() {
-        Timeline rowMove = new Timeline();
-
-        Timeline fade = new Timeline();
-        fade.getKeyFrames().addAll(
-            new KeyFrame(Duration.seconds(1),
-                new KeyValue(action.opacityProperty(), 1),
-                new KeyValue(profile.opacityProperty(), 1),
-                new KeyValue(score.opacityProperty(), 1),
-                new KeyValue(compare.opacityProperty(), 1),
-                new KeyValue(food.opacityProperty(), 1),
-                new KeyValue(transport.opacityProperty(), 1),
-                new KeyValue(energy.opacityProperty(), 1),
-                new KeyValue(achievement.opacityProperty(), 1)
-            )
-        );
-        rowMove.getKeyFrames().addAll(
-            new KeyFrame(Duration.seconds(2),
-                new KeyValue(stretchbutton.scaleXProperty(), 1)
-            )
-        );
-
-        fade.play();
-        fade.setOnFinished(e -> rowMove.play());
-        rowMove.setOnFinished(e -> fade.stop());
-        rowMove.setOnFinished(e -> rowMove.stop());
-    }
-
-    /**
-     * Btn.
-     *
-     * @param event the event
-     */
-    public void btn(ActionEvent event) {
-
-        CategoryAxis xaxis = new CategoryAxis();
-        NumberAxis yaxis = new NumberAxis();
-        barChart = new BarChart<>(xaxis, yaxis);
-
-        xaxis.setLabel("Username");
-        yaxis.setLabel("Points");
-
-        Set<User> following = this.userRetrieve.getUserFollow(true, currentUser.getID());
-
-        XYChart.Series series = new XYChart.Series();
-        series.getData().add(new XYChart.Data(currentUser.getName(), currentUser.getPoints()));
-
-        Iterator<User> iterator = following.iterator();
-        while (iterator.hasNext()) {
-            User user = iterator.next();
-            XYChart.Data xyChart = new XYChart.Data(user.getName(), user.getPoints());
-            series.getData().add(xyChart);
-        }
-
-        barChart.getData().addAll(series);
-    }
-
-    /**
-     * Gets max.
-     *
-     * @param users the users
-     * @return the max
-     */
-    public int getMax(Set<User> users) {
-
-        int points = UserSession.getInstance().getCurrentUser().getPoints();
-        Iterator<User> iterator = users.iterator();
-
-        while (iterator.hasNext()) {
-
-            int temp = iterator.next().getPoints();
-            if (temp > points) {
-                points = temp;
-            }
-        }
-
-        return points;
-    }
-
 
     /**
      * Method to highlight and remove the highlight from selected/ unselected option.
@@ -308,6 +196,10 @@ public class RootController implements Initializable {
      */
     public static int stringToPoints(String points) {
         return parseInt(points.split("\\.")[0]);
+    }
+
+    public static Double stringToDouble(String points) {
+        return Double.valueOf(points);
     }
 
     /**

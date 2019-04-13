@@ -41,12 +41,22 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        User[] list = response.getBody();
-        ArrayList<User> userList = new ArrayList<User>();
-        userList.addAll(Arrays.asList(list));
+        //If status == 200
+        if (statusCode == HttpStatus.OK) {
 
-        return userList;
+            User[] list = response.getBody();
 
+            ArrayList<User> userList = new ArrayList<User>();
+
+            if (list != null) {
+
+                userList.addAll(Arrays.asList(list));
+
+                return userList;
+            }
+        }
+
+        return null;
     }
 
     /**Method to return a specified user.
@@ -69,10 +79,21 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        User[] userArray = new User[1];
-        userArray[0] = response.getBody();
+        if (statusCode == HttpStatus.OK) {
 
-        return userArray;
+            User[] userArray = new User[1];
+            userArray[0] = response.getBody();
+
+            if (response.getBody() != null) {
+
+                return userArray;
+            } else {
+
+                System.out.println("(Client Side) The specified user was null or doesnt exist.");
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -144,9 +165,18 @@ public class UserRetrieve extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        Set<User> followers = response.getBody();
-        return followers;
+        //If status == 200
+        if (statusCode == HttpStatus.OK) {
 
+            Set<User> followers = response.getBody();
+
+            if (followers != null) {
+
+                return followers;
+            }
+        }
+
+        return null;
     }
 
     /**

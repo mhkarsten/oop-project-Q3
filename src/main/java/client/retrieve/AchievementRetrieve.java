@@ -31,28 +31,19 @@ public class AchievementRetrieve extends BaseRetrieve {
         //GET ALL ACHIEVEMENTS
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGETALL,
-            HttpMethod.POST, entity, Achievement[].class);
-
-        HttpStatus statusCode = response.getStatusCode();
-        System.out.println("(Client Side) The http status code is: " + statusCode);
-
-        if (statusCode == HttpStatus.OK) {
+        try {
+            ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGETALL,
+                HttpMethod.POST, entity, Achievement[].class);
             Achievement[] list = response.getBody();
 
             ArrayList<Achievement> achList = new ArrayList<>();
-
-            if (list != null) {
-
-                achList.addAll(Arrays.asList(list));
-
-                return achList;
-            }
+            achList.addAll(Arrays.asList(list));
+            return achList;
+        } catch (RestClientException e) {
+            System.out.println("(Client Side) Getting all Achievements failed.");
+            return null;
         }
 
-        System.out.println("(Client Side) Getting all Achievements failed.");
-        return null;
     }
 
     /**
@@ -67,25 +58,17 @@ public class AchievementRetrieve extends BaseRetrieve {
         HttpEntity<Achievement> entity = new HttpEntity<>(headers);
 
         Object[] uriValues = new Object[] {achID};
-
-        ResponseEntity<Achievement> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGET,
-            HttpMethod.POST, entity, Achievement.class, uriValues);
-
-        HttpStatus statusCode = response.getStatusCode();
-        System.out.println("(Client Side) The http status code is: " + statusCode);
-
-        if (statusCode == HttpStatus.OK) {
-
+        try {
+            ResponseEntity<Achievement> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHGET,
+                HttpMethod.POST, entity, Achievement.class, uriValues);
             Achievement[] ach = new Achievement[1];
             ach[0] = response.getBody();
-
-            if (response.getBody() != null) {
-
-                return ach[0];
-            }
+            return ach[0];
+        } catch (RestClientException e) {
+            System.out.println("(Client Side) The achievement does not exist or something else went wrong");
+            System.out.println(e.toString());
+            return null;
         }
-        System.out.println("(Client Side) Getting the desired achievement failed.");
-        return null;
     }
 
     /**
@@ -101,28 +84,19 @@ public class AchievementRetrieve extends BaseRetrieve {
         HttpEntity<Achievement[]> entity = new HttpEntity<>(headers);
 
         Object[] uriValues = new Object[] {usrID};
-
-        ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHUNLOCKED,
+        try {
+            ResponseEntity<Achievement[]> response = restTemplate.exchange(UrlEndPoints.Achievements.URL_ACHUNLOCKED,
             HttpMethod.POST, entity, Achievement[].class, uriValues);
-
-        HttpStatus statusCode = response.getStatusCode();
-        System.out.println("(Client Side) The http status code is: " + statusCode);
-
-        if (statusCode == HttpStatus.OK) {
             Achievement[] list = response.getBody();
-
             ArrayList<Achievement> achList = new ArrayList<>();
+            achList.addAll(Arrays.asList(list));
+            return achList;
+        } catch (RestClientException e) {
 
-            if (list != null) {
-
-                achList.addAll(Arrays.asList(list));
-
-                return achList;
-            }
+            System.out.println("(Client Side) The user does not exist or something else went wrong");
+            System.out.println(e.toString());
+            return null;
         }
-
-        System.out.println("(Client Side) Getting all Achievements failed.");
-        return null;
     }
 
     /**
@@ -158,20 +132,8 @@ public class AchievementRetrieve extends BaseRetrieve {
     public void addAch(Achievement ach) {
         //CREATES A NEW ACHIEVEMENT
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
+        HttpEntity<Achievement> requestBody = new HttpEntity<>(ach, headers);
+        restTemplate.postForObject(UrlEndPoints.Achievements.URL_NEWACH, requestBody, Achievement.class);
 
-        try {
-
-            HttpEntity<Achievement> requestBody = new HttpEntity<>(ach, headers);
-            Achievement newAch = restTemplate.postForObject(UrlEndPoints.Achievements.URL_NEWACH, requestBody, Achievement.class);
-
-            if (newAch != null && newAch.getID() != 0) {
-
-                System.out.println("(Client Side) The achievement " + ach.getTitle() + " has been created.");
-            }
-        } catch (RestClientException e) {
-
-            System.out.println("(Client Side) Creating the achievement " + ach.getTitle() + " failed.");
-            System.out.println(e.toString());
-        }
     }
 }

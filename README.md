@@ -13,13 +13,13 @@ spring.datasource.username = postgres
 spring.datasource.password = 24601
 spring.jpa.hibernate.ddl-auto = update
 ~~~
-This can of course be changed to access a remote database or a different type of database. To start the server, simply run the following command in the root of the repository:
+This can, of course, be changed to access a remote database or a different type of database. To start the server, simply run the following command in the root of the repository:
 `mvn exec:java@server`
 
 ## Demo application
 The code below comes from the demo application, which can be run by executing `mvn exec:java@demo`. The full code for this demo can be found [here](src/main/java/demo/DemoApplication.java)
 ### Registration and Authentication
-As only the root and register paths can be accessed without proper authentication, any interaction with the API must be properly authenticated by either logging in using existing credentials or registring a new user.
+As only the root and register paths can be accessed without proper authentication, any interaction with the API must be properly authenticated by either logging in using existing credentials or registering a new user.
 ~~~ java
 RestTemplate template = new RestTemplate();
 User user = new User("Mark","s3cretp4ssword");

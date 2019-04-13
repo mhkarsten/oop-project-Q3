@@ -2,7 +2,7 @@
 # Greendr
 
 ## The Greendr API
-To support the logging of environment-saving actions, we built a Postgres-backed RESTful API that carbon-tracking apps can interface with for user data CRUD operations. Below are a few basic examples in Java using Spring. More information about the used paths and functions can be found in the [documentation of Greendr](https://thomw2o0o.github.io/)
+To support the logging of environment-saving actions, we built a Postgres-backed RESTful API that carbon-tracking apps can interface with for user data CRUD operations. Below are a few basic examples in Java using Spring. More information about the used paths and functions can be found in the [documentation of Greendr](javadoc)
 
 
 ## Starting the server
@@ -18,7 +18,7 @@ This can of course be changed to access a remote database or a different type of
 
 ## Demo application
 The code below comes from the demo application, which can be run by executing `mvn exec:java@demo`. The full code for this demo can be found [here](src/main/java/demo/DemoApplication.java)
-### [Registration and Authentication](https://thomw2o0o.github.io/server/controller/AuthController.html)
+### Registration and Authentication
 As only the root and register paths can be accessed without proper authentication, any interaction with the API must be properly authenticated by either logging in using existing credentials or registring a new user.
 ~~~ java
 RestTemplate template = new RestTemplate();
@@ -33,14 +33,14 @@ template.getInterceptors().add(new BasicAuthenticationInterceptor(user.getName()
 template.postForEntity("http://localhost:8080/auth/login/" + user.getName(),new HttpEntity<>(user),User.class);
 System.out.println(user.toString());
 ~~~
-### [Getting a user](https://thomw2o0o.github.io/server/controller/UserController.html)
+### Getting a user
 ~~~ java
 //... insert authentication ...
 //Two ways to get a user
 user = template.postForObject( "http://localhost:8080/users/byName/" + user.getName(), new HttpEntity<>(user),User.class);
 User userById = template.postForObject( "http://localhost:8080/users/" + user.getID(), new HttpEntity<>(user),User.class);
 ~~~
-### [Adding a generic feat](https://thomw2o0o.github.io/server/controller/FeatController.html)
+### Adding a generic feat
 In our API, feat objects represent the environment-saving actions of our users.
 ~~~ java
 //... insert authentication ...

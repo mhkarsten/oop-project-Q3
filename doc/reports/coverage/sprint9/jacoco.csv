@@ -1,0 +1,90 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Maven Build Go Green,client.retrieve,FeatRetrive,5,52,1,1,1,12,1,2,0,2
+Maven Build Go Green,client.retrieve,FeatRetrieve,1,60,1,1,1,16,1,2,0,2
+Maven Build Go Green,client.retrieve,FoodRetrieve,15,135,6,6,6,33,6,4,0,4
+Maven Build Go Green,client.retrieve,AchievementRetrieve,6,194,0,0,3,45,0,6,0,6
+Maven Build Go Green,client.retrieve,BaseRetrieve,0,12,0,0,0,5,0,2,0,2
+Maven Build Go Green,client.retrieve,UserRetrieve,4,250,5,9,2,58,5,9,0,7
+Maven Build Go Green,client.retrieve,EmissionsRetrieve,0,164,0,0,0,32,0,5,0,5
+Maven Build Go Green,server,SpringBoot,5,3,0,0,2,1,1,1,1,1
+Maven Build Go Green,server.model,Meal,36,220,0,6,13,64,1,27,1,24
+Maven Build Go Green,server.model,User,0,172,0,14,0,55,0,32,0,25
+Maven Build Go Green,server.model,Feat,0,65,0,0,0,28,0,12,0,12
+Maven Build Go Green,server.model,VehicleEmission,0,101,0,0,0,31,0,11,0,11
+Maven Build Go Green,server.model,DietEmission,0,59,0,0,0,19,0,7,0,7
+Maven Build Go Green,server.model,Achievement,0,99,0,14,0,31,0,19,0,12
+Maven Build Go Green,server.model,EnergyEmission,0,80,0,0,0,25,0,9,0,9
+Maven Build Go Green,server.model,TrainEmission,0,101,0,0,0,31,0,11,0,11
+Maven Build Go Green,server.model,FlightEmission,0,73,0,0,0,19,0,3,0,3
+Maven Build Go Green,server.security,AuthenticationPoint,18,9,0,0,5,4,1,2,1,2
+Maven Build Go Green,server.security,SecurityConfig,0,77,0,0,0,17,0,5,0,5
+Maven Build Go Green,server.security,MyUserDetailsService,0,49,0,4,0,10,0,6,0,4
+Maven Build Go Green,server.security,MyUserPrincipal,0,24,0,0,0,10,0,8,0,8
+Maven Build Go Green,server.api,ApiEndPoints.Food,3,12,0,0,1,4,1,4,1,4
+Maven Build Go Green,server.api,FoodApi,3,216,0,8,1,42,1,9,1,5
+Maven Build Go Green,server.api,EmissionApi.new ArrayList() {...},0,29,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi,28,416,12,24,11,90,13,12,1,6
+Maven Build Go Green,server.api,EmissionApi.new ArrayList() {...},0,29,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.new ArrayList() {...},0,55,0,0,0,6,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.new ArrayList() {...},0,55,0,0,0,6,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.4.new ArrayList() {...},0,18,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.2.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.2.new ArrayList() {...},0,18,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.2.new ArrayList() {...},0,18,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.4.new ArrayList() {...},0,18,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.2.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,ApiEndPoints,3,0,0,0,1,0,1,0,1,0
+Maven Build Go Green,server.api,EmissionApi.new ArrayList() {...},0,42,0,0,0,5,0,1,0,1
+Maven Build Go Green,server.api,ApiEndPoints.Emission,3,0,0,0,1,0,1,0,1,0
+Maven Build Go Green,server.api,EmissionApi.3.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.5.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.5.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.3.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.1.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.1.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.1.new ArrayList() {...},0,18,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.3.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,server.api,EmissionApi.3.new ArrayList() {...},0,19,0,0,0,4,0,1,0,1
+Maven Build Go Green,client.ui,FoodController.new FoodController.FetchMealsTask() {...},30,0,0,0,5,0,2,0,2,0
+Maven Build Go Green,client.ui,RootController,311,0,2,0,59,0,17,0,16,0
+Maven Build Go Green,client.ui,ScoreController,20,0,0,0,5,0,2,0,2,0
+Maven Build Go Green,client.ui,AchievementUiController,172,0,8,0,41,0,12,0,8,0
+Maven Build Go Green,client.ui,CompareController,342,0,12,0,68,0,12,0,6,0
+Maven Build Go Green,client.ui,LoginController,175,0,6,0,42,0,7,0,4,0
+Maven Build Go Green,client.ui,ProfileController,127,0,2,0,29,0,5,0,4,0
+Maven Build Go Green,client.ui,FoodController.FetchMealsTask,9,0,0,0,3,0,1,0,1,0
+Maven Build Go Green,client.ui,TransportController,411,0,6,0,105,0,22,0,19,0
+Maven Build Go Green,client.ui,EnergyController,339,0,4,0,89,0,19,0,17,0
+Maven Build Go Green,client.ui,FoodController,405,0,18,0,94,0,21,0,12,0
+Maven Build Go Green,client,ClientGui,9,0,0,0,5,0,3,0,3,0
+Maven Build Go Green,server.controller,FeatController,4,113,0,0,1,18,1,5,1,5
+Maven Build Go Green,server.controller,AchievementController,0,90,0,0,0,17,0,6,0,6
+Maven Build Go Green,server.controller,UserController,0,107,0,2,0,24,0,11,0,10
+Maven Build Go Green,server.controller,FoodController,0,21,0,0,0,5,0,5,0,5
+Maven Build Go Green,server.controller,EmissionController,0,103,0,0,0,21,0,6,0,6
+Maven Build Go Green,server.controller,GlobalControllerExceptionHandler,0,5,0,0,0,3,0,3,0,3
+Maven Build Go Green,server.controller,AuthController,0,47,0,4,0,11,0,5,0,3
+Maven Build Go Green,client.model,FlightEmission,12,46,0,0,5,20,2,10,2,10
+Maven Build Go Green,client.model,Emission,7,3,0,0,3,1,2,1,2,1
+Maven Build Go Green,client.model,Meal,0,116,0,0,0,48,0,24,0,24
+Maven Build Go Green,client.model,User,0,152,0,16,0,47,0,26,0,18
+Maven Build Go Green,client.model,TrainEmission,12,46,0,0,5,20,2,10,2,10
+Maven Build Go Green,client.model,DietEmission,8,26,0,0,3,12,2,6,2,6
+Maven Build Go Green,client.model,EnergyEmission,10,36,0,0,4,16,2,8,2,8
+Maven Build Go Green,client.model,Achievement,0,105,0,14,0,34,0,19,0,12
+Maven Build Go Green,client.model,VehicleEmission,12,46,0,0,5,20,2,10,2,10
+Maven Build Go Green,client.model,Feat,46,19,0,0,18,10,7,5,7,5
+Maven Build Go Green,demo,DemoApplication,141,0,0,0,18,0,2,0,2,0
+Maven Build Go Green,client.service,UrlEndPoints.User,3,0,0,0,1,0,1,0,1,0
+Maven Build Go Green,client.service,UrlEndPoints.Feat,3,0,0,0,1,0,1,0,1,0
+Maven Build Go Green,client.service,UrlEndPoints.Auth,3,0,0,0,1,0,1,0,1,0
+Maven Build Go Green,client.service,HttpComponentsClientHttpRequestFactoryBasicAuth,32,0,0,0,10,0,3,0,3,0
+Maven Build Go Green,client.service,AchievementGenerator,312,0,18,0,79,0,21,0,12,0
+Maven Build Go Green,client.service,UrlEndPoints,3,3,0,0,1,1,1,1,1,1
+Maven Build Go Green,client.service,MyStage,58,0,6,0,18,0,8,0,5,0
+Maven Build Go Green,client.service,UrlEndPoints.Emission,3,0,0,0,1,0,1,0,1,0
+Maven Build Go Green,client.service,MyRestTemplate,0,66,0,0,0,18,0,3,0,3
+Maven Build Go Green,client.service,MyStage.Screens,3,0,0,0,1,0,1,0,1,0
+Maven Build Go Green,client.service,UserSession,22,32,0,2,4,13,3,8,3,7
+Maven Build Go Green,client.service,UrlEndPoints.Food,3,0,0,0,1,0,1,0,1,0
+Maven Build Go Green,client.service,UrlEndPoints.Achievements,3,0,0,0,1,0,1,0,1,0

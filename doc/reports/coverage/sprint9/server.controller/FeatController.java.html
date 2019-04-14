@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FeatController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.controller</a> &gt; <span class="el_source">FeatController.java</span></div><h1>FeatController.java</h1><pre class="source lang-java linenums">package server.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import server.model.Feat;
+import server.model.User;
+import server.repository.FeatRepository;
+import server.repository.UserRepository;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Set;
+import javax.validation.Valid;
+
+@RestController
+<span class="fc" id="L25">public class FeatController {</span>
+    @Autowired
+    private FeatRepository featRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+    /**
+     * A mapping to only get the feats of a certain user.
+     *
+     * @param userID the user id of the user
+     * @return the feats if any and if the user exists
+     */
+    @RequestMapping(value = &quot;/users/{userID}/feats&quot;,
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
+    public Set&lt;Feat&gt; getUserFeats(@PathVariable(&quot;userID&quot;) long userID) {
+<span class="fc" id="L42">        return userRepository.findById(userID).get().getFeats();</span>
+    }
+
+    /**
+     * Gets a specific feat by featId.
+     *
+     * @param featId The featId to look for
+     * @return The feat if it exists
+     */
+    @RequestMapping(value = &quot;/feats/{featId}&quot;,
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Feat getAchievement(@PathVariable(&quot;featId&quot;) long featId) {
+<span class="fc" id="L57">        return featRepository.findById(featId).get();</span>
+    }
+
+    /**
+     * Gets all of the feats of all users.
+     *
+     * @return the list of feats
+     */
+    @RequestMapping(value = &quot;/feats&quot;,
+        method = {RequestMethod.POST, RequestMethod.GET},
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public List&lt;Feat&gt; getFeats() {
+<span class="nc" id="L71">        return featRepository.findAllByOrderByIdAsc();</span>
+    }
+
+
+    /**
+     * Adds a new feat (CREATE).
+     *
+     * @param feat Parameter for the feat to be added
+     * @param userID Id of the user to add the feat to
+     * @return Returns the path at which the created feat is located
+     */
+    @PostMapping(value = &quot;/users/{userId}/feats/new&quot;,
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity&lt;?&gt; addFeat(@PathVariable(&quot;userId&quot;)@Valid long userID, @RequestBody Feat feat) {
+        //Feat savedFeat = featRepository.save(feat);
+<span class="fc" id="L88">        User user = userRepository.findById(userID).get();</span>
+<span class="fc" id="L89">        feat.setUser(user);</span>
+<span class="fc" id="L90">        feat = featRepository.save(feat);</span>
+
+<span class="fc" id="L92">        System.out.println(&quot;Creating new feat with ID &quot; + feat.getId());</span>
+
+<span class="fc" id="L94">        user.addFeat(feat);</span>
+        URI location = ServletUriComponentsBuilder
+<span class="fc" id="L96">            .fromCurrentContextPath().path(&quot;/feats/{featId}&quot;).buildAndExpand(feat.getId()).toUri();</span>
+<span class="fc" id="L97">        return ResponseEntity.created(location).build();</span>
+    }
+
+    /** Adds a new feat (CREATE).
+     * @param userID id of the user
+     * @param points points associated with the action for the feat
+     * @return Returns the path at which the created feat is located
+     */
+    @PostMapping(value = &quot;/users/{userId}/feats/new/{points}&quot;,
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity&lt;?&gt; addGenericFeat(@PathVariable(&quot;userId&quot;)@Valid long userID, @PathVariable(&quot;points&quot;)@Valid int points) {
+        //Feat savedFeat = featRepository.save(feat);
+<span class="fc" id="L111">        User user = userRepository.findById(userID).get();</span>
+
+<span class="fc" id="L113">        Feat feat = new Feat(points, 0, user);</span>
+
+<span class="fc" id="L115">        feat.setUser(user);</span>
+<span class="fc" id="L116">        feat = featRepository.save(feat);</span>
+
+<span class="fc" id="L118">        System.out.println(&quot;Creating new feat with ID &quot; + feat.getId());</span>
+
+<span class="fc" id="L120">        user.addFeat(feat);</span>
+        URI location = ServletUriComponentsBuilder
+<span class="fc" id="L122">            .fromCurrentContextPath().path(&quot;/feats/{featId}&quot;).buildAndExpand(feat.getId()).toUri();</span>
+<span class="fc" id="L123">        return ResponseEntity.created(location).build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

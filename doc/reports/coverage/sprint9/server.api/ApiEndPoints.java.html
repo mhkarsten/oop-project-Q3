@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiEndPoints.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.api</a> &gt; <span class="el_source">ApiEndPoints.java</span></div><h1>ApiEndPoints.java</h1><pre class="source lang-java linenums">package server.api;
+
+/**
+ * Manages all api endpoints in a single class.
+ */
+<span class="nc" id="L6">public class ApiEndPoints {</span>
+<span class="nc" id="L7">    public static class Food {</span>
+<span class="fc" id="L8">        public static String BASE = &quot;https://www.themealdb.com&quot;;</span>
+
+        private static final String RANDOMEAL = &quot;/api/json/v1/1/random.php&quot;;
+        private static final String SPECIFICMEAL = &quot;/api/json/v1/1/search.php?s=&quot;;
+        private static final String CATEGORYMEAL = &quot;/api/json/v1/1/filter.php?c=&quot;;
+
+        public static final String getRandomMeal() {
+<span class="fc" id="L15">            return BASE + RANDOMEAL;</span>
+        }
+
+        public static final String getSpecificMeal() {
+<span class="fc" id="L19">            return BASE + SPECIFICMEAL;</span>
+        }
+
+        public static final String getCategoryMeal() {
+<span class="fc" id="L23">            return BASE + CATEGORYMEAL;</span>
+        }
+    }
+
+<span class="nc" id="L27">    public static class Emission {</span>
+        static final String BASE = &quot;http://impact.brighterplanet.com&quot;;
+        static final String KEY = &quot;key=5a927d96eca397b6659a3c361ce32254&quot;;
+        static final String CAR = BASE + &quot;/automobile_trips.json?&quot;;
+        static final String ENERGY = BASE + &quot;/residences.json?&quot;;
+        static final String DIET = BASE + &quot;/diets.json?&quot;;
+        static final String FLIGHT = BASE + &quot;/flights.json?&quot;;
+        static final String TRAIN = BASE + &quot;/rail_trips.json?&quot;;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmissionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">server.controller</a> &gt; <span class="el_source">EmissionController.java</span></div><h1>EmissionController.java</h1><pre class="source lang-java linenums">package server.controller;
+
+import static java.lang.Integer.parseInt;
+import static server.api.EmissionApi.getDietEmission;
+import static server.api.EmissionApi.getEnergyEmission;
+import static server.api.EmissionApi.getFlightEmission;
+import static server.api.EmissionApi.getTrainEmission;
+import static server.api.EmissionApi.getVehicleEmission;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.bind.annotation.RestController;
+import server.model.DietEmission;
+import server.model.EnergyEmission;
+import server.model.FlightEmission;
+import server.model.TrainEmission;
+import server.model.VehicleEmission;
+
+import java.util.HashMap;
+
+/**
+ * The type Emission controller.
+ */
+@RestController
+<span class="fc" id="L30">public class EmissionController {</span>
+
+    /**
+     * Vehicle emission response entity.
+     *
+     * @param parameters the parameters
+     * @return the response entity
+     */
+    @PostMapping(value = &quot;/vehicleEmission&quot;,
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity&lt;VehicleEmission&gt; vehicleEmission(@RequestBody HashMap parameters) {
+
+<span class="fc" id="L44">        return new ResponseEntity&lt;VehicleEmission&gt;(getVehicleEmission(</span>
+<span class="fc" id="L45">            (int) parseInt((String) parameters.get(&quot;daily_distance&quot;)),</span>
+<span class="fc" id="L46">            (int) parseInt((String) parameters.get(&quot;daily_duration&quot;)),</span>
+<span class="fc" id="L47">            (String) parameters.get(&quot;sizeClass&quot;)</span>
+        ), HttpStatus.OK);
+    }
+
+    /**
+     * Energy emission response entity.
+     *
+     * @param parameters the parameters
+     * @return the response entity
+     */
+    @PostMapping(value = &quot;/energyEmission&quot;,
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity&lt;EnergyEmission&gt; energyEmission(@RequestBody HashMap parameters) {
+
+<span class="fc" id="L63">        return new ResponseEntity&lt;EnergyEmission&gt;(getEnergyEmission(</span>
+<span class="fc" id="L64">            (int) parseInt((String) parameters.get(&quot;greenEnergy&quot;)),</span>
+<span class="fc" id="L65">            (String) parameters.get(&quot;airConditionerUse&quot;),</span>
+<span class="fc" id="L66">            (String) parameters.get(&quot;dishwasherUse&quot;),</span>
+<span class="fc" id="L67">            (int) parseInt((String) parameters.get(&quot;naturalGasCost&quot;))</span>
+        ), HttpStatus.OK);
+    }
+
+    /**
+     * Flight emission response entity.
+     *
+     * @param parameters the parameters
+     * @return the response entity
+     */
+    @PostMapping(value = &quot;/flightEmission&quot;,
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity&lt;FlightEmission&gt; flightEmission(@RequestBody HashMap parameters) {
+
+<span class="fc" id="L83">        return new ResponseEntity&lt;FlightEmission&gt;(getFlightEmission(</span>
+<span class="fc" id="L84">            (String) parameters.get(&quot;startingPort&quot;),</span>
+<span class="fc" id="L85">            (String) parameters.get(&quot;endingPort&quot;)</span>
+        ), HttpStatus.OK);
+    }
+
+    /**
+     * Diet emission response entity.
+     *
+     * @param parameters the parameters
+     * @return the response entity
+     */
+    @PostMapping(value = &quot;/dietEmission&quot;,
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity&lt;DietEmission&gt; dietEmission(@RequestBody HashMap parameters) {
+
+<span class="fc" id="L101">        return new ResponseEntity&lt;DietEmission&gt;(getDietEmission(</span>
+<span class="fc" id="L102">            Float.parseFloat((String)parameters.get(&quot;fishShare&quot;)),</span>
+<span class="fc" id="L103">            Float.parseFloat((String)parameters.get(&quot;redMeatShare&quot;)),</span>
+<span class="fc" id="L104">            Float.parseFloat((String)parameters.get(&quot;poultryShare&quot;)),</span>
+<span class="fc" id="L105">            Integer.parseInt((String)parameters.get(&quot;size&quot;))</span>
+        ), HttpStatus.OK);
+    }
+
+    /**
+        * Train emission response entity.
+        *
+        * @param parameters the parameters
+     * @return the response entity
+     */
+    @PostMapping(value = &quot;/trainEmission&quot;,
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public ResponseEntity&lt;TrainEmission&gt; trainEmission(@RequestBody HashMap parameters) {
+
+<span class="fc" id="L121">        return new ResponseEntity&lt;TrainEmission&gt;(getTrainEmission(</span>
+<span class="fc" id="L122">            (int) parseInt((String) parameters.get(&quot;distance&quot;)),</span>
+<span class="fc" id="L123">            (int) parseInt((String) parameters.get(&quot;duration&quot;))</span>
+        ), HttpStatus.OK);
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserRetrieve.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.retrieve</a> &gt; <span class="el_source">UserRetrieve.java</span></div><h1>UserRetrieve.java</h1><pre class="source lang-java linenums">package client.retrieve;
+
+import client.model.User;
+import client.service.MyRestTemplate;
+import client.service.UrlEndPoints;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Set;
+
+/**Method to return an ArrayList of all users.
+ *Currently this client side code is build to work with XML code whereas the server
+ *side code can use both XML and JSON. Later this might be changed so everything uses
+ *JSON for the sake of simplicity;
+ *
+ */
+<span class="fc" id="L23">public class UserRetrieve extends BaseRetrieve {</span>
+
+    /**Method to return an ArrayList of all users.
+     *
+     * @return Return all users from the server
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public ArrayList&lt;User&gt; getUsers() {
+
+<span class="fc" id="L32">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L34">        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;User[]&gt;(headers);</span>
+
+<span class="fc" id="L36">        String url =  UrlEndPoints.User.ALL_USERS;</span>
+<span class="fc" id="L37">        ResponseEntity&lt;User[]&gt; response = restTemplate.exchange(url,</span>
+                HttpMethod.POST, entity, User[].class);
+
+<span class="fc" id="L40">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L41">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+        //If status == 200
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L46">            User[] list = response.getBody();</span>
+
+<span class="fc" id="L48">            ArrayList&lt;User&gt; userList = new ArrayList&lt;User&gt;();</span>
+
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">            if (list != null) {</span>
+
+<span class="fc" id="L52">                userList.addAll(Arrays.asList(list));</span>
+
+<span class="fc" id="L54">                return userList;</span>
+            }
+        }
+
+<span class="nc" id="L58">        return null;</span>
+    }
+
+    /**Method to return a specified user.
+     *
+     * @param userID The userID of the user you try to get
+     * @return Return a user from the server
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public User[] getUser(long userID) {
+
+<span class="fc" id="L69">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L71">        HttpEntity&lt;User[]&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+
+<span class="fc" id="L73">        Object[] uriValues = new Object[] {userID};</span>
+
+<span class="fc" id="L75">        ResponseEntity&lt;User&gt; response = restTemplate.exchange(UrlEndPoints.User.USER_BY_ID,</span>
+            HttpMethod.POST, entity, User.class, uriValues);
+
+<span class="fc" id="L78">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L79">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L83">            User[] userArray = new User[1];</span>
+<span class="fc" id="L84">            userArray[0] = response.getBody();</span>
+
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            if (response.getBody() != null) {</span>
+
+<span class="fc" id="L88">                return userArray;</span>
+            } else {
+
+<span class="fc" id="L91">                System.out.println(&quot;(Client Side) The specified user was null or doesnt exist.&quot;);</span>
+            }
+        }
+
+<span class="fc" id="L95">        return null;</span>
+    }
+
+    /**
+     * Method for getting a user by their name.
+     * @param userName name of the user to find
+     * @return
+     */
+    public User getUserByName(String userName) {
+<span class="fc" id="L104">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L106">        HttpEntity&lt;User&gt; entity = new HttpEntity&lt;&gt;(headers);</span>
+
+<span class="fc" id="L108">        Object[] uriValues = new Object[] {userName};</span>
+
+<span class="fc" id="L110">        ResponseEntity&lt;User&gt; response = restTemplate.exchange(UrlEndPoints.User.USER_BY_NAME,</span>
+            HttpMethod.POST, entity, User.class, uriValues);
+
+<span class="fc" id="L113">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L114">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+<span class="fc" id="L116">        return response.getBody();</span>
+
+    }
+
+    /**Method to update a users information.
+     * Update user information (UPDATE)
+     * TODO: this method is not gonna work with the current security setup.
+     * There should be a method updateUserPoints that takes the ID/username and points to be added.
+     *
+     */
+    public void addGenericFeat(Long userId, int points) {
+
+<span class="fc" id="L128">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+<span class="fc" id="L129">        HttpEntity&lt;Object&gt; entity = new HttpEntity&lt;Object&gt;(headers);</span>
+
+<span class="fc" id="L131">        restTemplate.exchange(UrlEndPoints.User.ALL_USERS + &quot;/&quot; + userId + &quot;/feats/new/&quot; + points,</span>
+            HttpMethod.POST, entity, Object.class);
+<span class="fc" id="L133">    }</span>
+
+    /**
+     * Gets a users followers, or the users a given user is following.
+     *
+     * @param selectFollow true for followers, false for following
+     * @param userID       the user id
+     * @return the user follow
+     */
+    public Set&lt;User&gt; getUserFollow(boolean selectFollow, long userID) {
+
+<span class="fc" id="L144">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+        String url;
+
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (selectFollow) {</span>
+
+<span class="fc" id="L150">            url = UrlEndPoints.User.USER_FOLLOWERS;</span>
+        } else {
+
+<span class="fc" id="L153">            url = UrlEndPoints.User.USER_FOLLOWING;</span>
+        }
+
+<span class="fc" id="L156">        HttpEntity&lt;Set&lt;User&gt;&gt; entity = new HttpEntity&lt;Set&lt;User&gt;&gt;(headers);</span>
+
+
+<span class="fc" id="L159">        Object[] uriValues = new Object[] {userID};</span>
+
+<span class="fc" id="L161">        ResponseEntity&lt;Set&gt; response = restTemplate.exchange(url,</span>
+            HttpMethod.POST, entity, Set.class, uriValues);
+
+<span class="fc" id="L164">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L165">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+
+        //If status == 200
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">        if (statusCode == HttpStatus.OK) {</span>
+
+<span class="fc" id="L170">            Set&lt;User&gt; followers = response.getBody();</span>
+
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">            if (followers != null) {</span>
+
+<span class="fc" id="L174">                return followers;</span>
+            }
+        }
+
+<span class="nc" id="L178">        return null;</span>
+    }
+
+    /**
+     * Method to update the followers of a user.
+     * @param followerId id of the user that is being followed
+     * @param followeeId id of the user that follows the other user
+     */
+    public void updateUserFollowing(long followerId, long followeeId) {
+
+<span class="fc" id="L188">        HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);</span>
+
+<span class="fc" id="L190">        String url = UrlEndPoints.User.UPDATE_FOLLOW;</span>
+
+<span class="fc" id="L192">        HttpEntity&lt;Object&gt; entity = new HttpEntity&lt;Object&gt;(headers);</span>
+
+
+<span class="fc" id="L195">        Object[] uriValues = new Object[] {followerId, followeeId};</span>
+
+<span class="fc" id="L197">        ResponseEntity&lt;Object&gt; response = restTemplate.exchange(url,</span>
+            HttpMethod.POST, entity, Object.class, uriValues);
+
+<span class="fc" id="L200">        HttpStatus statusCode = response.getStatusCode();</span>
+<span class="fc" id="L201">        System.out.println(&quot;(Client Side) The http status code is: &quot; + statusCode);</span>
+<span class="fc" id="L202">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

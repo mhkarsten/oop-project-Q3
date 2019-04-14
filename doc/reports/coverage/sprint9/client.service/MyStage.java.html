@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MyStage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.service</a> &gt; <span class="el_source">MyStage.java</span></div><h1>MyStage.java</h1><pre class="source lang-java linenums">package client.service;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+
+/**
+ * Manages the stage/windown by providing a singleton class.
+ */
+<span class="nc" id="L16">public class MyStage {</span>
+
+    private static Stage instance;
+
+<span class="nc" id="L20">    public static class Screens {</span>
+        public static final String BASE_DIR = &quot;src/main/resources/&quot;;
+        public static final String LOGIN =  BASE_DIR + &quot;loginScreen.fxml&quot;;
+        public static final String ROOT =  BASE_DIR + &quot;rootScreen.fxml&quot;;
+    }
+
+
+
+    /**
+     * Checks if the instance is already instantiated, and if so return the single instance.
+     * If not creates the single instance and returns it.
+     * @return the singleton instance of the stage
+     */
+    public static Stage getInstance() {
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L35">            instance = new Stage();</span>
+        }
+
+<span class="nc" id="L38">        return instance;</span>
+    }
+
+    /**
+     * Constructor for providing the initial stage.
+     * Checks if the instance is already instantiated, and if so return the single instance.
+     * If not creates the single instance and returns it.
+     * @param stage the provided stage to set of none is already set
+     * @return the singleton instance of the stage
+     */
+    public static Stage getInstance(Stage stage) {
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L50">            instance = stage;</span>
+        }
+
+<span class="nc" id="L53">        return instance;</span>
+    }
+
+    /**
+     * Creates a new scene based on the provides screen name (managed in MyStage.Screens) and sets the singleton stage's screen.
+     * @param sceneName name of the new scene.
+     * @throws IOException throws IOException if it cannot load the new scene
+     */
+    public static void switchScene(String sceneName) throws IOException {
+<span class="nc" id="L62">        URL url = new File(sceneName).toURL();</span>
+<span class="nc" id="L63">        Parent root = FXMLLoader.load(url);</span>
+
+        Scene scene;
+
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (sceneName.equals(Screens.ROOT)) {</span>
+
+<span class="nc" id="L69">            scene = new Scene(root, 1200, 500);</span>
+        } else {
+
+<span class="nc" id="L72">            scene = new Scene(root, 600,400);</span>
+        }
+
+<span class="nc" id="L75">        MyStage.getInstance().setScene(scene);</span>
+<span class="nc" id="L76">        MyStage.getInstance().show();</span>
+<span class="nc" id="L77">        MyStage.getInstance().setResizable(false);</span>
+<span class="nc" id="L78">    }</span>
+
+    public static void clearInstance() {
+<span class="nc" id="L81">        instance = null;</span>
+<span class="nc" id="L82">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

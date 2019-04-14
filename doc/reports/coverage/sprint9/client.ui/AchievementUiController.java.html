@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AchievementUiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.ui</a> &gt; <span class="el_source">AchievementUiController.java</span></div><h1>AchievementUiController.java</h1><pre class="source lang-java linenums">package client.ui;
+
+import client.model.Achievement;
+import client.model.User;
+import client.retrieve.AchievementRetrieve;
+import client.service.UserSession;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+
+<span class="nc" id="L24">public class AchievementUiController implements Initializable {</span>
+
+    @FXML
+    Label achievementName;
+
+    @FXML
+    ListView unlockedAchievements;
+    @FXML
+    ListView lockedAchievements;
+
+    @FXML
+    TextArea achievementDescription;
+
+    @FXML
+    ImageView achievementImage;
+
+    private User activeUser;
+    private ArrayList&lt;Achievement&gt; userAchives;
+    private ArrayList&lt;Achievement&gt; lockedAchives;
+    private AchievementRetrieve achievementRetrieve;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L47">        this.achievementRetrieve = new AchievementRetrieve();</span>
+<span class="nc" id="L48">        activeUser = UserSession.getInstance().getCurrentUser();</span>
+<span class="nc" id="L49">        userAchives = this.achievementRetrieve.achGetUnlocked(activeUser.getID());</span>
+<span class="nc" id="L50">        lockedAchives = this.achievementRetrieve.achGetAll();</span>
+
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (lockedAchives != null) {</span>
+
+<span class="nc" id="L54">            lockedAchives.removeAll(userAchives);</span>
+        }
+
+<span class="nc" id="L57">        unlockedAchievements.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);</span>
+<span class="nc" id="L58">        lockedAchievements.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);</span>
+
+<span class="nc" id="L60">        fillListView(unlockedAchievements, userAchives);</span>
+<span class="nc" id="L61">        fillListView(lockedAchievements, lockedAchives);</span>
+
+<span class="nc" id="L63">        setListViewDoubleClick(unlockedAchievements);</span>
+<span class="nc" id="L64">        setListViewDoubleClick(lockedAchievements);</span>
+<span class="nc" id="L65">    }</span>
+
+    private void setListViewDoubleClick(ListView lv) {
+
+<span class="nc" id="L69">        lv.setOnMouseClicked(click -&gt; {</span>
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (click.getClickCount() == 2) {</span>
+                ObservableList&lt;String&gt; clickedAch;
+<span class="nc" id="L73">                clickedAch = lv.getSelectionModel().getSelectedItems();</span>
+
+<span class="nc" id="L75">                displayAchievement(clickedAch.get(0));</span>
+            }
+<span class="nc" id="L77">        });</span>
+<span class="nc" id="L78">    }</span>
+
+    /**
+     * Method to fill in the listView.
+     * @param lv the listView to fill
+     * @param al an ArrayList with the achievement to fill the listView with
+     */
+    public void fillListView(ListView lv, ArrayList&lt;Achievement&gt; al) {
+
+<span class="nc" id="L87">        ObservableList&lt;String&gt; followeeList = lv.getItems();</span>
+
+<span class="nc" id="L89">        al.forEach(ach -&gt; {</span>
+
+<span class="nc" id="L91">            followeeList.add(ach.getTitle());</span>
+<span class="nc" id="L92">        });</span>
+<span class="nc" id="L93">    }</span>
+
+    /**
+     * Method to display a single achievement based on the title.
+     * @param title the title of the achievement to display
+     */
+    public void displayAchievement(String title) {
+
+<span class="nc" id="L101">        Achievement seleceted = findAchievement(title);</span>
+
+        try {
+
+<span class="nc" id="L105">            achievementImage.setImage(new Image(new FileInputStream(seleceted.getPath())));</span>
+<span class="nc" id="L106">        } catch (FileNotFoundException e) {</span>
+
+<span class="nc" id="L108">            System.out.println(&quot;The image was not found&quot;);</span>
+<span class="nc" id="L109">        }</span>
+
+
+<span class="nc" id="L112">        achievementDescription.setText(seleceted.getDescription());</span>
+<span class="nc" id="L113">        achievementName.setText(seleceted.getTitle());</span>
+<span class="nc" id="L114">    }</span>
+
+    /**
+     * Method to find an achievement based on the title.
+     * @param title the title of the achievement to be found
+     * @return returns the achievement if it was found
+     */
+    public Achievement findAchievement(String title) {
+
+<span class="nc" id="L123">        ArrayList&lt;Achievement&gt; allAchives = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L124">        allAchives.addAll(userAchives);</span>
+<span class="nc" id="L125">        allAchives.addAll(lockedAchives);</span>
+
+<span class="nc bnc" id="L127" title="All 2 branches missed.">        for (int i = 0; i &lt; allAchives.size(); i++) {</span>
+
+<span class="nc bnc" id="L129" title="All 2 branches missed.">            if (allAchives.get(i).getTitle().equals(title)) {</span>
+
+<span class="nc" id="L131">                return allAchives.get(i);</span>
+            }
+        }
+
+<span class="nc" id="L135">        System.out.println(&quot;(Client) This Achievement doesnt exist: &quot; + title);</span>
+<span class="nc" id="L136">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UrlEndPoints.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.service</a> &gt; <span class="el_source">UrlEndPoints.java</span></div><h1>UrlEndPoints.java</h1><pre class="source lang-java linenums">package client.service;
+
+/**
+ * Manages all api endpoints in a single class.
+ */
+<span class="nc" id="L6">public class UrlEndPoints {</span>
+
+<span class="fc" id="L8">    public static String BASE_URL = &quot;http://localhost:8080/&quot;;</span>
+
+    /**
+     * All authentication related api endpoints.
+     */
+<span class="nc" id="L13">    public static class Auth {</span>
+        public  static final String REGISTER =  &quot;auth/register&quot;;
+        public  static final String LOGIN =  &quot;auth/login&quot;;
+    }
+
+    /**
+     * All User related api endpoints.
+     */
+<span class="nc" id="L21">    public static class User {</span>
+        public static final String ALL_USERS =  &quot;users&quot;;
+        public static final String UPDATE =   &quot;users/update&quot;;
+        public static final String USER_BY_ID =  &quot;users/{userID}&quot;;
+        public static final String USER_FOLLOWERS =  &quot;/users/{userID}/followers&quot;;
+        public static final String USER_FOLLOWING =  &quot;/users/{userID}/following&quot;;
+        public static final String UPDATE_FOLLOW =  &quot;/users/{followerId}/follow/{followeeId}&quot;;
+        public static final String USER_BY_NAME = &quot;/users/byName/{userName}&quot;;
+    }
+
+    /**
+     * All Achievement related api endpoints.
+     */
+<span class="nc" id="L34">    public static class Achievements {</span>
+        public static final String URL_ACHGETALL =  &quot;achievements&quot;;
+        public static final String URL_ACHGET =  &quot;achievements/{achID}&quot;;
+        public static final String URL_ACHUNLOCKED =  &quot;users/{userID}/achievements&quot;;
+        public static final String URL_NEWACH =  &quot;achievements/new&quot;;
+        public static final String URL_UNLOCKACHFORUSER = &quot;/users/{userId}/achievements/unlock/{achId}&quot;;
+    }
+
+<span class="nc" id="L42">    public static class Food {</span>
+        public static final String URL_MEAL = &quot;/meal/{mealName}&quot;;
+        public static final String URL_MEALCATEGORY = &quot;/meals/{categoryName}&quot;;
+        public static final String URL_RANDOMMEAL = &quot;/randomMeal&quot;;
+        public static final String URL_MEATMEALs = &quot;/meals/meat&quot;;
+    }
+
+<span class="nc" id="L49">    public static class Emission {</span>
+        public static final String URL_VEHICLE =  &quot;/vehicleEmission&quot;;
+        public static final String URL_DIET =   &quot;/dietEmission&quot;;
+        public static final String URL_FLIGHT =  &quot;/flightEmission&quot;;
+        public static final String URL_ENERGY =  &quot;/energyEmission&quot;;
+        public static final String URL_TRAIN =  &quot;/trainEmission&quot;;
+    }
+
+<span class="nc" id="L57">    public static class Feat {</span>
+        public static final String URL_USERFEATS = &quot;/users/{userID}/feats&quot;;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

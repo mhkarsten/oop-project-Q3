@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DemoApplication.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">demo</a> &gt; <span class="el_source">DemoApplication.java</span></div><h1>DemoApplication.java</h1><pre class="source lang-java linenums">package demo;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+import server.model.Feat;
+import server.model.User;
+
+import java.util.Date;
+
+<span class="nc" id="L12">public class DemoApplication {</span>
+    /**
+     * The main function of the demo, serves to illustrate the use of common API paths.
+     * @param args The unused command line arguments
+     */
+    public static void main(String[] args) {
+<span class="nc" id="L18">        RestTemplate template = new RestTemplate();</span>
+<span class="nc" id="L19">        User user = new User(&quot;Mark&quot;,&quot;s3cretp4ssword&quot;);</span>
+        try {
+<span class="nc" id="L21">            user = template.postForObject( &quot;http://localhost:8080/auth/register&quot;, new HttpEntity&lt;&gt;(user),User.class);</span>
+<span class="nc" id="L22">        } catch (HttpClientErrorException exception) {</span>
+<span class="nc" id="L23">            System.out.println(&quot;The user already exists!&quot;);</span>
+<span class="nc" id="L24">        }</span>
+        //Set the proper basic authentication header for every request
+<span class="nc" id="L26">        template.getInterceptors().add(new BasicAuthenticationInterceptor(user.getName(), user.getPassword()));</span>
+<span class="nc" id="L27">        template.postForEntity(&quot;http://localhost:8080/auth/login/&quot; + user.getName(),new HttpEntity&lt;&gt;(user),User.class);</span>
+<span class="nc" id="L28">        System.out.println(user.toString());</span>
+
+        //Two ways of getting a user
+<span class="nc" id="L31">        user = template.postForObject( &quot;http://localhost:8080/users/byName/&quot; + user.getName(), new HttpEntity&lt;&gt;(user),User.class);</span>
+<span class="nc" id="L32">        User userById = template.postForObject( &quot;http://localhost:8080/users/&quot; + user.getID(), new HttpEntity&lt;&gt;(user),User.class);</span>
+
+<span class="nc" id="L34">        user = template.postForObject( &quot;http://localhost:8080/users/byName/&quot; + user.getName(), new HttpEntity&lt;&gt;(user),User.class);</span>
+<span class="nc" id="L35">        Feat feat = new Feat(1,150,4, new Date(),user);</span>
+<span class="nc" id="L36">        template.postForLocation( &quot;http://localhost:8080/users/&quot; + user.getID() + &quot;/feats/new&quot;, new HttpEntity&lt;&gt;(feat));</span>
+<span class="nc" id="L37">        User betterUser = template.getForObject( &quot;http://localhost:8080/users/&quot; + user.getID(),  User.class);</span>
+<span class="nc" id="L38">        System.out.println(&quot;Points of Mark before feat:&quot; + user.getPoints() + &quot;\nPoints of Mark after feat:&quot; + betterUser.getPoints());</span>
+<span class="nc" id="L39">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

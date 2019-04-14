@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AchievementGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.service</a> &gt; <span class="el_source">AchievementGenerator.java</span></div><h1>AchievementGenerator.java</h1><pre class="source lang-java linenums">package client.service;
+
+import client.model.Achievement;
+import client.model.User;
+import client.retrieve.AchievementRetrieve;
+import javafx.scene.control.Label;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * The type Achievement generator.
+ */
+<span class="nc" id="L16">public class AchievementGenerator {</span>
+
+<span class="nc" id="L18">    public static String bulBadgepath = &quot;file:images/bulbbadge.jpg&quot;;</span>
+<span class="nc" id="L19">    public static String batteryBadgePath = &quot;file:images/batterybadge.jpg&quot;;</span>
+<span class="nc" id="L20">    public static String candleBadge = &quot;file:images/candlebadge.jpg&quot;;</span>
+<span class="nc" id="L21">    public static String cactusBadge = &quot;file:images/cactusbadge.jpg&quot;;</span>
+<span class="nc" id="L22">    public static String fishBadge = &quot;file:images/fishbadge.jpg&quot;;</span>
+<span class="nc" id="L23">    public static String powerPlantBadge = &quot;file:images/powerplantbadge.jpg&quot;;</span>
+<span class="nc" id="L24">    public static String treeHouseBadge = &quot;file:images/treehousebadge.jpg&quot;;</span>
+<span class="nc" id="L25">    public static String truckBadge = &quot;file:images/truckbadge.jpg&quot;;</span>
+<span class="nc" id="L26">    public static String plugBadge = &quot;file:images/plugbadge.jpg&quot;;</span>
+<span class="nc" id="L27">    public static String worldBadge = &quot;file:images/worldbadge.jpg&quot;;</span>
+
+<span class="nc" id="L29">    public static AchievementRetrieve achievementRetrieve = new AchievementRetrieve();</span>
+
+<span class="nc" id="L31">    private static User activeUser = UserSession.getInstance().getCurrentUser();</span>
+
+    /**
+     * Create ach notification popup.
+     *
+     * @param ach the ach
+     * @return the popup
+     */
+    public static Popup createAchNotification(final Achievement ach) {
+
+<span class="nc" id="L41">        final Popup popup = new Popup();</span>
+<span class="nc" id="L42">        popup.setAutoFix(true);</span>
+<span class="nc" id="L43">        popup.setAutoHide(true);</span>
+<span class="nc" id="L44">        popup.setHideOnEscape(true);</span>
+
+<span class="nc" id="L46">        Label label = new Label(&quot;Congratulations you have earned the achievement: /n&quot; + ach.getTitle());</span>
+<span class="nc" id="L47">        label.setOnMouseReleased(e -&gt; popup.hide());</span>
+<span class="nc" id="L48">        label.getStylesheets().add(&quot;popup.css&quot;);</span>
+<span class="nc" id="L49">        label.getStyleClass().add(&quot;popup&quot;);</span>
+
+<span class="nc" id="L51">        popup.getContent().add(label);</span>
+<span class="nc" id="L52">        return popup;</span>
+    }
+
+    /**
+     * Ach notification.
+     *
+     * @param ach   the ach
+     * @param stage the stage
+     */
+    public static void achNotification(final Achievement ach, final Stage stage) {
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (ach == null) {</span>
+
+<span class="nc" id="L65">            return;</span>
+        }
+
+<span class="nc" id="L68">        final Popup popup = createAchNotification(ach);</span>
+<span class="nc" id="L69">        popup.setOnShown(e -&gt; {</span>
+<span class="nc" id="L70">            popup.setX(stage.getX() + stage.getWidth() / 2 - popup.getWidth() / 2);</span>
+<span class="nc" id="L71">            popup.setY(stage.getY() + stage.getHeight() / 2 - popup.getHeight() / 2);</span>
+<span class="nc" id="L72">        });</span>
+<span class="nc" id="L73">    }</span>
+
+    /**
+     * Give user ach.
+     *
+     * @param usr the usr
+     * @return The achievement to give to the user
+     */
+    public static Achievement giveUserAch(User usr) {
+
+<span class="nc" id="L83">        Achievement newAch = progressivePointAchievement(usr);</span>
+<span class="nc" id="L84">        ArrayList&lt;Achievement&gt; allAchieves = achievementRetrieve.achGetAll();</span>
+<span class="nc" id="L85">        ArrayList&lt;Achievement&gt; usersAch = achievementRetrieve.achGetUnlocked(usr.getID());</span>
+
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        for (Achievement ach : usersAch) {</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (ach.getTitle().equals(newAch.getTitle())) {</span>
+
+<span class="nc" id="L90">                System.out.println(&quot;(Client Side) This user already has the achievement.&quot;);</span>
+<span class="nc" id="L91">                return null;</span>
+            }
+<span class="nc" id="L93">        }</span>
+
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        for (int i = 0; i &lt; allAchieves.size(); i++) {</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            if (allAchieves.get(i).getTitle().equals(newAch.getTitle())) {</span>
+
+<span class="nc" id="L98">                achievementRetrieve.addUserAch(usr.getID(), newAch.getID());</span>
+<span class="nc" id="L99">                return newAch;</span>
+            }
+        }
+
+<span class="nc" id="L103">        System.out.println(&quot;(Client Side) There was an issue with getting the achievementID.&quot;);</span>
+<span class="nc" id="L104">        return null;</span>
+    }
+
+    /**
+     * Progressive point achievement achievement.
+     *
+     * @param usr the usr
+     * @return the achievement
+     */
+    public static Achievement progressivePointAchievement(User usr) {
+
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (usr.equals(activeUser)) {</span>
+
+<span class="nc" id="L117">            double numAch = 0;</span>
+<span class="nc" id="L118">            double numPoints = 0;</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">            while (numPoints &lt; usr.getPoints()) {</span>
+
+<span class="nc" id="L121">                numPoints = Math.pow(2, numAch);</span>
+<span class="nc" id="L122">                numAch++;</span>
+            }
+
+<span class="nc" id="L125">            String pointAchTitle = &quot;Point achievement: &quot; + numAch;</span>
+
+<span class="nc" id="L127">            String description = &quot;This achievement is for acquiring &quot; + numPoints + &quot; points!&quot;;</span>
+
+<span class="nc" id="L129">            Achievement newAch = new Achievement(</span>
+                pointAchTitle,
+                description,
+<span class="nc" id="L132">                getRandomBadge());</span>
+
+<span class="nc" id="L134">            ArrayList&lt;Achievement&gt; allAchives = achievementRetrieve.achGetAll();</span>
+
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            for (int i = 0; i &lt; allAchives.size(); i++) {</span>
+
+<span class="nc bnc" id="L138" title="All 2 branches missed.">                if (allAchives.get(i).getTitle().equals(newAch.getTitle())) {</span>
+
+<span class="nc" id="L140">                    return allAchives.get(i);</span>
+                }
+            }
+
+<span class="nc" id="L144">            achievementRetrieve.addAch(newAch);</span>
+<span class="nc" id="L145">            return newAch;</span>
+        } else {
+
+<span class="nc" id="L148">            System.out.println(&quot;(Client Side) This is not the active user.&quot;);</span>
+<span class="nc" id="L149">            return null;</span>
+        }
+    }
+
+    /**
+     * Food achievement achievement.
+     *
+     * @return the achievement
+     */
+    public static Achievement foodAchievement() {
+
+<span class="nc" id="L160">        return null;</span>
+    }
+
+    /**
+     * Transport achievement achievement.
+     *
+     * @return the achievement
+     */
+    public static Achievement transportAchievement() {
+
+<span class="nc" id="L170">        return null;</span>
+    }
+
+    /**
+     * Energy achievement achievement.
+     *
+     * @return the achievement
+     */
+    public static Achievement energyAchievement() {
+
+<span class="nc" id="L180">        return null;</span>
+    }
+
+    private static String getRandomBadge() {
+<span class="nc" id="L184">        ArrayList&lt;String&gt; badgeList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L185">        badgeList.add(batteryBadgePath);</span>
+<span class="nc" id="L186">        badgeList.add(worldBadge);</span>
+<span class="nc" id="L187">        badgeList.add(plugBadge);</span>
+<span class="nc" id="L188">        badgeList.add(powerPlantBadge);</span>
+<span class="nc" id="L189">        badgeList.add(bulBadgepath);</span>
+<span class="nc" id="L190">        badgeList.add(truckBadge);</span>
+<span class="nc" id="L191">        badgeList.add(treeHouseBadge);</span>
+<span class="nc" id="L192">        badgeList.add(cactusBadge);</span>
+<span class="nc" id="L193">        badgeList.add(candleBadge);</span>
+<span class="nc" id="L194">        badgeList.add(fishBadge);</span>
+
+<span class="nc" id="L196">        Random random = new Random();</span>
+
+<span class="nc" id="L198">        return badgeList.get(random.nextInt(badgeList.size()));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

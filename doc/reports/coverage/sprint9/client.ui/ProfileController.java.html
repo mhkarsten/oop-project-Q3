@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.ui</a> &gt; <span class="el_source">ProfileController.java</span></div><h1>ProfileController.java</h1><pre class="source lang-java linenums">package client.ui;
+
+import client.model.Feat;
+import client.model.User;
+import client.retrieve.FeatRetrieve;
+import client.service.UserSession;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import org.springframework.web.client.HttpClientErrorException;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+<span class="nc" id="L21">public class ProfileController implements Initializable {</span>
+
+    @FXML
+    public Label userName;
+    public Label userID;
+    public Label userPoints;
+    public ListView featListView;
+
+    public LineChart&lt;Integer, Integer&gt; lineChart;
+
+    private User currentUser;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L35">        currentUser = UserSession.getInstance().getCurrentUser();</span>
+
+<span class="nc" id="L37">        userName.setText(&quot;User Name: &quot; + currentUser.getName());</span>
+<span class="nc" id="L38">        userID.setText(&quot;User ID: &quot; + currentUser.getID());</span>
+<span class="nc" id="L39">        userPoints.setText(&quot;User Points: &quot; + currentUser.getPoints());</span>
+
+        //Setting up the list of users the active user is following
+<span class="nc" id="L42">        FeatRetrieve featRetrive = new FeatRetrieve();</span>
+
+<span class="nc" id="L44">        featListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);</span>
+<span class="nc" id="L45">        ObservableList&lt;String&gt; listViewContents = featListView.getItems();</span>
+<span class="nc" id="L46">        ArrayList&lt;Feat&gt; tempArray = null;</span>
+        try {
+<span class="nc" id="L48">            tempArray = featRetrive.getUserFeats(currentUser.getID());</span>
+<span class="nc" id="L49">        } catch (HttpClientErrorException e) {</span>
+<span class="nc" id="L50">            e.printStackTrace();</span>
+<span class="nc" id="L51">        }</span>
+
+<span class="nc" id="L53">        tempArray.forEach(feat -&gt; {</span>
+
+<span class="nc" id="L55">            listViewContents.add(&quot;You have earned &quot; + feat.getPoints() + &quot; points for an activity.&quot;);</span>
+<span class="nc" id="L56">        });</span>
+
+<span class="nc" id="L58">        loadLineGraph();</span>
+<span class="nc" id="L59">    }</span>
+
+    /**
+     * Loads the graph data by getting the user feats of the current user.
+     */
+    public void loadLineGraph() {
+
+<span class="nc" id="L66">        FeatRetrieve retrive = new FeatRetrieve();</span>
+<span class="nc" id="L67">        ArrayList&lt;Feat&gt; tempArray = retrive.getUserFeats(currentUser.getID());</span>
+
+<span class="nc" id="L69">        XYChart.Series series = new XYChart.Series();</span>
+<span class="nc" id="L70">        series.setName(&quot;Your Saved C02&quot;);</span>
+
+<span class="nc" id="L72">        int nextGraphX = 0;</span>
+
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        for (int i = 0; i &lt; tempArray.size(); i++) {</span>
+
+<span class="nc" id="L76">            nextGraphX = nextGraphX + tempArray.get(i).getPoints();</span>
+
+<span class="nc" id="L78">            XYChart.Data entry = new XYChart.Data(i, nextGraphX);</span>
+<span class="nc" id="L79">            series.getData().add(entry);</span>
+        }
+
+<span class="nc" id="L82">        lineChart.getData().addAll(series);</span>
+<span class="nc" id="L83">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CompareController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.ui</a> &gt; <span class="el_source">CompareController.java</span></div><h1>CompareController.java</h1><pre class="source lang-java linenums">package client.ui;
+
+import static client.ui.RootController.stringToDouble;
+
+import client.model.User;
+import client.retrieve.UserRetrieve;
+import client.service.UserSession;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.ResourceBundle;
+import java.util.Set;
+
+/**
+ * The type Compare controller.
+ */
+<span class="nc" id="L29">public class CompareController implements Initializable {</span>
+
+    public BarChart&lt;String, Number&gt; barChart;
+    /**
+     * The Follow btn.
+     */
+    @FXML
+    Button followBtn;
+
+    @FXML
+    Label userName;
+    @FXML
+    Label compareName;
+    @FXML
+    Label userPoints;
+    @FXML
+    Label comparePoints;
+    @FXML
+    Label findStatus;
+
+    @FXML
+    TextField userInput;
+
+    @FXML
+    ListView userFollowing;
+    @FXML
+    ListView followeeListView;
+
+
+    private User activeUser;
+    private Set&lt;User&gt; userFollows;
+    private Set&lt;User&gt; userFollowingCurrent;
+
+    private UserRetrieve userRetrieve;
+
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L67">        userRetrieve = new UserRetrieve();</span>
+
+<span class="nc" id="L69">        activeUser = UserSession.getInstance().getCurrentUser();</span>
+<span class="nc" id="L70">        userFollows = userRetrieve.getUserFollow(false, activeUser.getID());</span>
+<span class="nc" id="L71">        userFollowingCurrent = userRetrieve.getUserFollow(true, activeUser.getID());</span>
+
+<span class="nc" id="L73">        userName.setText(activeUser.getName());</span>
+<span class="nc" id="L74">        userPoints.setText(Integer.toString(activeUser.getPoints()));</span>
+
+        //Setting up the list of users the active user is following
+<span class="nc" id="L77">        userFollowing.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);</span>
+<span class="nc" id="L78">        ObservableList&lt;String&gt; listViewContents = userFollowing.getItems();</span>
+<span class="nc" id="L79">        ArrayList&lt;Object&gt; tempArray = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L80">        tempArray.addAll(userFollows);</span>
+
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        for (int i = 0; i &lt; tempArray.size(); i++) {</span>
+
+<span class="nc" id="L84">            LinkedHashMap tempMap = (LinkedHashMap) tempArray.get(i);</span>
+
+<span class="nc" id="L86">            String userName = (String) tempMap.get(&quot;name&quot;);</span>
+
+<span class="nc" id="L88">            listViewContents.add(userName);</span>
+        }
+
+        //Setting up the followee list
+<span class="nc" id="L92">        followeeListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);</span>
+<span class="nc" id="L93">        ObservableList&lt;String&gt; followeeList = followeeListView.getItems();</span>
+<span class="nc" id="L94">        ArrayList&lt;Object&gt; tempFolloweeArray = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L95">        tempFolloweeArray.addAll(userFollowingCurrent);</span>
+
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        for (int i = 0; i &lt; tempFolloweeArray.size(); i++) {</span>
+
+<span class="nc" id="L99">            LinkedHashMap tempMap = (LinkedHashMap) tempFolloweeArray.get(i);</span>
+
+<span class="nc" id="L101">            String userName = (String) tempMap.get(&quot;name&quot;);</span>
+
+<span class="nc" id="L103">            followeeList.add(userName);</span>
+        }
+
+<span class="nc" id="L106">        loadGraph();</span>
+<span class="nc" id="L107">    }</span>
+
+    /**
+     * Find user follow.
+     */
+    public void findUserFollow() {
+
+<span class="nc" id="L114">        String nameToFind = userInput.getText();</span>
+<span class="nc" id="L115">        User foundUser = userRetrieve.getUserByName(nameToFind);</span>
+
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        if (foundUser != null) {</span>
+
+<span class="nc" id="L119">            ArrayList&lt;Object&gt; tempArray = new ArrayList&lt;&gt;(userFollows);</span>
+
+<span class="nc bnc" id="L121" title="All 2 branches missed.">            for (int i = 0; i &lt; tempArray.size(); i++) {</span>
+
+<span class="nc" id="L123">                LinkedHashMap tempMap = (LinkedHashMap) tempArray.get(i);</span>
+
+<span class="nc" id="L125">                String userName = (String) tempMap.get(&quot;name&quot;);</span>
+
+<span class="nc bnc" id="L127" title="All 2 branches missed.">                if (userName.equals(foundUser.getName())) {</span>
+
+<span class="nc" id="L129">                    findStatus.setText(&quot;You are already following &quot; + foundUser.getName());</span>
+<span class="nc" id="L130">                    return;</span>
+                }
+            }
+
+<span class="nc" id="L134">            userFollows.add(foundUser);</span>
+
+<span class="nc" id="L136">            userRetrieve.updateUserFollowing(activeUser.getID(), foundUser.getID());</span>
+<span class="nc" id="L137">            userFollowing.getItems().add(foundUser.getName());</span>
+
+<span class="nc" id="L139">            findStatus.setText(&quot;You are now following &quot; + foundUser.getName());</span>
+<span class="nc" id="L140">        } else {</span>
+
+<span class="nc" id="L142">            findStatus.setText(&quot;This user does not exist&quot;);</span>
+        }
+<span class="nc" id="L144">    }</span>
+
+    /**
+     * Sets compare.
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public void setCompare() {
+
+        ObservableList&lt;String&gt; usersFollowing;
+<span class="nc" id="L153">        usersFollowing = userFollowing.getSelectionModel().getSelectedItems();</span>
+
+<span class="nc" id="L155">        User selectedUser = userRetrieve.getUserByName(usersFollowing.get(0));</span>
+
+<span class="nc" id="L157">        compareName.setText(selectedUser.getName());</span>
+<span class="nc" id="L158">        comparePoints.setText(Integer.toString(selectedUser.getPoints()));</span>
+<span class="nc" id="L159">    }</span>
+
+    /**
+     * Sets compare followee.
+     */
+    @SuppressWarnings(&quot;Duplicates&quot;)
+    public void setCompareFollowee() {
+
+        ObservableList&lt;String&gt; userFollowee;
+<span class="nc" id="L168">        userFollowee = followeeListView.getSelectionModel().getSelectedItems();</span>
+
+<span class="nc" id="L170">        User selectedUser = userRetrieve.getUserByName(userFollowee.get(0));</span>
+
+<span class="nc" id="L172">        compareName.setText(selectedUser.getName());</span>
+<span class="nc" id="L173">        comparePoints.setText(Integer.toString(selectedUser.getPoints()));</span>
+<span class="nc" id="L174">    }</span>
+
+    /**
+     * Loads the graph using the feats of the user.
+     */
+    public void loadGraph() {
+
+
+<span class="nc" id="L182">        XYChart.Series currentUserSeries = new XYChart.Series();</span>
+<span class="nc" id="L183">        currentUserSeries.getData().add(new XYChart.Data(activeUser.getName(), activeUser.getPoints()));</span>
+<span class="nc" id="L184">        currentUserSeries.setName(&quot;You&quot;);</span>
+<span class="nc" id="L185">        barChart.getData().add(currentUserSeries);</span>
+
+<span class="nc" id="L187">        XYChart.Series series = new XYChart.Series();</span>
+<span class="nc" id="L188">        series.setName(&quot;Your Friends&quot;);</span>
+
+<span class="nc" id="L190">        Set&lt;User&gt; following = this.userRetrieve.getUserFollow(true, activeUser.getID());</span>
+<span class="nc" id="L191">        ArrayList&lt;Object&gt; tempList = new ArrayList&lt;&gt;(following);</span>
+<span class="nc" id="L192">        Iterator&lt;Object&gt; iterator = tempList.iterator();</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">        while (iterator.hasNext()) {</span>
+
+<span class="nc" id="L195">            LinkedHashMap user = (LinkedHashMap) iterator.next();</span>
+<span class="nc" id="L196">            XYChart.Data xyChart = new XYChart.Data(user.get(&quot;name&quot;), stringToDouble((String) user.get(&quot;points&quot;)));</span>
+<span class="nc" id="L197">            series.getData().add(xyChart);</span>
+<span class="nc" id="L198">        }</span>
+
+<span class="nc" id="L200">        barChart.getData().addAll(series);</span>
+<span class="nc" id="L201">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

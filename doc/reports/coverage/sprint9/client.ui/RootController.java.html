@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RootController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Maven Build Go Green</a> &gt; <a href="index.source.html" class="el_package">client.ui</a> &gt; <span class="el_source">RootController.java</span></div><h1>RootController.java</h1><pre class="source lang-java linenums">package client.ui;
+
+import static java.lang.Integer.parseInt;
+import static javafx.scene.paint.Color.WHITE;
+
+import client.model.User;
+import client.retrieve.UserRetrieve;
+import client.service.UserSession;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
+
+import java.io.IOException;
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+/**
+ * The type Root controller.
+ */
+<span class="nc" id="L35">public class RootController implements Initializable {</span>
+
+<span class="nc" id="L37">    private static User currentUser = UserSession.getInstance().getCurrentUser();</span>
+
+    /**
+     * The Profile.
+     */
+    @FXML
+    public Button stretchbutton;
+    public Button score;
+    public Button compare;
+    public Button food;
+    public Button transport;
+    public Button energy;
+    public Button achievement;
+
+    public SplitPane mainPane;
+
+    public AnchorPane sidebarPane;
+    public AnchorPane changePane;
+
+    private UserRetrieve userRetrieve;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L61">        this.userRetrieve = new UserRetrieve();</span>
+
+        try {
+
+<span class="nc" id="L65">            openProfileScreen();</span>
+<span class="nc" id="L66">        } catch (IOException e) {</span>
+
+<span class="nc" id="L68">            System.out.println(&quot;There was an issue opening the profile screen.&quot;);</span>
+<span class="nc" id="L69">        }</span>
+
+<span class="nc" id="L71">        ArrayList&lt;Button&gt; buttons = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L72">        buttons.add(score);</span>
+<span class="nc" id="L73">        buttons.add(compare);</span>
+<span class="nc" id="L74">        buttons.add(food);</span>
+<span class="nc" id="L75">        buttons.add(transport);</span>
+<span class="nc" id="L76">        buttons.add(energy);</span>
+<span class="nc" id="L77">        buttons.add(achievement);</span>
+
+<span class="nc" id="L79">        buttons.forEach(btn -&gt; btn.setOnMouseClicked(mouseEvent -&gt; progressBar()));</span>
+<span class="nc" id="L80">    }</span>
+
+    /**
+     * Method to open the FoodScreen on the side pane.
+     *
+     * @throws IOException Exception if the screen fails to be loaded
+     */
+    public void openFoodScreen() throws IOException {
+
+<span class="nc" id="L89">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/foodScreen.fxml&quot;));</span>
+<span class="nc" id="L90">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L92">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L93">    }</span>
+
+    /**
+     * Method to open the ProfileScreen on the side pane.
+     *
+     * @throws IOException Exception if the screen fails to be loaded
+     */
+    public void openProfileScreen() throws IOException {
+
+<span class="nc" id="L102">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/profileScreen.fxml&quot;));</span>
+
+<span class="nc" id="L104">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L106">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L107">    }</span>
+
+    /**
+     * Method to open the CompareScreen on the side pane.
+     *
+     * @throws IOException Exception if the screen fails to be loaded
+     */
+    public void openCompareScreen() throws IOException {
+<span class="nc" id="L115">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/compareScreen.fxml&quot;));</span>
+
+<span class="nc" id="L117">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L119">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L120">    }</span>
+
+    /**
+     * Method to open the TransportScreen on the side pane.
+     *
+     * @throws IOException Exception if the screen fails to be loaded
+     */
+    public void openTransportScreen() throws IOException {
+<span class="nc" id="L128">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/transportScreen.fxml&quot;));</span>
+
+<span class="nc" id="L130">        changePane = newScreen.load();</span>
+<span class="nc" id="L131">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L132">    }</span>
+
+    /**
+     * Method to open the EnergyScreen on the side pane.
+     *
+     * @throws IOException Exception if the screen fails to be loaded
+     */
+    public void openEnergyScreen() throws IOException {
+<span class="nc" id="L140">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/energyScreen.fxml&quot;));</span>
+
+<span class="nc" id="L142">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L144">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L145">    }</span>
+
+    /**
+     * Open achievement screen.
+     *
+     * @throws IOException the io exception
+     */
+    public void openAchievementScreen() throws IOException {
+
+<span class="nc" id="L154">        FXMLLoader newScreen = new FXMLLoader(getClass().getResource(&quot;/AchievementUI.fxml&quot;));</span>
+
+<span class="nc" id="L156">        changePane = newScreen.load();</span>
+
+<span class="nc" id="L158">        mainPane.getItems().set(1, changePane);</span>
+<span class="nc" id="L159">    }</span>
+
+    /**
+     * Sets up the progress bar animation.
+     */
+    public void progressBar() {
+
+<span class="nc" id="L166">        Timeline rowMove = new Timeline();</span>
+<span class="nc" id="L167">        rowMove.getKeyFrames().addAll(</span>
+<span class="nc" id="L168">            new KeyFrame(Duration.seconds(2),</span>
+<span class="nc" id="L169">                new KeyValue(stretchbutton.scaleXProperty(), 200)</span>
+            )
+        );
+<span class="nc" id="L172">    }</span>
+
+    /**
+     * Method to highlight and remove the highlight from selected/ unselected option.
+     *
+     * @param event  The event from which you get which label has been pressed
+     * @param choice The Label that was highlighted before the change
+     * @return label
+     */
+    public static Label selectOption(MouseEvent event, Label choice) {
+
+<span class="nc" id="L183">        Color redVbox = Color.rgb(239, 154, 154);</span>
+
+<span class="nc bnc" id="L185" title="All 2 branches missed.">        if (choice != null) {</span>
+
+<span class="nc" id="L187">            choice.setBackground(new Background(new BackgroundFill(redVbox, null, null)));</span>
+        }
+
+<span class="nc" id="L190">        Label chosenOption = (Label) event.getSource();</span>
+
+<span class="nc" id="L192">        chosenOption.setBackground(new Background(new BackgroundFill(WHITE, new CornerRadii(1), null)));</span>
+<span class="nc" id="L193">        return chosenOption;</span>
+    }
+
+    /**
+     * String to points int.
+     *
+     * @param points the points
+     * @return the int
+     */
+    public static int stringToPoints(String points) {
+<span class="nc" id="L203">        return parseInt(points.split(&quot;\\.&quot;)[0]);</span>
+    }
+
+    public static Double stringToDouble(String points) {
+<span class="nc" id="L207">        return Double.valueOf(points);</span>
+    }
+
+    /**
+     * Method to make calls to update the points of the current user.
+     *
+     * @param points The amount of points that should be added to the user
+     */
+    public static void addPointsUser(int points) {
+
+<span class="nc" id="L217">        int pointsToUpdate = currentUser.getPoints();</span>
+<span class="nc" id="L218">        pointsToUpdate += points;</span>
+<span class="nc" id="L219">        UserSession.getInstance().getCurrentUser().setPoints(pointsToUpdate);</span>
+
+<span class="nc" id="L221">        UserRetrieve userRetrieve = new UserRetrieve();</span>
+<span class="nc" id="L222">        userRetrieve.addGenericFeat(UserSession.getInstance().getCurrentUser().getID(), points);</span>
+<span class="nc" id="L223">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

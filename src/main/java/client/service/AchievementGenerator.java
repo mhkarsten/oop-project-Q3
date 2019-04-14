@@ -76,6 +76,7 @@ public class AchievementGenerator {
      * Give user ach.
      *
      * @param usr the usr
+     * @return The achievement to give to the user
      */
     public static Achievement giveUserAch(User usr) {
 

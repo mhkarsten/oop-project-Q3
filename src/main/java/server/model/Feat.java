@@ -30,7 +30,7 @@ public class Feat {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "time_completed")
-    Date timeCompleted;
+    private Date timeCompleted;
 
     public Feat() {
     }

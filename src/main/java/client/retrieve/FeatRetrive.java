@@ -20,7 +20,7 @@ public class FeatRetrive extends BaseRetrieve {
      * @param userID id of the target user
      * @return
      */
-    public ArrayList<Feat> getUserFeats(long userID) {
+    public ArrayList<Feat> getUserFeats(long userID) throws Exception {
         //GETS ALL THE FEATS THAT THE USER HAS
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
         HttpEntity<Feat[]> entity = new HttpEntity<>(headers);
@@ -33,20 +33,18 @@ public class FeatRetrive extends BaseRetrieve {
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
 
-        if (statusCode == HttpStatus.OK) {
-            Feat[] list = response.getBody();
+        Feat[] list = response.getBody();
 
-            ArrayList<Feat> achList = new ArrayList<>();
+        ArrayList<Feat> achList = new ArrayList<>();
 
-            if (list != null) {
+        achList.addAll(Arrays.asList(list));
 
-                achList.addAll(Arrays.asList(list));
-
-                return achList;
-            }
+        if (list == null) {
+            throw new Exception("(Client Side) Getting all Achievements failed.");
         }
 
-        System.out.println("(Client Side) Getting all Achievements failed.");
-        return null;
+        return achList;
+
+
     }
 }

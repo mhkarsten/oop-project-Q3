@@ -60,6 +60,9 @@ class UserRetrieveTest {
         assertNotNull(user[0]);
         assertEquals("Alex", user[0].getName());
         assertEquals(1, user[0].getID());
+
+        User[] userShouldNotExist = this.userRetrieve.getUser(112);
+        assertNull(userShouldNotExist);
     }
 
     @Test
@@ -96,5 +99,14 @@ class UserRetrieveTest {
         following = this.userRetrieve.getUserFollow(false, 1L);
         assertNotNull(following);
         assertEquals(3, following.size());
+    }
+
+    @Test
+    void getUserByName() {
+        User user = this.userRetrieve.getUserByName("Alex");
+
+        assertNotNull(user);
+        assertEquals("Alex", user.getName());
+
     }
 }

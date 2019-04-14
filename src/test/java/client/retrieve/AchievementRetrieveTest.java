@@ -11,9 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.HttpClientErrorException;
 import server.SpringBoot;
 import client.model.Achievement;
 
+import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,26 +70,53 @@ class AchievementRetrieveTest {
         assertTrue(achievements.size() > 0);
     }
 
-//    @Test
-//    void addUserAch() {
-//        Achievement achievement = this.achievementRetrieve.achGet(3L);
-//        assertNotNull(achievement);
-//
-//        ArrayList<Achievement> achievements =  this.achievementRetrieve.achGetUnlocked(1L);
-//        assertNotNull(achievements);
-//        assertTrue(achievements.size() > 0);
-//
-//        int sizeBeforeUpdate = achievements.size();
-//
-//
-//        this.achievementRetrieve.addUserAch(1L, achievement.getID());
-//
-//        achievements =  this.achievementRetrieve.achGetUnlocked(1L);
-//        assertNotNull(achievements);
-//
-//        assertEquals(sizeBeforeUpdate +1, achievements.size());
-//    }
+    @Test
+    void addUserAchGood() {
+        Achievement achievement = this.achievementRetrieve.achGet(3L);
+        assertNotNull(achievement);
 
+        ArrayList<Achievement> achievements =  this.achievementRetrieve.achGetUnlocked(1L);
+        assertNotNull(achievements);
+        assertTrue(achievements.size() > 0);
+
+        int sizeBeforeUpdate = achievements.size();
+
+
+        this.achievementRetrieve.addUserAch(1L, achievement.getID());
+
+        achievements =  this.achievementRetrieve.achGetUnlocked(1L);
+        assertNotNull(achievements);
+
+        assertEquals(sizeBeforeUpdate +1, achievements.size());
+    }
+    @Test
+    void addUserAchBadAchievement() {
+        Achievement achievement = this.achievementRetrieve.achGet(-3L);
+        assertNull(achievement);
+
+        ArrayList<Achievement> achievements =  this.achievementRetrieve.achGetUnlocked(1L);
+        assertNotNull(achievements);
+        assertTrue(achievements.size() > 0);
+
+        int sizeBeforeUpdate = achievements.size();
+
+
+        this.achievementRetrieve.addUserAch(-1L, -3L);
+
+        achievements =  this.achievementRetrieve.achGetUnlocked(1L);
+        assertNotNull(achievements);
+
+        assertEquals(sizeBeforeUpdate, achievements.size());
+    }
+    @Test
+    void addUserAchBadUser() {
+        Achievement achievement = this.achievementRetrieve.achGet(3L);
+        assertNotNull(achievement);
+        this.achievementRetrieve.addUserAch(-1L, achievement.getID());
+        ArrayList<Achievement> achievements=null;
+        achievements = this.achievementRetrieve.achGetUnlocked(-1L);
+        assertNull(achievements);
+    }
     @Test
     void addAch() {
         List<Achievement> achievements  = this.achievementRetrieve.achGetAll();

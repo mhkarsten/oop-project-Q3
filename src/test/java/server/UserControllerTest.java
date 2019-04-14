@@ -2,6 +2,7 @@ package server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.coyote.Response;
 import org.hamcrest.collection.IsArrayContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
@@ -98,9 +99,8 @@ public class UserControllerTest {
     }
     @Test
     public void addFollowerDB() {
-        User user = new User(22828, "Kamasi");
-        URI usnaviLocation = restTemplate.postForLocation( "/users/new", new HttpEntity<>(user));
-        user = restTemplate.getForObject(usnaviLocation,   User.class);
+        User user = new User("Kamasi","m4sfistsoffury");
+        user = restTemplate.postForObject( "/auth/register", new HttpEntity<>(user),User.class);
 
         restTemplate.getForEntity( "/users/"+user.getID()+"/follow/1",   User.class);
         restTemplate.getForEntity( "/users/"+user.getID()+"/follow/2",   User.class);
@@ -144,11 +144,13 @@ public class UserControllerTest {
     @Test
     public void fullCrudTest() {
         //CREATE
-        User user = new User(4, "Usnavi");
-        URI usnaviLocation = restTemplate.postForLocation( "/users/new", new HttpEntity<>(user));
-        //READ
-        user = restTemplate.getForObject(usnaviLocation,   User.class);
-
+        User user = new User("NotUsnavi","96000");
+        ResponseEntity<User> entity= restTemplate.postForEntity( "/auth/register", new HttpEntity<>(user),User.class);
+        System.out.println(entity.toString());
+        Assertions.assertNotNull(entity.getBody());
+        user=entity.getBody();
+        User userFromLocation=restTemplate.getForObject( "/users/" + user.getID(), User.class);
+        Assertions.assertEquals(userFromLocation,user);
         //DELETE
         ResponseEntity<?> response = restTemplate.exchange( "/users/" + user.getID(), HttpMethod.DELETE, new HttpEntity<>(new HttpHeaders[]{}),  String.class);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());

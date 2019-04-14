@@ -25,7 +25,9 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * The type Root controller.
@@ -156,6 +158,9 @@ public class RootController implements Initializable {
         mainPane.getItems().set(1, changePane);
     }
 
+    /**
+     * Sets up the progress bar animation.
+     */
     public void progressBar() {
 
         Timeline rowMove = new Timeline();

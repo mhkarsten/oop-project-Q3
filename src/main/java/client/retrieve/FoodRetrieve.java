@@ -23,7 +23,6 @@ public class FoodRetrieve extends BaseRetrieve {
      *
      * @return the meal [ ]
      */
-    @SuppressWarnings("Duplicates")
     public  Meal getRandomMeal() {
         //GETS A RANDOM MEAL OFF OF THE SERVER SIDE api
 

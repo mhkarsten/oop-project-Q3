@@ -20,7 +20,7 @@ public final class UserSession {
     /**
      * Checks if the instance is already instantiated, and if so return the single instance.
      * If not creates the single instance and returns it.
-     * @return
+     * @return returns the instance of usersession
      */
     public static UserSession getInstance() {
         if (instance == null) {
@@ -61,19 +61,6 @@ public final class UserSession {
         return "UserSession{"
             + "userName='" + userName + '\''
             + '}';
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
-        UserSession session = (UserSession) other;
-        return Objects.equals(userName, session.userName)
-            && Objects.equals(password, session.password);
     }
 
     @Override

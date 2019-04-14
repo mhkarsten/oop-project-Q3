@@ -99,10 +99,10 @@ public class EmissionController {
     public ResponseEntity<DietEmission> dietEmission(@RequestBody HashMap parameters) {
 
         return new ResponseEntity<DietEmission>(getDietEmission(
-            (float) parameters.get("fishShare"),
-            (float) parameters.get("redMeatShare"),
-            (float) parameters.get("poultryShare"),
-            (int) parameters.get("size")
+            Float.parseFloat((String)parameters.get("fishShare")),
+            Float.parseFloat((String)parameters.get("redMeatShare")),
+            Float.parseFloat((String)parameters.get("poultryShare")),
+            Integer.parseInt((String)parameters.get("size"))
         ), HttpStatus.OK);
     }
 

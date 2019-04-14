@@ -42,7 +42,7 @@ public class MyRestTemplate extends RestTemplate {
     /**
      * Helper function to provide the accepted mediaType headers.
      * @param type the type of MediaType
-     * @return
+     * @return Sets the accept and send content headers and returns these.
      */
     public static HttpHeaders getBaseHeaders(MediaType type) {
         HttpHeaders headers = new HttpHeaders();

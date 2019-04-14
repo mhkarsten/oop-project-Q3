@@ -1,6 +1,5 @@
 package server;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -10,12 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import server.model.Meal;
-
-import java.nio.charset.Charset;
-import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @Import(TestTemplateConfiguration.class)
@@ -39,6 +34,14 @@ public class FoodControllerTest {
     public void getMeal() {
         Meal meal=restTemplate.getForObject( "/meal/Arrabiata", Meal[].class)[0];
         Assertions.assertEquals("Spicy Arrabiata Penne",meal.getStrMeal());
+    }
+    @Test
+    public void getMealWrong() {
+        Assertions.assertNull(restTemplate.getForObject( "/meal/thisisnotameal", Meal[].class));
+    }
+    @Test
+    public void getCategoryWrong() {
+        Assertions.assertNull(restTemplate.getForObject( "/meals/thisisnotacategory", Meal[].class));
     }
 
     @Test

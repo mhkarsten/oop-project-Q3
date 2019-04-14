@@ -43,14 +43,37 @@ class AchievementTest {
     }
 
     @Test
-    void equals() {
-        assertTrue(this.achievement.equals(this.achievement));
-
-        assertFalse(this.achievement.equals(new Achievement(idTest, titleTest, descriptionTest, pathTest)));
-
-        assertFalse(this.achievement.equals(null));
+    void equals1() {
+        assertEquals(this.achievement,this.achievement);
     }
-
+    @Test
+    void equals2() {
+        assertNotEquals(this.achievement,new Achievement(idTest, titleTest, descriptionTest, pathTest));
+    }
+    @Test
+    void equals3() {
+        assertNotEquals(this.achievement,null);
+    }
+    @Test
+    void equals4() {
+        assertNotEquals(this.achievement,"An achievement");
+    }
+    @Test
+    void equals5() {
+        assertNotEquals(this.achievement,new Achievement(id, titleTest, descriptionTest, pathTest));
+    }
+    @Test
+    void equals6() {
+        assertNotEquals(this.achievement,new Achievement(id, title, descriptionTest, pathTest));
+    }
+    @Test
+    void equals7() {
+        assertNotEquals(this.achievement,new Achievement(id, title, description, pathTest));
+    }
+    @Test
+    void equals8() {
+        assertEquals(this.achievement,new Achievement(id, title, description, path));
+    }
     @Test
     void constructors() {
         Achievement emptyAchievement = new Achievement();

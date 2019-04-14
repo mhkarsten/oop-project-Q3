@@ -25,7 +25,7 @@ public class AuthController {
 
     /**
      * Authenticates the user by basic authentication against the security configuration.
-     *
+     * @param username The name of the user to log in
      * @return a simple 200 message is successfully connected.
      */
     @PostMapping(value = "/auth/login/{username}",

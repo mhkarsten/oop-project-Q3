@@ -2,7 +2,7 @@ package client.ui;
 
 import client.model.Feat;
 import client.model.User;
-import client.retrieve.FeatRetrive;
+import client.retrieve.FeatRetrieve;
 import client.service.UserSession;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,6 +12,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,11 +39,16 @@ public class ProfileController implements Initializable {
         userPoints.setText("User Points: " + currentUser.getPoints());
 
         //Setting up the list of users the active user is following
-        FeatRetrive featRetrive = new FeatRetrive();
+        FeatRetrieve featRetrive = new FeatRetrieve();
 
         featListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         ObservableList<String> listViewContents = featListView.getItems();
-        ArrayList<Feat> tempArray = featRetrive.getUserFeats(currentUser.getID());
+        ArrayList<Feat> tempArray = null;
+        try {
+            tempArray = featRetrive.getUserFeats(currentUser.getID());
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+        }
 
         tempArray.forEach(feat -> {
 
@@ -52,9 +58,12 @@ public class ProfileController implements Initializable {
         loadLineGraph();
     }
 
+    /**
+     * Loads the graph data by getting the user feats of the current user.
+     */
     public void loadLineGraph() {
 
-        FeatRetrive retrive = new FeatRetrive();
+        FeatRetrieve retrive = new FeatRetrieve();
         ArrayList<Feat> tempArray = retrive.getUserFeats(currentUser.getID());
 
         XYChart.Series series = new XYChart.Series();

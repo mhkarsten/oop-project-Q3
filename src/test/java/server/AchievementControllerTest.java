@@ -20,15 +20,13 @@ import server.controller.UserController;
 import server.model.Achievement;
 import server.model.Feat;
 import server.model.User;
+import server.repository.AchievementRepository;
 
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @Import(TestTemplateConfiguration.class)
@@ -39,6 +37,9 @@ public class AchievementControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private AchievementRepository achievementRepository;
+
     @Before
     public void setup() {
         restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:" + port));
@@ -46,17 +47,16 @@ public class AchievementControllerTest {
 
     @Test
     public void getAchievementsTest() {
+        List<Achievement> allAchievementsInRepository = achievementRepository.findAll();
 
-        Achievement a1 = restTemplate.getForObject("/achievements/1", Achievement.class);
-        Achievement a2 = restTemplate.getForObject("/achievements/2", Achievement.class);
-        Achievement a3 = restTemplate.getForObject("/achievements/3", Achievement.class);
-        Achievement a4 = restTemplate.getForObject("/achievements/4", Achievement.class);
-        Assertions.assertArrayEquals(restTemplate.getForObject("/achievements/", Achievement[].class), new Achievement[] {a1, a2, a3, a4});
+        Achievement[] achievements = restTemplate.getForObject("/achievements/", Achievement[].class);
+
+        assertNotNull(achievements);
+        assertTrue(achievements.length == allAchievementsInRepository.size());
     }
 
     @Test
     public void retrieveUserOneAchievements() {
-
         Achievement a1 = restTemplate.getForObject("/achievements/1", Achievement.class);
         Achievement a2 = restTemplate.getForObject("/achievements/2", Achievement.class);
         assertThat(restTemplate.getForObject("/users/1/achievements", Achievement[].class), IsArrayContainingInAnyOrder.arrayContainingInAnyOrder(a1, a2));
@@ -81,11 +81,7 @@ public class AchievementControllerTest {
     {
         //CREATE
         User user = new User("Usnavi","96000");
-        URI usnaviLocation = restTemplate.postForLocation("/users/new", new HttpEntity<>(user));
-        //READ
-        user = restTemplate.getForObject(usnaviLocation, User.class);
-
-
+        user = restTemplate.postForObject("/auth/register", new HttpEntity<>(user),User.class);
         //Unlocking of achievement test:
         restTemplate.getForEntity("/users/"+user.getID()+"/achievements/unlock/1", User.class);
         restTemplate.getForEntity("/users/"+user.getID()+"/achievements/unlock/3", User.class);

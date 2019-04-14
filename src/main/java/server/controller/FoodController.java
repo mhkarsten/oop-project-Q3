@@ -10,8 +10,6 @@ import server.api.FoodApi;
 import server.model.Meal;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * The type Food controller.
@@ -30,13 +28,7 @@ public class FoodController {
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Meal getRandomMeal() {
-
-        Optional<Meal[]> randomMeal = FoodApi.getRandomMeal();
-        if (randomMeal.isPresent()) {
-
-            return randomMeal.get()[0];
-        }
-        return null;
+        return FoodApi.getRandomMeal().get()[0];
     }
 
     /**
@@ -83,14 +75,6 @@ public class FoodController {
                         MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<Meal[]> getMeatMeals() {
-
-        List<Meal[]> meatMeals = FoodApi.getAllMeatMeals();
-
-        if (!meatMeals.isEmpty()) {
-
-            return meatMeals;
-        } else  {
-            throw new NoSuchElementException("(Server Side) The category doesnt exist or is empty.");
-        }
+        return FoodApi.getAllMeatMeals();
     }
 }

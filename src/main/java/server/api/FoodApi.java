@@ -25,12 +25,9 @@ import java.util.Optional;
  */
 public class FoodApi {
 
-    static final String URL_RANDOMEAL = "https://www.themealdb.com/api/json/v1/1/random.php";
-    static final String URL_SPESIFICMEAL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
-    static final String URL_CATEGORYMEAL = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
-
     /**
      * Creates JSON header for a GET request.
+     * @return Returns headers saying what this server accepts from and sends to the meal API
      */
     public static HttpHeaders acceptHeaders() {
 
@@ -51,23 +48,18 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_RANDOMEAL,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.getRandomMeal(),
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
-        Meal[] meal = null;
-        if (statusCode == HttpStatus.OK) {
-            meal = jsonToMeal(response.getBody());
-        }
-
+        Meal[] meal = jsonToMeal(response.getBody());
         return Optional.of(meal);
     }
 
     /** Method to return one specific meal from the DB.
+     * @param mealName this parameter is the name of the meal that you would like to get from the database
      * @return This method will return one specific meal from the database.
-     * @Param mealName this parameter is the name of the meal that you would like to get from the database
      */
-    @SuppressWarnings("Duplicates")
     public static Optional<Meal[]> getMeal(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
@@ -75,24 +67,24 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_SPESIFICMEAL + mealName,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.getSpecificMeal() + mealName,
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
         Meal[] meal = null;
-        if (statusCode == HttpStatus.OK) {
+        System.out.println(response.getBody().toString());
+        if (response.getBody().get("meals") != null) {
             meal = jsonToMeal(response.getBody());
         }
 
-        return Optional.of(meal);
+        return Optional.ofNullable(meal);
     }
 
     /** Method to get meals from a certain category.
      * @param mealName This parameter is the name of the meal category that you would like returned.
      * @return This method returns an ArrayList of all meals in a specific category.
      */
-    @SuppressWarnings("Duplicates")
     public static Optional<ArrayList<Meal[]>> getMealCategory(String mealName) {
 
         HttpHeaders headers = acceptHeaders();
@@ -100,13 +92,13 @@ public class FoodApi {
         HttpEntity<JSONObject> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<JSONObject> response = restTemplate.exchange(URL_CATEGORYMEAL + mealName,
+        ResponseEntity<JSONObject> response = restTemplate.exchange(ApiEndPoints.Food.getCategoryMeal() + mealName,
             HttpMethod.GET, entity, JSONObject.class);
 
         HttpStatus statusCode = response.getStatusCode();
         System.out.println("(Client Side) The http status code is: " + statusCode);
         ArrayList<Meal[]> categoryMeals = null;
-        if (statusCode == HttpStatus.OK) {
+        if (response.getBody().get("meals") != null) {
 
             categoryMeals = new ArrayList<>();
 
@@ -121,7 +113,7 @@ public class FoodApi {
             }
         }
 
-        return Optional.of(categoryMeals);
+        return Optional.ofNullable(categoryMeals);
     }
 
     /** Method to get all meals in the meat category.

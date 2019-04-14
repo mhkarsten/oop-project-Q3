@@ -1,5 +1,12 @@
 //Refer to https://keepachangelog.com/ for the formatting of new releases
 
+## [1.0.1] - 2019-04-014
+The final version of Greendr
+### Added
+- Added graphs to the user compare/overview screen
+### Changes
+- Improved the user interface
+- Improved client-side network error handling
 ## [1.0.0] - 2019-04-08
 ### Added
 - Added achievement screen to the client

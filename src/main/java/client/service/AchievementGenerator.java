@@ -30,6 +30,10 @@ public class AchievementGenerator {
 
     private static User activeUser = UserSession.getInstance().getCurrentUser();
 
+    public static void setAchievementRetrieve(AchievementRetrieve achievementRetrieve) {
+        AchievementGenerator.achievementRetrieve = achievementRetrieve;
+    }
+
     /**
      * Create ach notification popup.
      *
@@ -112,8 +116,6 @@ public class AchievementGenerator {
      */
     public static Achievement progressivePointAchievement(User usr) {
 
-        if (usr.equals(activeUser)) {
-
             double numAch = 0;
             double numPoints = 0;
             while (numPoints < usr.getPoints()) {
@@ -143,11 +145,6 @@ public class AchievementGenerator {
 
             achievementRetrieve.addAch(newAch);
             return newAch;
-        } else {
-
-            System.out.println("(Client Side) This is not the active user.");
-            return null;
-        }
     }
 
     /**

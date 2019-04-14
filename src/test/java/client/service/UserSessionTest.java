@@ -1,5 +1,6 @@
 package client.service;
 
+import client.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -102,6 +103,19 @@ class UserSessionTest {
         assertEquals(null, UserSession.getInstance().getUserName());
         assertEquals(null, UserSession.getInstance().getPassword());
 
+    }
+
+    @Test
+    void setAndGetCurrentUserTest(){
+        String name = "thom";
+        String password = "123";
+        User user = new User(name, password);
+        assertNull(UserSession.getInstance().getCurrentUser());
+
+        UserSession.getInstance().setCurrentUser(user);
+        assertNotNull(UserSession.getInstance().getCurrentUser());
+        assertEquals(name, UserSession.getInstance().getCurrentUser().getName());
+        assertEquals(password, UserSession.getInstance().getCurrentUser().getPassword());
     }
 
 }

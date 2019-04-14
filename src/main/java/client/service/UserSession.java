@@ -54,18 +54,7 @@ public final class UserSession {
     public void cleanUserSession() {
         userName = null;// or null
         password = null;// or null
-    }
-
-    @Override
-    public String toString() {
-        return "UserSession{"
-            + "userName='" + userName + '\''
-            + '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userName, password);
+        currentUser = null;
     }
 
     public User getCurrentUser() {

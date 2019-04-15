@@ -35,7 +35,7 @@ System.out.println(user.toString());
 ~~~
 ### Getting a user
 ~~~ java
-//... insert authentication ...
+//Authentication is omitted for brevity
 //Two ways to get a user
 user = template.postForObject( "http://localhost:8080/users/byName/" + user.getName(), new HttpEntity<>(user),User.class);
 User userById = template.postForObject( "http://localhost:8080/users/" + user.getID(), new HttpEntity<>(user),User.class);
@@ -43,7 +43,7 @@ User userById = template.postForObject( "http://localhost:8080/users/" + user.ge
 ### Adding a generic feat
 In our API, feat objects represent the environment-saving actions of our users.
 ~~~ java
-//... insert authentication ...
+//Authentication is omitted for brevity
 user = template.postForObject( "http://localhost:8080/users/byName/" + user.getName(), new HttpEntity<>(user),User.class);
 Feat feat = new Feat(1,150,4, new Date(),user);
 template.postForLocation( "http://localhost:8080/users/" + user.getID() + "/feats/new", new HttpEntity<>(feat));

@@ -1,5 +1,6 @@
 package client.retrieve;
 
+import client.model.Achievement;
 import client.service.MyRestTemplate;
 import client.service.UserSession;
 import org.junit.jupiter.api.AfterEach;
@@ -11,11 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.HttpClientErrorException;
 import server.SpringBoot;
-import client.model.Achievement;
 
-import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.List;
 

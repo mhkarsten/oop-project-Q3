@@ -92,6 +92,16 @@ class UserTest {
         Assertions.assertNotEquals(us1, password);
     }
     @Test
+    void equalsTest8() {
+        User us4=new User(id1,name1);
+        us4.setPoints(29389);
+        Assertions.assertNotEquals(us1, us4);
+    }
+    @Test
+    void equalsTest9() {
+        Assertions.assertNotEquals(us1, password);
+    }
+    @Test
     void getID() {
         User user = new User(id1, name1);
         assertEquals(id1, user.getID());

@@ -38,7 +38,7 @@ public class AchievementUiController implements Initializable {
     ImageView achievementImage;
 
     private User activeUser;
-    private ArrayList<Achievement> userAchives;
+    private ArrayList<Achievement> userAchievements;
     private ArrayList<Achievement> lockedAchives;
     private AchievementRetrieve achievementRetrieve;
 
@@ -46,18 +46,18 @@ public class AchievementUiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.achievementRetrieve = new AchievementRetrieve();
         activeUser = UserSession.getInstance().getCurrentUser();
-        userAchives = this.achievementRetrieve.achGetUnlocked(activeUser.getID());
+        userAchievements = this.achievementRetrieve.achGetUnlocked(activeUser.getID());
         lockedAchives = this.achievementRetrieve.achGetAll();
 
         if (lockedAchives != null) {
 
-            lockedAchives.removeAll(userAchives);
+            lockedAchives.removeAll(userAchievements);
         }
 
         unlockedAchievements.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         lockedAchievements.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        fillListView(unlockedAchievements, userAchives);
+        fillListView(unlockedAchievements, userAchievements);
         fillListView(lockedAchievements, lockedAchives);
 
         setListViewDoubleClick(unlockedAchievements);
@@ -121,7 +121,7 @@ public class AchievementUiController implements Initializable {
     public Achievement findAchievement(String title) {
 
         ArrayList<Achievement> allAchives = new ArrayList<>();
-        allAchives.addAll(userAchives);
+        allAchives.addAll(userAchievements);
         allAchives.addAll(lockedAchives);
 
         for (int i = 0; i < allAchives.size(); i++) {

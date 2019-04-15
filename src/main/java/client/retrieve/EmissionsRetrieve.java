@@ -37,9 +37,7 @@ public class EmissionsRetrieve extends BaseRetrieve {
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        VehicleEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_VEHICLE, requestBody, VehicleEmission.class);
-
-        return emission;
+        return restTemplate.postForObject(UrlEndPoints.Emission.URL_VEHICLE, requestBody, VehicleEmission.class);
     }
 
     /**
@@ -60,9 +58,7 @@ public class EmissionsRetrieve extends BaseRetrieve {
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        FlightEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_FLIGHT, requestBody, FlightEmission.class);
-
-        return emission;
+        return restTemplate.postForObject(UrlEndPoints.Emission.URL_FLIGHT, requestBody, FlightEmission.class);
     }
 
     /**
@@ -86,9 +82,7 @@ public class EmissionsRetrieve extends BaseRetrieve {
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        EnergyEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_ENERGY, requestBody, EnergyEmission.class);
-
-        return emission;
+        return restTemplate.postForObject(UrlEndPoints.Emission.URL_ENERGY, requestBody, EnergyEmission.class);
 
     }
 
@@ -142,8 +136,6 @@ public class EmissionsRetrieve extends BaseRetrieve {
 
         HttpEntity<HashMap> requestBody = new HttpEntity<HashMap>(parameters, headers);
 
-        TrainEmission emission = restTemplate.postForObject(UrlEndPoints.Emission.URL_TRAIN, requestBody, TrainEmission.class);
-
-        return emission;
+        return restTemplate.postForObject(UrlEndPoints.Emission.URL_TRAIN, requestBody, TrainEmission.class);
     }
 }

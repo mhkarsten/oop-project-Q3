@@ -2,7 +2,6 @@ package server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -97,7 +96,8 @@ public class User {
         User user = (User) obj;
         return id == user.id
             && points == user.points
-            && Objects.equals(name, user.name);
+            && name.equals(user.name);
+
     }
 
     public long getID() {

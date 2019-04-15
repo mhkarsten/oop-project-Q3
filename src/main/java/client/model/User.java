@@ -61,7 +61,8 @@ public class User {
         }
         User user = (User) obj;
         return id == user.id
-            && Objects.equals(name, user.name);
+            && Objects.equals(name, user.name)
+            && points == user.points;
     }
 
     public long getID() {

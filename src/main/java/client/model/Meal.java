@@ -35,6 +35,7 @@ public class Meal {
      * @param strYoutube a youtube tutorial link to make the meal
      * @param strInstructions instructions to make the meal
      */
+    //There are this many arguments/fields to be a one-to-one mapping of the meal JSON objects returned by the MealDB
     public Meal(String strMeal, String idMeal, String strCategory, String strArea, ArrayList<String>
                 strTags, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String strSource,
                 String strMealThumb, String strYoutube, String strInstructions) {

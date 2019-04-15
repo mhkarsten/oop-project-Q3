@@ -55,6 +55,11 @@ class AchievementTest {
     }
 
     @Test
+    void equalsTest8() {
+        Assertions.assertNotEquals(ach1, new Achievement(ID2, title1, descrip1, path1));
+    }
+
+    @Test
     void getAchID() {
         Assertions.assertEquals(ID1, ach1.getID());
     }

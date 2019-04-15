@@ -25,9 +25,6 @@ class AchievementRetrieveTest {
     @LocalServerPort
     private int port;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     protected AchievementRetrieve achievementRetrieve;
 
     @BeforeEach

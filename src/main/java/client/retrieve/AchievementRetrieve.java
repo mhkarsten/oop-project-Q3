@@ -25,7 +25,6 @@ public class AchievementRetrieve extends BaseRetrieve {
      *
      * @return the array list
      */
-    @SuppressWarnings("Duplicates")
     public ArrayList<Achievement> achGetAll() {
         //GET ALL ACHIEVEMENTS
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);
@@ -76,7 +75,6 @@ public class AchievementRetrieve extends BaseRetrieve {
      * @param usrID the usr id
      * @return the array list
      */
-    @SuppressWarnings("Duplicates")
     public ArrayList<Achievement> achGetUnlocked(long usrID) {
         //GET ALL UNLOCKED ACHIEVEMENTS BY A USER
         HttpHeaders headers = MyRestTemplate.getBaseHeaders(MediaType.APPLICATION_XML);

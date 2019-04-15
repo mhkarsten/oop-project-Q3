@@ -3,8 +3,6 @@ package client.service;
 import client.model.User;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public final class UserSession {
 

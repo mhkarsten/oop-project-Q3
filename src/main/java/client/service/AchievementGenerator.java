@@ -115,36 +115,35 @@ public class AchievementGenerator {
      * @return the achievement
      */
     public static Achievement progressivePointAchievement(User usr) {
+        double numAch = 0;
+        double numPoints = 0;
+        while (numPoints < usr.getPoints()) {
 
-            double numAch = 0;
-            double numPoints = 0;
-            while (numPoints < usr.getPoints()) {
+            numPoints = Math.pow(2, numAch);
+            numAch++;
+        }
 
-                numPoints = Math.pow(2, numAch);
-                numAch++;
+        String pointAchTitle = "Point achievement: " + numAch;
+
+        String description = "This achievement is for acquiring " + numPoints + " points!";
+
+        Achievement newAch = new Achievement(
+            pointAchTitle,
+            description,
+            getRandomBadge());
+
+        ArrayList<Achievement> allAchives = achievementRetrieve.achGetAll();
+
+        for (int i = 0; i < allAchives.size(); i++) {
+
+            if (allAchives.get(i).getTitle().equals(newAch.getTitle())) {
+
+                return allAchives.get(i);
             }
+        }
 
-            String pointAchTitle = "Point achievement: " + numAch;
-
-            String description = "This achievement is for acquiring " + numPoints + " points!";
-
-            Achievement newAch = new Achievement(
-                pointAchTitle,
-                description,
-                getRandomBadge());
-
-            ArrayList<Achievement> allAchives = achievementRetrieve.achGetAll();
-
-            for (int i = 0; i < allAchives.size(); i++) {
-
-                if (allAchives.get(i).getTitle().equals(newAch.getTitle())) {
-
-                    return allAchives.get(i);
-                }
-            }
-
-            achievementRetrieve.addAch(newAch);
-            return newAch;
+        achievementRetrieve.addAch(newAch);
+        return newAch;
     }
 
     /**

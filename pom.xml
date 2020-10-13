@@ -24,7 +24,7 @@
         <java.version>11.0.2</java.version>
         <junit-jupiter.version>5.4.0</junit-jupiter.version>
         <!-- optional : if we want to use a junit4 specific version -->
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <!-- Inherit defaults from Spring Boot -->
